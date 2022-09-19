@@ -1,23 +1,25 @@
 # Sigma specification
 
-* Version 1.5.0
-* Release date 2023/01/01 For my birdbay :)
+THIS IS A WORK IN PROGRESS FILE DO NOT USE IT
+
+* Version 1.x.0
+* Release date 2023/xx/xx
 
 Warning `sigmac` can not convert this version
 
-The new field `shema` must be set to 1.5.0 , if missing rule is deal as 1.0.0
+The new field `shema` must be set to 1.x.0 , if missing rule is deal as 1.0.0
 
 # history
 
-* 2023/01/01 Specitication 1.5.0
+* 2023/xx/xx Specitication 1.x.0
   * New modifier for pysigma
   * ...
 * 2022/09/18 Specitication 1.0.0
   * Initial formalisation from the sigma wiki
-* 2017 Simga creation
+* 2017 Sigma creation
 
 # Summary
-<!-- vscode-markdown-toc -->
+
 * 1. [Schema](#Schema)
 	* 1.1. [Rx YAML](#RxYAML)
 	* 1.2. [Image](#Image)
@@ -50,11 +52,6 @@ The new field `shema` must be set to 1.5.0 , if missing rule is deal as 1.0.0
 * 3. [Rule Collections](#RuleCollections)
 	* 3.1. [Example](#Example)
 
-<!-- vscode-markdown-toc-config
-	numbering=true
-	autoSave=true
-	/vscode-markdown-toc-config -->
-<!-- /vscode-markdown-toc -->
 
 # Structure
 
