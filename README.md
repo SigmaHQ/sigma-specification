@@ -1,5 +1,10 @@
 # sigma-specification
-Sigma rule specification
+
+This repo is for the specification of the sigma format.
+
+It is the definition of the format only and not the tools using it.
+
+For more information on the [logsources](https://github.com/SigmaHQ/sigma/wiki/Log-Sources)
 
 ## Actual
 
@@ -7,8 +12,8 @@ Sigma rule specification
 
 ## Works in Progres
 
-[Version 1.x.0](version_1_x_0.md)
+[Version 1.x.0](wip/version_1_x_0.md)
 
 ## Archive
 
-version 0 is the old sigma Wiki
+Local copy [sigmahq wiki 2022/09/24](archives/wiki.md) or the online [sigmahq wiki](https://github.com/SigmaHQ/sigma/wiki/Specification)

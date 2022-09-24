@@ -1,50 +1,3 @@
-# Sigma specification
-
-* Version 1.0.0
-* Release date 2022/09/18
-
-# Summary
-
-- [Sigma specification](#sigma-specification)
-- [Summary](#summary)
-- [Structure](#structure)
-  - [Schema](#schema)
-    - [Rx YAML](#rx-yaml)
-    - [Image](#image)
-  - [Components](#components)
-    - [Title](#title)
-    - [Rule Identification](#rule-identification)
-    - [Status (optional)](#status-optional)
-    - [Description (optional)](#description-optional)
-    - [License (optional)](#license-optional)
-    - [Author (optional)](#author-optional)
-    - [References (optional)](#references-optional)
-    - [Log Source](#log-source)
-    - [Detection](#detection)
-      - [Search-Identifier](#search-identifier)
-      - [General](#general)
-      - [Escaping](#escaping)
-      - [Lists](#lists)
-      - [Maps](#maps)
-      - [Field Usage](#field-usage)
-      - [Special Field Values](#special-field-values)
-      - [Value Modifiers](#value-modifiers)
-        - [Modifier Types](#modifier-types)
-        - [Currently Available Modifiers](#currently-available-modifiers)
-          - [Transformations](#transformations)
-          - [Types](#types)
-    - [Condition](#condition)
-    - [Fields](#fields)
-    - [FalsePositives](#falsepositives)
-    - [Level](#level)
-    - [Tags](#tags)
-    - [Placeholders](#placeholders)
-      - [Examples for placeholders](#examples-for-placeholders)
-      - [Examples for conversions](#examples-for-conversions)
-  - [Rule Collections](#rule-collections)
-    - [Example](#example)
-
-
 # Structure
 
 The rules consist of a few required sections and several optional ones.
@@ -80,9 +33,9 @@ tags [optional]
 [arbitrary custom fields]
 ```
 
-## Schema
+# Schema
 
-### Rx YAML
+## Rx YAML
 
 ```yaml
 type: //rec
@@ -180,19 +133,19 @@ optional:
 rest: //any
 ```
 
-###  Image
+## Image
 
-![sigma_schema](https://github.com/SigmaHQ/sigma-specification/images/Sigma_Schema.png)
+![sigma_schema](https://github.com/Neo23x0/sigma/blob/master/images/Sigma_Schema.png)
 
-##  Components
+# Components
 
-###  Title
+## Title
 
 **Attribute:** title
 
 A brief title for the rule that should contain what the rules is supposed to detect (max. 256 characters)
 
-### Rule Identification
+## Rule Identification
 
 **Attributes:** id, related
 
@@ -234,7 +187,7 @@ Currently the following types are defined:
   expected that a rule with this id exists anymore.
 * similar: Use to relate similar rules to each other (e.g. same detection content applied to different log sources, rule that is a modified version of another rule with a different level)
 
-### Status (optional)
+## Status (optional)
 
 **Attribute:** status
 
@@ -248,31 +201,31 @@ Declares the status of the rule:
 - unsupported: the rule can not be use in its current state (special correlation log, home-made fields)
 
 
-### Description (optional)
+## Description (optional)
 
 **Attribute:** description
 
 A short description of the rule and the malicious activity that can be detected (max. 65,535 characters)
 
-### License (optional)
+## License (optional)
 
 **Attribute:** license
 
 License of the rule according the [SPDX ID specification](https://spdx.org/ids).
 
-### Author (optional)
+## Author (optional)
 
 **Attribute**: author
 
 Creator of the rule.
 
-### References (optional)
+## References (optional)
 
 **Attribute**: reference
 
 References to the source that the rule was derived from. These could be blog articles, technical papers, presentations or even tweets.
 
-### Log Source
+## Log Source
 
 **Attribute**: logsource
 
@@ -303,24 +256,24 @@ product: windows
 
 Instead of definition of multiple rules for Sysmon, Windows Security Auditing and possible product-specific rules.
 
-### Detection
+## Detection
 
 **Attribute**: detection
 
 A set of search-identifiers that represent properties of searches on log data.
 
-#### Search-Identifier
+### Search-Identifier
 
 A definition that can consist of two different data structures - lists and maps.
 
-#### General 
+### General 
 
 * All values are treated as case-insensitive strings
 * You can use wildcard characters `*` and `?` in strings (see also escaping section below)
 * Regular expressions are case-sensitive by default
 * You don't have to escape characters except the string quotation marks `'`
 
-#### Escaping
+### Escaping
 
 The backslash character `\` is used for escaping of wildcards `*` and `?` as well as the backslash character itself. Escaping of the backslash is necessary if it is followed by a wildcard depending on the desired result.
 
@@ -332,7 +285,7 @@ Summarized, there are the following possibilities:
 * Three backslashes are necessary to escape both, the backslash and the wildcard and handle them as plain values: `\\\*`
 * Three or four backslashes are handled as double backslash. Four a recommended for consistency reasons: `\\\\` results in the plain value `\\`.
 
-#### Lists
+### Lists
 
 Lists can contain:
 
@@ -359,7 +312,7 @@ detection:
 
 Matches an image file `example.exe` or an executable whose description contains the string `Test executable`
 
-#### Maps
+### Maps
 
 Maps (or dictionaries) consist of key/value pairs, in which the key is a field in the log data and the value a string or integer value. All elements of a map are joined with a logical 'AND'.
 
@@ -389,7 +342,7 @@ detection:
 condition: selection
 ```
 
-#### Field Usage
+### Field Usage
 
 1. For fields with existing field-mappings, use the mapped field name.
 
@@ -421,7 +374,7 @@ Examples ii:
 * `<Data Name="User">NT AUTHORITY\SYSTEM</Data>` will be `User`
 * `<Data Name="ServiceName">MpKsl4eaa0a76</Data>` will be `ServiceName`
 
-#### Special Field Values
+### Special Field Values
 
 There are special field values that can be used.
 
@@ -446,13 +399,13 @@ condition:
    selection and not filter
 ```
 
-#### Value Modifiers
+### Value Modifiers
 
 The values contained in Sigma rules can be modified by *value modifiers*. Value modifiers are
 appended after the field name with a pipe character `|` as separator and can also be chained, e.g.
 `fieldname|mod1|mod2: value`. The value modifiers are applied in the given order to the value.
 
-##### Modifier Types
+#### Modifier Types
 
 There are two types of value modifiers:
 
@@ -468,9 +421,9 @@ There are two types of value modifiers:
 Generally, value modifiers work on single values and value lists. A value might also expand into
 multiple values.
 
-##### Currently Available Modifiers
+#### Currently Available Modifiers
 
-###### Transformations
+##### Transformations
 
 * `contains`: puts `*` wildcards around the values, such that the value is matched anywhere in the
   field.
@@ -494,13 +447,13 @@ multiple values.
 * `utf16`: prepends a [byte order mark](https://en.wikipedia.org/wiki/Byte_order_mark) and encodes UTF16, e.g. `cmd` > `FF FE 63 00 6d 00 64 00` (only used in combination with base64 modifiers)
 * `windash`: Add a new variant where all `-` occurrences are replaced with `/`. The original variant is also kept unchanged.
 
-###### Types
+##### Types
 
-* `re`: value is handled as regular expression by backends. Currently, this is only supported by
+* *re*: value is handled as regular expression by backends. Currently, this is only supported by
   the Elasticsearch query string backend (*es-qs*). Further (like Splunk) are planned or have
   to be implemented by contributors with access to the target systems.
 
-### Condition
+## Condition
 
 **Attribute**: condition
 
@@ -591,19 +544,19 @@ Operator Precedence (least to most binding)
 
 If multiple conditions are given, they are logically linked with OR.
 
-### Fields
+## Fields
 
 **Attribute**: fields
 
 A list of log fields that could be interesting in further analysis of the event and should be displayed to the analyst.
 
-### FalsePositives
+## FalsePositives
 
 **Attribute**: falsepositives
 
 A list of known false positives that may occur.
 
-### Level
+## Level
 
 **Attribute**: level
 
@@ -615,7 +568,7 @@ The level field contains one of five string values. It describes the criticality
 - `high`: Relevant event that should trigger an internal alert and requires a prompt review.
 - `critical`: Highly relevant event that indicates an incident. Critical events should be reviewed immediately.
 
-### Tags
+## Tags
 
 **Attribute**: tags
 
@@ -627,21 +580,21 @@ A Sigma rule can be categorised with tags. Tags should generally follow this syn
 * Keep tags short, e.g. numeric identifiers instead of long sentences
 * If applicable, use [predefined tags](./Tags). Feel free to send pull request or issues with proposals for new tags
 
-### Placeholders
+## Placeholders
 
 Placeholders can be used to select a set of elements that can be expanded during conversion.
 Placeholders map a an identifier to a user defined value that can be set in config files for an
 automatic replacement during conversion runs. Placeholders are meaningful identifiers that users can
 easily expand themselves.
 
-#### Examples for placeholders
+### Examples for placeholders
 
 * `%Administrators%` - Administrative user accounts
 * `%JumpServers%` - Server systems used as jump servers
 
 Some SIEM systems allow using so-called "tags" or "search macros" in queries and can integrate Sigma rules with placeholders directly. Others expand the placeholders values to wildcard strings or regular expressions.
 
-#### Examples for conversions
+### Examples for conversions
 
 Splunk
 
@@ -651,7 +604,7 @@ Elastic Search
 
 * `SourceWorkstation: %JumpServers%` convert to `"SourceWorkstation": SRV110[12]`
 
-## Rule Collections
+# Rule Collections
 
 A file may contain multiple YAML documents. These can be complete Sigma rules or *action documents*. A YAML document is handled as action document if the `action` attribute on the top level is set to:
 
@@ -661,7 +614,7 @@ A file may contain multiple YAML documents. These can be complete Sigma rules or
 * `repeat`: Repeat generation of previous rule document with merged data from this YAML document.
 ** Use case: Small modifications of previously generated rule.
 
-### Example
+## Example
 A common use case is the definition of multiple Sigma rules for similar events like Windows Security EventID 4688 and Sysmon EventID 1. Both are created for process execution events. A Sigma rule collection for this scenario could contain three documents:
 
 1. A global action document that defines common metadata and detection indicators
