@@ -8,12 +8,12 @@ For more information on the [logsources](https://github.com/SigmaHQ/sigma/wiki/L
 
 ## Actual
 
-[Version 1.0.0](version_1_0_0.md)  
-[Sigma Correlations](wip/Sigma_Correlations.md)
+[Version 1.0.0](version_1_0_0.md)
 
 ## Works in Progres
 
-[Version 1.x.0](wip/version_1_x_0.md)
+[Version 1.x.0](wip/version_1_x_0.md)  
+[Sigma Correlations](wip/Sigma_Correlations.md)
 
 ## Archive
 
