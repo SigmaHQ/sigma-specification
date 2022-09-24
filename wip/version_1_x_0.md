@@ -57,11 +57,11 @@ The new field `shema` must be set to 1.x.0 , if missing rule is deal as 1.0.0
 
 # history
 
-* 2023/xx/xx Specitication 1.x.0
+* 2023/xx/xx Specification V1.x.0
   * New modifier for pysigma
   * Add shema field 
   * Add taxonomy field
-* 2022/09/18 Specitication 1.0.0
+* 2022/09/18 Specification V1.0.0
   * Initial formalisation from the sigma wiki
 * 2017 Sigma creation
 
