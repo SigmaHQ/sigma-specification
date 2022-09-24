@@ -267,16 +267,18 @@ This is the version of the specifications used in the rule.
 
 This allows to know quickly if the converter or software can use the rule without problem
 
-### Taxonomy  
+### Taxonomy (optional)
 
-**Attribute:** taxynomy
+**Attribute:** taxonomy
 
-Defines the standard used in the logsource section in the rule.
-        
-The Default is "sigma" is ommited.
-        
-**Allowed values** : "sigma" or "ossem"
+Defines the taxonomy used in the Sigma rule. A taxonomy can define:
 
+* field names, example: `process_command_line` instead of `CommandLine`.
+* field values, example: a field `image_file_name` that only contains a file name like `example.exe` and is transformed into `ImageFile: *\\example.exe`.
+* logsource names, example: `category: ProcessCreation` instead of `category: process_creation`
+
+used in the Sigma rule. The Default taxonomy is "sigma" and can be ommited. A custom taxonomy must be handled by the used tool
+or transformed into the default taxonomy.
 
 ### Status (optional)
 
