@@ -1,11 +1,15 @@
-# Sigma specification
+# Sigma specification <!-- omit in toc --> 
 
 * Version 1.0.0
 * Release date 2022/09/18
 
+History:
+* 2022/09/18 Specification V1.0.0
+  * Initial formalisation from the sigma wiki
+* 2017 Sigma creation
+  
 # Summary
 
-- [Sigma specification](#sigma-specification)
 - [Summary](#summary)
 - [Structure](#structure)
   - [Schema](#schema)

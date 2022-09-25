@@ -1,9 +1,19 @@
-# Sigma specification
+# Sigma specification <!-- omit in toc --> 
 
 THIS IS A WORK IN PROGRESS DO NOT USE IT
 
 * Version 1.x.0
 * Release date 2023/xx/xx
+
+
+History:
+* 2023/xx/xx Specification V1.x.0
+  * New modifier for pysigma
+  * Add shema field 
+  * Add taxonomy field
+* 2022/09/18 Specification V1.0.0
+  * Initial formalisation from the sigma wiki
+* 2017 Sigma creation
 
 **Breaking change **
 
@@ -13,9 +23,7 @@ The new field `shema` must be set to 1.x.0 , if missing rule is deal as 1.0.0
 
 # Summary
 
-- [Sigma specification](#sigma-specification)
 - [Summary](#summary)
-- [history](#history)
 - [Structure](#structure)
   - [Schema](#schema)
     - [Rx YAML](#rx-yaml)
@@ -24,7 +32,7 @@ The new field `shema` must be set to 1.x.0 , if missing rule is deal as 1.0.0
     - [Title](#title)
     - [Rule Identification](#rule-identification)
     - [Shema (optional)](#shema-optional)
-    - [Taxonomy](#taxonomy)
+    - [Taxonomy (optional)](#taxonomy-optional)
     - [Status (optional)](#status-optional)
     - [Description (optional)](#description-optional)
     - [License (optional)](#license-optional)
@@ -55,15 +63,7 @@ The new field `shema` must be set to 1.x.0 , if missing rule is deal as 1.0.0
   - [Rule Collections](#rule-collections)
     - [Example](#example)
 
-# history
 
-* 2023/xx/xx Specification V1.x.0
-  * New modifier for pysigma
-  * Add shema field 
-  * Add taxonomy field
-* 2022/09/18 Specification V1.0.0
-  * Initial formalisation from the sigma wiki
-* 2017 Sigma creation
 
 
 # Structure
