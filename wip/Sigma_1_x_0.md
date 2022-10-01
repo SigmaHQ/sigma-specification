@@ -681,27 +681,34 @@ A Sigma rule can be categorised with tags. Tags should generally follow this syn
 
 ### Placeholders
 
-Placeholders can be used to select a set of elements that can be expanded during conversion.
-Placeholders map a an identifier to a user defined value that can be set in config files for an
-automatic replacement during conversion runs. Placeholders are meaningful identifiers that users can
-easily expand themselves.
+Placeholders are used as values that get their final meaning at conversion or usage time of the rule. This can be, but is not restricted to:
 
-#### Examples for placeholders
+* Replacement of placeholders with a single or multiple or-linked values or patters. Example: the placeholder `%Servers%` is replaced with
+  the pattern `srv*` because servers are named so in the target environment.
+* Replacement of placeholders with a query expression. Example: replacement of `%servers%` with a lookup expression `LOOKUP(field, servers)`
+  that looks up the value of `field` in a lookup table `servers`.
+* Conducting lookups in tables or APIs while matching the Sigma rule that contains placeholders.
 
-* `%Administrators%` - Administrative user accounts
-* `%JumpServers%` - Server systems used as jump servers
+From Sigma 1.1 placeholders are only handled if the *expand* modifier is applied to the value containing the placeholder.
+A plain percent character can be used by escaping it with a backslash. Examples:
 
-Some SIEM systems allow using so-called "tags" or "search macros" in queries and can integrate Sigma rules with placeholders directly. Others expand the placeholders values to wildcard strings or regular expressions.
+* `field: %name%` handles `%name%` as placeholder.
+* `field|expand: %name%` handles `%name%` as placeholder.
+* `field|expand: \%plain%name%` handles `%plain` as plain value and `%name%` as placeholder.
 
-#### Examples for conversions
+Placeholders must be handled appropriately by a tool that uses Sigma rules. If the tool isn't able to handle placeholders, it must reject the rule.
 
-Splunk
+#### Standard Placeholders
 
-* `AccountName: %Administrators%` convert to `tag=Administrators`
+The following standard placeholders should be used:
 
-Elastic Search 
+* `%Administrators%`: Administrative user accounts
+* `%JumpServers%`: Server systems used as jump servers
+* `%Workstations%`: Workstation systems
+* `%Servers%`: Server systems
+* `%DomainControllers%`: Domain controller systems
 
-* `SourceWorkstation: %JumpServers%` convert to `"SourceWorkstation": SRV110[12]`
+Custom placeholders can be defined as required.
 
 ##  Rule Collections
 
