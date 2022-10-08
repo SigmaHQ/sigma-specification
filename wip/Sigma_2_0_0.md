@@ -2,12 +2,12 @@
 
 THIS IS A WORK IN PROGRESS DO NOT USE IT
 
-* Version 1.x.0
+* Version 2.0.0
 * Release date 2023/xx/xx
 
 
 History:
-* 2023/xx/xx Specification V1.x.0
+* 2023/xx/xx Specification V2.0.0
   * New modifier for pysigma
   * Add shema field 
   * Add taxonomy field
@@ -19,11 +19,12 @@ History:
 
 Warning `sigmac` can not convert this version
 
-The new field `shema` must be set to 1.x.0 , if missing rule is deal as 1.0.0
+The new field `shema` must be set to 2.0.0 , if missing rule is deal as 1.0.0
 
 # Summary
 
 - [Summary](#summary)
+- [Yaml File](#yaml-file)
 - [Structure](#structure)
   - [Schema](#schema)
     - [Rx YAML](#rx-yaml)
@@ -58,13 +59,31 @@ The new field `shema` must be set to 1.x.0 , if missing rule is deal as 1.0.0
     - [Level](#level)
     - [Tags](#tags)
     - [Placeholders](#placeholders)
-      - [Examples for placeholders](#examples-for-placeholders)
-      - [Examples for conversions](#examples-for-conversions)
+      - [Standard Placeholders](#standard-placeholders)
   - [Rule Collections](#rule-collections)
     - [Example](#example)
 
 
+# Yaml File
 
+The rule files are written in [yaml format](https://yaml.org/spec/1.2.2/)  
+To keep the rule interoperable it use :
+- UTF-8
+- LF for the line return (windows natif editor use CR-LF)
+- Intentation 2 or 4 spaces
+- key are lowercase
+- the simple quote `'` is use for string when needed eg `' need a space before and after '`
+
+Simple Yaml example:
+```yaml
+title: The Best Login Found
+login:
+    user: administrator
+    password:
+        - azerty
+        - qwerty
+        - p@ssw0rd
+```
 
 # Structure
 
