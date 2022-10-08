@@ -226,7 +226,7 @@ rest: //any
 
 ### Image
 
-![sigma_schema](https://github.com/SigmaHQ/sigma-specification/images/Sigma_Schema.png)
+![sigma_schema](https://github.com/SigmaHQ/sigma-specification/blob/8e3eed135223dd3e0506b6deaca9b4314919dc65/images/Sigma_Schema.png)
 
 ## Components
 
