@@ -16,10 +16,9 @@ The version number is in the form of 3 digits 'A.B.C':
 [Taxonomy 1.0.0](Taxonomy_1_0_0.md)  
 [Tags 1.0.0](Tags_1_0_0.md)
 
-## Works in Progres
+## Work in Progress
 
-This section allows you to have an overview of the upcoming developments.  
-It is therefore subject to multiple changes.
+This section lists upcoming developments and changes to the standard. 
 
 [Sigma 2.0.0](wip/Sigma_2_0_0.md)  
 [Sigma Correlations](wip/Sigma_Correlations.md)
