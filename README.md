@@ -7,9 +7,9 @@ It is the definition of the format only and not the tools using it.
 ## Version management
 
 The version number is in the form of 3 digits 'A.B.C' :
-- 'A' The major version
-- 'B' Addition or modification of functionality impacting the converters
-- 'C' Reorganization of section, addition of examples...
+- 'A' A major version that could break existing converters
+- 'B' Addition or modification of functionality affecting but not breaking the converters
+- 'C' Reorganization of section, addition of examples etc.
 
 ## Actual
 
