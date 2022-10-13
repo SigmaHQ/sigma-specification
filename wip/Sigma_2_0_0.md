@@ -1,16 +1,16 @@
-# Sigma specification <!-- omit in toc --> 
+# Sigma specification <!-- omit in toc -->
 
 THIS IS A WORK IN PROGRESS DO NOT USE IT
 
 - Version 2.0.0
 - Planned release date 2023/04/02
 
-** Breaking changes **
+**Breaking changes**
 
-- new modifier `windash` : converts `-` values into `/` and vice versa. Will be used for all `CommandLine` fields in windows > process_creation rules. 
-- new special values `exists` and `notexists` : allows to define that a certain field must exist (currently we use filters with `field: null` as a workarpund)
+- New modifier `windash` : converts `-` values into `/` and vice versa. Will be used for all `CommandLine` fields in windows > `process_creation` rules.
+- New special values `exists` and `notexists` : allows to define that a certain field must exist (currently we use filters with `field: null` as a workaround)
 
-Warning `sigmac` will not be able to convert this version. Only `pySigma` and the corresponding `sigma-cli` provider full support for version2.
+Warning `sigmac` will not be able to convert this version. Only `pySigma` and the corresponding `sigma-cli` provide full support for version 2.
 
 # Summary
 
@@ -54,11 +54,11 @@ Warning `sigmac` will not be able to convert this version. Only `pySigma` and th
   - [Rule Collections](#rule-collections)
     - [Example](#example)
 
-
 # Yaml File
 
 The rule files are written in [yaml format](https://yaml.org/spec/1.2.2/)  
 To keep the rules interoperable use:
+
 - UTF-8
 - LF for the line break (the Windows native editor uses CR-LF)
 - Indentation of 4 spaces
@@ -66,6 +66,7 @@ To keep the rules interoperable use:
 - Single quotes `'` for strings and numeric values don't use any quotes (if the string contains a single quote, double quotes may be used instead)
 
 Simple Sigma example
+
 ```yaml
 title: Whoami Execution
 description: Detects a whoami.exe execution
@@ -232,17 +233,17 @@ rest: //any
 
 **Attribute:** title
 
-A brief title for the rule that should contain what the rules is supposed to detect (max. 256 characters)
+A brief title for the rule that should contain what the rule is supposed to detect (max. 256 characters)
 
 ### Rule Identification
 
 **Attributes:** id, related
 
 Sigma rules should be identified by a globally unique identifier in the *id* attribute. For this
-purpose random generated UUIDs (version 4) are recommended but not mandatory. An example for this
+purpose randomly generated UUIDs (version 4) are recommended but not mandatory. An example for this
 is:
 
-```
+```yml
 title: Test rule
 id: 929a690e-bef0-4204-a928-ef5e620d6fcc
 ```
@@ -254,11 +255,11 @@ Rule identifiers can and should change for the following reasons:
   active.
 * Merge of rules.
 
-To being able to keep track on relationships between detections, Sigma rules may also contain
+To be able to keep track of the relationships between detections, Sigma rules may also contain
 references to related rule identifiers in the *related* attribute. This allows to define common
 relationships between detections as follows:
 
-```
+```yml
 related:
   - id: 08fbc97d-0a2f-491c-ae21-8ffcfd3174e9
     type: derived
@@ -268,21 +269,21 @@ related:
 
 Currently the following types are defined:
 
-* derived: Rule was derived from the referred rule or rules, which may remain active.
-* obsoletes: Rule obsoletes the referred rule or rules, which aren't used anymore.
-* merged: Rule was merged from the referred rules. The rules may be still existing and in use.
-* renamed: The rule had previously the referred identifier or identifiers but was renamed for any
-  other reason, e.g. from a private naming scheme to UUIDs, to resolve collisions etc. It's not
+* derived: The rule was derived from the referred rule or rules, which may remain active.
+* obsoletes: The rule obsoletes the referred rule or rules, which aren't used anymore.
+* merged: The rule was merged from the referred rules. The rules may still exist and are in use.
+* renamed: The rule had previously the referred identifier or identifiers but was renamed for whatever
+  reason, e.g. from a private naming scheme to UUIDs, to resolve collisions etc. It's not
   expected that a rule with this id exists anymore.
-* similar: Use to relate similar rules to each other (e.g. same detection content applied to different log sources, rule that is a modified version of another rule with a different level)
+* similar: Used to relate similar rules to each other (e.g. same detection content applied to different log sources, rule that is a modified version of another rule with a different level)
 
 ### Shema (optional)
 
 **Attribute:** shema
 
-This is the version of the specifications used in the rule.
+This is the version of the specification used in the rule.
 
-This allows to know quickly if the converter or software can use the rule without problem
+This will allow us to quickly know if the converter or software can use the rule without any problems
 
 ### Taxonomy (optional)
 
@@ -305,17 +306,16 @@ Declares the status of the rule:
 
 - stable: the rule is considered as stable and may be used in production systems or dashboards.
 - test: an almost stable rule that possibly could require some fine tuning.
-- experimental: an experimental rule that could lead to false results or be noisy, but could also identify interesting
+- experimental: an experimental rule that could lead to false positives results or be noisy, but could also identify interesting
   events.
-- deprecated: the rule is replace or cover by another one. The link is made by the `related` field.
-- unsupported: the rule can not be use in its current state (special correlation log, home-made fields)
-
+- deprecated: the rule is replaced or covered by another one. The link is established by the `related` field.
+- unsupported: the rule cannot be use in its current state (special correlation log, home-made fields)
 
 ### Description (optional)
 
 **Attribute:** description
 
-A short description of the rule and the malicious activity that can be detected (max. 65,535 characters)
+A short description of the rule and the malicious activity that it can detected (max. 65,535 characters)
 
 ### License (optional)
 
@@ -327,7 +327,7 @@ License of the rule according the [SPDX ID specification](https://spdx.org/ids).
 
 **Attribute**: author
 
-Creator of the rule.
+Creator of the rule. (can be a name, nickname, twitter handle...etc)
 
 ### References (optional)
 
@@ -339,27 +339,27 @@ References to the source that the rule was derived from. These could be blog art
 
 **Attribute**: logsource
 
-This section describes the log data on which the detection is meant to be applied to. It describes the log source, the platform, the application and the type that is required in detection. 
+This section describes the log data on which the detection is meant to be applied to. It describes the log source, the platform, the application and the type that is required in the detection.
 
-It consists of three attributes that are evaluated automatically by the converters and an arbitrary number of optional elements. We recommend using a "definition" value in cases in which further explication is necessary.    
+It consists of three attributes that are evaluated automatically by the converters and an arbitrary number of optional elements. We recommend using a "definition" value in cases in which further explanation is necessary.
 
 * category - examples: firewall, web, antivirus
 * product - examples: windows, apache, check point fw1
 * service - examples: sshd, applocker
 
-The "category" value is used to select all log files written by a certain group of products, like firewalls or web server logs. The automatic conversion will use the keyword as a selector for multiple indices. 
+The "category" value is used to select all log files written by a certain group of products, like firewalls or web server logs. The automatic converter will use the keyword as a selector for multiple indices.
 
 The "product" value is used to select all log outputs of a certain product, e.g. all Windows Eventlog types including "Security", "System", "Application" and the new log types like "AppLocker" and "Windows Defender".
 
-Use the "service" value to select only a subset of a product's logs, like the "sshd" on Linux or the "Security" Eventlog on Windows systems. 
+Use the "service" value to select only a subset of a product's logs, like the "sshd" on Linux or the "Security" Eventlog on Windows systems.
 
-The "definition" can be used to describe the log source, including some information on the log verbosity level or configurations that have to be applied. It is not automatically evaluated by the converters but gives useful advice to readers on how to configure the source to provide the necessary events used in the detection. 
+The "definition" can be used to describe the log source, including some information on the log verbosity level or configurations that have to be applied. It is not automatically evaluated by the converters but gives useful information to readers on how to configure the source to provide the necessary events used in the detection.
 
-You can use the values of 'category, 'product' and 'service' to point the converters to a certain index. You could define in the configuration files that the category 'firewall' converts to `( index=fw1* OR index=asa* )` during Splunk search conversion or the product 'windows' converts to `"_index":"logstash-windows*"` in ElasticSearch queries.
+You can use the values of 'category, 'product' and 'service' to point the converters to a certain index. You could define in the configuration files that the category 'firewall' converts to `( index=fw1* OR index=asa* )` during Splunk search conversion or the product 'windows' converts to `"_index":"logstash-windows*"` in Elasticsearch queries.
 
 Instead of referring to particular services, generic log sources may be used, e.g.:
 
-```
+```yml
 category: process_creation
 product: windows
 ```
@@ -376,7 +376,7 @@ A set of search-identifiers that represent properties of searches on log data.
 
 A definition that can consist of two different data structures - lists and maps.
 
-#### General 
+#### General
 
 * All values are treated as case-insensitive strings
 * You can use wildcard characters `*` and `?` in strings (see also escaping section below)
@@ -387,13 +387,13 @@ A definition that can consist of two different data structures - lists and maps.
 
 The backslash character `\` is used for escaping of wildcards `*` and `?` as well as the backslash character itself. Escaping of the backslash is necessary if it is followed by a wildcard depending on the desired result.
 
-Summarized, there are the following possibilities:
+Summarized, these are the following possibilities:
 
 * Plain backslash not followed by a wildcard can be expressed as single `\` or double backslash `\\`. For simplicity reasons the single notation is recommended.
-* A wildcard has to be escaped to handle it as a plain character: `\*`
+* A wildcard has to be escaped to be handled as a plain character: `\*`
 * The backslash before a wildcard has to be escaped to handle the value as a backslash followed by a wildcard: `\\*`
 * Three backslashes are necessary to escape both, the backslash and the wildcard and handle them as plain values: `\\\*`
-* Three or four backslashes are handled as double backslash. Four a recommended for consistency reasons: `\\\\` results in the plain value `\\`.
+* Three or four backslashes are handled as double backslash. Four is recommended for consistency reasons: `\\\\` results in the plain value `\\`.
 
 #### Lists
 
@@ -404,51 +404,51 @@ Lists can contain:
 
 Example for list of strings: Matches on 'EvilService' **or** 'svchost.exe -n evil'
 
-```
+```yml
 detection:
   keywords:
-    - EVILSERVICE
-    - svchost.exe -n evil
+    - 'EVILSERVICE'
+    - 'svchost.exe -n evil'
 ```
 
 Example for list of maps:
 
-```
+```yml
 detection:
   selection:
-    - Image|endswith: \\example.exe
-    - Description|contains: Test executable
+    - Image|endswith: '\\example.exe'
+    - Description|contains: 'Test executable'
 ```
 
-Matches an image file `example.exe` or an executable whose description contains the string `Test executable`
+The example above matches an image value ending with `example.exe` or an executable with a description containing the string `Test executable`
 
 #### Maps
 
-Maps (or dictionaries) consist of key/value pairs, in which the key is a field in the log data and the value a string or integer value. All elements of a map are joined with a logical 'AND'.
+Maps (or dictionaries) consist of key/value pairs, in which the key is a field in the log data and the value is a string or integer value. All elements of a map are joined with a logical 'AND'.
 
 Examples:
 
-Matches on Eventlog 'Security' **and** ( Event ID 517 **or** Event ID 1102 ) 
+Matches on Eventlog 'Security' **and** ( Event ID 517 **or** Event ID 1102 )
 
-```
+```yml
 detection:
   selection:
-    - EventLog: Security
-      EventID:
-        - 517
-        - 1102
+    EventLog: Security
+    EventID:
+      - 517
+      - 1102
 condition: selection
 ```
 
-Matches on Eventlog 'Security' **and** Event ID 4679 **and** TicketOptions 0x40810000 **and** TicketEncryption 0x17 
+Matches on Eventlog 'Security' **and** Event ID 4679 **and** TicketOptions 0x40810000 **and** TicketEncryption 0x17
 
-```
+```yml
 detection:
    selection:
-      - EventLog: Security
-        EventID: 4769
-        TicketOptions: '0x40810000'
-        TicketEncryption: '0x17'
+      EventLog: Security
+      EventID: 4769
+      TicketOptions: '0x40810000'
+      TicketEncryption: '0x17'
 condition: selection
 ```
 
@@ -457,7 +457,8 @@ condition: selection
 1. For fields with existing field-mappings, use the mapped field name.
 
 Examples from [the generic config `tools\config\generic\windows-audit.yml`](https://github.com/SigmaHQ/sigma/blob/master/tools/config/generic/windows-audit.yml#L23-L28) (e.g. use `Image` over `NewProcessName`):
-```
+
+```yml
 fieldmappings:
     Image: NewProcessName
     ParentImage: ParentProcessName
@@ -466,7 +467,7 @@ fieldmappings:
     LogonId: SubjectLogonId
 ```
 
-2. For new or rarely used fields, use them as they appear in the log source and strip all spaces. (That means: Only, if the field is not already mapped to another field name.) On Windows event log sources, use the field names of the details view as the general view might contain localized field names.
+2. For new or rarely used fields, use them as they appear in the log source and strip all spaces. (This means: Only, if the field is not already mapped to another field name.) On Windows event log sources, use the field names of the details view as the general view might contain localized field names.
 
 Examples:
 * `New Value` -> `NewValue`
@@ -477,10 +478,12 @@ Examples:
     2. In the `<EventData>` body of the event the field name is given by the `Name` attribute of the `Data` tag.
 
 Examples i:
+
 * `<Provider Name="Service Control Manager" Guid="[...]" EventSourceName="[...]" />` will be `Provider_Name`
 * ` <Execution ProcessID="788" ThreadID="792" />` will be `Execution_ProcessID`
 
 Examples ii:
+
 * `<Data Name="User">NT AUTHORITY\SYSTEM</Data>` will be `User`
 * `<Data Name="ServiceName">MpKsl4eaa0a76</Data>` will be `ServiceName`
 
@@ -491,15 +494,15 @@ There are special field values that can be used.
 * An empty value is defined with `''`
 * A null value is defined with `null`
 
-OBSOLETE: An arbitrary value except null or empty cannot be defined with `not null` anymore
+*OBSOLETE*: An arbitrary value except null or empty cannot be defined with `not null` anymore
 
 The application of these values depends on the target SIEM system.
 
-To get an expression that say `not null` you have to create another selection and negate it in the condition. 
+To get an expression that say `not null` you have to create another selection and negate it in the condition.
 
 Example:
 
-```
+```yml
 detection:
    selection:
       EventID: 4738
@@ -520,8 +523,8 @@ appended after the field name with a pipe character `|` as separator and can als
 There are two types of value modifiers:
 
 * *Transformation modifiers* transform values into different values, like the two Base64 modifiers
-  mentioned above. Furthermore, this type of modifier is also able to change the logical operation
-  between values. Transformation modifiers are generally backend-agnostic. Means: you can use them
+  mentioned below. Furthermore, this type of modifiers is also able to change the logical operation
+  between values. Transformation modifiers are generally backend-agnostic. Meaning: you can use them
   with any backend.
 * *Type modifiers* change the type of a value. The value itself might also be changed by such a
   modifier, but the main purpose is to tell the backend that a value should be handled differently
@@ -545,22 +548,22 @@ multiple values.
   Single item values are not allowed to have an `all` modifier as some back-ends cannot support it.
   If you use it as a workaround to duplicate a field in a selection, use a new selection instead.
 * `base64`: The value is encoded with Base64.
-* `base64offset`: If a value might appear somewhere in a base64-encoded value the representation
-  might change depending on the position in the overall value. There are three variants for shifts
+* `base64offset`: If a value might appear somewhere in a base64-encoded string the representation
+  might change depending on the position of the value in the overall string. There are three variants for shifts
   by zero to two bytes and except the first and last byte the encoded values have a static part in
   the middle that can be recognized.
 * `endswith`: The value is expected at the end of the field's content (replaces e.g. '*\cmd.exe')
 * `startswith`: The value is expected at the beginning of the field's content. (replaces e.g. 'adm*')
-* `utf16le`: transforms value to UTF16-LE encoding, e.g. `cmd` > `63 00 6d 00 64 00` (only used in combination with base64 modifiers) 
-* `utf16be`: transforms value to UTF16-BE encoding, e.g. `cmd` > `00 63 00 6d 00 64` (only used in combination with base64 modifiers)
-* `wide`: alias for `utf16le` modifier
-* `utf16`: prepends a [byte order mark](https://en.wikipedia.org/wiki/Byte_order_mark) and encodes UTF16, e.g. `cmd` > `FF FE 63 00 6d 00 64 00` (only used in combination with base64 modifiers)
+* `utf16le`: Transforms value to UTF16-LE encoding, e.g. `cmd` > `63 00 6d 00 64 00` (only used in combination with base64 modifiers)
+* `utf16be`: Transforms value to UTF16-BE encoding, e.g. `cmd` > `00 63 00 6d 00 64` (only used in combination with base64 modifiers)
+* `wide`: Alias for `utf16le` modifier
+* `utf16`: Prepends a [byte order mark](https://en.wikipedia.org/wiki/Byte_order_mark) and encodes UTF16, e.g. `cmd` > `FF FE 63 00 6d 00 64 00` (only used in combination with base64 modifiers)
 * `windash`: Add a new variant where all `-` occurrences are replaced with `/`. The original variant is also kept unchanged.
-* `cidr`: value is handled as a IP CIDR by backends 	
-* `lt`: Field is less than the value 	
-* `lte`: Field is less or egal than the value 	
-* `gt`: Field is Greater than the value 	
-* `gte`: Field is Greater or egal than the value 	
+* `cidr`: The value is handled as a IP CIDR by backends
+* `lt`: Field is less than the value
+* `lte`: Field is less or egal than the value
+* `gt`: Field is Greater than the value
+* `gte`: Field is Greater or egal than the value
 * `expand`: Modifier for expansion of placeholders in values. It replaces placeholder strings 
 
 ###### Types
@@ -676,7 +679,7 @@ A list of known false positives that may occur.
 
 **Attribute**: level
 
-The level field contains one of five string values. It describes the criticality of a triggered rule. While `low` and `medium` level events have an informative character, events with `high` and `critical` level should lead to immediate reviews by security analysts. 
+The level field contains one of five string values. It describes the criticality of a triggered rule. While `low` and `medium` level events have an informative character, events with `high` and `critical` level should lead to immediate reviews by security analysts.
 
 - `informational`: Rule is intended for enrichment of events, e.g. by tagging them. No case or alerting should be triggered by such rules because it is expected that a huge amount of events will match these rules.
 - `low`: Notable event but rarely an incident. Low rated events can be relevant in high numbers or combination with others. Immediate reaction shouldn't be necessary, but a regular review is recommended.
@@ -700,7 +703,7 @@ A Sigma rule can be categorised with tags. Tags should generally follow this syn
 
 Placeholders are used as values that get their final meaning at conversion or usage time of the rule. This can be, but is not restricted to:
 
-* Replacement of placeholders with a single or multiple or-linked values or patters. Example: the placeholder `%Servers%` is replaced with
+* Replacement of placeholders with a single, multiple or-linked values or patterns. Example: the placeholder `%Servers%` is replaced with
   the pattern `srv*` because servers are named so in the target environment.
 * Replacement of placeholders with a query expression. Example: replacement of `%servers%` with a lookup expression `LOOKUP(field, servers)`
   that looks up the value of `field` in a lookup table `servers`.
