@@ -1,4 +1,4 @@
-# Sigma specification <!-- omit in toc --> 
+# Sigma specification <!-- omit in toc -->
 
 * Version 1.0.0
 * Release date 2022/09/18
@@ -201,10 +201,10 @@ A brief title for the rule that should contain what the rules is supposed to det
 **Attributes:** id, related
 
 Sigma rules should be identified by a globally unique identifier in the *id* attribute. For this
-purpose random generated UUIDs (version 4) are recommended but not mandatory. An example for this
+purpose randomly generated UUIDs (version 4) are recommended but not mandatory. An example for this
 is:
 
-```
+```yml
 title: Test rule
 id: 929a690e-bef0-4204-a928-ef5e620d6fcc
 ```
@@ -216,11 +216,11 @@ Rule identifiers can and should change for the following reasons:
   active.
 * Merge of rules.
 
-To being able to keep track on relationships between detections, Sigma rules may also contain
+To be able to keep track of the relationships between detections, Sigma rules may also contain
 references to related rule identifiers in the *related* attribute. This allows to define common
 relationships between detections as follows:
 
-```
+```yml
 related:
   - id: 08fbc97d-0a2f-491c-ae21-8ffcfd3174e9
     type: derived
@@ -230,11 +230,11 @@ related:
 
 Currently the following types are defined:
 
-* derived: Rule was derived from the referred rule or rules, which may remain active.
-* obsoletes: Rule obsoletes the referred rule or rules, which aren't used anymore.
-* merged: Rule was merged from the referred rules. The rules may be still existing and in use.
-* renamed: The rule had previously the referred identifier or identifiers but was renamed for any
-  other reason, e.g. from a private naming scheme to UUIDs, to resolve collisions etc. It's not
+* derived: The rule was derived from the referred rule or rules, which may remain active.
+* obsoletes: The rule obsoletes the referred rule or rules, which aren't used anymore.
+* merged: The rule was merged from the referred rules. The rules may be still existing and in use.
+* renamed: The rule had previously the referred identifier or identifiers but was renamed for whatever
+  reason, e.g. from a private naming scheme to UUIDs, to resolve collisions etc. It's not
   expected that a rule with this id exists anymore.
 * similar: Use to relate similar rules to each other (e.g. same detection content applied to different log sources, rule that is a modified version of another rule with a different level)
 
@@ -246,7 +246,7 @@ Declares the status of the rule:
 
 - stable: the rule is considered as stable and may be used in production systems or dashboards.
 - test: an almost stable rule that possibly could require some fine tuning.
-- experimental: an experimental rule that could lead to false results or be noisy, but could also identify interesting
+- experimental: an experimental rule that could lead to false positives results or be noisy, but could also identify interesting
   events.
 - deprecated: the rule is replace or cover by another one. The link is made by the `related` field.
 - unsupported: the rule can not be use in its current state (special correlation log, home-made fields)
@@ -268,7 +268,7 @@ License of the rule according the [SPDX ID specification](https://spdx.org/ids).
 
 **Attribute**: author
 
-Creator of the rule.
+Creator of the rule. (can be a name, nickname, twitter handle...etc)
 
 ### References (optional)
 
@@ -280,27 +280,27 @@ References to the source that the rule was derived from. These could be blog art
 
 **Attribute**: logsource
 
-This section describes the log data on which the detection is meant to be applied to. It describes the log source, the platform, the application and the type that is required in detection. 
+This section describes the log data on which the detection is meant to be applied to. It describes the log source, the platform, the application and the type that is required in the detection.
 
-It consists of three attributes that are evaluated automatically by the converters and an arbitrary number of optional elements. We recommend using a "definition" value in cases in which further explication is necessary.    
+It consists of three attributes that are evaluated automatically by the converters and an arbitrary number of optional elements. We recommend using a "definition" value in cases in which further explanation is necessary.
 
 * category - examples: firewall, web, antivirus
 * product - examples: windows, apache, check point fw1
 * service - examples: sshd, applocker
 
-The "category" value is used to select all log files written by a certain group of products, like firewalls or web server logs. The automatic conversion will use the keyword as a selector for multiple indices. 
+The "category" value is used to select all log files written by a certain group of products, like firewalls or web server logs. The automatic converter will use the keyword as a selector for multiple indices.
 
 The "product" value is used to select all log outputs of a certain product, e.g. all Windows Eventlog types including "Security", "System", "Application" and the new log types like "AppLocker" and "Windows Defender".
 
 Use the "service" value to select only a subset of a product's logs, like the "sshd" on Linux or the "Security" Eventlog on Windows systems. 
 
-The "definition" can be used to describe the log source, including some information on the log verbosity level or configurations that have to be applied. It is not automatically evaluated by the converters but gives useful advice to readers on how to configure the source to provide the necessary events used in the detection. 
+The "definition" can be used to describe the log source, including some information on the log verbosity level or configurations that have to be applied. It is not automatically evaluated by the converters but gives useful information to readers on how to configure the source to provide the necessary events used in the detection.
 
-You can use the values of 'category, 'product' and 'service' to point the converters to a certain index. You could define in the configuration files that the category 'firewall' converts to `( index=fw1* OR index=asa* )` during Splunk search conversion or the product 'windows' converts to `"_index":"logstash-windows*"` in ElasticSearch queries.
+You can use the values of 'category, 'product' and 'service' to point the converters to a certain index. You could define in the configuration files that the category 'firewall' converts to `( index=fw1* OR index=asa* )` during Splunk search conversion or the product 'windows' converts to `"_index":"logstash-windows*"` in Elasticsearch queries.
 
 Instead of referring to particular services, generic log sources may be used, e.g.:
 
-```
+```yml
 category: process_creation
 product: windows
 ```
@@ -317,7 +317,7 @@ A set of search-identifiers that represent properties of searches on log data.
 
 A definition that can consist of two different data structures - lists and maps.
 
-#### General 
+#### General
 
 * All values are treated as case-insensitive strings
 * You can use wildcard characters `*` and `?` in strings (see also escaping section below)
@@ -345,7 +345,7 @@ Lists can contain:
 
 Example for list of strings: Matches on 'EvilService' **or** 'svchost.exe -n evil'
 
-```
+```yml
 detection:
   keywords:
     - EVILSERVICE
@@ -354,7 +354,7 @@ detection:
 
 Example for list of maps:
 
-```
+```yml
 detection:
   selection:
     - Image|endswith: \\example.exe
@@ -369,12 +369,12 @@ Maps (or dictionaries) consist of key/value pairs, in which the key is a field i
 
 Examples:
 
-Matches on Eventlog 'Security' **and** ( Event ID 517 **or** Event ID 1102 ) 
+Matches on Eventlog 'Security' **and** ( Event ID 517 **or** Event ID 1102 )
 
-```
+```yml
 detection:
   selection:
-    - EventLog: Security
+      EventLog: Security
       EventID:
         - 517
         - 1102
@@ -383,10 +383,10 @@ condition: selection
 
 Matches on Eventlog 'Security' **and** Event ID 4679 **and** TicketOptions 0x40810000 **and** TicketEncryption 0x17 
 
-```
+```yml
 detection:
    selection:
-      - EventLog: Security
+        EventLog: Security
         EventID: 4769
         TicketOptions: '0x40810000'
         TicketEncryption: '0x17'
@@ -398,7 +398,8 @@ condition: selection
 1. For fields with existing field-mappings, use the mapped field name.
 
 Examples from [the generic config `tools\config\generic\windows-audit.yml`](https://github.com/SigmaHQ/sigma/blob/master/tools/config/generic/windows-audit.yml#L23-L28) (e.g. use `Image` over `NewProcessName`):
-```
+
+```yml
 fieldmappings:
     Image: NewProcessName
     ParentImage: ParentProcessName
@@ -436,11 +437,11 @@ OBSOLETE: An arbitrary value except null or empty cannot be defined with `not nu
 
 The application of these values depends on the target SIEM system.
 
-To get an expression that say `not null` you have to create another selection and negate it in the condition. 
+To get an expression that say `not null` you have to create another selection and negate it in the condition.
 
 Example:
 
-```
+```yml
 detection:
    selection:
       EventID: 4738
@@ -492,7 +493,7 @@ multiple values.
   the middle that can be recognized.
 * `endswith`: The value is expected at the end of the field's content (replaces e.g. '*\cmd.exe')
 * `startswith`: The value is expected at the beginning of the field's content. (replaces e.g. 'adm*')
-* `utf16le`: transforms value to UTF16-LE encoding, e.g. `cmd` > `63 00 6d 00 64 00` (only used in combination with base64 modifiers) 
+* `utf16le`: transforms value to UTF16-LE encoding, e.g. `cmd` > `63 00 6d 00 64 00` (only used in combination with base64 modifiers)
 * `utf16be`: transforms value to UTF16-BE encoding, e.g. `cmd` > `00 63 00 6d 00 64` (only used in combination with base64 modifiers)
 * `wide`: alias for `utf16le` modifier
 * `utf16`: prepends a [byte order mark](https://en.wikipedia.org/wiki/Byte_order_mark) and encodes UTF16, e.g. `cmd` > `FF FE 63 00 6d 00 64 00` (only used in combination with base64 modifiers)
@@ -611,7 +612,7 @@ A list of known false positives that may occur.
 
 **Attribute**: level
 
-The level field contains one of five string values. It describes the criticality of a triggered rule. While `low` and `medium` level events have an informative character, events with `high` and `critical` level should lead to immediate reviews by security analysts. 
+The level field contains one of five string values. It describes the criticality of a triggered rule. While `low` and `medium` level events have an informative character, events with `high` and `critical` level should lead to immediate reviews by security analysts.
 
 - `informational`: Rule is intended for enrichment of events, e.g. by tagging them. No case or alerting should be triggered by such rules because it is expected that a huge amount of events will match these rules.
 - `low`: Notable event but rarely an incident. Low rated events can be relevant in high numbers or combination with others. Immediate reaction shouldn't be necessary, but a regular review is recommended.
