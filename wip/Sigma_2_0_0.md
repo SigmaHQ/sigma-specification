@@ -70,19 +70,26 @@ The rule files are written in [yaml format](https://yaml.org/spec/1.2.2/)
 To keep the rule interoperable it use :
 - UTF-8
 - LF for the line return (windows natif editor use CR-LF)
-- Intentation 2 or 4 spaces
+- Indentation of 4 spaces
 - key are lowercase
-- the simple quote `'` is use for string when needed eg `' need a space before and after '`
+- the simple quote `'` is used for strings, numeric values don't use quotes
 
-Simple Yaml example:
+Simple Sigma example
 ```yaml
-title: The Best Login Found
-login:
-    user: administrator
-    password:
-        - azerty
-        - qwerty
-        - p@ssw0rd
+title: Whoami Execution
+description: Detects a whoami.exe execution
+references:
+      - https://speakerdeck.com/heirhabarov/hunting-for-privilege-escalation-in-windows-environment
+author: Florian Roth
+date: 2019/10/23
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection:
+        Image: 'C:\Windows\System32\whoami.exe'
+    condition: selection
+level: high
 ```
 
 # Structure
