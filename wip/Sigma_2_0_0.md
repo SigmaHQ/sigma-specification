@@ -275,7 +275,7 @@ Currently the following types are defined:
 * renamed: The rule had previously the referred identifier or identifiers but was renamed for whatever
   reason, e.g. from a private naming scheme to UUIDs, to resolve collisions etc. It's not
   expected that a rule with this id exists anymore.
-* similar: Used to relate similar rules to each other (e.g. same detection content applied to different log sources, rule that is a modified version of another rule with a different level)
+* similar: Use to relate similar rules to each other (e.g. same detection content applied to different log sources, rule that is a modified version of another rule with a different level)
 
 ### Shema (optional)
 
@@ -315,7 +315,7 @@ Declares the status of the rule:
 
 **Attribute:** description
 
-A short description of the rule and the malicious activity that it can detected (max. 65,535 characters)
+A short description of the rule and the malicious activity that can be detected (max. 65,535 characters)
 
 ### License (optional)
 
