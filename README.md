@@ -7,7 +7,7 @@ This repository is used to maintain the specification for the Sigma format.
 The version number is in the form of 3 digits 'A.B.C':
 
 - 'A' A major version that could break existing converters
-- 'B' Addition or modification of functionality affecting but not breaking the converters
+- 'B' A minor version with additions or modifications of functionality affecting but not breaking the converters
 - 'C' Reorganization of section, addition of examples etc.
 
 ## Current Version
