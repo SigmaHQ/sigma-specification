@@ -2,12 +2,12 @@
 
 THIS IS A WORK IN PROGRESS DO NOT USE IT
 
-* Version 1.x.0
+* Version 2.0.0
 * Release date 2023/xx/xx
 
 
 History:
-* 2023/xx/xx Specification V1.x.0
+* 2023/xx/xx Specification V2.0.0
   * New modifier for pysigma
   * Add shema field 
   * Add taxonomy field
@@ -19,11 +19,12 @@ History:
 
 Warning `sigmac` can not convert this version
 
-The new field `shema` must be set to 1.x.0 , if missing rule is deal as 1.0.0
+The new field `shema` must be set to 2.0.0 , if missing rule is deal as 1.0.0
 
 # Summary
 
 - [Summary](#summary)
+- [Yaml File](#yaml-file)
 - [Structure](#structure)
   - [Schema](#schema)
     - [Rx YAML](#rx-yaml)
@@ -58,13 +59,38 @@ The new field `shema` must be set to 1.x.0 , if missing rule is deal as 1.0.0
     - [Level](#level)
     - [Tags](#tags)
     - [Placeholders](#placeholders)
-      - [Examples for placeholders](#examples-for-placeholders)
-      - [Examples for conversions](#examples-for-conversions)
+      - [Standard Placeholders](#standard-placeholders)
   - [Rule Collections](#rule-collections)
     - [Example](#example)
 
 
+# Yaml File
 
+The rule files are written in [yaml format](https://yaml.org/spec/1.2.2/)  
+To keep the rule interoperable it use :
+- UTF-8
+- LF for the line return (windows natif editor use CR-LF)
+- Indentation of 4 spaces
+- key are lowercase
+- the simple quote `'` is used for strings, numeric values don't use quotes
+
+Simple Sigma example
+```yaml
+title: Whoami Execution
+description: Detects a whoami.exe execution
+references:
+      - https://speakerdeck.com/heirhabarov/hunting-for-privilege-escalation-in-windows-environment
+author: Florian Roth
+date: 2019/10/23
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection:
+        Image: 'C:\Windows\System32\whoami.exe'
+    condition: selection
+level: high
+```
 
 # Structure
 
@@ -207,7 +233,7 @@ rest: //any
 
 ### Image
 
-![sigma_schema](https://github.com/SigmaHQ/sigma-specification/images/Sigma_Schema.png)
+![sigma_schema](https://github.com/SigmaHQ/sigma-specification/blob/8e3eed135223dd3e0506b6deaca9b4314919dc65/images/Sigma_Schema.png)
 
 ## Components
 
