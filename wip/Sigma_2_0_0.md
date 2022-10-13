@@ -2,24 +2,15 @@
 
 THIS IS A WORK IN PROGRESS DO NOT USE IT
 
-* Version 2.0.0
-* Release date 2023/xx/xx
+- Version 2.0.0
+- Planned release date 2023/04/02
 
+** Breaking changes **
 
-History:
-* 2023/xx/xx Specification V2.0.0
-  * New modifier for pysigma
-  * Add shema field 
-  * Add taxonomy field
-* 2022/09/18 Specification V1.0.0
-  * Initial formalisation from the sigma wiki
-* 2017 Sigma creation
+- new modifier `windash` : converts `-` values into `/` and vice versa. Will be used for all `CommandLine` fields in windows > process_creation rules. 
+- new special values `exists` and `notexists` : allows to define that a certain field must exist (currently we use filters with `field: null` as a workarpund)
 
-**Breaking change **
-
-Warning `sigmac` can not convert this version
-
-The new field `shema` must be set to 2.0.0 , if missing rule is deal as 1.0.0
+Warning `sigmac` will not be able to convert this version. Only `pySigma` and the corresponding `sigma-cli` provider full support for version2.
 
 # Summary
 
