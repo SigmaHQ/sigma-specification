@@ -67,12 +67,12 @@ The new field `shema` must be set to 2.0.0 , if missing rule is deal as 1.0.0
 # Yaml File
 
 The rule files are written in [yaml format](https://yaml.org/spec/1.2.2/)  
-To keep the rule interoperable it use :
+To keep the rules interoperable use:
 - UTF-8
-- LF for the line return (windows natif editor use CR-LF)
+- LF for the line return (the Windows native editor uses CR-LF)
 - Indentation of 4 spaces
-- key are lowercase
-- the simple quote `'` is used for strings, numeric values don't use quotes
+- Lowercase keys (e.g. title, id, etc.)
+- Single quotes `'` for strings and numeric values don't use any quotes (if the string contains a single quote, double quotes may be used instead)
 
 Simple Sigma example
 ```yaml
