@@ -61,7 +61,7 @@ To keep the file names interoperable use the following:
 - Lowercase
 - Not special character only letter (a-z) and digit (0-9)
 - Use `_` instead of space
-- Use `.yml` as file extension
+- Use `.yml` as a file extension
 
 example:
 
