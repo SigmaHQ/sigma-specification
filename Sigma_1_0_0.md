@@ -55,7 +55,7 @@ History:
 
 ## Filename
 
-To keep the file interoperable use for the filename :
+To keep the file names interoperable use the following:
 
 - Length between 10 and 70 characters 
 - Lowercase
