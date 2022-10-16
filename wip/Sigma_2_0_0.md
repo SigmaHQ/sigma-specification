@@ -16,6 +16,8 @@ Warning `sigmac` will not be able to convert this version. Only `pySigma` and th
 
 - [Summary](#summary)
 - [Yaml File](#yaml-file)
+  - [Filename](#filename)
+  - [Data](#data)
 - [Structure](#structure)
   - [Schema](#schema)
     - [Rx YAML](#rx-yaml)
@@ -55,6 +57,24 @@ Warning `sigmac` will not be able to convert this version. Only `pySigma` and th
     - [Example](#example)
 
 # Yaml File
+
+## Filename
+
+To keep the file interoperable use for the filename :
+
+- Length between 10 and 70 characters 
+- Lowercase
+- Not special character only letter (a-z) and digit (0-9)
+- Use `_` instead of space
+- Use `.yml` as file extension
+
+example:
+
+- lnx_auditd_change_file_time_attr.yml
+- web_cve_2022_33891_spark_shell_command_injection.yml
+- sysmon_file_block_exe.yml
+
+## Data
 
 The rule files are written in [yaml format](https://yaml.org/spec/1.2.2/)  
 To keep the rules interoperable use:

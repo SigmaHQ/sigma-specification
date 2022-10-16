@@ -11,6 +11,9 @@ History:
 # Summary
 
 - [Summary](#summary)
+- [Yaml File](#yaml-file)
+  - [Filename](#filename)
+  - [Data](#data)
 - [Structure](#structure)
   - [Schema](#schema)
     - [Rx YAML](#rx-yaml)
@@ -48,6 +51,53 @@ History:
   - [Rule Collections](#rule-collections)
     - [Example](#example)
 
+# Yaml File
+
+## Filename
+
+To keep the file interoperable use for the filename :
+
+- Length between 10 and 70 characters 
+- Lowercase
+- Not special character only letter (a-z) and digit (0-9)
+- Use `_` instead of space
+- Use `.yml` as file extension
+
+example:
+
+- lnx_auditd_change_file_time_attr.yml
+- web_cve_2022_33891_spark_shell_command_injection.yml
+- sysmon_file_block_exe.yml
+
+## Data
+
+The rule files are written in [yaml format](https://yaml.org/spec/1.2.2/)  
+To keep the rules interoperable use:
+
+- UTF-8
+- LF for the line break (the Windows native editor uses CR-LF)
+- Indentation of 4 spaces
+- Lowercase keys (e.g. title, id, etc.)
+- Single quotes `'` for strings and numeric values don't use any quotes (if the string contains a single quote, double quotes may be used instead)
+
+Simple Sigma example
+
+```yaml
+title: Whoami Execution
+description: Detects a whoami.exe execution
+references:
+      - https://speakerdeck.com/heirhabarov/hunting-for-privilege-escalation-in-windows-environment
+author: Florian Roth
+date: 2019/10/23
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection:
+        Image: 'C:\Windows\System32\whoami.exe'
+    condition: selection
+level: high
+```
 
 # Structure
 
