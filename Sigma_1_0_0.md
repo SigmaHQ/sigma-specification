@@ -72,7 +72,7 @@ example:
 ## Data
 
 The rule files are written in [yaml format](https://yaml.org/spec/1.2.2/)  
-To keep the rules interoperable use:
+To keep the rules interoperable use the following:
 
 - UTF-8
 - LF for the line break (the Windows native editor uses CR-LF)
