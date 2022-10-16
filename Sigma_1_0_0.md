@@ -59,7 +59,7 @@ To keep the file names interoperable use the following:
 
 - Length between 10 and 70 characters 
 - Lowercase
-- Not special character only letter (a-z) and digit (0-9)
+- No special characters only letters (a-z) and digits (0-9)
 - Use `_` instead of space
 - Use `.yml` as a file extension
 
