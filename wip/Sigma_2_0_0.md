@@ -63,7 +63,7 @@ Warning `sigmac` will not be able to convert this version. Only `pySigma` and th
 To keep the file interoperable use for the filename :
 
 - Length between 10 and 70 characters 
-- Lowercase
+- All characters of the filename should be in lowercase
 - No special characters only letters (a-z) and digits (0-9)
 - Use `_` instead of a space
 - Use `.yml` as a file extension
