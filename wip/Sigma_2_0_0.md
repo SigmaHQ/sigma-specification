@@ -60,7 +60,7 @@ Warning `sigmac` will not be able to convert this version. Only `pySigma` and th
 
 ## Filename
 
-To keep the file interoperable use for the filename :
+To keep the file names interoperable use the following:
 
 - Length between 10 and 70 characters 
 - All characters of the filename should be in lowercase
