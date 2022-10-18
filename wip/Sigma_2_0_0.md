@@ -406,11 +406,11 @@ A definition that can consist of two different data structures - lists and maps.
 
 #### String Wildcard
 
-Wildcard are used when a part of the text is random.  
+Wildcards are used when part of the text is random.  
 You can use :
 
-* `?` replace a single mandatory character 
-* `*` replace an unbounded length wildcard
+* `?` to replace a single mandatory character 
+* `*` to replace an unbounded length wildcard
 
 example  :
 
