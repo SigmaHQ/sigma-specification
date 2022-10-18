@@ -1,12 +1,7 @@
 # Sigma specification <!-- omit in toc -->
 
-* Version 1.0.0
-* Release date 2022/09/18
-
-History:
-* 2022/09/18 Specification V1.0.0
-  * Initial formalisation from the sigma wiki
-* 2017 Sigma creation
+* Version 1.0.1
+* Release date 2022/10/18
   
 # Summary
 
@@ -30,6 +25,7 @@ History:
     - [Detection](#detection)
       - [Search-Identifier](#search-identifier)
       - [General](#general)
+      - [String Wildcard](#string-wildcard)
       - [Escaping](#escaping)
       - [Lists](#lists)
       - [Maps](#maps)
@@ -50,6 +46,7 @@ History:
       - [Examples for conversions](#examples-for-conversions)
   - [Rule Collections](#rule-collections)
     - [Example](#example)
+- [History](#history)
 
 # Yaml File
 
@@ -373,6 +370,25 @@ A definition that can consist of two different data structures - lists and maps.
 * You can use wildcard characters `*` and `?` in strings (see also escaping section below)
 * Regular expressions are case-sensitive by default
 * You don't have to escape characters except the string quotation marks `'`
+
+#### String Wildcard
+
+Wildcards are used when part of the text is random.  
+You can use :
+
+* `?` to replace a single mandatory character 
+* `*` to replace an unbounded length wildcard
+
+example  :
+
+* `progA.exe or progB.exe or ...` will be `prog?.exe`
+* `antivirus_V1.exe or antivirus_V21.2.1.exe or ...` will be `antivirus_V*.exe`
+
+Sigma has special modifiers to facilitate the search of unbounded strings
+
+* `*something` see [endswith modifier](#value-modifiers)
+* `something*` see [startswith modifier](#value-modifiers)
+* `*something*` see [contains modifier](#value-modifiers)
 
 #### Escaping
 
@@ -728,3 +744,11 @@ Alternative solution could be:
 1. A global action document that defines common metadata.
 2. The Security/4688 rule with all event details.
 3. A repeat action document that replaces the logsource and EventID from the rule defined in 2.
+
+# History
+
+* 2022/10/18 Specification V1.0.1
+  * Add String Wildcard section
+* 2022/09/18 Specification V1.0.0
+  * Initial formalisation from the sigma wiki
+* 2017 Sigma creation

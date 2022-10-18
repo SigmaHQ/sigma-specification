@@ -36,6 +36,7 @@ Warning `sigmac` will not be able to convert this version. Only `pySigma` and th
     - [Detection](#detection)
       - [Search-Identifier](#search-identifier)
       - [General](#general)
+      - [String Wildcard](#string-wildcard)
       - [Escaping](#escaping)
       - [Lists](#lists)
       - [Maps](#maps)
@@ -402,6 +403,25 @@ A definition that can consist of two different data structures - lists and maps.
 * You can use wildcard characters `*` and `?` in strings (see also escaping section below)
 * Regular expressions are case-sensitive by default
 * You don't have to escape characters except the string quotation marks `'`
+
+#### String Wildcard
+
+Wildcards are used when part of the text is random.  
+You can use :
+
+* `?` to replace a single mandatory character 
+* `*` to replace an unbounded length wildcard
+
+example  :
+
+* `progA.exe or progB.exe or ...` will be `prog?.exe`
+* `antivirus_V1.exe or antivirus_V21.2.1.exe or ...` will be `antivirus_V*.exe`
+
+Sigma has special modifiers to facilitate the search of unbounded strings
+
+* `*something` see [endswith modifier](#value-modifiers)
+* `something*` see [startswith modifier](#value-modifiers)
+* `*something*` see [contains modifier](#value-modifiers)
 
 #### Escaping
 
