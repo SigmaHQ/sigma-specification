@@ -386,9 +386,9 @@ example  :
 
 Sigma has special modifiers to facilitate the search of unbounded strings
 
-* `*somesthing` see [endswith modifier](#value-modifiers)
-* `somesthing*` see [startswith modifier](#value-modifiers)
-* `*somesthing*` see [contains modifier](#value-modifiers)
+* `*something` see [endswith modifier](#value-modifiers)
+* `something*` see [startswith modifier](#value-modifiers)
+* `*something*` see [contains modifier](#value-modifiers)
 
 #### Escaping
 
