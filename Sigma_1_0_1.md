@@ -384,7 +384,7 @@ example  :
 * `progA.exe or progB.exe or ...` will be `prog?.exe`
 * `antivirus_V1.exe or antivirus_V21.2.1.exe or ...` will be `antivirus_V*.exe`
 
-Sigma have special modifier to facilitate the search of unbounded string
+Sigma has special modifiers to facilitate the search of unbounded strings
 
 * `*somesthing` see [endswith modifier](#value-modifiers)
 * `somesthing*` see [startswith modifier](#value-modifiers)
