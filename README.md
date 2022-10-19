@@ -13,12 +13,12 @@ The version number is in the form of 3 digits 'A.B.C':
 ## Current Version
 
 [Sigma 1.0.1](Sigma_1_0_1.md)  
-[Taxonomy 1.0.0](Taxonomy_1_0_0.md)  
+[Taxonomy 1.1.0](Taxonomy_1_1_0.md)  
 [Tags 1.0.0](Tags_1_0_0.md)
 
 ## Work in Progress
 
-This section lists upcoming developments and changes to the standard. 
+This section lists upcoming developments and changes to the standard.
 
 [Sigma 2.0.0](wip/Sigma_2_0_0.md)  
 [Sigma Correlations](wip/Sigma_Correlations.md)
