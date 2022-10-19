@@ -54,7 +54,7 @@
 
 To keep the file names interoperable use the following:
 
-- Length between 10 and 70 characters 
+- Length between 10 and 70 characters
 - Lowercase
 - No special characters only letters (a-z) and digits (0-9)
 - Use `_` instead of a space
@@ -298,7 +298,6 @@ Declares the status of the rule:
 - deprecated: the rule is replace or cover by another one. The link is made by the `related` field.
 - unsupported: the rule can not be use in its current state (special correlation log, home-made fields)
 
-
 ### Description (optional)
 
 **Attribute:** description
@@ -339,7 +338,7 @@ The "category" value is used to select all log files written by a certain group 
 
 The "product" value is used to select all log outputs of a certain product, e.g. all Windows Eventlog types including "Security", "System", "Application" and the new log types like "AppLocker" and "Windows Defender".
 
-Use the "service" value to select only a subset of a product's logs, like the "sshd" on Linux or the "Security" Eventlog on Windows systems. 
+Use the "service" value to select only a subset of a product's logs, like the "sshd" on Linux or the "Security" Eventlog on Windows systems.
 
 The "definition" can be used to describe the log source, including some information on the log verbosity level or configurations that have to be applied. It is not automatically evaluated by the converters but gives useful information to readers on how to configure the source to provide the necessary events used in the detection.
 
@@ -376,7 +375,7 @@ A definition that can consist of two different data structures - lists and maps.
 Wildcards are used when part of the text is random.  
 You can use :
 
-* `?` to replace a single mandatory character 
+* `?` to replace a single mandatory character
 * `*` to replace an unbounded length wildcard
 
 example  :
@@ -447,7 +446,7 @@ detection:
 condition: selection
 ```
 
-Matches on Eventlog 'Security' **and** Event ID 4679 **and** TicketOptions 0x40810000 **and** TicketEncryption 0x17 
+Matches on Eventlog 'Security' **and** Event ID 4679 **and** TicketOptions 0x40810000 **and** TicketEncryption 0x17
 
 ```yml
 detection:
@@ -477,6 +476,7 @@ fieldmappings:
 2. For new or rarely used fields, use them as they appear in the log source and strip all spaces. (That means: Only, if the field is not already mapped to another field name.) On Windows event log sources, use the field names of the details view as the general view might contain localized field names.
 
 Examples:
+
 * `New Value` -> `NewValue`
 * `SAM User Account` -> `SAMUserAccount`
 
@@ -485,10 +485,12 @@ Examples:
     2. In the `<EventData>` body of the event the field name is given by the `Name` attribute of the `Data` tag.
 
 Examples i:
+
 * `<Provider Name="Service Control Manager" Guid="[...]" EventSourceName="[...]" />` will be `Provider_Name`
 * ` <Execution ProcessID="788" ThreadID="792" />` will be `Execution_ProcessID`
 
 Examples ii:
+
 * `<Data Name="User">NT AUTHORITY\SYSTEM</Data>` will be `User`
 * `<Data Name="ServiceName">MpKsl4eaa0a76</Data>` will be `ServiceName`
 

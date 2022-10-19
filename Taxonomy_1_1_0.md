@@ -1,7 +1,7 @@
-# Sigma Taxonomy <!-- omit in toc --> 
+# Sigma Taxonomy <!-- omit in toc -->
 
-* Version 1.0.0
-* Release date 2022/09/18
+* Version 1.1.0
+* Release date 2022/10/19
 
 This page defines field names and log sources that should be used to ensure sharable rules.
 
@@ -68,7 +68,6 @@ For a better comprehension, they are organized by the name of the rules director
 | Linux   | product: linux<br>service: syslog              |
 | Linux   | product: linux<br>service: vsftpd              |
 
-
 ## Macos folder
 
 | Product | Logsource                                    | Event |
@@ -115,8 +114,8 @@ For a better comprehension, they are organized by the name of the rules director
 | windows | category: ps_classic_provider_start<br>product: windows           | EventID: 600<br>Channel: Windows PowerShell                                                                                                                                                                                |
 | windows | category: ps_classic_script<br>product: windows                   | EventID: 800<br>Channel: Windows PowerShell                                                                                                                                                                                |
 | windows | category: ps_classic_start<br>product: windows                    | EventID: 400<br>Channel: Windows PowerShell                                                                                                                                                                                |
-| windows | category: ps_module<br>product: windows                           | EventID: 4103<br>Channel: Microsoft-Windows-PowerShell/Operational                                                                                                                                                         |
-| windows | category: ps_script<br>product: windows                           | EventID: 4104<br>Channel: Microsoft-Windows-PowerShell/Operational                                                                                                                                                         |
+| windows | category: ps_module<br>product: windows                           | EventID: 4103<br>Channel:<br> - Microsoft-Windows-PowerShell/Operational<br> - PowerShellCore/Operational                                                                                                                                                         |
+| windows | category: ps_script<br>product: windows                           | EventID: 4104<br>Channel:<br> - Microsoft-Windows-PowerShell/Operational<br> - PowerShellCore/Operational                                                                                                                                                         |
 | windows | category: raw_access_thread<br>product: windows                   | EventID: 9<br>Channel: Microsoft-Windows-Sysmon/Operational                                                                                                                                                                |
 | windows | category: registry_add<br>product: windows                        | EventID: 12<br>Channel: Microsoft-Windows-Sysmon/Operational                                                                                                                                                               |
 | windows | category: registry_delete<br>product: windows                     | EventID: 12<br>Channel: Microsoft-Windows-Sysmon/Operational                                                                                                                                                               |
@@ -160,7 +159,7 @@ For a better comprehension, they are organized by the name of the rules director
 
 Process creation events can be defined with the generic log source category *process_creation*. The event scope can be further restricted with *product*. Example for a process creation event log source restricted to Windows:
 
-```
+```yml
 category: process_creation
 product: windows
 ```
@@ -196,7 +195,7 @@ The field names follow the field names used in [Sysmon](https://docs.microsoft.c
 ### Other Generic Rule Categories
 
 We align our field names to the field names that [Sysmon](https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon) uses.
-You can find all possible field values in the [Sysmon Community Guide](https://github.com/trustedsec/SysmonCommunityGuide/blob/master/chapters/Sysmon.md) and on [UltimateWindowsSecurity.com](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/default.aspx). 
+You can find all possible field values in the [Sysmon Community Guide](https://github.com/trustedsec/SysmonCommunityGuide/blob/master/chapters/Sysmon.md) and on [UltimateWindowsSecurity.com](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/default.aspx).
 
 ## Specific
 
@@ -219,7 +218,7 @@ You can find all possible field values in the [Sysmon Community Guide](https://g
   * `service: access`: Access logs
   * `service: error`: Error logs
 * `category: proxy`
-  * Field Name according to [W3C Extended Log File Format](https://www.w3.org/TR/WD-logfile.html). Additional W3 examples can be found from [Microsoft](https://docs.microsoft.com/en-us/windows/win32/http/w3c-logging). 
+  * Field Name according to [W3C Extended Log File Format](https://www.w3.org/TR/WD-logfile.html). Additional W3 examples can be found from [Microsoft](https://docs.microsoft.com/en-us/windows/win32/http/w3c-logging).
   * Field names:
     * c-uri: URL requested by client
     * c-uri-extension: Extension of the URL. Commonly is the requested extension of a file name

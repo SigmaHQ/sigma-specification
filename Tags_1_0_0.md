@@ -1,4 +1,4 @@
-# Tags <!-- omit in toc --> 
+# Tags <!-- omit in toc -->
 
 This page defines some standardized tags that can be used to categorize Sigma rules.
 
@@ -6,11 +6,13 @@ This page defines some standardized tags that can be used to categorize Sigma ru
 * Release date 2022/09/18
 
 History:
+
 * 2022/09/18 Tags V1.0.0
   * Initial formalisation from the sigma wiki
 * 2017 Sigma creation
 
 # Summary
+
 - [Summary](#summary)
 - [Namespaces](#namespaces)
   - [Namespace: attack](#namespace-attack)
@@ -31,6 +33,7 @@ History:
 * s*1234*: Refers to [software](https://attack.mitre.org/wiki/Software)
 
 Tactics:
+
 * initial_access: [Initial Access](https://attack.mitre.org/tactics/TA0001/)
 * execution: [Execution](https://attack.mitre.org/tactics/TA0002/)
 * persistence: [Persistence](https://attack.mitre.org/tactics/TA0003/)
@@ -55,5 +58,3 @@ Use the CVE tag from the [mitre](https://cve.mitre.org) in lower case. Example t
 ## Namespace: tlp
 
 All TLP levels defined by the [FIRST TLP-SIG](https://www.first.org/tlp/) in lower case. Example tag: `tlp.amber`.
-
-
