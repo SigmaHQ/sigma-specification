@@ -32,5 +32,4 @@ Local copy [sigmahq Specification wiki 2022/09/24](archives/wiki.md) or the onli
 These files are not part of the sigma specification.  
 They are an aid for the management of a big rule repository such as the SigmaHQ rule repo
 
-[Naming of files](sigmahq/Sigmahq_filename_rule.md)
-[Validation tests](sigmahq/Sigmahq_validation_test.md)
+[SigmaHQ naming of files](sigmahq/Sigmahq_filename_rule.md)
