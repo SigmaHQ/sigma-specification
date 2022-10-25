@@ -110,6 +110,7 @@ status [optional]
 description [optional]
 author [optional]
 references [optional]
+tags [optional]
 logsource
    category [optional]
    product [optional]
@@ -126,7 +127,6 @@ detection
 fields [optional]
 falsepositives [optional]
 level [optional]
-tags [optional]
 ...
 [arbitrary custom fields]
 ```
