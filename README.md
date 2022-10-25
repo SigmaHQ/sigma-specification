@@ -26,3 +26,10 @@ This section lists upcoming developments and changes to the standard.
 ## Archive of Old Specifications
 
 Local copy [sigmahq Specification wiki 2022/09/24](archives/wiki.md) or the online [sigmahq Specification wiki](https://github.com/SigmaHQ/sigma/wiki/Specification)
+
+## SigmaHQ
+
+These files are not part of the sigma specification.  
+They are an aid for the management of a big rule repository such as the SigmaHQ rule repo
+
+[SigmaHQ naming of files](sigmahq/Sigmahq_filename_rule.md)
