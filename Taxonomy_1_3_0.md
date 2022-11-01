@@ -1,7 +1,7 @@
 # Sigma Taxonomy <!-- omit in toc -->
 
-* Version 1.2.0
-* Release date 2022/10/25
+* Version 1.3.0
+* Release date 2022/11/01
 
 This page defines field names and log sources that should be used to ensure sharable rules.
 
