@@ -41,6 +41,7 @@
     - [FalsePositives](#falsepositives)
     - [Level](#level)
     - [Tags](#tags)
+    - [Examples](#examples)
     - [Placeholders](#placeholders)
       - [Examples for placeholders](#examples-for-placeholders)
       - [Examples for conversions](#examples-for-conversions)
@@ -127,6 +128,7 @@ detection
 fields [optional]
 falsepositives [optional]
 level [optional]
+examples [optional]
 ...
 [arbitrary custom fields]
 ```
@@ -228,6 +230,9 @@ optional:
               value: high
             - type: //str
               value: critical
+    examples:
+        type: //arr
+        contents: //str
 rest: //any
 ```
 
@@ -699,6 +704,18 @@ A Sigma rule can be categorised with tags. Tags should generally follow this syn
 * Tags are namespaced, the dot is used as separator. e.g. *attack.t1234* refers to technique 1234 in the namespace *attack*; Namespaces may also be nested
 * Keep tags short, e.g. numeric identifiers instead of long sentences
 * If applicable, use [predefined tags](./Tags). Feel free to send pull request or issues with proposals for new tags
+
+### Examples
+
+**Attribute**: examples
+
+A Sigma rule can include one or more examples of a raw log file that a rule is attempting to detect.
+These examples should be in the standard format produced by the system, or ones that are produced by
+exporters, and should be appropriately anonymised to avoid the unnecessary inclusion of unrelated
+metadata.
+
+The examples may be used by backend query generators to ensure the queries they generate are able to
+detect them.
 
 ### Placeholders
 
