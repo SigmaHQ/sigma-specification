@@ -1,7 +1,7 @@
 # Sigma Taxonomy <!-- omit in toc -->
 
-* Version 1.3.0
-* Release date 2022/11/01
+* Version 1.3.1
+* Release date 2022/11/13
 
 This page defines field names and log sources that should be used to ensure sharable rules.
 
@@ -149,6 +149,7 @@ For a better comprehension, they are organized by the name of the rules director
 | windows | product: windows<br>service: security                             | Channel:<br> - Security                                                                                                                                                                                                    |
 | windows | product: windows<br>service: security-mitigations                 | Channel:<br> - Microsoft-Windows-Security-Mitigations/Kernel Mode<br> - Microsoft-Windows-Security-Mitigations/User Mode                                                                                                   |
 | windows | product: windows<br>service: smbclient-security                   | Channel:<br> - Microsoft-Windows-SmbClient/Security                                                                                                                                                                        |
+| windows | product: windows<br>service: shell-core                           | Channel:<br> - Microsoft-Windows-Shell-Core/Operational                                                                                                                                                                    |
 | windows | product: windows<br>service: sysmon                               | Channel:<br> - Microsoft-Windows-Sysmon/Operational                                                                                                                                                                        |
 | windows | product: windows<br>service: system                               | Channel:<br> - System                                                                                                                                                                                                      |
 | windows | product: windows<br>service: taskscheduler                        | Channel:<br> - Microsoft-Windows-TaskScheduler/Operational                                                                                                                                                                 |
