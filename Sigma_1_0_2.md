@@ -338,7 +338,7 @@ Creation date of the rule. Use the format YYYY/MM/DD
 
 **Attribute**: modified
 
-Date of the *last* modification of the rule. Use the format YYYY/MM/DD  
+*Last* modification date of the rule. Use the format YYYY/MM/DD  
 Reasons to change the modified date:
 * changed title
 * changed detection section
@@ -773,7 +773,7 @@ Alternative solution could be:
 # History
 
 * 2022/11/17 Specification V1.0.2
-  * A missing optional field date and modified
+  * Add the missing optionals field date and modified
 * 2022/10/18 Specification V1.0.1
   * Add String Wildcard section
 * 2022/09/18 Specification V1.0.0

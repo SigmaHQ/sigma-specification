@@ -366,13 +366,13 @@ References to the source that the rule was derived from. These could be blog art
 
 **Attribute**: date
 
-Date of creation of the rule. Use the format YYYY/MM/DD or YYYY-MM-DD
+Creation date of the rule. Use the format YYYY/MM/DD or YYYY-MM-DD
 
 ### Modified (optional)
 
 **Attribute**: modified
 
-Date of the *last* modification of the rule. Use the format YYYY/MM/DD or YYYY-MM-DD  
+*Last* modification date of the rule. Use the format YYYY/MM/DD or YYYY-MM-DD  
 Reasons to change the modified date:
 * changed title
 * changed detection section
