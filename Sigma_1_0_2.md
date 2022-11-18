@@ -1,7 +1,7 @@
 # Sigma specification <!-- omit in toc -->
 
-* Version 1.0.1
-* Release date 2022/10/18
+* Version 1.0.2
+* Release date 2022/11/17
   
 # Summary
 
@@ -21,6 +21,8 @@
     - [License (optional)](#license-optional)
     - [Author (optional)](#author-optional)
     - [References (optional)](#references-optional)
+    - [Date (optional)](#date-optional)
+    - [Modified (optional)](#modified-optional)
     - [Log Source](#log-source)
     - [Detection](#detection)
       - [Search-Identifier](#search-identifier)
@@ -108,8 +110,10 @@ related [optional]
      id {rule-id}
 status [optional]
 description [optional]
-author [optional]
 references [optional]
+author [optional]
+date [optional]
+modified [optional]
 tags [optional]
 logsource
    category [optional]
@@ -200,10 +204,12 @@ optional:
             - type: //str
               value: unsupported
     description: //str
-    author: //str
     references:
         type: //arr
         contents: //str
+    author: //str
+    date: //str
+    modified: //str
     fields:
         type: //arr
         contents: //str
@@ -321,6 +327,23 @@ Creator of the rule. (can be a name, nickname, twitter handle...etc)
 **Attribute**: reference
 
 References to the source that the rule was derived from. These could be blog articles, technical papers, presentations or even tweets.
+
+### Date (optional)
+
+**Attribute**: date
+
+Creation date of the rule. Use the format YYYY/MM/DD
+
+### Modified (optional)
+
+**Attribute**: modified
+
+*Last* modification date of the rule. Use the format YYYY/MM/DD  
+Reasons to change the modified date:
+* changed title
+* changed detection section
+* changed level
+* changed logsource (rare)
 
 ### Log Source
 
@@ -749,6 +772,8 @@ Alternative solution could be:
 
 # History
 
+* 2022/11/17 Specification V1.0.2
+  * Add the missing optionals field date and modified
 * 2022/10/18 Specification V1.0.1
   * Add String Wildcard section
 * 2022/09/18 Specification V1.0.0
