@@ -332,7 +332,7 @@ References to the source that the rule was derived from. These could be blog art
 
 **Attribute**: date
 
-Date of creation of the rule. Use the format YYYY/MM/DD
+Creation date of the rule. Use the format YYYY/MM/DD
 
 ### Modified (optional)
 
