@@ -372,7 +372,7 @@ Date of creation of the rule. Use the format YYYY/MM/DD or YYYY-MM-DD
 
 **Attribute**: modified
 
-Date of the *last* modification of the rule. Use the format YYYY/MM/DD  
+Date of the *last* modification of the rule. Use the format YYYY/MM/DD or YYYY-MM-DD  
 Reasons to change the modified date:
 * changed title
 * changed detection section
