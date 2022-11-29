@@ -606,15 +606,6 @@ The condition is the most complex part of the specification and will be subject 
 
   `keywords1 or keywords2`
 
-- 1/all of search-identifier
-
-  Same as just 'keywords' if keywords are defined in a list. X may be:
-
-  - 1 (logical or across alternatives)
-  - all (logical and across alternatives)
-
-  Example: `all of keywords` means that all items of the list keywords must appear, instead of the default behaviour of any of the listed items.
-
 - 1/all of them
 
   Logical OR (`1 of them`) or AND (`all of them`) across all defined search identifiers. The search identifiers
