@@ -25,7 +25,7 @@ Warning `sigmac` will not be able to convert this version. Only `pySigma` and th
   - [Components](#components)
     - [Title](#title)
     - [Rule Identification](#rule-identification)
-    - [Shema (optional)](#shema-optional)
+    - [Schema (optional)](#schema-optional)
     - [Taxonomy (optional)](#taxonomy-optional)
     - [Status (optional)](#status-optional)
     - [Description (optional)](#description-optional)
@@ -117,7 +117,7 @@ id [optional]
 related [optional]
    - type {type-identifier}
      id {rule-id}
-shema [optional]
+schema [optional]
 taxonomy [optional]
 status [optional]
 description [optional]
@@ -201,7 +201,7 @@ required:
                             length:
                                 min: 2
 optional:
-    shema: //str
+    schema: //str
     taxonomy: //str
     status:
         type: //any
@@ -304,9 +304,9 @@ Currently the following types are defined:
   expected that a rule with this id exists anymore.
 * similar: Use to relate similar rules to each other (e.g. same detection content applied to different log sources, rule that is a modified version of another rule with a different level)
 
-### Shema (optional)
+### Schema (optional)
 
-**Attribute:** shema
+**Attribute:** schema
 
 This is the version of the specification used in the rule.
 
