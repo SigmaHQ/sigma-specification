@@ -16,7 +16,7 @@ The Sigma format specifications are in the file [Sigma_specification](Sigma_spec
 
 There are 2 other files for the content of some fields:
 
-- [Tags_specification](Tags_specification.md) efines some standardized tags that can be used to categorize Sigma rules.
+- [Tags_specification](Tags_specification.md) defines some standardized tags that can be used to categorize Sigma rules.
 - [Taxonomy_specification](Taxonomy_specification.md) defines field names and log sources that should be used to ensure sharable rules
  
 
