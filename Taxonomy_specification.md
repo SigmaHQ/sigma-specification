@@ -1,11 +1,12 @@
 # Sigma Taxonomy <!-- omit in toc -->
 
-* Version 1.3.1
-* Release date 2022/11/13
+The following document defines the field names and log sources that should be used in SIGMA rules to ensure sharable rules.
 
-This page defines field names and log sources that should be used to ensure sharable rules.
+* Version 1.3.2
+* Release date 2022/12/19
 
 # Summary
+
 - [Summary](#summary)
 - [Log Sources](#log-sources)
   - [Application folder](#application-folder)
@@ -19,10 +20,11 @@ This page defines field names and log sources that should be used to ensure shar
     - [Process Creation Events](#process-creation-events)
     - [Other Generic Rule Categories](#other-generic-rule-categories)
   - [Specific](#specific)
+- [History](#history)
 
 # Log Sources
 
-For a better comprehension, they are organized by the name of the rules directory
+For a better comprehension, the log sources are organized by directory name similar to the [rules](https://github.com/SigmaHQ/sigma/tree/master/rules) structure in the SIGMA project
 
 ## Application folder
 
@@ -174,8 +176,8 @@ The field names follow the field names used in [Sysmon](https://docs.microsoft.c
 
 | Field Name        | Example Value                                                                            | Comment   |
 | ----------------- | ---------------------------------------------------------------------------------------- | --------- |
-| UtcTime           | 2019-03-02 08:51:00.008                                                                  | (useless) |
-| ProcessGuid       | {c1b49677-43f4-5c7a-0000-0010d3dd8044}                                                   | (useless) |
+| UtcTime           | 2019-03-02 08:51:00.008                                                                  |           |
+| ProcessGuid       | {c1b49677-43f4-5c7a-0000-0010d3dd8044}                                                   |           |
 | ProcessId         | 1028                                                                                     |           |
 | Image             | C:\Program Files (x86)\Google\Update\GoogleUpdate.exe                                    |           |
 | FileVersion       | 1.3.28.13                                                                                |           |
@@ -183,9 +185,9 @@ The field names follow the field names used in [Sysmon](https://docs.microsoft.c
 | Product           | Google Update                                                                            |           |
 | Company           | Google Inc.                                                                              |           |
 | CommandLine       | "C:\Program Files (x86)\Google\Update\GoogleUpdate.exe" /ua /installsource scheduler     |           |
-| CurrentDirectory  | C:\Windows\system32\|                                                                    |
+| CurrentDirectory  | C:\Windows\system32\|                                                                    |           |
 | User              | NT AUTHORITY\SYSTEM                                                                      |           |
-| LogonGuid         | {c1b49677-3fb9-5c09-0000-0020e7030000}                                                   | (useless) |
+| LogonGuid         | {c1b49677-3fb9-5c09-0000-0020e7030000}                                                   |           |
 | LogonId           | 0x3e7                                                                                    |           |
 | TerminalSessionId | 0                                                                                        |           |
 | IntegrityLevel    | System                                                                                   |           |
@@ -193,7 +195,7 @@ The field names follow the field names used in [Sysmon](https://docs.microsoft.c
 | md5               | CCF1D1573F175299ADE01C07791A6541                                                         |           |
 | sha1              | 0AE1F9071C5E8FE4A69D3F671937935D242D8A6C                                                 |           |
 | sha256            | 68A15A34C2E28B9B521A240B948634617D72AD619E3950BC6DC769E60A0C3CF2                         |           |
-| ParentProcessGuid | {c1b49677-6b43-5c78-0000-00107fb77544}                                                   | (useless) |
+| ParentProcessGuid | {c1b49677-6b43-5c78-0000-00107fb77544}                                                   |           |
 | ParentProcessId   | 1724                                                                                     |           |
 | ParentImage       | C:\Windows\System32\taskeng.exe                                                          |           |
 | ParentCommandLine | taskeng.exe {88F94E5C-5DC3-4606-AEFA-BDCA976D6113} S-1-5-18:NT AUTHORITY\System:Service: |           |
@@ -226,22 +228,22 @@ You can find all possible field values in the [Sysmon Community Guide](https://g
 * `category: proxy`
   * Field Name according to [W3C Extended Log File Format](https://www.w3.org/TR/WD-logfile.html). Additional W3 examples can be found from [Microsoft](https://docs.microsoft.com/en-us/windows/win32/http/w3c-logging).
   * Field names:
-    * c-uri: URL requested by client
-    * c-uri-extension: Extension of the URL. Commonly is the requested extension of a file name
-    * c-uri-query: Path component of requested URL
-    * c-uri-stem: Stem of the requested URL
-    * c-useragent: the clients user agent.
-    * cs-bytes: Number of bytes sent from the server
-    * cs-cookie: Cookie headers sent from client to server.
-    * cs-host: Host header send from client to server
-    * cs-method: HTTP request method
-    * r-dns: The Domain requested. Additionally is referred to as the Host header or URL Domain. Recommend to use `cs-host` instead of this field
-    * cs-referrer: The referring link or site
-    * cs-version: The HTTP protocol version that the client used
-    * sc-bytes: Number of bytes sent from the client
-    * sc-status: The HTTP status code
-    * src_ip: The IP address of the client that made the request
-    * dst_ip: The IP address of the server
+    * `c-uri`: URL requested by client
+    * `c-uri-extension`: Extension of the URL. Commonly is the requested extension of a file name
+    * `c-uri-query`: Path component of requested URL
+    * `c-uri-stem`: Stem of the requested URL
+    * `c-useragent`: the clients user agent.
+    * `cs-bytes`: Number of bytes sent from the server
+    * `cs-cookie`: Cookie headers sent from client to server.
+    * `cs-host`: Host header send from client to server
+    * `cs-method`: HTTP request method
+    * `r-dns`: The Domain requested. Additionally is referred to as the Host header or URL Domain. Recommend to use `cs-host` instead of this field
+    * `cs-referrer`: The referring link or site
+    * `cs-version`: The HTTP protocol version that the client used
+    * `sc-bytes`: Number of bytes sent from the client
+    * `sc-status`: The HTTP status code
+    * `src_ip`: The IP address of the client that made the request
+    * `dst_ip`: The IP address of the server
 * `category: firewall`
   * Field Names:
     * `src_ip`, `src_port`, `dst_ip`, `dst_port`, `username`
@@ -250,6 +252,21 @@ You can find all possible field values in the [Sysmon Community Guide](https://g
   * Uses the same field names as `category: proxy`
 * `product: antivirus`
   * Field Names:
-    * Filename: the name and path of the source threat file
-    * Signature: name of the threat like "EICAR-Test-File"
-    * Action: action take by the antivirus like "delete"
+    * `Filename`: the name and path of the source threat file
+    * `Signature`: name of the threat like "EICAR-Test-File"
+    * `Action`: action take by the antivirus like "delete"
+
+# History
+
+* 2022/12/19 Taxonomy V1.3.2
+  * Minor tweak and updates to the syntax and text
+* 2022/11/13 Taxonomy V1.3.1
+  * Add missing service shell-core
+* 2022/11/01 Taxonomy V1.3.0
+  * Add missing windows services
+* 2022/10/25 Taxonomy V1.2.0
+  * Order the windows logs
+* 2022/10/19 Taxonomy V1.1.0
+  * Fix links and spelling
+* 2022/09/18 Taxonomy V1.0.0
+  * First version

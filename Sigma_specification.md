@@ -1,12 +1,14 @@
 # Sigma specification <!-- omit in toc -->
 
+The following document defines the different aspects of the SIGMA specification.
+
 * Version 1.0.2
 * Release date 2022/11/17
   
 # Summary
 
 - [Summary](#summary)
-- [Yaml File](#yaml-file)
+- [YAML File](#yaml-file)
   - [Filename](#filename)
   - [Data](#data)
 - [Structure](#structure)
@@ -50,7 +52,7 @@
     - [Example](#example)
 - [History](#history)
 
-# Yaml File
+# YAML File
 
 ## Filename
 
@@ -764,7 +766,7 @@ Alternative solution could be:
 # History
 
 * 2022/11/17 Specification V1.0.2
-  * Add the missing optionals field date and modified
+  * Add missing optional field `date` and `modified`
 * 2022/10/18 Specification V1.0.1
   * Add String Wildcard section
 * 2022/09/18 Specification V1.0.0
