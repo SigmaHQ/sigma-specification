@@ -1,9 +1,9 @@
 # Sigma Taxonomy <!-- omit in toc -->
 
+The following document defines the field names and log sources that should be used in SIGMA rules to ensure sharable rules.
+
 * Version 1.3.2
 * Release date 2022/12/19
-
-This document defines the field names and log sources that should be used in SIGMA rules to ensure sharable rules.
 
 # Summary
 
@@ -20,6 +20,7 @@ This document defines the field names and log sources that should be used in SIG
     - [Process Creation Events](#process-creation-events)
     - [Other Generic Rule Categories](#other-generic-rule-categories)
   - [Specific](#specific)
+- [History](#history)
 
 # Log Sources
 
@@ -254,3 +255,8 @@ You can find all possible field values in the [Sysmon Community Guide](https://g
     * `Filename`: the name and path of the source threat file
     * `Signature`: name of the threat like "EICAR-Test-File"
     * `Action`: action take by the antivirus like "delete"
+
+# History
+
+* 2022/12/19 Taxonomy V1.3.2
+* 2022/11/13 Taxonomy V1.3.1

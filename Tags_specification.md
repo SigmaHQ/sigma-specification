@@ -1,15 +1,9 @@
 # Tags <!-- omit in toc -->
 
-This documents defines the standardized tags that can be used to categorize the different Sigma rules.
+The following document defines the standardized tags that can be used to categorize the different Sigma rules.
 
 * Version 1.0.1
 * Release date 2022/12/19
-
-History:
-
-* 2022/09/18 Tags V1.0.0
-  * Initial formalisation from the sigma wiki
-* 2017 Sigma creation
 
 # Summary
 
@@ -19,6 +13,7 @@ History:
   - [Namespace: car](#namespace-car)
   - [Namespace: cve](#namespace-cve)
   - [Namespace: tlp](#namespace-tlp)
+- [History](#history)
 
 # Namespaces
 
@@ -58,3 +53,11 @@ Use the CVE tag from the [mitre](https://cve.mitre.org) in lower case seperated 
 ## Namespace: tlp
 
 All TLP levels defined by the [FIRST TLP-SIG](https://www.first.org/tlp/) in lower case. Example tag: `tlp.amber`.
+
+# History
+
+* 2022/12/19 Tags V1.0.1
+  * Minor updates and tweaks
+* 2022/09/18 Tags V1.0.0
+  * Initial formalisation from the sigma wiki
+* 2017 Sigma creation
