@@ -259,4 +259,8 @@ You can find all possible field values in the [Sysmon Community Guide](https://g
 # History
 
 * 2022/12/19 Taxonomy V1.3.2
-* 2022/11/13 Taxonomy V1.3.1
+* 2022/11/13 V1.3.1 Add service shell-core
+* 2022/11/01 V1.3.0 Add some windows services
+* 2022/10/25 V1.2.0 Order windows
+* 2022/10/19 V1.1.0 Fix link and spelling
+* 2022/09/18 V1.0.0 init
