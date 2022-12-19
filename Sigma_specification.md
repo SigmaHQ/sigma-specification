@@ -766,7 +766,7 @@ Alternative solution could be:
 # History
 
 * 2022/11/17 Specification V1.0.2
-  * Add the missing optional field `date` and `modified`
+  * Add missing optional field `date` and `modified`
 * 2022/10/18 Specification V1.0.1
   * Add String Wildcard section
 * 2022/09/18 Specification V1.0.0
