@@ -1,6 +1,6 @@
-# SigmaHQ filename Normalisation <!-- omit in toc -->
+# SigmaHQ Filename Normalisation <!-- omit in toc -->
 
-To help with the management of the rules files, a stardardization has been set up on the SigmaHQ repository.  
+This document describe a soft convention to name rule files. The following convention has been set to help with the management of the rules files repository and is not part of the SIGMA specification.
 
 # Summary
 
@@ -70,4 +70,3 @@ To help with the management of the rules files, a stardardization has been set u
 | ----------- | ------------ | --------------------------------- |
 | auditd      | lnx_auditd_* | lnx_auditd_alter_bash_profile.yml |
 | modsecurity | modsec_*     | modsec_mulitple_blocks.yml        |
-
