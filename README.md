@@ -12,8 +12,8 @@ The version number is in the form of 3 digits 'A.B.C':
 
 ## Current Version
 
-The Sigma format specifications is described in the file [Sigma_specification](Sigma_specification.md)  
-Meta-rules format specifications is described in the file [Sigma_meta_rules](Sigma_meta_rules.md)  
+The Sigma rules format specifications is described in the file [Sigma_specification](Sigma_specification.md)  
+The Sigma Meta-rules format specifications is described in the file [Sigma_meta_rules](Sigma_meta_rules.md)  
 
 There exists two other files in the repository to describe the different fields and tags to be used in Sigma rules:
 

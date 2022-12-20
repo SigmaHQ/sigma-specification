@@ -49,7 +49,6 @@ The following document defines the different aspects of the SIGMA specification.
       - [Examples for placeholders](#examples-for-placeholders)
       - [Examples for conversions](#examples-for-conversions)
   - [Rule Collections](#rule-collections)
-    - [Example](#example)
 - [History](#history)
 
 # YAML File
@@ -742,33 +741,9 @@ Elastic Search
 
 ## Rule Collections
 
-A file may contain multiple YAML documents. These can be complete Sigma rules or *action documents*. A YAML document is handled as action document if the `action` attribute on the top level is set to:
-
-* `global`: Defines YAML content that is merged in all following YAML rule documents in this file. Multiple *global* action documents are accumulated.
-** Use case: define metadata and rule parts that are common across all Sigma rules of a collection.
-* `reset`: Reset global YAML content defined by *global* action documents.
-* `repeat`: Repeat generation of previous rule document with merged data from this YAML document.
-** Use case: Small modifications of previously generated rule.
-
-### Example
-A common use case is the definition of multiple Sigma rules for similar events like Windows Security EventID 4688 and Sysmon EventID 1. Both are created for process execution events. A Sigma rule collection for this scenario could contain three documents:
-
-1. A global action document that defines common metadata and detection indicators
-2. A rule that defines Windows Security log source and EventID 4688
-3. A rule that defines Windows Sysmon log source and EventID 1
-
-Alternative solution could be:
-
-1. A global action document that defines common metadata.
-2. The Security/4688 rule with all event details.
-3. A repeat action document that replaces the logsource and EventID from the rule defined in 2.
+See [Sigma_meta_rules](Sigma_meta_rules.md)
 
 # History
 
-* 2022/11/17 Specification V1.0.2
-  * Add missing optional field `date` and `modified`
-* 2022/10/18 Specification V1.0.1
-  * Add String Wildcard section
-* 2022/09/18 Specification V1.0.0
-  * Initial formalisation from the sigma wiki
-* 2017 Sigma creation
+* 2023/xx/xx Specification V2.0.0
+  * Init

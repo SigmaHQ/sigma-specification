@@ -2,8 +2,20 @@
 
 - [Introduction](#introduction)
 - [Correlation](#correlation)
-  - [Specification](#specification)
+  - [YAML File](#yaml-file)
+  - [Structure](#structure)
+    - [Schema](#schema)
     - [Syntax](#syntax)
+    - [Components](#components)
+      - [action](#action)
+      - [name](#name)
+      - [Relative rules](#relative-rules)
+      - [Correlation type](#correlation-type)
+      - [Regrouping](#regrouping)
+      - [time Selection](#time-selection)
+      - [condition](#condition)
+      - [level](#level)
+      - [aliases](#aliases)
     - [Correlation Types](#correlation-types)
       - [Event Count (event\_count)](#event-count-event_count)
       - [Value Count (value\_count)](#value-count-value_count)
@@ -22,7 +34,16 @@
   - [Alternative Proposals](#alternative-proposals)
     - [Expression of Relationships Inside Condition of Sigma Rules](#expression-of-relationships-inside-condition-of-sigma-rules)
 - [Global filter or Defeats](#global-filter-or-defeats)
-  - [Structure](#structure)
+  - [YAML File](#yaml-file-1)
+  - [Structure](#structure-1)
+    - [Schema](#schema-1)
+    - [Components](#components-1)
+      - [action](#action-1)
+      - [name](#name-1)
+      - [Decription](#decription)
+      - [Relative rules](#relative-rules-1)
+      - [Log source](#log-source)
+      - [filter selection](#filter-selection)
 
 # Introduction
 
@@ -33,7 +54,36 @@ With them you can do :
 
 # Correlation
 
-## Specification
+introduction to the correlation to write
+
+## YAML File
+
+To keep the file names interoperable use the following:
+
+- Length between 10 and 70 characters
+- Lowercase
+- No special characters only letters (a-z) and digits (0-9)
+- Use `_` instead of a space
+- Use `.yml` as a file extension
+
+use prefix `mr_correlation_` and (`mr_filter_`)  ? 
+
+## Structure
+### Schema
+
+```yaml
+action: //str
+name: //str  <- title ?
+type: //str
+rules: //map
+group-by: //map
+timespan: //str
+condition: //map
+level: //str
+aliases: //map
+ordered: //boolean
+```
+
 ### Syntax
 
 A Sigma correlation is a dedicated YAML document located in the same file as the related Sigma rules. Each Sigma rule referred by a correlation contains a field name at the top level that is used as reference identifier. Example:
@@ -44,37 +94,93 @@ name: failed_login
 [...]
 ```
 
-A correlation document has the following attributes:
+### Components
 
-* The already existing `action` field is extended by a new value correlation to declare correlation rules.
-* `type` is the correlation type (see below)
-* `rule` refers to one or multiple Sigma rules or correlations (allowing definition of chains of correlations) defining events to be correlated
-* `group-by` optionally defines one or multiple fields which should be treated as separate event occurrence scope. Examples:
+#### action
+
+**Attribute:** action
+
+must be `correlation`
+
+#### name
+
+**Attribute:** name
+
+Name use as title for the alert
+
+#### Relative rules
+
+**Attribute:** rules
+
+refers to one or multiple Sigma rules or correlations (allowing definition of chains of correlations) defining events to be correlated
+
+#### Correlation type
+
+**Attribute:** type
+
+is the correlation type (see below)
+
+#### Regrouping
+
+**Attribute:** group-by
+
+optionally defines one or multiple fields which should be treated as separate event occurrence scope. Examples:
   * count events by user
   * temporal proximity must occur on one system by the same user
-* `timespan` defines a time period in which the correlation should be applied
-* `condition` defines a condition for correlations counting entities (see below)
-* `level` defines a severity level adjustment if the correlation matches. This allows to give single event hits a low or informational severity and increasing this to higher levels in case of correlating appearances of events.
-* `aliases` defines field name aliases that are applied to correlated Sigma rules. The defined aliases can then be defined in `group-by` and allows aggregation across different fields in different event types.
-* Further fields might be required depending on the correlation type
 
-All rules in a file, basic event rules as well as correlations, might contain an additional attribute generate. If this is set to true, the rule will generate a query, even if it is referred by other correlations, which would normally cause that the rule wouldn’t generate a separate query.
+#### time Selection
+
+**Attribute:** timespan
+
+defines a time period in which the correlation should be applied
+
+#### condition
+
+**Attribute:** condition
+
+defines a condition for correlations counting entities (see below)
+
+#### level
+
+**Attribute:**  level
+
+defines a severity level adjustment if the correlation matches.  
+This allows to give single event hits a low or informational severity and increasing this to higher levels in case of correlating appearances of events.
+
+#### aliases
+
+**Attribute:** aliases
+
+defines field name aliases that are applied to correlated Sigma rules.  
+The defined aliases can then be defined in `group-by` and allows aggregation across different fields in different event types.
+
+Well wath about :
+"All rules in a file, basic event rules as well as correlations, might contain an additional attribute generate.  
+If this is set to true, the rule will generate a query, even if it is referred by other correlations, which would normally cause that the rule wouldn’t generate a separate query."
 
 ### Correlation Types
 
-The following correlation types are defined. They are referred in the type field of a correlation document. Further correlation rule types might be added in the future.
+The following correlation types are defined.  
+They are referred in the type field of a correlation document.  
+Further correlation rule types might be added in the future.
 
 #### Event Count (event_count)
 
-Counts events occurring in the given time frame specified by the referred Sigma rule or rules. The resulting query must count events for each group specified by group-by separately. The condition finally defines how many events must occur to generate a search hit.
+Counts events occurring in the given time frame specified by the referred Sigma rule or rules.  
+The resulting query must count events for each group specified by group-by separately.  
+The condition finally defines how many events must occur to generate a search hit.
 
 #### Value Count (value_count)
 
-Counts values in a field defined by field. The resulting query must count field values separately for each group specified by group-by. The condition finally defines how many values must occur to generate a search hit.
+Counts values in a field defined by field.  
+The resulting query must count field values separately for each group specified by group-by.  
+The condition finally defines how many values must occur to generate a search hit.
 
 #### Temporal Proximity (temporal)
 
-All events defined by the rules referred by the rule field must occur in the time frame defined by timespan. The values of fields defined in group-by must all have the same value (e.g. the same host or user). If the bool value ordered is set to true, the events should occur in the given order.
+All events defined by the rules referred by the rule field must occur in the time frame defined by timespan.  
+The values of fields defined in group-by must all have the same value (e.g. the same host or user).  
+If the bool value ordered is set to true, the events should occur in the given order.  
 The time frame should not be restricted to boundaries if this is not required by the given backend.
 
 ### Conditions
@@ -256,20 +362,67 @@ This was the first approach defined in Sigma with aggregations and the near oper
 
 # Global filter or Defeats
 
+## YAML File
+
+To keep the file names interoperable use the following:
+
+- Length between 10 and 70 characters
+- Lowercase
+- No special characters only letters (a-z) and digits (0-9)
+- Use `_` instead of a space
+- Use `.yml` as a file extension
+
+use prefix `mr_correlation_` and (`mr_filter_`)  ? 
+
 ## Structure
+### Schema
 
 ```yaml
-name: Defeat Inclusion Example
-description: Example description
-rules:
-    - 12345678-bef0-4204-a928-ef5e620d6fcc # rules/windows/builtin/...
+action: //str
+name: //str  <- title ?
+description: //str
+rules: //map
 logsource:
-    product: windows
-    service: security # Will throw a warning / fatal if the ID is not targeting this log-source.
-action: include/exdude
+    product: //str
+    service: //str
 selection:
-    included_hosts:
-        ComputerName|startswith:
+    type: //rec
 ```
 
-to be continued 
+### Components
+
+#### action
+
+**Attribute:** action
+
+must be `filter` ?
+
+#### name
+
+**Attribute:** name
+
+Name use as title for the alert
+
+#### Decription
+
+**Attribute:** description
+
+A short description of the rule and the malicious activity that can be detected (max. 65,535 characters)
+
+#### Relative rules
+
+**Attribute:** rules
+
+refers to one or multiple Sigma rules to be filter
+
+#### Log source
+
+**Attribute**: logsource
+
+See log source in [sigma specification](Sigma_specification.md)
+
+#### filter selection
+
+**Attribute**: selection
+
+See Detection in [sigma specification](Sigma_specification.md)
