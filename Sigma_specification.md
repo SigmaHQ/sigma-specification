@@ -1,14 +1,22 @@
 # Sigma specification <!-- omit in toc -->
 
-The following document defines the different aspects of the SIGMA specification.
+THIS IS A WORK IN PROGRESS DO NOT USE IT
 
-* Version 1.0.2
-* Release date 2022/11/17
-  
+- Version 2.0.0
+- Planned release date 2023/04/02
+
+**Breaking changes**
+
+- New modifier `windash` : converts `-` values into `/` and vice versa. Will be used for all `CommandLine` fields in windows > `process_creation` rules.
+- New special values `exists` and `notexists` : allows to define that a certain field must exist (currently we use filters with `field: null` as a workaround)
+- Remove Aggregation expression in sigma rule file see [Sigma meta rules](Sigma_meta_rules.md)
+
+Warning `sigmac` will not be able to convert this version. Only `pySigma` and the corresponding `sigma-cli` provide full support for version 2.
+
 # Summary
 
 - [Summary](#summary)
-- [YAML File](#yaml-file)
+- [Yaml File](#yaml-file)
   - [Filename](#filename)
   - [Data](#data)
 - [Structure](#structure)
@@ -18,6 +26,8 @@ The following document defines the different aspects of the SIGMA specification.
   - [Components](#components)
     - [Title](#title)
     - [Rule Identification](#rule-identification)
+    - [Schema (optional)](#schema-optional)
+    - [Taxonomy (optional)](#taxonomy-optional)
     - [Status (optional)](#status-optional)
     - [Description (optional)](#description-optional)
     - [License (optional)](#license-optional)
@@ -46,19 +56,18 @@ The following document defines the different aspects of the SIGMA specification.
     - [Level](#level)
     - [Tags](#tags)
     - [Placeholders](#placeholders)
-      - [Examples for placeholders](#examples-for-placeholders)
-      - [Examples for conversions](#examples-for-conversions)
-  - [Rule Collections](#rule-collections)
+      - [Standard Placeholders](#standard-placeholders)
+  - [Rule Correlation](#rule-correlation)
 - [History](#history)
 
-# YAML File
+# Yaml File
 
 ## Filename
 
 To keep the file names interoperable use the following:
 
-- Length between 10 and 70 characters
-- Lowercase
+- Length between 10 and 70 characters 
+- All characters of the filename should be in lowercase
 - No special characters only letters (a-z) and digits (0-9)
 - Use `_` instead of a space
 - Use `.yml` as a file extension
@@ -72,7 +81,7 @@ example:
 ## Data
 
 The rule files are written in [yaml format](https://yaml.org/spec/1.2.2/)  
-To keep the rules interoperable use the following:
+To keep the rules interoperable use:
 
 - UTF-8
 - LF for the line break (the Windows native editor uses CR-LF)
@@ -109,13 +118,14 @@ id [optional]
 related [optional]
    - type {type-identifier}
      id {rule-id}
+schema [optional]
+taxonomy [optional]
 status [optional]
 description [optional]
 references [optional]
 author [optional]
 date [optional]
 modified [optional]
-tags [optional]
 logsource
    category [optional]
    product [optional]
@@ -132,6 +142,7 @@ detection
 fields [optional]
 falsepositives [optional]
 level [optional]
+tags [optional]
 ...
 [arbitrary custom fields]
 ```
@@ -191,6 +202,8 @@ required:
                             length:
                                 min: 2
 optional:
+    schema: //str
+    taxonomy: //str
     status:
         type: //any
         of:
@@ -238,17 +251,17 @@ optional:
 rest: //any
 ```
 
-###  Image
+### Image
 
-![sigma_schema](https://github.com/SigmaHQ/sigma-specification/images/Sigma_Schema.png)
+![sigma_schema](https://github.com/SigmaHQ/sigma-specification/blob/8e3eed135223dd3e0506b6deaca9b4314919dc65/images/Sigma_Schema.png)
 
-##  Components
+## Components
 
-###  Title
+### Title
 
 **Attribute:** title
 
-A brief title for the rule that should contain what the rules is supposed to detect (max. 256 characters)
+A brief title for the rule that should contain what the rule is supposed to detect (max. 256 characters)
 
 ### Rule Identification
 
@@ -286,11 +299,32 @@ Currently the following types are defined:
 
 * derived: The rule was derived from the referred rule or rules, which may remain active.
 * obsoletes: The rule obsoletes the referred rule or rules, which aren't used anymore.
-* merged: The rule was merged from the referred rules. The rules may be still existing and in use.
+* merged: The rule was merged from the referred rules. The rules may still exist and are in use.
 * renamed: The rule had previously the referred identifier or identifiers but was renamed for whatever
   reason, e.g. from a private naming scheme to UUIDs, to resolve collisions etc. It's not
   expected that a rule with this id exists anymore.
 * similar: Use to relate similar rules to each other (e.g. same detection content applied to different log sources, rule that is a modified version of another rule with a different level)
+
+### Schema (optional)
+
+**Attribute:** schema
+
+This is the version of the specification used in the rule.
+
+This will allow us to quickly know if the converter or software can use the rule without any problems
+
+### Taxonomy (optional)
+
+**Attribute:** taxonomy
+
+Defines the taxonomy used in the Sigma rule. A taxonomy can define:
+
+* field names, example: `process_command_line` instead of `CommandLine`.
+* field values, example: a field `image_file_name` that only contains a file name like `example.exe` and is transformed into `ImageFile: *\\example.exe`.
+* logsource names, example: `category: ProcessCreation` instead of `category: process_creation`
+
+used in the Sigma rule. The Default taxonomy is "sigma" and can be ommited. A custom taxonomy must be handled by the used tool
+or transformed into the default taxonomy.
 
 ### Status (optional)
 
@@ -302,8 +336,8 @@ Declares the status of the rule:
 - test: an almost stable rule that possibly could require some fine tuning.
 - experimental: an experimental rule that could lead to false positives results or be noisy, but could also identify interesting
   events.
-- deprecated: the rule is replace or cover by another one. The link is made by the `related` field.
-- unsupported: the rule can not be use in its current state (special correlation log, home-made fields)
+- deprecated: the rule is replaced or covered by another one. The link is established by the `related` field.
+- unsupported: the rule cannot be use in its current state (special correlation log, home-made fields)
 
 ### Description (optional)
 
@@ -333,13 +367,13 @@ References to the source that the rule was derived from. These could be blog art
 
 **Attribute**: date
 
-Creation date of the rule. Use the format YYYY/MM/DD
+Creation date of the rule. Use the format YYYY/MM/DD or YYYY-MM-DD
 
 ### Modified (optional)
 
 **Attribute**: modified
 
-*Last* modification date of the rule. Use the format YYYY/MM/DD  
+*Last* modification date of the rule. Use the format YYYY/MM/DD or YYYY-MM-DD  
 Reasons to change the modified date:
 * changed title
 * changed detection section
@@ -399,7 +433,7 @@ A definition that can consist of two different data structures - lists and maps.
 Wildcards are used when part of the text is random.  
 You can use :
 
-* `?` to replace a single mandatory character
+* `?` to replace a single mandatory character 
 * `*` to replace an unbounded length wildcard
 
 example  :
@@ -417,13 +451,13 @@ Sigma has special modifiers to facilitate the search of unbounded strings
 
 The backslash character `\` is used for escaping of wildcards `*` and `?` as well as the backslash character itself. Escaping of the backslash is necessary if it is followed by a wildcard depending on the desired result.
 
-Summarized, there are the following possibilities:
+Summarized, these are the following possibilities:
 
 * Plain backslash not followed by a wildcard can be expressed as single `\` or double backslash `\\`. For simplicity reasons the single notation is recommended.
-* A wildcard has to be escaped to handle it as a plain character: `\*`
+* A wildcard has to be escaped to be handled as a plain character: `\*`
 * The backslash before a wildcard has to be escaped to handle the value as a backslash followed by a wildcard: `\\*`
 * Three backslashes are necessary to escape both, the backslash and the wildcard and handle them as plain values: `\\\*`
-* Three or four backslashes are handled as double backslash. Four a recommended for consistency reasons: `\\\\` results in the plain value `\\`.
+* Three or four backslashes are handled as double backslash. Four is recommended for consistency reasons: `\\\\` results in the plain value `\\`.
 
 #### Lists
 
@@ -437,8 +471,8 @@ Example for list of strings: Matches on 'EvilService' **or** 'svchost.exe -n evi
 ```yml
 detection:
   keywords:
-    - EVILSERVICE
-    - svchost.exe -n evil
+    - 'EVILSERVICE'
+    - 'svchost.exe -n evil'
 ```
 
 Example for list of maps:
@@ -446,15 +480,15 @@ Example for list of maps:
 ```yml
 detection:
   selection:
-    - Image|endswith: \\example.exe
-    - Description|contains: Test executable
+    - Image|endswith: '\\example.exe'
+    - Description|contains: 'Test executable'
 ```
 
-Matches an image file `example.exe` or an executable whose description contains the string `Test executable`
+The example above matches an image value ending with `example.exe` or an executable with a description containing the string `Test executable`
 
 #### Maps
 
-Maps (or dictionaries) consist of key/value pairs, in which the key is a field in the log data and the value a string or integer value. All elements of a map are joined with a logical 'AND'.
+Maps (or dictionaries) consist of key/value pairs, in which the key is a field in the log data and the value is a string or integer value. All elements of a map are joined with a logical 'AND'.
 
 Examples:
 
@@ -463,10 +497,10 @@ Matches on Eventlog 'Security' **and** ( Event ID 517 **or** Event ID 1102 )
 ```yml
 detection:
   selection:
-      EventLog: Security
-      EventID:
-        - 517
-        - 1102
+    EventLog: Security
+    EventID:
+      - 517
+      - 1102
 condition: selection
 ```
 
@@ -475,10 +509,10 @@ Matches on Eventlog 'Security' **and** Event ID 4679 **and** TicketOptions 0x408
 ```yml
 detection:
    selection:
-        EventLog: Security
-        EventID: 4769
-        TicketOptions: '0x40810000'
-        TicketEncryption: '0x17'
+      EventLog: Security
+      EventID: 4769
+      TicketOptions: '0x40810000'
+      TicketEncryption: '0x17'
 condition: selection
 ```
 
@@ -497,10 +531,9 @@ fieldmappings:
     LogonId: SubjectLogonId
 ```
 
-2. For new or rarely used fields, use them as they appear in the log source and strip all spaces. (That means: Only, if the field is not already mapped to another field name.) On Windows event log sources, use the field names of the details view as the general view might contain localized field names.
+2. For new or rarely used fields, use them as they appear in the log source and strip all spaces. (This means: Only, if the field is not already mapped to another field name.) On Windows event log sources, use the field names of the details view as the general view might contain localized field names.
 
 Examples:
-
 * `New Value` -> `NewValue`
 * `SAM User Account` -> `SAMUserAccount`
 
@@ -525,7 +558,7 @@ There are special field values that can be used.
 * An empty value is defined with `''`
 * A null value is defined with `null`
 
-OBSOLETE: An arbitrary value except null or empty cannot be defined with `not null` anymore
+*OBSOLETE*: An arbitrary value except null or empty cannot be defined with `not null` anymore
 
 The application of these values depends on the target SIEM system.
 
@@ -554,8 +587,8 @@ appended after the field name with a pipe character `|` as separator and can als
 There are two types of value modifiers:
 
 * *Transformation modifiers* transform values into different values, like the two Base64 modifiers
-  mentioned above. Furthermore, this type of modifier is also able to change the logical operation
-  between values. Transformation modifiers are generally backend-agnostic. Means: you can use them
+  mentioned below. Furthermore, this type of modifiers is also able to change the logical operation
+  between values. Transformation modifiers are generally backend-agnostic. Meaning: you can use them
   with any backend.
 * *Type modifiers* change the type of a value. The value itself might also be changed by such a
   modifier, but the main purpose is to tell the backend that a value should be handled differently
@@ -579,17 +612,23 @@ multiple values.
   Single item values are not allowed to have an `all` modifier as some back-ends cannot support it.
   If you use it as a workaround to duplicate a field in a selection, use a new selection instead.
 * `base64`: The value is encoded with Base64.
-* `base64offset`: If a value might appear somewhere in a base64-encoded value the representation
-  might change depending on the position in the overall value. There are three variants for shifts
+* `base64offset`: If a value might appear somewhere in a base64-encoded string the representation
+  might change depending on the position of the value in the overall string. There are three variants for shifts
   by zero to two bytes and except the first and last byte the encoded values have a static part in
   the middle that can be recognized.
 * `endswith`: The value is expected at the end of the field's content (replaces e.g. '*\cmd.exe')
 * `startswith`: The value is expected at the beginning of the field's content. (replaces e.g. 'adm*')
-* `utf16le`: transforms value to UTF16-LE encoding, e.g. `cmd` > `63 00 6d 00 64 00` (only used in combination with base64 modifiers)
-* `utf16be`: transforms value to UTF16-BE encoding, e.g. `cmd` > `00 63 00 6d 00 64` (only used in combination with base64 modifiers)
-* `wide`: alias for `utf16le` modifier
-* `utf16`: prepends a [byte order mark](https://en.wikipedia.org/wiki/Byte_order_mark) and encodes UTF16, e.g. `cmd` > `FF FE 63 00 6d 00 64 00` (only used in combination with base64 modifiers)
+* `utf16le`: Transforms value to UTF16-LE encoding, e.g. `cmd` > `63 00 6d 00 64 00` (only used in combination with base64 modifiers)
+* `utf16be`: Transforms value to UTF16-BE encoding, e.g. `cmd` > `00 63 00 6d 00 64` (only used in combination with base64 modifiers)
+* `wide`: Alias for `utf16le` modifier
+* `utf16`: Prepends a [byte order mark](https://en.wikipedia.org/wiki/Byte_order_mark) and encodes UTF16, e.g. `cmd` > `FF FE 63 00 6d 00 64 00` (only used in combination with base64 modifiers)
 * `windash`: Add a new variant where all `-` occurrences are replaced with `/`. The original variant is also kept unchanged.
+* `cidr`: The value is handled as a IP CIDR by backends
+* `lt`: Field is less than the value
+* `lte`: Field is less or egal than the value
+* `gt`: Field is Greater than the value
+* `gte`: Field is Greater or egal than the value
+* `expand`: Modifier for expansion of placeholders in values. It replaces placeholder strings 
 
 ###### Types
 
@@ -632,41 +671,6 @@ The condition is the most complex part of the specification and will be subject 
 - Brackets
 
   `selection1 and (keywords1 or keywords2)`
-
-- Pipe (deprecated)
-
-  `search_expression | aggregation_expression`
-
-  A pipe indicates that the result of *search_expression* is aggregated by *aggregation_expression* and possibly
-  compared with a value.
-
-  The first expression must be a search expression that is followed by an aggregation expression with a condition.
-
-  Aggregations in the condition are deprecated and will be replaced with [Sigma correlations](https://github.com/SigmaHQ/sigma/wiki/Specification:-Sigma-Correlations).
-
-- Aggregation expression (deprecated, see [Sigma Correlations specification](https://github.com/SigmaHQ/sigma/wiki/Specification:-Sigma-Correlations) for future plans)
-
-  agg-function(agg-field) [ by group-field ] comparison-op value
-
-  agg-function may be:
-
-  - count
-  - min
-  - max
-  - avg
-  - sum
-
-  All aggregation functions except count require a field name as parameter. The count aggregation counts all matching events if no field name is given. With field name it counts the distinct values in this field.
-
-  Example: `count(UserName) by SourceWorkstation > 3`
-
-  This comparison counts distinct user names grouped by SourceWorkstations.
-
-- Near aggregation expression (deprecated, see [Sigma Correlations specification](https://github.com/SigmaHQ/sigma/wiki/Specification:-Sigma-Correlations) for future plans)
-
-  near *search-id-1* [ [ and *search-id-2* | and not *search-id-3* ] ... ]
-
-  This expression generates (if supported by the target system and backend) a query that recognizes *search_expression* (primary event) if the given conditions are or are not in the temporal context of the primary event within the given time frame.
 
 Operator Precedence (least to most binding)
 
@@ -717,29 +721,36 @@ A Sigma rule can be categorised with tags. Tags should generally follow this syn
 
 ### Placeholders
 
-Placeholders can be used to select a set of elements that can be expanded during conversion.
-Placeholders map a an identifier to a user defined value that can be set in config files for an
-automatic replacement during conversion runs. Placeholders are meaningful identifiers that users can
-easily expand themselves.
+Placeholders are used as values that get their final meaning at conversion or usage time of the rule. This can be, but is not restricted to:
 
-#### Examples for placeholders
+* Replacement of placeholders with a single, multiple or-linked values or patterns. Example: the placeholder `%Servers%` is replaced with
+  the pattern `srv*` because servers are named so in the target environment.
+* Replacement of placeholders with a query expression. Example: replacement of `%servers%` with a lookup expression `LOOKUP(field, servers)`
+  that looks up the value of `field` in a lookup table `servers`.
+* Conducting lookups in tables or APIs while matching the Sigma rule that contains placeholders.
 
-* `%Administrators%` - Administrative user accounts
-* `%JumpServers%` - Server systems used as jump servers
+From Sigma 1.1 placeholders are only handled if the *expand* modifier is applied to the value containing the placeholder.
+A plain percent character can be used by escaping it with a backslash. Examples:
 
-Some SIEM systems allow using so-called "tags" or "search macros" in queries and can integrate Sigma rules with placeholders directly. Others expand the placeholders values to wildcard strings or regular expressions.
+* `field: %name%` handles `%name%` as placeholder.
+* `field|expand: %name%` handles `%name%` as placeholder.
+* `field|expand: \%plain%name%` handles `%plain` as plain value and `%name%` as placeholder.
 
-#### Examples for conversions
+Placeholders must be handled appropriately by a tool that uses Sigma rules. If the tool isn't able to handle placeholders, it must reject the rule.
 
-Splunk
+#### Standard Placeholders
 
-* `AccountName: %Administrators%` convert to `tag=Administrators`
+The following standard placeholders should be used:
 
-Elastic Search 
+* `%Administrators%`: Administrative user accounts
+* `%JumpServers%`: Server systems used as jump servers
+* `%Workstations%`: Workstation systems
+* `%Servers%`: Server systems
+* `%DomainControllers%`: Domain controller systems
 
-* `SourceWorkstation: %JumpServers%` convert to `"SourceWorkstation": SRV110[12]`
+Custom placeholders can be defined as required.
 
-## Rule Collections
+## Rule Correlation
 
 See [Sigma_meta_rules](Sigma_meta_rules.md)
 
