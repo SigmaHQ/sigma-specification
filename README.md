@@ -20,7 +20,6 @@ There exists two other files in the repository to describe the different fields 
 - [Tags_specification](Tags_specification.md) is a document that defines the standardized tags that can be used to categorize the different Sigma rules.
 - [Taxonomy_specification](Taxonomy_specification.md) is a document that defines the different field names and log sources that should be used to ensure sharable rules
 
-
 ## SigmaHQ
 
 The following files are not part of the sigma specification. They are only helpers for the management of the main [rule repository](https://github.com/SigmaHQ/sigma/tree/master/rules)

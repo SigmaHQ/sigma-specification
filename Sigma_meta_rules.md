@@ -2,6 +2,7 @@
 
 - [Introduction](#introduction)
 - [Correlation](#correlation)
+
   - [YAML File](#yaml-file)
   - [Structure](#structure)
     - [Schema](#schema)
@@ -49,6 +50,7 @@
 # Introduction
 
 A meta-rule is a rule over sigma rules.  
+
 With them you can do :
 - Correlation
 - Global filter or Defeats 
@@ -409,7 +411,6 @@ The conversion backend should issue a warning to raise the user’s awareness ab
 
 * Temporal relationships are recognized, but the order of the events cannot be recognized by the target system. This could cause false positives by differently ordered events.
 * Temporal relationships are only recognized within static time boundaries, e.g. a timespan 1h only matches if all events appear within a full hour, but not if some events appear in the previous and another event in the current hour. This could cause false negatives.
-
 
 ## Alternative Proposals
 ### Expression of Relationships Inside Condition of Sigma Rules
