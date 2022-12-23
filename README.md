@@ -28,8 +28,7 @@ This section lists upcoming developments and changes to the standard. Please not
 
 Do not hesitate to open a discussion with tag `V2` in the title. Example `V2 proposal of new modifier X`.  
 
-[Sigma 2.0.0](wip/Sigma_2_0_0.md)  
-[Sigma Correlations](wip/Sigma_Correlations.md)  
+For more information, check the [version_2 branch](https://github.com/SigmaHQ/sigma-specification/tree/version_2)
 
 ## Archive of Old Specifications
 
