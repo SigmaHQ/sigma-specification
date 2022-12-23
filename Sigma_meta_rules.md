@@ -2,7 +2,6 @@
 
 - [Introduction](#introduction)
 - [Correlation](#correlation)
-
   - [YAML File](#yaml-file)
   - [Structure](#structure)
     - [Schema](#schema)
@@ -181,6 +180,13 @@ optionally defines one or multiple fields which should be treated as separate ev
 **Attribute:** field
 
 Use by value_count correlation to define the field name use to count.
+
+Example: 
+```yaml
+field: User
+group-by:
+    - ComputerName
+```
 
 #### Time Selection
 
