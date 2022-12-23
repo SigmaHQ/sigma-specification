@@ -136,13 +136,18 @@ id: 0e95725d-7320-415d-80f7-004da920fc11
 
 **Attribute:** action
 
-must be `correlation`
+This field is mandatory and must have the value `correlation`
 
-#### Relative rules
+```yml
+title: login brute force
+id: 0e95725d-7320-415d-80f7-004da920fc11
+action: correlation
+
+#### Related rules
 
 **Attribute:** rules
 
-refers to one or multiple Sigma rules id or correlations (allowing definition of chains of correlations) defining events to be correlated
+refers to one or multiple Sigma or Correlations rules. Allowing the user to chain multiple correlations together
 
 ```yaml
 title: login brute force
@@ -163,7 +168,7 @@ Can be :
 
 See [correlation section](#correlation-types) for more details.
 
-#### Regrouping
+#### Grouping
 
 **Attribute:** group-by
 
@@ -182,10 +187,10 @@ Use by value_count correlation to define the field name use to count.
 **Attribute:** timespan
 
 defines a time period in which the correlation should be applied.  
-Use the format number + letter (in lowercase) : 
-- Xs secunde
-- Xm minute
-- Xh hour
+The following format must be used: `number + letter (in lowercase)` 
+- Xs seconds
+- Xm minutes
+- Xh hours
 - Xd days
 
 #### Condition Selection
@@ -211,7 +216,7 @@ The defined aliases can then be defined in `group-by` and allows aggregation acr
 ### Correlation Types
 
 The following correlation types are defined.  
-They are referred in the type field of a correlation document.  
+They are referred in the `type` field of a correlation document.  
 Further correlation rule types might be added in the future.
 
 #### Event Count (event_count)
