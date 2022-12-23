@@ -66,7 +66,19 @@ This document describe a soft convention to name rule files. The following conve
 
 # Service
 
-| Service     | Pattern      | example                           |
-| ----------- | ------------ | --------------------------------- |
-| auditd      | lnx_auditd_* | lnx_auditd_alter_bash_profile.yml |
-| modsecurity | modsec_*     | modsec_mulitple_blocks.yml        |
+| Service                               | Pattern                       | example                                           |
+| ------------------------------------- | ----------------------------- | ------------------------------------------------- |
+| auditd                                | lnx_auditd_*                  | lnx_auditd_alter_bash_profile.yml                 |
+| modsecurity                           | modsec_*                      | modsec_mulitple_blocks.yml                        |
+| diagnosis-scripted                    | win_diagnosis_scripted_*      | win_diagnosis_scripted_load_remote_diagcab.yml    |
+| firewall-as                           | win_firewall_as_*             | win_firewall_as_change_rule.yml                   |
+| msexchange-management                 | win_exchange_*                | win_exchange_proxylogon_oabvirtualdir.yml         |
+| security                              | win_security_*                | win_security_dcsync.yml                           |
+| system                                | win_system_*                  | win_system_ntfs_vuln_exploit.yml                  |
+| taskscheduler                         | win_taskscheduler_*           | win_taskscheduler_susp_task_locations.yml         |
+| terminalservices-localsessionmanager  | win_terminalservices_*        | win_terminalservices_rdp_ngrok.yml                |
+| windefend                             | win_defender_*                | win_defender_amsi_trigger.yml                     |
+| wmi                                   | win_wmi_*                     | win_wmi_persistence.yml                           |
+| codeintegrity-operational             | win_codeintegrity_*           | win_codeintegrity_attempted_dll_load.yml          |
+| bits-client                           | win_bits_client_*             | win_bits_client_susp_local_file.yml               |
+| applocker                             | win_applocker_*               | win_applocker_file_was_not_allowed_to_run.yml     |
