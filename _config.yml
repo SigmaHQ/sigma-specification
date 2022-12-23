@@ -1,0 +1,18 @@
+theme: jekyll-theme-minimal
+title: Sigma Specification
+description: All the specifications of Sigma
+
+plugins:
+  - jekyll-sitemap
+  - jekyll-seo-tag
+  - jemoji
+
+navigation:
+  - name: Readme
+    link: ./index.html
+  - name: Rules
+    link: ./Sigma_specification.html
+  - name: Tags
+    link: ./Tags_specification.html
+  - name: Taxonomy
+    link: ./Taxonomy_specification.html
