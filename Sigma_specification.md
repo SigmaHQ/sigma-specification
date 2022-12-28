@@ -615,6 +615,8 @@ Example:
 ```yml
     timeframe: 24h
     condition: selection | count(dst_port) by src_ip > 10
+```
+
 ### Condition
 
 **Attribute**: condition
