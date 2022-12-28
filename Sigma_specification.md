@@ -782,7 +782,7 @@ Alternative solution could be:
 
 # History
 
-* 2022/12/28 Specification V1.0.2
+* 2022/12/28 Specification V1.0.3
   * Add missing `timeframe` attribute
 * 2022/11/17 Specification V1.0.2
   * Add missing optional field `date` and `modified`
