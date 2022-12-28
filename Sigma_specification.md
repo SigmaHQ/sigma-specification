@@ -2,8 +2,8 @@
 
 The following document defines the different aspects of the SIGMA specification.
 
-* Version 1.0.2
-* Release date 2022/11/17
+* Version 1.0.3
+* Release date 2022/12/28
   
 # Summary
 
@@ -40,6 +40,7 @@ The following document defines the different aspects of the SIGMA specification.
         - [Currently Available Modifiers](#currently-available-modifiers)
           - [Transformations](#transformations)
           - [Types](#types)
+      - [timeframe Search-Identifier](#timeframe-search-identifier)
     - [Condition](#condition)
     - [Fields](#fields)
     - [FalsePositives](#falsepositives)
@@ -598,6 +599,22 @@ multiple values.
   the Elasticsearch query string backend (*es-qs*). Further (like Splunk) are planned or have
   to be implemented by contributors with access to the target systems.
 
+#### timeframe Search-Identifier
+
+* `timeframe`: It is a special Search-Identifier use **only** with Aggregation condition
+  Defines a time period in which the aggregation should be applied.
+  The following format must be used: number + letter (in lowercase)
+    - Xs seconds
+    - Xm minutes
+    - Xh hours
+    - Xd days
+
+Example:
+```yml
+    timeframe: 24h
+    condition: selection | count(dst_port) by src_ip > 10
+```
+
 ### Condition
 
 **Attribute**: condition
@@ -765,6 +782,8 @@ Alternative solution could be:
 
 # History
 
+* 2022/12/28 Specification V1.0.2
+  * Add missing `timeframe`
 * 2022/11/17 Specification V1.0.2
   * Add missing optional field `date` and `modified`
 * 2022/10/18 Specification V1.0.1
