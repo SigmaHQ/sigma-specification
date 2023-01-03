@@ -53,29 +53,29 @@ For a better comprehension, the log sources are organized by directory name simi
 
 ## Linux folder
 
-| Product | Logsource                                      | Event                         |
-| ------- | ---------------------------------------------- | ----------------------------- |
-| Linux   | category: file_create<br>product: linux        |
-| Linux   | category: network_connection<br>product: linux | EventID: 3<br>service: sysmon |
-| Linux   | category: process_creation<br>product: linux   | EventID: 1<br>service: sysmon |
-| Linux   | product:linux                                  | any logs                      |
-| Linux   | product: linux<br>service: auditd              | auditd.log                    |
-| Linux   | product: linux<br>service: auth                | auth.log                      |
-| Linux   | product: linux<br>service: clamav              |
-| Linux   | product: linux<br>service: cron                |
-| Linux   | product: linux<br>service: guacamole           |
-| Linux   | product: linux<br>service: modsecurity         |
-| Linux   | product: linux<br>service: sudo                |
-| Linux   | product: linux<br>service: sshd                |
-| Linux   | product: linux<br>service: syslog              |
-| Linux   | product: linux<br>service: vsftpd              |
+| Product | Logsource                                      | Event                          |
+| ------- | ---------------------------------------------- | -----------------------------  |
+| Linux   | product: linux<br>category: file_event         | EventID: 11<br>service: sysmon |
+| Linux   | product: linux<br>category: network_connection | EventID: 3<br>service: sysmon  |
+| Linux   | product: linux<br>category: process_creation   | EventID: 1<br>service: sysmon  |
+| Linux   | product: linux                                 | any logs                       |
+| Linux   | product: linux<br>service: auditd              | auditd.log                     |
+| Linux   | product: linux<br>service: auth                | auth.log                       |
+| Linux   | product: linux<br>service: clamav              |                                |
+| Linux   | product: linux<br>service: cron                |                                |
+| Linux   | product: linux<br>service: guacamole           |                                |
+| Linux   | product: linux<br>service: modsecurity         |                                |
+| Linux   | product: linux<br>service: sudo                |                                |
+| Linux   | product: linux<br>service: sshd                |                                |
+| Linux   | product: linux<br>service: syslog              |                                |
+| Linux   | product: linux<br>service: vsftpd              |                                |
 
 ## Macos folder
 
 | Product | Logsource                                    | Event |
 | ------- | -------------------------------------------- | ----- |
-| Macos   | category: file_event<br>product: macos       |
-| Macos   | category: process_creation<br>product: macos |
+| Macos   | product: macos<br>category: file_event       |       |
+| Macos   | product: macos<br>category: process_creation |       |
 
 ## Network folder
 
@@ -253,25 +253,25 @@ You can find all possible field values in the [Sysmon Community Guide](https://g
 * `category: webserver`
   * `date`: The date that the activity occurred.
   * `time`: The time that the activity occurred.
-  *	`c-ip`:	The IP address of the client that accessed your server.
+  * `c-ip`:The IP address of the client that accessed your server.
   * `cs-username`: The name of the authenticated user who accessed your server. This does not include anonymous users, who are represented by a hyphen (-).
-  * `s-sitename`:	The Internet service and instance number that was accessed by a client.
-  * `s-computername`:	The name of the server on which the log entry was generated.
-  * `s-ip`:	The IP address of the server on which the log entry was generated.
-  * `s-port`:	The port number the client is connected to.
-  * `cs-method`:	The action the client was trying to perform (for example, a GET method).
-  * `cs-uri-stem`:	The resource accessed; for example, Default.htm.
-  * `cs-uri-query`:	The query, if any, the client was trying to perform.
-  * `sc-status`:	The status of the action, in HTTP or FTP terms.
-  * `c-win32-status`:	The status of the action, in terms used by Microsoft Windows®.
-  * `sc-bytes`:	The number of bytes sent by the server.
-  * `cs-bytes`:	The number of bytes received by the server.
-  * `time-taken`:	The duration of time, in milliseconds, that the action consumed.
-  * `cs-version`:	The protocol (HTTP, FTP) version used by the client. For HTTP this will be either HTTP 1.0 or HTTP 1.1.
-  * `cs-host`:	Displays the content of the host header.
-  * `cs-user-agent)`:	The browser used on the client.
-  * `cs-cookie`:	The content of the cookie sent or received, if any.
-  * `cs-referer`:	The previous site visited by the user. This site provided a link to the current site.
+  * `s-sitename`: The Internet service and instance number that was accessed by a client.
+  * `s-computername`: The name of the server on which the log entry was generated.
+  * `s-ip`: The IP address of the server on which the log entry was generated.
+  * `s-port`: The port number the client is connected to.
+  * `cs-method`: The action the client was trying to perform (for example, a GET method).
+  * `cs-uri-stem`: The resource accessed; for example, Default.htm.
+  * `cs-uri-query`: The query, if any, the client was trying to perform.
+  * `sc-status`: The status of the action, in HTTP or FTP terms.
+  * `c-win32-status`: The status of the action, in terms used by Microsoft Windows®.
+  * `sc-bytes`: The number of bytes sent by the server.
+  * `cs-bytes`: The number of bytes received by the server.
+  * `time-taken`: The duration of time, in milliseconds, that the action consumed.
+  * `cs-version`: The protocol (HTTP, FTP) version used by the client. For HTTP this will be either HTTP 1.0 or HTTP 1.1.
+  * `cs-host`: Displays the content of the host header.
+  * `cs-user-agent`: The browser used on the client.
+  * `cs-cookie`: The content of the cookie sent or received, if any.
+  * `cs-referer`: The previous site visited by the user. This site provided a link to the current site.
 * `product: antivirus`
   * Field Names:
     * `Filename`: the name and path of the source threat file
@@ -282,7 +282,8 @@ You can find all possible field values in the [Sysmon Community Guide](https://g
 
 * 2023/01/03 Taxonomy V1.3.3
   * Add windows service dns-server-analytic and bitlocker
-  * category `webserver` Add all the W3C fields names
+  * Add all the W3C fields names to the category `webserver`
+  * Update linux `file_create` category to `file_event`
 * 2022/12/19 Taxonomy V1.3.2
   * Minor tweak and updates to the syntax and text
 * 2022/11/13 Taxonomy V1.3.1
