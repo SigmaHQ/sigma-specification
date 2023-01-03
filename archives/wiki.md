@@ -135,7 +135,7 @@ rest: //any
 
 ## Image
 
-![sigma_schema](https://github.com/Neo23x0/sigma/blob/master/images/Sigma_Schema.png)
+![sigma_schema](https://github.com/SigmaHQ/sigma/blob/master/images/Sigma_Schema.png)
 
 # Components
 
