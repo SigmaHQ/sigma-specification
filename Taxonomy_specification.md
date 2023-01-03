@@ -2,8 +2,8 @@
 
 The following document defines the field names and log sources that should be used in SIGMA rules to ensure sharable rules.
 
-* Version 1.3.2
-* Release date 2022/12/19
+* Version 1.3.3
+* Release date 2023/01/03
 
 # Summary
 
@@ -131,12 +131,14 @@ For a better comprehension, the log sources are organized by directory name simi
 | windows | product: windows<br>category: wmi_event                           | EventID: <br> - 19<br> - 20<br> - 21<br>Channel: Microsoft-Windows-Sysmon/Operational                                                                                                                                      |
 | windows | product: windows<br>service: application                          | Channel:<br> - Application                                                                                                                                                                                                 |
 | windows | product: windows<br>service: applocker                            | Channel:<br> - Microsoft-Windows-AppLocker/MSI and Script<br> - Microsoft-Windows-AppLocker/EXE and DLL<br> - Microsoft-Windows-AppLocker/Packaged app-Deployment<br> - Microsoft-Windows-AppLocker/Packaged app-Execution |
+|windows 	| product: windows<br>service: bitlocker                            | Channel:<br> - Microsoft-Windows-BitLocker/BitLocker Management
 | windows | product: windows<br>service: bits-client                          | Channel:<br> - Microsoft-Windows-Bits-Client/Operational                                                                                                                                                                   |
 | windows | product: windows<br>service: codeintegrity-operational            | Channel:<br> - Microsoft-Windows-CodeIntegrity/Operational                                                                                                                                                                 |
 | windows | product: windows<br>service: dhcp                                 | Channel:<br> - Microsoft-Windows-DHCP-Server/Operational                                                                                                                                                                   |
 | windows | product: windows<br>service: diagnosis-scripted                   | Channel:<br> - Microsoft-Windows-Diagnosis-Scripted/Operational                                                                                                                                                            |
-| windows | product: windows<br>service: dns-server                           | Channel:<br> - DNS Server                                                                                                                                                                                                  |
+| windows | product: windows<br>service: dns-server                           | Channel:<br> - DNS Server                                                                                                                                                                         |
 | windows | product: windows<br>service: dns-server-audit                     | Channel:<br> - Microsoft-Windows-DNS-Server/Audit                                                                                                                                                                          |
+| windows | product: windows<br>service: dns-server-analytic                    | Channel:<br> - Microsoft-Windows-DNS-Server/Analytical                                                                                                                                                                     |
 | windows | product: windows<br>service: driver-framework                     | Channel:<br> - Microsoft-Windows-DriverFrameworks-UserMode/Operational                                                                                                                                                     |
 | windows | product: windows<br>service: firewall-as                          | Channel:<br> - Microsoft-Windows-Windows Firewall With Advanced Security/Firewall                                                                                                                                          |
 | windows | product: windows<br>service: ldap_debug                           | Channel:<br> - Microsoft-Windows-LDAP-Client/Debug                                                                                                                                                                         |
@@ -249,7 +251,27 @@ You can find all possible field values in the [Sysmon Community Guide](https://g
     * `src_ip`, `src_port`, `dst_ip`, `dst_port`, `username`
 * `category: dns`
 * `category: webserver`
-  * Uses the same field names as `category: proxy`
+  * `date`: The date that the activity occurred.
+  * `time`: The time that the activity occurred.
+  *	`c-ip`:	The IP address of the client that accessed your server.
+  * `cs-username`: The name of the authenticated user who accessed your server. This does not include anonymous users, who are represented by a hyphen (-).
+  * `s-sitename`:	The Internet service and instance number that was accessed by a client.
+  * `s-computername`:	The name of the server on which the log entry was generated.
+  * `s-ip`:	The IP address of the server on which the log entry was generated.
+  * `s-port`:	The port number the client is connected to.
+  * `cs-method`:	The action the client was trying to perform (for example, a GET method).
+  * `cs-uri-stem`:	The resource accessed; for example, Default.htm.
+  * `cs-uri-query`:	The query, if any, the client was trying to perform.
+  * `sc-status`:	The status of the action, in HTTP or FTP terms.
+  * `c-win32-status`:	The status of the action, in terms used by Microsoft Windows®.
+  * `sc-bytes`:	The number of bytes sent by the server.
+  * `cs-bytes`:	The number of bytes received by the server.
+  * `time-taken`:	The duration of time, in milliseconds, that the action consumed.
+  * `cs-version`:	The protocol (HTTP, FTP) version used by the client. For HTTP this will be either HTTP 1.0 or HTTP 1.1.
+  * `cs-host`:	Displays the content of the host header.
+  * `cs-user-agent)`:	The browser used on the client.
+  * `cs-cookie`:	The content of the cookie sent or received, if any.
+  * `cs-referer`:	The previous site visited by the user. This site provided a link to the current site.
 * `product: antivirus`
   * Field Names:
     * `Filename`: the name and path of the source threat file
@@ -258,6 +280,9 @@ You can find all possible field values in the [Sysmon Community Guide](https://g
 
 # History
 
+* 2023/01/03 Taxonomy V1.3.3
+  * Add windows service dns-server-analytic and bitlocker
+  * category `webserver` Add all the W3C fields names
 * 2022/12/19 Taxonomy V1.3.2
   * Minor tweak and updates to the syntax and text
 * 2022/11/13 Taxonomy V1.3.1
