@@ -88,7 +88,6 @@ This document describe a soft convention to name rule files. The following conve
 | sudo                                  | lnx_sudo_*                    | lnx_sudo_cve_2019_14287_user.yml                  |
 | syslog                                | lnx_syslog_*                  | lnx_syslog_susp_named.yml                         |
 | vsftpd                                | lnx_vsftpd_*                  | lnx_vsftp_error_messages.yml                      |
-| modsecurity                           | modsec_*                      | modsec_mulitple_blocks.yml                        |
 
 ## Windows
 
