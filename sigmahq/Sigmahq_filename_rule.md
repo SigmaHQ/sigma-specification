@@ -5,12 +5,19 @@ This document describe a soft convention to name rule files. The following conve
 # Summary
 
 - [Summary](#summary)
+- [Product](#product)
 - [Cloud](#cloud)
 - [Category](#category)
 - [Category without product](#category-without-product)
 - [Service](#service)
   - [Linux](#linux)
   - [Windows](#windows)
+
+# Product
+
+| product    | Pattern        | example                                                 |
+| ---------- | -------------- | ------------------------------------------------------- |
+| modsec     | modsec_*       | modsec_mulitple_blocks.yml                              |
 
 # Cloud
 
@@ -99,7 +106,7 @@ This document describe a soft convention to name rule files. The following conve
 | ldap_debug                            | ----                          | ---                                                     |
 | msexchange-management                 | win_exchange_*                | win_exchange_proxylogon_oabvirtualdir.yml               |
 | ntlm                                  | ----                          | ---                                                     |
-| openssh                               | ----                          | ---                                                     |
+| openssh                               | win_sshd_openssh_*            | win_sshd_openssh_server_listening_on_socket.yml         |
 | printservice-operational              | ----                          | ---                                                     |
 | security                              | win_security_*                | win_security_dcsync.yml                                 |
 | security-mitigations                  | win_security_mitigations_*    | win_security_mitigations_defender_load_unsigned_dll.yml |
