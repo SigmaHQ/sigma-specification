@@ -6,18 +6,36 @@ This document describe a soft convention to name rule files. The following conve
 
 - [Summary](#summary)
 - [Product](#product)
+- [Category without product](#category-without-product)
 - [Cloud](#cloud)
 - [Category](#category)
-- [Category without product](#category-without-product)
 - [Service](#service)
   - [Linux](#linux)
   - [Windows](#windows)
 
 # Product
 
-| product    | Pattern        | example                                                 |
-| ---------- | -------------- | ------------------------------------------------------- |
-| modsec     | modsec_*       | modsec_mulitple_blocks.yml                              |
+| product       | Pattern         | example                                   |
+| ------------- | --------------- | ----------------------------------------- |
+| apache        | apache_*        | apache_segfault.yml                       |
+| django        | django_*        | django_appframework_exceptions.yml        |
+| guacamole     | guacamole_*     | guacamole_session_anomaly.yml             |
+| modsec        | modsec_*        | modsec_mulitple_blocks.yml                |
+| python        | python_*        | python_app_sql_exceptions.yml             |
+| rpc_firewall  | rpc_firewall_*  | rpc_firewall_atsvc_recon.yml              |
+| ruby_on_rails | ruby_on_rails_* | ruby_on_rails_appframework_exceptions.yml |
+| spring        | spring_*        | spring_appframework_exceptions.yml        |
+
+# Category without product
+
+| Category  | Pattern        | example                                 |
+| --------- | -------------- | --------------------------------------- |
+| antivirus | av_*           | av_relevant_files.yml                   |
+| database  | db_*           | db_anomalous_query.yml                  |
+| dns       | net_dns_*      | net_dns_mal_cobaltstrike.yml            |
+| firewall  | net_firewall_* | net_firewall_high_dns_requests_rate.yml |
+| sql       | sql_*          | sql_app_sqlinjection_errors.yml         |
+| webserver | web_*          | web_cve_2020_5902_f5_bigip.yml          |
 
 # Cloud
 
@@ -35,7 +53,7 @@ This document describe a soft convention to name rule files. The following conve
 
 | Category             | Pattern                    | example                                         |
 | -------------------- | -------------------------- | ----------------------------------------------- |
-| clipboard_capture    |                            |                                                 |
+| clipboard_capture    | ----                       | ----                                            |
 | create_remote_thread | create_remote_thread_win_* | create_remote_thread_win_bumblebee.yml          |
 | create_stream_hash   | create_stream_hash_*       | create_stream_hash_ads_executable.yml           |
 | dns_query            | dns_query_*os*_*           | dns_query_win_mal_cobaltstrike.yml              |
@@ -53,68 +71,60 @@ This document describe a soft convention to name rule files. The following conve
 | ps_script            | posh_ps_*                  | posh_ps_as_rep_roasting.yml                     |
 | process_access       | proc_access_*os*_*         | proc_access_win_lsass_memdump.yml               |
 | process_creation     | proc_creation_*os*_*       | proc_creation_win_apt_apt29_thinktanks.yml      |
-| process_tampering    |                            |                                                 |
-| process_termination  |                            |                                                 |
-| raw_access_thread    |                            |                                                 |
+| process_tampering    | ----                       | ----                                            |
+| process_termination  | ----                       | ----                                            |
+| raw_access_thread    | ----                       | ----                                            |
 | registry_event       | registry_event_*           | registry_event_apt_pandemic.yml                 |
 | registry_add         | registry_add_*             | registry_add_mal_ursnif.yml                     |
 | registry_delete      | registry_delete_*          | registry_delete_mstsc_history_cleared.yml       |
 | registry_set         | registry_set_*             | registry_set_add_port_monitor.yml               |
-| registry_rename      | registry_rename_*          |                                                 |
-| sysmon_error         |                            |                                                 |
-| sysmon_status        |                            |                                                 |
-| wmi_event            |                            |                                                 |
+| registry_rename      | registry_rename_*          | ----                                            |
+| sysmon_error         | ----                       | ----                                            |
+| sysmon_status        | ----                       | ----                                            |
+| wmi_event            | ----                       | ----                                            |
 
-# Category without product
-
-| Category  | Pattern        | example                                 |
-| --------- | -------------- | --------------------------------------- |
-| dns       | net_dns_*      | net_dns_mal_cobaltstrike.yml            |
-| firewall  | net_firewall_* | net_firewall_high_dns_requests_rate.yml |
-| webserver | web_*          | web_cve_2020_5902_f5_bigip.yml          |
 
 # Service
 
 ## Linux
 
-| Service                               | Pattern                       | example                                           |
-| ------------------------------------- | ----------------------------- | ------------------------------------------------- |
-| auditd                                | lnx_auditd_*                  | lnx_auditd_alter_bash_profile.yml                 |
-| auth                                  | lnx_auth_*                    | lnx_auth_susp_failed_logons_single_source.yml     |
-| clamav                                | lnx_clamav_*                  | lnx_clamav_message.yml                            |
-| cron                                  | lnx_cron_*                    | lnx_cron_crontab_file_modification.yml            |
-| guacamole                             | lnx_guacamole_*               | lnx_guacamole_session_anomaly.yml                 |
-| sshd                                  | lnx_sshd_*                    | lnx_sshd_susp_ssh.yml                             |
-| sudo                                  | lnx_sudo_*                    | lnx_sudo_cve_2019_14287_user.yml                  |
-| syslog                                | lnx_syslog_*                  | lnx_syslog_susp_named.yml                         |
-| vsftpd                                | lnx_vsftpd_*                  | lnx_vsftp_error_messages.yml                      |
+| Service | Pattern      | example                                       |
+| ------- | ------------ | --------------------------------------------- |
+| auditd  | lnx_auditd_* | lnx_auditd_alter_bash_profile.yml             |
+| auth    | lnx_auth_*   | lnx_auth_susp_failed_logons_single_source.yml |
+| clamav  | lnx_clamav_* | lnx_clamav_message.yml                        |
+| cron    | lnx_cron_*   | lnx_cron_crontab_file_modification.yml        |
+| sshd    | lnx_sshd_*   | lnx_sshd_susp_ssh.yml                         |
+| sudo    | lnx_sudo_*   | lnx_sudo_cve_2019_14287_user.yml              |
+| syslog  | lnx_syslog_* | lnx_syslog_susp_named.yml                     |
+| vsftpd  | lnx_vsftpd_* | lnx_vsftp_error_messages.yml                  |
 
 ## Windows
 
-| Service                               | Pattern                       | example                                                 |
-| ------------------------------------- | ----------------------------- | ------------------------------------------------------- |
-| application                           | ----                          | ---                                                     |
-| applocker                             | win_applocker_*               | win_applocker_file_was_not_allowed_to_run.yml           |
-| bits-client                           | win_bits_client_*             | win_bits_client_susp_local_file.yml                     |
-| codeintegrity-operational             | win_codeintegrity_*           | win_codeintegrity_attempted_dll_load.yml                |
-| diagnosis-scripted                    | win_diagnosis_scripted_*      | win_diagnosis_scripted_load_remote_diagcab.yml          |
-| dns-server                            | win_dns_server_*              | win_dns_server_susp_dns_config.yml                      |
-| dns-server-analytic                   | win_dns_analytic_*            | win_dns_analytic_apt_gallium.yml                        |
-| driver-framework                      | ----                          | ---                                                     |
-| firewall-as                           | win_firewall_as_*             | win_firewall_as_change_rule.yml                         |
-| ldap_debug                            | ----                          | ---                                                     |
-| msexchange-management                 | win_exchange_*                | win_exchange_proxylogon_oabvirtualdir.yml               |
-| ntlm                                  | ----                          | ---                                                     |
-| openssh                               | win_sshd_openssh_*            | win_sshd_openssh_server_listening_on_socket.yml         |
-| printservice-operational              | ----                          | ---                                                     |
-| security                              | win_security_*                | win_security_dcsync.yml                                 |
-| security-mitigations                  | win_security_mitigations_*    | win_security_mitigations_defender_load_unsigned_dll.yml |
-| microsoft-servicebus-client           | ----                          | ---                                                     |
-| shell-core                            | win_shell_core_*              | win_shell_core_susp_packages_installed.yml              |
-| smbclient-security                    | ----                          | ---                                                     |
-| system                                | win_system_*                  | win_system_ntfs_vuln_exploit.yml                        |
-| taskscheduler                         | win_taskscheduler_*           | win_taskscheduler_susp_task_locations.yml               |
-| terminalservices-localsessionmanager  | win_terminalservices_*        | win_terminalservices_rdp_ngrok.yml                      |
-| windefend                             | win_defender_*                | win_defender_amsi_trigger.yml                           |
-| wmi                                   | win_wmi_*                     | win_wmi_persistence.yml                                 |
+| Service                              | Pattern                    | example                                                 |
+| ------------------------------------ | -------------------------- | ------------------------------------------------------- |
+| application                          | ----                       | ---                                                     |
+| applocker                            | win_applocker_*            | win_applocker_file_was_not_allowed_to_run.yml           |
+| bits-client                          | win_bits_client_*          | win_bits_client_susp_local_file.yml                     |
+| codeintegrity-operational            | win_codeintegrity_*        | win_codeintegrity_attempted_dll_load.yml                |
+| diagnosis-scripted                   | win_diagnosis_scripted_*   | win_diagnosis_scripted_load_remote_diagcab.yml          |
+| dns-server                           | win_dns_server_*           | win_dns_server_susp_dns_config.yml                      |
+| dns-server-analytic                  | win_dns_analytic_*         | win_dns_analytic_apt_gallium.yml                        |
+| driver-framework                     | ----                       | ----                                                    |
+| firewall-as                          | win_firewall_as_*          | win_firewall_as_change_rule.yml                         |
+| ldap_debug                           | ----                       | ----                                                    |
+| msexchange-management                | win_exchange_*             | win_exchange_proxylogon_oabvirtualdir.yml               |
+| ntlm                                 | ----                       | ----                                                    |
+| openssh                              | win_sshd_openssh_*         | win_sshd_openssh_server_listening_on_socket.yml         |
+| printservice-operational             | ----                       | ----                                                    |
+| security                             | win_security_*             | win_security_dcsync.yml                                 |
+| security-mitigations                 | win_security_mitigations_* | win_security_mitigations_defender_load_unsigned_dll.yml |
+| microsoft-servicebus-client          | ----                       | ----                                                    |
+| shell-core                           | win_shell_core_*           | win_shell_core_susp_packages_installed.yml              |
+| smbclient-security                   | ----                       | ----                                                    |
+| system                               | win_system_*               | win_system_ntfs_vuln_exploit.yml                        |
+| taskscheduler                        | win_taskscheduler_*        | win_taskscheduler_susp_task_locations.yml               |
+| terminalservices-localsessionmanager | win_terminalservices_*     | win_terminalservices_rdp_ngrok.yml                      |
+| windefend                            | win_defender_*             | win_defender_amsi_trigger.yml                           |
+| wmi                                  | win_wmi_*                  | win_wmi_persistence.yml                                 |
 
