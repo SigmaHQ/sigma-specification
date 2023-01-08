@@ -15,6 +15,7 @@ The following document defines the field names and log sources that should be us
   - [Macos folder](#macos-folder)
   - [Network folder](#network-folder)
   - [Product](#product)
+  - [Web](#web)
   - [Windows folder](#windows-folder)
 - [Fields](#fields)
   - [Generic](#generic)
@@ -38,16 +39,9 @@ For a better comprehension, the log sources are organized by directory name simi
 
 ## Cloud folder
 
-| Product    | Logsource                                                    | Event |
-| ---------- | ------------------------------------------------------------ | ----- |
-| Aws        | product: aws<br>service: cloudtrail                          |       |
-| Azure      | product: azure<br>service: activitylogs                      |       |
-| Azure      | product: azure<br>service: signinlogs                        |       |
-| Gcp        | product: gcp<br>service: gcp.audit                           |       |
-| Gworkspace | product: google_workspace<br>service: google_workspace.admin |       |
-| M365       | product: m365<br>service: threat_management                  |       |
-| Okta       | product: okta<br>service: okta                               |       |
-| Onelogin   | product: onelogin<br>service: onelogin.events                |       |
+| Product | Logsource | Event |
+| ------- | --------- | ----- |
+|         |
 
 ## Linux folder
 
@@ -75,33 +69,47 @@ For a better comprehension, the log sources are organized by directory name simi
 
 ## Network folder
 
-| Product | Logsource                                              | Event          |
-| ------- | ------------------------------------------------------ | -------------- |
-| Cisco   | product: cisco<br>service: aaa<br>category: accounting |                |
-|         | category: dns                                          |                |
-|         | category: firewall                                     |                |
-| Zeek    | product: zeek<br>service: dce_rpc                      |                |
-| Zeek    | product: zeek<br>service: dns                          |                |
-| Zeek    | product: zeek<br>service: http                         |                |
-| Zeek    | product: zeek<br>service: kerberos                     |                |
-| Zeek    | product: zeek<br>service: rdp                          |                |
-| Zeek    | product: zeek<br>service: smb_files                    |                |
-| Zeek    | product: zeek<br>service: x509                         |                |
-|         | category: proxy                                        |                |
-|         | category: webserver                                    | W3C access log |
+| Product | Logsource                                              | Event |
+| ------- | ------------------------------------------------------ | ----- |
+| Cisco   | product: cisco<br>service: aaa<br>category: accounting |       |
+|         | category: dns                                          |       |
+|         | category: firewall                                     |       |
+| Zeek    | product: zeek<br>service: dce_rpc                      |       |
+| Zeek    | product: zeek<br>service: dns                          |       |
+| Zeek    | product: zeek<br>service: http                         |       |
+| Zeek    | product: zeek<br>service: kerberos                     |       |
+| Zeek    | product: zeek<br>service: rdp                          |       |
+| Zeek    | product: zeek<br>service: smb_files                    |       |
+| Zeek    | product: zeek<br>service: x509                         |       |
+
 
 ## Product
 
-| Product       | Logsource                            | Event            |
-| ------------- | ------------------------------------ | ---------------- |
-| apache        | product: apache<br>service: errorlog | Apache error.log |
-| django        | product: django                      |                  |
-| guacamole     | product: guacamole                   |                  |
-| modsecurity   | product: modsecurity                 |                  |
-| python        | product: python                      |                  |
-| rpc_firewall  | product: rpc_firewall                |                  |
-| ruby_on_rails | product: ruby_on_rails               |                  |
-| spring        | product: spring                      |                  |
+| Product       | Logsource                                                    | Event            |
+| ------------- | ------------------------------------------------------------ | ---------------- |
+| Apache        | product: apache<br>service: errorlog                         | Apache error.log |
+| Aws           | product: aws<br>service: cloudtrail                          |                  |
+| Azure         | product: azure<br>service: activitylogs                      |                  |
+| Azure         | product: azure<br>service: signinlogs                        |                  |
+| django        | product: django                                              |                  |
+| Gcp           | product: gcp<br>service: gcp.audit                           |                  |
+| guacamole     | product: guacamole                                           |                  |
+| Gworkspace    | product: google_workspace<br>service: google_workspace.admin |                  |
+| M365          | product: m365<br>service: threat_management                  |                  |
+| modsecurity   | product: modsecurity                                         |                  |
+| Okta          | product: okta<br>service: okta                               |                  |
+| Onelogin      | product: onelogin<br>service: onelogin.events                |                  |
+| python        | product: python                                              |                  |
+| rpc_firewall  | product: rpc_firewall                                        |                  |
+| ruby_on_rails | product: ruby_on_rails                                       |                  |
+| spring        | product: spring                                              |                  |
+
+## Web
+
+| Product | Logsource           | Event          |
+| ------- | ------------------- | -------------- |
+|         | category: proxy     | W3C proxy log  |
+|         | category: webserver | W3C access log |
 
 ## Windows folder
 
@@ -292,6 +300,7 @@ You can find all possible field values in the [Sysmon Community Guide](https://g
 * 2023/01/07 Taxonomy V1.3.4
   * order category only and product only in a dedicated folder
   * add correct service for Apache error.log
+  * move cloud to product
 * 2023/01/03 Taxonomy V1.3.3
   * Add windows service dns-server-analytic and bitlocker
   * Add all the W3C fields names to the category `webserver`
