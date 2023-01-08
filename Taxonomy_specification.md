@@ -9,13 +9,12 @@ The following document defines the field names and log sources that should be us
 
 - [Summary](#summary)
 - [Log Sources](#log-sources)
-  - [Category](#category)
-  - [Cloud folder](#cloud-folder)
+  - [Category folder](#category-folder)
   - [Linux folder](#linux-folder)
   - [Macos folder](#macos-folder)
   - [Network folder](#network-folder)
-  - [Product](#product)
-  - [Web](#web)
+  - [Product folder](#product-folder)
+  - [Web folder](#web-folder)
   - [Windows folder](#windows-folder)
 - [Fields](#fields)
   - [Generic](#generic)
@@ -28,20 +27,12 @@ The following document defines the field names and log sources that should be us
 
 For a better comprehension, the log sources are organized by directory name similar to the [rules](https://github.com/SigmaHQ/sigma/tree/master/rules) structure in the SIGMA project
 
-## Category
+## Category folder
 
 | Product | Logsource           | Event                                                      |
 | ------- | ------------------- | ---------------------------------------------------------- |
 |         | category: antivirus | antivirus detection message (format depends on the editor) |
 |         | category: database  | Database transaction query                                 |
-
-
-
-## Cloud folder
-
-| Product | Logsource | Event |
-| ------- | --------- | ----- |
-|         |
 
 ## Linux folder
 
@@ -82,8 +73,7 @@ For a better comprehension, the log sources are organized by directory name simi
 | Zeek    | product: zeek<br>service: smb_files                    |       |
 | Zeek    | product: zeek<br>service: x509                         |       |
 
-
-## Product
+## Product folder
 
 | Product       | Logsource                                                    | Event            |
 | ------------- | ------------------------------------------------------------ | ---------------- |
@@ -91,7 +81,7 @@ For a better comprehension, the log sources are organized by directory name simi
 | Aws           | product: aws<br>service: cloudtrail                          |                  |
 | Azure         | product: azure<br>service: activitylogs                      |                  |
 | Azure         | product: azure<br>service: signinlogs                        |                  |
-| django        | product: django                                              |                  |
+| django        | product: django<br>category: application                     |                  |
 | Gcp           | product: gcp<br>service: gcp.audit                           |                  |
 | guacamole     | product: guacamole                                           |                  |
 | Gworkspace    | product: google_workspace<br>service: google_workspace.admin |                  |
@@ -99,12 +89,13 @@ For a better comprehension, the log sources are organized by directory name simi
 | modsecurity   | product: modsecurity                                         |                  |
 | Okta          | product: okta<br>service: okta                               |                  |
 | Onelogin      | product: onelogin<br>service: onelogin.events                |                  |
-| python        | product: python                                              |                  |
+| python        | product: python<br>category: application                     |                  |
 | rpc_firewall  | product: rpc_firewall                                        |                  |
-| ruby_on_rails | product: ruby_on_rails                                       |                  |
-| spring        | product: spring                                              |                  |
+| ruby_on_rails | product: ruby_on_rails<br>category: application              |                  |
+| spring        | product: spring <br>category: application                    |                  |
+| sql           | product: sql <br>category: application                       |                  |
 
-## Web
+## Web folder
 
 | Product | Logsource           | Event          |
 | ------- | ------------------- | -------------- |
