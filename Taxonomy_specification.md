@@ -28,6 +28,13 @@ For a better comprehension, the log sources are organized by directory name simi
 
 ## Application folder
 
+The folder *application* contains rules that were intended for application security monitoring. The rules are organized into folders per application technology. All rules define log sources as follows:
+
+* The *category* log source attribute is set to `application`. This can be used by processing pipelines to create a technology-agnostic conversion configuration in cases where the application technology stack is unknown.
+* The *product* log source attribute is set to the name of the technology and should be equal to the folder name.
+
+Because application logs are often ingested as raw text events with poor decomposition into fields by many target systems, these rules are keyword rules that don't match on specific fields.
+
 | Product       | Logsource                                       | Event                                                      |
 | ------------- | ----------------------------------------------- | ---------------------------------------------------------- |
 |               | category: antivirus                             | antivirus detection message (format depends on the editor) |
