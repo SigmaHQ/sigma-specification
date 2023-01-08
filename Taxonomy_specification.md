@@ -33,21 +33,21 @@ For a better comprehension, the log sources are organized by directory name simi
 | ------- | ------------------- | ---------------------------------------------------------- |
 |         | category: antivirus | antivirus detection message (format depends on the editor) |
 |         | category: database  | Database transaction query                                 |
-|         | category: sql       | SQL Database transaction query                             |
+
 
 
 ## Cloud folder
 
 | Product    | Logsource                                                    | Event |
 | ---------- | ------------------------------------------------------------ | ----- |
-| Aws        | product: aws<br>service: cloudtrail                          |
-| Azure      | product: azure<br>service: activitylogs                      |
-| Azure      | product: azure<br>service: signinlogs                        |
-| Gcp        | product: gcp<br>service: gcp.audit                           |
-| Gworkspace | product: google_workspace<br>service: google_workspace.admin |
-| M365       | product: m365<br>service: threat_management                  |
-| Okta       | product: okta<br>service: okta                               |
-| Onelogin   | product: onelogin<br>service: onelogin.events                |
+| Aws        | product: aws<br>service: cloudtrail                          |       |
+| Azure      | product: azure<br>service: activitylogs                      |       |
+| Azure      | product: azure<br>service: signinlogs                        |       |
+| Gcp        | product: gcp<br>service: gcp.audit                           |       |
+| Gworkspace | product: google_workspace<br>service: google_workspace.admin |       |
+| M365       | product: m365<br>service: threat_management                  |       |
+| Okta       | product: okta<br>service: okta                               |       |
+| Onelogin   | product: onelogin<br>service: onelogin.events                |       |
 
 ## Linux folder
 
@@ -75,33 +75,33 @@ For a better comprehension, the log sources are organized by directory name simi
 
 ## Network folder
 
-| Product | Logsource                                              | Event |
-| ------- | ------------------------------------------------------ | ----- |
-| Cisco   | product: cisco<br>service: aaa<br>category: accounting |
-|         | category: dns                                          |
-|         | category: firewall                                     |
-| Zeek    | product: zeek<br>service: dce_rpc                      |
-| Zeek    | product: zeek<br>service: dns                          |
-| Zeek    | product: zeek<br>service: http                         |
-| Zeek    | product: zeek<br>service: kerberos                     |
-| Zeek    | product: zeek<br>service: rdp                          |
-| Zeek    | product: zeek<br>service: smb_files                    |
-| Zeek    | product: zeek<br>service: x509                         |
-|         | category: proxy                                        |
-|         | category: webserver                                    |
+| Product | Logsource                                              | Event          |
+| ------- | ------------------------------------------------------ | -------------- |
+| Cisco   | product: cisco<br>service: aaa<br>category: accounting |                |
+|         | category: dns                                          |                |
+|         | category: firewall                                     |                |
+| Zeek    | product: zeek<br>service: dce_rpc                      |                |
+| Zeek    | product: zeek<br>service: dns                          |                |
+| Zeek    | product: zeek<br>service: http                         |                |
+| Zeek    | product: zeek<br>service: kerberos                     |                |
+| Zeek    | product: zeek<br>service: rdp                          |                |
+| Zeek    | product: zeek<br>service: smb_files                    |                |
+| Zeek    | product: zeek<br>service: x509                         |                |
+|         | category: proxy                                        |                |
+|         | category: webserver                                    | W3C access log |
 
 ## Product
 
-| Product       | Logsource                         | Event            |
-| ------------- | --------------------------------- | ---------------- |
-| apache        | product: apache<br>service: error | Apache error.log |
-| django        | product: django                   |                  |
-| guacamole     | product: guacamole                |                  |
-| modsecurity   | product: modsecurity              |                  |
-| python        | product: python                   |                  |
-| rpc_firewall  | product: rpc_firewall             |                  |
-| ruby_on_rails | product: ruby_on_rails            |                  |
-| spring        | product: spring                   |                  |
+| Product       | Logsource                            | Event            |
+| ------------- | ------------------------------------ | ---------------- |
+| apache        | product: apache<br>service: errorlog | Apache error.log |
+| django        | product: django                      |                  |
+| guacamole     | product: guacamole                   |                  |
+| modsecurity   | product: modsecurity                 |                  |
+| python        | product: python                      |                  |
+| rpc_firewall  | product: rpc_firewall                |                  |
+| ruby_on_rails | product: ruby_on_rails               |                  |
+| spring        | product: spring                      |                  |
 
 ## Windows folder
 
