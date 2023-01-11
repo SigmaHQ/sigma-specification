@@ -8,8 +8,9 @@ THIS IS A WORK IN PROGRESS DO NOT USE IT
 **Breaking changes**
 
 - New modifier `windash` : converts `-` values into `/` and vice versa. Will be used for all `CommandLine` fields in windows > `process_creation` rules.
-- New special values `exists` and `notexists` : allows to define that a certain field must exist (currently we use filters with `field: null` as a workaround)
-- Remove Aggregation expression in sigma rule file see [Sigma meta rules](Sigma_meta_rules.md)
+- New modifier `exists` that allows to define that a certain field exists or doesn't exists in a log event by providing
+  a boolean value. Currently we use filters with `field: null` as a workaround for this purpose, which is inaccurate.
+- Remove aggregation expression in sigma rule file see [Sigma meta rules](Sigma_meta_rules.md)
 
 Warning `sigmac` will not be able to convert this version. Only `pySigma` and the corresponding `sigma-cli` provide full support for version 2.
 
@@ -66,7 +67,7 @@ Warning `sigmac` will not be able to convert this version. Only `pySigma` and th
 
 To keep the file names interoperable use the following:
 
-- Length between 10 and 70 characters 
+- Length between 10 and 70 characters
 - All characters of the filename should be in lowercase
 - No special characters only letters (a-z) and digits (0-9)
 - Use `_` instead of a space
@@ -80,7 +81,7 @@ example:
 
 ## Data
 
-The rule files are written in [yaml format](https://yaml.org/spec/1.2.2/)  
+The rule files are written in [yaml format](https://yaml.org/spec/1.2.2/)
 To keep the rules interoperable use:
 
 - UTF-8
@@ -373,7 +374,7 @@ Creation date of the rule. Use the format YYYY/MM/DD or YYYY-MM-DD
 
 **Attribute**: modified
 
-*Last* modification date of the rule. Use the format YYYY/MM/DD or YYYY-MM-DD  
+*Last* modification date of the rule. Use the format YYYY/MM/DD or YYYY-MM-DD
 Reasons to change the modified date:
 * changed title
 * changed detection section
@@ -430,10 +431,10 @@ A definition that can consist of two different data structures - lists and maps.
 
 #### String Wildcard
 
-Wildcards are used when part of the text is random.  
+Wildcards are used when part of the text is random.
 You can use :
 
-* `?` to replace a single mandatory character 
+* `?` to replace a single mandatory character
 * `*` to replace an unbounded length wildcard
 
 example  :
@@ -608,7 +609,7 @@ multiple values.
   changes
   this to *AND*. This is useful if you want to express a command line invocation with different
   parameters where the order may vary and removes the need for some cumbersome workarounds.
-  
+
   Single item values are not allowed to have an `all` modifier as some back-ends cannot support it.
   If you use it as a workaround to duplicate a field in a selection, use a new selection instead.
 * `base64`: The value is encoded with Base64.
@@ -628,7 +629,7 @@ multiple values.
 * `lte`: Field is less or egal than the value
 * `gt`: Field is Greater than the value
 * `gte`: Field is Greater or egal than the value
-* `expand`: Modifier for expansion of placeholders in values. It replaces placeholder strings 
+* `expand`: Modifier for expansion of placeholders in values. It replaces placeholder strings
 
 ###### Types
 
