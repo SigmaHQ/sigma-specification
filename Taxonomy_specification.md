@@ -2,18 +2,20 @@
 
 The following document defines the field names and log sources that should be used in SIGMA rules to ensure sharable rules.
 
-* Version 1.3.3
-* Release date 2023/01/03
+* Version 1.3.4
+* Release date 2023/01/14
 
 # Summary
 
 - [Summary](#summary)
 - [Log Sources](#log-sources)
   - [Application folder](#application-folder)
+  - [Category folder](#category-folder)
   - [Cloud folder](#cloud-folder)
   - [Linux folder](#linux-folder)
   - [Macos folder](#macos-folder)
   - [Network folder](#network-folder)
+  - [Product folder](#product-folder)
   - [Windows folder](#windows-folder)
 - [Fields](#fields)
   - [Generic](#generic)
@@ -28,15 +30,21 @@ For a better comprehension, the log sources are organized by directory name simi
 
 ## Application folder
 
-| Product       | Logsource                                       | Event                                                      |
-| ------------- | ----------------------------------------------- | ---------------------------------------------------------- |
-|               | category: antivirus                             | antivirus detection message (format depends on the editor) |
+| Product       | Logsource                                       | Event |
+| ------------- | ----------------------------------------------- | ----- |
 | django        | category: application<br>product: django        |
 | python        | category: application<br>product: python        |
-| rpc_firewall  | product: rpc_firewall<br>category: application  |
+| rpc_firewall  | category: application<br>product: rpc_firewall  |
 | ruby_on_rails | category: application<br>product: ruby_on_rails |
 | spring        | category: application<br>product: spring        |
 | sql           | category: application<br>product: sql           |
+
+## Category folder
+
+| Product | Logsource           | Event                                                      |
+| ------- | ------------------- | ---------------------------------------------------------- |
+|         | category: antivirus | antivirus detection message (format depends on the editor) |
+|         | category: database  | sql queries log (drop, select,...)                         |
 
 ## Cloud folder
 
@@ -54,7 +62,7 @@ For a better comprehension, the log sources are organized by directory name simi
 ## Linux folder
 
 | Product | Logsource                                      | Event                          |
-| ------- | ---------------------------------------------- | -----------------------------  |
+| ------- | ---------------------------------------------- | ------------------------------ |
 | Linux   | product: linux<br>category: file_event         | EventID: 11<br>service: sysmon |
 | Linux   | product: linux<br>category: network_connection | EventID: 3<br>service: sysmon  |
 | Linux   | product: linux<br>category: process_creation   | EventID: 1<br>service: sysmon  |
@@ -64,7 +72,6 @@ For a better comprehension, the log sources are organized by directory name simi
 | Linux   | product: linux<br>service: clamav              |                                |
 | Linux   | product: linux<br>service: cron                |                                |
 | Linux   | product: linux<br>service: guacamole           |                                |
-| Linux   | product: linux<br>service: modsecurity         |                                |
 | Linux   | product: linux<br>service: sudo                |                                |
 | Linux   | product: linux<br>service: sshd                |                                |
 | Linux   | product: linux<br>service: syslog              |                                |
@@ -93,6 +100,13 @@ For a better comprehension, the log sources are organized by directory name simi
 | Zeek    | product: zeek<br>service: x509                         |
 |         | category: proxy                                        |
 |         | category: webserver                                    |
+
+## Product folder
+
+| Product     | Logsource            | Event                 |
+| ----------- | -------------------- | --------------------- |
+| Apache      | service: apache      | Application error.log |
+| Modsecurity | product: modsecurity |                       |
 
 ## Windows folder
 
@@ -131,17 +145,19 @@ For a better comprehension, the log sources are organized by directory name simi
 | windows | product: windows<br>category: wmi_event                           | EventID: <br> - 19<br> - 20<br> - 21<br>Channel: Microsoft-Windows-Sysmon/Operational                                                                                                                                      |
 | windows | product: windows<br>service: application                          | Channel:<br> - Application                                                                                                                                                                                                 |
 | windows | product: windows<br>service: applocker                            | Channel:<br> - Microsoft-Windows-AppLocker/MSI and Script<br> - Microsoft-Windows-AppLocker/EXE and DLL<br> - Microsoft-Windows-AppLocker/Packaged app-Deployment<br> - Microsoft-Windows-AppLocker/Packaged app-Execution |
+| windows | product: windows<br>service: appxdeployment-server                | Channel:<br> - Microsoft-Windows-AppXDeploymentServer/Operational                                                                                                                                                          |
 | windows | product: windows<br>service: bitlocker                            | Channel:<br> - Microsoft-Windows-BitLocker/BitLocker Management                                                                                                                                                            |
 | windows | product: windows<br>service: bits-client                          | Channel:<br> - Microsoft-Windows-Bits-Client/Operational                                                                                                                                                                   |
 | windows | product: windows<br>service: codeintegrity-operational            | Channel:<br> - Microsoft-Windows-CodeIntegrity/Operational                                                                                                                                                                 |
 | windows | product: windows<br>service: dhcp                                 | Channel:<br> - Microsoft-Windows-DHCP-Server/Operational                                                                                                                                                                   |
 | windows | product: windows<br>service: diagnosis-scripted                   | Channel:<br> - Microsoft-Windows-Diagnosis-Scripted/Operational                                                                                                                                                            |
-| windows | product: windows<br>service: dns-server                           | Channel:<br> - DNS Server                                                                                                                                                                         |
+| windows | product: windows<br>service: dns-server                           | Channel:<br> - DNS Server                                                                                                                                                                                                  |
 | windows | product: windows<br>service: dns-server-audit                     | Channel:<br> - Microsoft-Windows-DNS-Server/Audit                                                                                                                                                                          |
-| windows | product: windows<br>service: dns-server-analytic                    | Channel:<br> - Microsoft-Windows-DNS-Server/Analytical                                                                                                                                                                     |
+| windows | product: windows<br>service: dns-server-analytic                  | Channel:<br> - Microsoft-Windows-DNS-Server/Analytical                                                                                                                                                                     |
 | windows | product: windows<br>service: driver-framework                     | Channel:<br> - Microsoft-Windows-DriverFrameworks-UserMode/Operational                                                                                                                                                     |
 | windows | product: windows<br>service: firewall-as                          | Channel:<br> - Microsoft-Windows-Windows Firewall With Advanced Security/Firewall                                                                                                                                          |
 | windows | product: windows<br>service: ldap_debug                           | Channel:<br> - Microsoft-Windows-LDAP-Client/Debug                                                                                                                                                                         |
+| windows | product: windows<br>service: lsa-server                           | Channel:<br> - Microsoft-Windows-LSA/Operational                                                                                                                                                                           |
 | windows | product: windows<br>service: microsoft-servicebus-client          | Channel:<br> - Microsoft-ServiceBus-Client                                                                                                                                                                                 |
 | windows | product: windows<br>service: msexchange-management                | Channel:<br> - MSExchange Management                                                                                                                                                                                       |
 | windows | product: windows<br>service: ntlm                                 | Channel:<br> - Microsoft-Windows-NTLM/Operational                                                                                                                                                                          |
@@ -176,31 +192,31 @@ product: windows
 
 The field names follow the field names used in [Sysmon](https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon) events:
 
-| Field Name        | Example Value                                                                            | Comment   |
-| ----------------- | ---------------------------------------------------------------------------------------- | --------- |
-| UtcTime           | 2019-03-02 08:51:00.008                                                                  |           |
-| ProcessGuid       | {c1b49677-43f4-5c7a-0000-0010d3dd8044}                                                   |           |
-| ProcessId         | 1028                                                                                     |           |
-| Image             | C:\Program Files (x86)\Google\Update\GoogleUpdate.exe                                    |           |
-| FileVersion       | 1.3.28.13                                                                                |           |
-| Description       | Google Installer                                                                         |           |
-| Product           | Google Update                                                                            |           |
-| Company           | Google Inc.                                                                              |           |
-| CommandLine       | "C:\Program Files (x86)\Google\Update\GoogleUpdate.exe" /ua /installsource scheduler     |           |
-| CurrentDirectory  | C:\Windows\system32\|                                                                    |           |
-| User              | NT AUTHORITY\SYSTEM                                                                      |           |
-| LogonGuid         | {c1b49677-3fb9-5c09-0000-0020e7030000}                                                   |           |
-| LogonId           | 0x3e7                                                                                    |           |
-| TerminalSessionId | 0                                                                                        |           |
-| IntegrityLevel    | System                                                                                   |           |
-| imphash           | E96A73C7BF33A464C510EDE582318BF2                                                         |           |
-| md5               | CCF1D1573F175299ADE01C07791A6541                                                         |           |
-| sha1              | 0AE1F9071C5E8FE4A69D3F671937935D242D8A6C                                                 |           |
-| sha256            | 68A15A34C2E28B9B521A240B948634617D72AD619E3950BC6DC769E60A0C3CF2                         |           |
-| ParentProcessGuid | {c1b49677-6b43-5c78-0000-00107fb77544}                                                   |           |
-| ParentProcessId   | 1724                                                                                     |           |
-| ParentImage       | C:\Windows\System32\taskeng.exe                                                          |           |
-| ParentCommandLine | taskeng.exe {88F94E5C-5DC3-4606-AEFA-BDCA976D6113} S-1-5-18:NT AUTHORITY\System:Service: |           |
+| Field Name        | Example Value                                                                            | Comment |
+| ----------------- | ---------------------------------------------------------------------------------------- | ------- |
+| UtcTime           | 2019-03-02 08:51:00.008                                                                  |         |
+| ProcessGuid       | {c1b49677-43f4-5c7a-0000-0010d3dd8044}                                                   |         |
+| ProcessId         | 1028                                                                                     |         |
+| Image             | C:\Program Files (x86)\Google\Update\GoogleUpdate.exe                                    |         |
+| FileVersion       | 1.3.28.13                                                                                |         |
+| Description       | Google Installer                                                                         |         |
+| Product           | Google Update                                                                            |         |
+| Company           | Google Inc.                                                                              |         |
+| CommandLine       | "C:\Program Files (x86)\Google\Update\GoogleUpdate.exe" /ua /installsource scheduler     |         |
+| CurrentDirectory  | C:\Windows\system32\|                                                                    |         |
+| User              | NT AUTHORITY\SYSTEM                                                                      |         |
+| LogonGuid         | {c1b49677-3fb9-5c09-0000-0020e7030000}                                                   |         |
+| LogonId           | 0x3e7                                                                                    |         |
+| TerminalSessionId | 0                                                                                        |         |
+| IntegrityLevel    | System                                                                                   |         |
+| imphash           | E96A73C7BF33A464C510EDE582318BF2                                                         |         |
+| md5               | CCF1D1573F175299ADE01C07791A6541                                                         |         |
+| sha1              | 0AE1F9071C5E8FE4A69D3F671937935D242D8A6C                                                 |         |
+| sha256            | 68A15A34C2E28B9B521A240B948634617D72AD619E3950BC6DC769E60A0C3CF2                         |         |
+| ParentProcessGuid | {c1b49677-6b43-5c78-0000-00107fb77544}                                                   |         |
+| ParentProcessId   | 1724                                                                                     |         |
+| ParentImage       | C:\Windows\System32\taskeng.exe                                                          |         |
+| ParentCommandLine | taskeng.exe {88F94E5C-5DC3-4606-AEFA-BDCA976D6113} S-1-5-18:NT AUTHORITY\System:Service: |         |
 
 ### Other Generic Rule Categories
 
@@ -280,6 +296,11 @@ You can find all possible field values in the [Sysmon Community Guide](https://g
 
 # History
 
+* 2023/01/14 Taxonomy V1.3.4
+  * Add new windows service: appxdeployment-server
+  * Add new windows service: lsa-server 
+  * Add missing category folder
+  * Add missing product folder
 * 2023/01/03 Taxonomy V1.3.3
   * Add windows service dns-server-analytic and bitlocker
   * Add all the W3C fields names to the category `webserver`
