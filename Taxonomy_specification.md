@@ -86,20 +86,24 @@ For a better comprehension, the log sources are organized by directory name simi
 
 ## Network folder
 
-| Product | Logsource                                              | Event |
-| ------- | ------------------------------------------------------ | ----- |
-| Cisco   | product: cisco<br>service: aaa<br>category: accounting |
-|         | category: dns                                          |
-|         | category: firewall                                     |
-| Zeek    | product: zeek<br>service: dce_rpc                      |
-| Zeek    | product: zeek<br>service: dns                          |
-| Zeek    | product: zeek<br>service: http                         |
-| Zeek    | product: zeek<br>service: kerberos                     |
-| Zeek    | product: zeek<br>service: rdp                          |
-| Zeek    | product: zeek<br>service: smb_files                    |
-| Zeek    | product: zeek<br>service: x509                         |
-|         | category: proxy                                        |
-|         | category: webserver                                    |
+| Product | Logsource                           | Event |
+| ------- | ----------------------------------- | ----- |
+| Cisco   | product: cisco<br>service: aaa      |
+| Cisco   | product: cisco<br>service: bgp      |
+| Cisco   | product: cisco<br>service: ldp      |
+|         | category: dns                       |
+|         | category: firewall                  |
+| Huawei  | product: huawei<br>service: ldp     |
+| Juniper | product: juniper<br>service: ldp    |
+| Zeek    | product: zeek<br>service: dce_rpc   |
+| Zeek    | product: zeek<br>service: dns       |
+| Zeek    | product: zeek<br>service: http      |
+| Zeek    | product: zeek<br>service: kerberos  |
+| Zeek    | product: zeek<br>service: rdp       |
+| Zeek    | product: zeek<br>service: smb_files |
+| Zeek    | product: zeek<br>service: x509      |
+|         | category: proxy                     |
+|         | category: webserver                 |
 
 ## Product folder
 
@@ -301,6 +305,8 @@ You can find all possible field values in the [Sysmon Community Guide](https://g
   * Add new windows service: lsa-server 
   * Add missing category folder
   * Add missing product folder
+  * Add new cisco service bgp and ldp
+  * Add new service bgp for huawei and juniper
 * 2023/01/03 Taxonomy V1.3.3
   * Add windows service dns-server-analytic and bitlocker
   * Add all the W3C fields names to the category `webserver`
