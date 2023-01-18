@@ -2,7 +2,7 @@
 
 This document describe a soft convention to name rule files. The following convention has been set to help with the management of the rules files repository and is not part of the SIGMA specification.
 
-# Summary
+## Summary
 
 - [Summary](#summary)
 - [Product](#product)
@@ -13,13 +13,13 @@ This document describe a soft convention to name rule files. The following conve
   - [Linux](#linux)
   - [Windows](#windows)
 
-# Product
+## Product
 
 | product    | Pattern        | example                                                 |
 | ---------- | -------------- | ------------------------------------------------------- |
 | modsec     | modsec_*       | modsec_mulitple_blocks.yml                              |
 
-# Cloud
+## Cloud
 
 | product    | Pattern        | example                                                 |
 | ---------- | -------------- | ------------------------------------------------------- |
@@ -31,7 +31,7 @@ This document describe a soft convention to name rule files. The following conve
 | okta       | okta_*         | okta_application_sign_on_policy_modified_or_deleted.yml |
 | onelogin   | onelogin_*     | onelogin_user_account_locked.yml                        |
 
-# Category
+## Category
 
 | Category             | Pattern                    | example                                         |
 | -------------------- | -------------------------- | ----------------------------------------------- |
@@ -65,7 +65,7 @@ This document describe a soft convention to name rule files. The following conve
 | sysmon_status        |                            |                                                 |
 | wmi_event            |                            |                                                 |
 
-# Category without product
+## Category without product
 
 | Category  | Pattern        | example                                 |
 | --------- | -------------- | --------------------------------------- |
@@ -73,9 +73,16 @@ This document describe a soft convention to name rule files. The following conve
 | firewall  | net_firewall_* | net_firewall_high_dns_requests_rate.yml |
 | webserver | web_*          | web_cve_2020_5902_f5_bigip.yml          |
 
-# Service
+## Service
 
-## Linux
+### Linux
+
+The naming convetion for rules using linux services is the as follows:
+
+- Filename must start with `lnx_`
+- Followed by the service name and underscore at the end `service_`. Example: `auditd_`
+- If the service name contains a dash `-`. For example `bits-client`. Then replace it with an underscore `bits_client_`
+- Filename must end with a `.yml` extension
 
 | Service                               | Pattern                       | example                                           |
 | ------------------------------------- | ----------------------------- | ------------------------------------------------- |
@@ -89,7 +96,14 @@ This document describe a soft convention to name rule files. The following conve
 | syslog                                | lnx_syslog_*                  | lnx_syslog_susp_named.yml                         |
 | vsftpd                                | lnx_vsftpd_*                  | lnx_vsftp_error_messages.yml                      |
 
-## Windows
+### Windows
+
+The naming convetion for rules using windows services is the as follows:
+
+- Filename must start with `win_`
+- Followed by the service name and underscore at the end `service_`. Example: `applocker_`
+- If the service name contains a dash `-`. For example `bits-client`. Then replace it with an underscore `bits_client_`
+- Filename must end with a `.yml` extension
 
 | Service                               | Pattern                       | example                                                 |
 | ------------------------------------- | ----------------------------- | ------------------------------------------------------- |
@@ -117,4 +131,3 @@ This document describe a soft convention to name rule files. The following conve
 | terminalservices-localsessionmanager  | win_terminalservices_*        | win_terminalservices_rdp_ngrok.yml                      |
 | windefend                             | win_defender_*                | win_defender_amsi_trigger.yml                           |
 | wmi                                   | win_wmi_*                     | win_wmi_persistence.yml                                 |
-

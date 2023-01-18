@@ -3,20 +3,20 @@
 The following document defines the field names and log sources that should be used in SIGMA rules to ensure sharable rules.
 
 * Version 1.3.4
-* Release date 2023/01/14
+* Release date 2023/01/18
 
-# Summary
+## Summary
 
 - [Summary](#summary)
 - [Log Sources](#log-sources)
-  - [Application folder](#application-folder)
-  - [Category folder](#category-folder)
-  - [Cloud folder](#cloud-folder)
-  - [Linux folder](#linux-folder)
-  - [Macos folder](#macos-folder)
-  - [Network folder](#network-folder)
-  - [Product folder](#product-folder)
-  - [Windows folder](#windows-folder)
+  - [Application Folder](#application-folder)
+  - [Category Folder](#category-folder)
+  - [Cloud Folder](#cloud-folder)
+  - [Linux Folder](#linux-folder)
+  - [Macos Folder](#macos-folder)
+  - [Network Folder](#network-folder)
+  - [Product Folder](#product-folder)
+  - [Windows Folder](#windows-folder)
 - [Fields](#fields)
   - [Generic](#generic)
     - [Process Creation Events](#process-creation-events)
@@ -24,49 +24,49 @@ The following document defines the field names and log sources that should be us
   - [Specific](#specific)
 - [History](#history)
 
-# Log Sources
+## Log Sources
 
 For a better comprehension, the log sources are organized by directory name similar to the [rules](https://github.com/SigmaHQ/sigma/tree/master/rules) structure in the SIGMA project
 
-## Application folder
+### Application Folder
 
 | Product       | Logsource                                       | Event |
 | ------------- | ----------------------------------------------- | ----- |
-| django        | category: application<br>product: django        |
-| python        | category: application<br>product: python        |
-| rpc_firewall  | category: application<br>product: rpc_firewall  |
-| ruby_on_rails | category: application<br>product: ruby_on_rails |
-| spring        | category: application<br>product: spring        |
-| sql           | category: application<br>product: sql           |
+| django        | category: application<br>product: django        |       |
+| python        | category: application<br>product: python        |       |
+| rpc_firewall  | category: application<br>product: rpc_firewall  |       |
+| ruby_on_rails | category: application<br>product: ruby_on_rails |       |
+| spring        | category: application<br>product: spring        |       |
+| sql           | category: application<br>product: sql           |       |
 
-## Category folder
+### Category Folder
 
 | Product | Logsource           | Event                                                      |
 | ------- | ------------------- | ---------------------------------------------------------- |
 |         | category: antivirus | antivirus detection message (format depends on the editor) |
 |         | category: database  | sql queries log (drop, select,...)                         |
 
-## Cloud folder
+### Cloud Folder
 
 | Product    | Logsource                                                    | Event |
 | ---------- | ------------------------------------------------------------ | ----- |
-| Aws        | product: aws<br>service: cloudtrail                          |
-| Azure      | product: azure<br>service: activitylogs                      |
-| Azure      | product: azure<br>service: signinlogs                        |
-| Gcp        | product: gcp<br>service: gcp.audit                           |
-| Gworkspace | product: google_workspace<br>service: google_workspace.admin |
-| M365       | product: m365<br>service: threat_management                  |
-| Okta       | product: okta<br>service: okta                               |
-| Onelogin   | product: onelogin<br>service: onelogin.events                |
+| Aws        | product: aws<br>service: cloudtrail                          |       |
+| Azure      | product: azure<br>service: activitylogs                      |       |
+| Azure      | product: azure<br>service: signinlogs                        |       |
+| Gcp        | product: gcp<br>service: gcp.audit                           |       |
+| Gworkspace | product: google_workspace<br>service: google_workspace.admin |       |
+| M365       | product: m365<br>service: threat_management                  |       |
+| Okta       | product: okta<br>service: okta                               |       |
+| Onelogin   | product: onelogin<br>service: onelogin.events                |       |
 
-## Linux folder
+### Linux Folder
 
 | Product | Logsource                                      | Event                          |
 | ------- | ---------------------------------------------- | ------------------------------ |
+| Linux   | product: linux                                 | any logs                       |
 | Linux   | product: linux<br>category: file_event         | EventID: 11<br>service: sysmon |
 | Linux   | product: linux<br>category: network_connection | EventID: 3<br>service: sysmon  |
 | Linux   | product: linux<br>category: process_creation   | EventID: 1<br>service: sysmon  |
-| Linux   | product: linux                                 | any logs                       |
 | Linux   | product: linux<br>service: auditd              | auditd.log                     |
 | Linux   | product: linux<br>service: auth                | auth.log                       |
 | Linux   | product: linux<br>service: clamav              |                                |
@@ -77,22 +77,20 @@ For a better comprehension, the log sources are organized by directory name simi
 | Linux   | product: linux<br>service: syslog              |                                |
 | Linux   | product: linux<br>service: vsftpd              |                                |
 
-## Macos folder
+### Macos Folder
 
 | Product | Logsource                                    | Event |
 | ------- | -------------------------------------------- | ----- |
 | Macos   | product: macos<br>category: file_event       |       |
 | Macos   | product: macos<br>category: process_creation |       |
 
-## Network folder
+### Network Folder
 
 | Product | Logsource                           | Event |
 | ------- | ----------------------------------- | ----- |
 | Cisco   | product: cisco<br>service: aaa      |
 | Cisco   | product: cisco<br>service: bgp      |
 | Cisco   | product: cisco<br>service: ldp      |
-|         | category: dns                       |
-|         | category: firewall                  |
 | Huawei  | product: huawei<br>service: ldp     |
 | Juniper | product: juniper<br>service: ldp    |
 | Zeek    | product: zeek<br>service: dce_rpc   |
@@ -102,17 +100,19 @@ For a better comprehension, the log sources are organized by directory name simi
 | Zeek    | product: zeek<br>service: rdp       |
 | Zeek    | product: zeek<br>service: smb_files |
 | Zeek    | product: zeek<br>service: x509      |
+|         | category: dns                       |
+|         | category: firewall                  |
 |         | category: proxy                     |
 |         | category: webserver                 |
 
-## Product folder
+### Product Folder
 
 | Product     | Logsource            | Event                 |
 | ----------- | -------------------- | --------------------- |
 | Apache      | service: apache      | Application error.log |
 | Modsecurity | product: modsecurity |                       |
 
-## Windows folder
+### Windows Folder
 
 | Product | Logsource                                                         | Event                                                                                                                                                                                                                      |
 | ------- | ----------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -149,12 +149,15 @@ For a better comprehension, the log sources are organized by directory name simi
 | windows | product: windows<br>category: wmi_event                           | EventID: <br> - 19<br> - 20<br> - 21<br>Channel: Microsoft-Windows-Sysmon/Operational                                                                                                                                      |
 | windows | product: windows<br>service: application                          | Channel:<br> - Application                                                                                                                                                                                                 |
 | windows | product: windows<br>service: applocker                            | Channel:<br> - Microsoft-Windows-AppLocker/MSI and Script<br> - Microsoft-Windows-AppLocker/EXE and DLL<br> - Microsoft-Windows-AppLocker/Packaged app-Deployment<br> - Microsoft-Windows-AppLocker/Packaged app-Execution |
+| windows | product: windows<br>service: appmodel-runtime                     | Channel:<br> - Microsoft-Windows-AppModel-Runtime/Admin                                                                                                                                                                    |
 | windows | product: windows<br>service: appxdeployment-server                | Channel:<br> - Microsoft-Windows-AppXDeploymentServer/Operational                                                                                                                                                          |
+| windows | product: windows<br>service: appxpackaging-om                     | Channel:<br> - Microsoft-Windows-AppxPackaging/Operational                                                                                                                                                                 |
 | windows | product: windows<br>service: bitlocker                            | Channel:<br> - Microsoft-Windows-BitLocker/BitLocker Management                                                                                                                                                            |
 | windows | product: windows<br>service: bits-client                          | Channel:<br> - Microsoft-Windows-Bits-Client/Operational                                                                                                                                                                   |
 | windows | product: windows<br>service: codeintegrity-operational            | Channel:<br> - Microsoft-Windows-CodeIntegrity/Operational                                                                                                                                                                 |
 | windows | product: windows<br>service: dhcp                                 | Channel:<br> - Microsoft-Windows-DHCP-Server/Operational                                                                                                                                                                   |
 | windows | product: windows<br>service: diagnosis-scripted                   | Channel:<br> - Microsoft-Windows-Diagnosis-Scripted/Operational                                                                                                                                                            |
+| windows | product: windows<br>service: dns-client                           | Channel:<br> - Microsoft-Windows-DNS Client Events/Operational                                                                                                                                                             |
 | windows | product: windows<br>service: dns-server                           | Channel:<br> - DNS Server                                                                                                                                                                                                  |
 | windows | product: windows<br>service: dns-server-audit                     | Channel:<br> - Microsoft-Windows-DNS-Server/Audit                                                                                                                                                                          |
 | windows | product: windows<br>service: dns-server-analytic                  | Channel:<br> - Microsoft-Windows-DNS-Server/Analytical                                                                                                                                                                     |
@@ -178,14 +181,15 @@ For a better comprehension, the log sources are organized by directory name simi
 | windows | product: windows<br>service: system                               | Channel:<br> - System                                                                                                                                                                                                      |
 | windows | product: windows<br>service: taskscheduler                        | Channel:<br> - Microsoft-Windows-TaskScheduler/Operational                                                                                                                                                                 |
 | windows | product: windows<br>service: terminalservices-localsessionmanager | Channel:<br> - Microsoft-Windows-TerminalServices-LocalSessionManager/Operational                                                                                                                                          |
+| windows | product: windows<br>service: vhdmp                                | Channel:<br> - Microsoft-Windows-VHDMP/Operational                                                                                                                                                                         |
 | windows | product: windows<br>service: windefend                            | Channel:<br> - Microsoft-Windows-Windows Defender/Operational                                                                                                                                                              |
 | windows | product: windows<br>service: wmi                                  | Channel:<br> - Microsoft-Windows-WMI-Activity/Operational                                                                                                                                                                  |
 
-# Fields
+## Fields
 
-## Generic
+### Generic
 
-### Process Creation Events
+#### Process Creation Events
 
 Process creation events can be defined with the generic log source category *process_creation*. The event scope can be further restricted with *product*. Example for a process creation event log source restricted to Windows:
 
@@ -222,12 +226,12 @@ The field names follow the field names used in [Sysmon](https://docs.microsoft.c
 | ParentImage       | C:\Windows\System32\taskeng.exe                                                          |         |
 | ParentCommandLine | taskeng.exe {88F94E5C-5DC3-4606-AEFA-BDCA976D6113} S-1-5-18:NT AUTHORITY\System:Service: |         |
 
-### Other Generic Rule Categories
+#### Other Generic Rule Categories
 
 We align our field names to the field names that [Sysmon](https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon) uses.
 You can find all possible field values in the [Sysmon Community Guide](https://github.com/trustedsec/SysmonCommunityGuide/blob/master/chapters/Sysmon.md) and on [UltimateWindowsSecurity.com](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/default.aspx).
 
-## Specific
+### Specific
 
 * `product: windows`: Windows Operating System logs. The naming of Windows Eventlog attributes is used in Sigma rules.
   * `service: security`: Windows Security Event Log. Some may be covered by [generic log sources](#generic).
@@ -298,15 +302,23 @@ You can find all possible field values in the [Sysmon Community Guide](https://g
     * `Signature`: name of the threat like "EICAR-Test-File"
     * `Action`: action take by the antivirus like "delete"
 
-# History
+## History
 
-* 2023/01/14 Taxonomy V1.3.4
-  * Add new windows service: appxdeployment-server
-  * Add new windows service: lsa-server 
+* 2023/01/18 Taxonomy V1.3.4
+  * Add the following new windows services:
+    * `service: appxdeployment-server`
+    * `service: lsa-server`
+    * `service: appxpackaging-om`
+    * `service: dns-client`
+    * `service: appmodel-runtime`
+    * `service: vhdmp`
+  * Add new cisco services:
+    * `service: bgp`
+    * `service: ldp`
+  * Add new huawei `service: bgp`
+  * Add new juniper `service: bgp`
   * Add missing category folder
   * Add missing product folder
-  * Add new cisco service bgp and ldp
-  * Add new service bgp for huawei and juniper
 * 2023/01/03 Taxonomy V1.3.3
   * Add windows service dns-server-analytic and bitlocker
   * Add all the W3C fields names to the category `webserver`
