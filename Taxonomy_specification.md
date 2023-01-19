@@ -321,7 +321,7 @@ You can find all possible field values in the [Sysmon Community Guide](https://g
   * Add new juniper `service: bgp`
   * Add missing category folder
   * Add missing product folder
-  * Add description for a special case when using only the `category` logsource
+  * Add description for a special case when using only the `product` logsource
 * 2023/01/03 Taxonomy V1.3.3
   * Add windows service dns-server-analytic and bitlocker
   * Add all the W3C fields names to the category `webserver`
