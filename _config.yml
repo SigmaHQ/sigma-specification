@@ -1,13 +1,16 @@
-theme: jekyll-theme-minimal
 title: Sigma Specification
 description: All the specifications of Sigma
-
+show_downloads: false
+color-scheme: auto
 plugins:
   - jekyll-sitemap
   - jekyll-seo-tag
   - jemoji
+  - jekyll-remote-theme
 
-navigation:
+remote_theme: BDHU/minimalist
+
+sidebar:
   - name: Readme
     link: ./index.html
   - name: Rules
