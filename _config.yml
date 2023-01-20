@@ -2,6 +2,8 @@ title: Sigma Specification
 description: All the specifications of Sigma
 show_downloads: false
 color-scheme: auto
+favicon: true
+
 plugins:
   - jekyll-sitemap
   - jekyll-seo-tag
