@@ -15,17 +15,17 @@ remote_theme: BDHU/minimalist
 
 sidebar:
   - name: Index
-    icon: <i class="fa-regular fa-pen-fancy"></i>
+    icon: <i class="fa-solid fa-pen-nib"></i>
     link: /sigma-specification/index.html
   - name: Sigma Rules
-    icon: <i class="fa-regular fa-pen-fancy"></i>
+    icon: <i class="fa-solid fa-pen-nib"></i>
     link: /sigma-specification/Sigma_specification.html
   - name: Tags
-    icon: <i class="fa-regular fa-pen-fancy"></i>
+    icon: <i class="fa-solid fa-pen-nib"></i>
     link: /sigma-specification/Tags_specification.html
   - name: Taxonomy
-    icon: <i class="fa-regular fa-pen-fancy"></i>
+    icon: <i class="fa-solid fa-pen-nib"></i>
     link: /sigma-specification/Taxonomy_specification.html
   - name: SigmaHQ Filename Normalisation
-    icon: <i class="fa-regular fa-pen-fancy"></i>
+    icon: /images/pen-nib-solid.svg
     link: /sigma-specification/sigmahq/Sigmahq_filename_rule.html
