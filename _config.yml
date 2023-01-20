@@ -2,6 +2,7 @@ title: Sigma Specification
 description: All the specifications of Sigma
 show_downloads: false
 color-scheme: auto
+logo: /images/Sigma_0.3.png
 favicon: true
 
 plugins:
@@ -14,12 +15,17 @@ remote_theme: BDHU/minimalist
 
 sidebar:
   - name: Index
-    link: ./index.html
+    icon: <i class="fa-regular fa-pen-fancy"></i>
+    link: /index.html
   - name: Sigma Rules
-    link: ./Sigma_specification.html
+    icon: <i class="fa-regular fa-pen-fancy"></i>
+    link: /Sigma_specification.html
   - name: Tags
-    link: ./Tags_specification.html
+    icon: <i class="fa-regular fa-pen-fancy"></i>
+    link: /Tags_specification.html
   - name: Taxonomy
-    link: ./Taxonomy_specification.html
+    icon: <i class="fa-regular fa-pen-fancy"></i>
+    link: /Taxonomy_specification.html
   - name: SigmaHQ Filename Normalisation
-    link: ./sigmahq/Sigmahq_filename_rule.html
+    icon: <i class="fa-regular fa-pen-fancy"></i>
+    link: /sigmahq/Sigmahq_filename_rule.html
