@@ -27,5 +27,12 @@ sidebar:
     icon: <i class="fa-solid fa-pen-nib"></i>
     link: /sigma-specification/Taxonomy_specification.html
   - name: SigmaHQ Filename Normalisation
-    icon: /images/pen-nib-solid.svg
+    icon: <i class="fa-solid fa-pen-nib"></i>
     link: /sigma-specification/sigmahq/Sigmahq_filename_rule.html
+  - name: SigmaHQ Rules
+    icon: <i class="fa-solid fa-file-shield"></i>
+    link: https://github.com/SigmaHQ/sigma
+  - name: PySigma Converter
+    icon: <i class="fa-solid fa-screwdriver-wrench"></i>
+    link: https://github.com/SigmaHQ/pySigma
+ 
