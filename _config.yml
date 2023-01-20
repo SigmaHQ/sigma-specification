@@ -14,10 +14,10 @@ plugins:
 remote_theme: BDHU/minimalist
 
 sidebar:
-  - name: Index
-    icon: <i class="fa-solid fa-pen-nib"></i>
+  - name: Home
+    icon: <i class="fa-solid fa-house"></i>
     link: /sigma-specification/index.html
-  - name: Sigma Rules
+  - name: Rules
     icon: <i class="fa-solid fa-pen-nib"></i>
     link: /sigma-specification/Sigma_specification.html
   - name: Tags
