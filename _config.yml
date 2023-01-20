@@ -11,11 +11,13 @@ plugins:
 remote_theme: BDHU/minimalist
 
 sidebar:
-  - name: Readme
+  - name: Index
     link: ./index.html
-  - name: Rules
+  - name: Sigma Rules
     link: ./Sigma_specification.html
   - name: Tags
     link: ./Tags_specification.html
   - name: Taxonomy
     link: ./Taxonomy_specification.html
+  - name: SigmaHQ Filename Normalisation
+    link: ./sigmahq/Sigmahq_filename_rule.html
