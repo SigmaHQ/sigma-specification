@@ -1,18 +1,41 @@
-theme: jekyll-theme-minimal
-title: Sigma Specification
-description: All the specifications of Sigma
+title: Specification
+description: All the specifications of Sigma format
+show_downloads: false
+color-scheme: auto
+logo: /images/Sigma_0.3.png
+favicon: true
 
 plugins:
   - jekyll-sitemap
   - jekyll-seo-tag
   - jemoji
+  - jekyll-remote-theme
 
-navigation:
-  - name: Readme
-    link: ./index.html
+remote_theme: BDHU/minimalist
+
+sidebar:
+  - name: Home
+    icon: <i class="fa-solid fa-house"></i>
+    link: /sigma-specification/index.html
   - name: Rules
-    link: ./Sigma_specification.html
+    icon: <i class="fa-solid fa-pen-nib"></i>
+    link: /sigma-specification/Sigma_specification.html
   - name: Tags
-    link: ./Tags_specification.html
+    icon: <i class="fa-solid fa-pen-nib"></i>
+    link: /sigma-specification/Tags_specification.html
   - name: Taxonomy
-    link: ./Taxonomy_specification.html
+    icon: <i class="fa-solid fa-pen-nib"></i>
+    link: /sigma-specification/Taxonomy_specification.html
+  - name: SigmaHQ Filename Normalisation
+    icon: <i class="fa-solid fa-pen-nib"></i>
+    link: /sigma-specification/sigmahq/Sigmahq_filename_rule.html
+  - name: Github repository
+    icon: <i class="fa-brands fa-github"></i>
+    link: https://github.com/SigmaHQ/sigma-specification
+  - name: SigmaHQ Rules
+    icon: <i class="fa-solid fa-file-shield"></i>
+    link: https://github.com/SigmaHQ/sigma
+  - name: PySigma Converter
+    icon: <i class="fa-solid fa-screwdriver-wrench"></i>
+    link: https://github.com/SigmaHQ/pySigma
+ 
