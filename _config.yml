@@ -1,5 +1,5 @@
-title: Sigma Specification
-description: All the specifications of Sigma
+title: Specification
+description: All the specifications of Sigma format
 show_downloads: false
 color-scheme: auto
 logo: /images/Sigma_0.3.png
@@ -29,6 +29,9 @@ sidebar:
   - name: SigmaHQ Filename Normalisation
     icon: <i class="fa-solid fa-pen-nib"></i>
     link: /sigma-specification/sigmahq/Sigmahq_filename_rule.html
+  - name: Github repository
+    icon: <i class="fa-brands fa-github"></i>
+    link: https://github.com/SigmaHQ/sigma-specification
   - name: SigmaHQ Rules
     icon: <i class="fa-solid fa-file-shield"></i>
     link: https://github.com/SigmaHQ/sigma
