@@ -307,7 +307,7 @@ You can find all possible field values in the [Sysmon Community Guide](https://g
 
 ## History
 
-* 2023/01/20 Taxonomy V1.3.5
+* 2023/01/21 Taxonomy V1.3.5
   * Add new product and its related service:
     * `product: github`
     * `service: audit_logs`
