@@ -48,17 +48,17 @@ For a better comprehension, the log sources are organized by directory name simi
 
 ### Cloud Folder
 
-| Product    | Logsource                                                    | Event |
-| ---------- | ------------------------------------------------------------ | ----- |
-| Aws        | product: aws<br>service: cloudtrail                          |       |
-| Azure      | product: azure<br>service: activitylogs                      |       |
-| Azure      | product: azure<br>service: signinlogs                        |       |
-| Gcp        | product: gcp<br>service: gcp.audit                           |       |
-| Github     | product: github<br>service: audit_logs                       |       |
-| Gworkspace | product: google_workspace<br>service: google_workspace.admin |       |
-| M365       | product: m365<br>service: threat_management                  |       |
-| Okta       | product: okta<br>service: okta                               |       |
-| Onelogin   | product: onelogin<br>service: onelogin.events                |       |
+| Product    | Logsource                                                    | Event                  |
+| ---------- | ------------------------------------------------------------ | ---------------------- |
+| Aws        | product: aws<br>service: cloudtrail                          |                        |
+| Azure      | product: azure<br>service: activitylogs                      |                        |
+| Azure      | product: azure<br>service: signinlogs                        |                        |
+| Gcp        | product: gcp<br>service: gcp.audit                           |                        |
+| Github     | product: github<br>service: audit                            | organization Audit log |
+| Gworkspace | product: google_workspace<br>service: google_workspace.admin |                        |
+| M365       | product: m365<br>service: threat_management                  |                        |
+| Okta       | product: okta<br>service: okta                               |                        |
+| Onelogin   | product: onelogin<br>service: onelogin.events                |                        |
 
 ### Linux Folder
 
@@ -310,7 +310,7 @@ You can find all possible field values in the [Sysmon Community Guide](https://g
 * 2023/01/21 Taxonomy V1.3.5
   * Add new product and its related service:
     * `product: github`
-    * `service: audit_logs`
+    * `service: audit`
 * 2023/01/18 Taxonomy V1.3.4
   * Add the following new windows services:
     * `service: appxdeployment-server`
