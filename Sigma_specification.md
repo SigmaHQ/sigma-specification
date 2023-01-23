@@ -721,7 +721,7 @@ The level field contains one of five string values. It describes the criticality
 - `low`: Notable event but rarely an incident. Low rated events can be relevant in high numbers or combination with others. Immediate reaction shouldn't be necessary, but a regular review is recommended.
 - `medium`: Relevant event that should be reviewed manually on a more frequent basis.
 - `high`: Relevant event that should trigger an internal alert and requires a prompt review.
-- `critical`: Highly relevant event that indicates an incident. Critical events should be reviewed immediately.
+- `critical`: Highly relevant event that indicates an incident. Critical events should be reviewed immediately. It is used only for cases in which probability borders certainty.
 
 ### Tags
 
