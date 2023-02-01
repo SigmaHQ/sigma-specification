@@ -624,7 +624,7 @@ multiple values.
 * `wide`: Alias for `utf16le` modifier
 * `utf16`: Prepends a [byte order mark](https://en.wikipedia.org/wiki/Byte_order_mark) and encodes UTF16, e.g. `cmd` > `FF FE 63 00 6d 00 64 00` (only used in combination with base64 modifiers)
 * `windash`: Add a new variant where all `-` occurrences are replaced with `/`. The original variant is also kept unchanged.
-* `cidr`: The value is handled as a IP CIDR by backends
+* `cidr`: The value is handled as an IPv4 CIDR by backends (IPv6 is not supported, yet)
 * `lt`: Field is less than the value
 * `lte`: Field is less or egal than the value
 * `gt`: Field is Greater than the value
