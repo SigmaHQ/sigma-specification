@@ -4,7 +4,7 @@ The following document defines the different aspects of the SIGMA specification.
 
 * Version 1.0.3
 * Release date 2022/12/28
-  
+
 # Summary
 
 - [Summary](#summary)
@@ -73,7 +73,7 @@ example:
 
 ## Data
 
-The rule files are written in [yaml format](https://yaml.org/spec/1.2.2/)  
+The rule files are written in [yaml format](https://yaml.org/spec/1.2.2/)
 To keep the rules interoperable use the following:
 
 - UTF-8
@@ -242,7 +242,7 @@ rest: //any
 
 ###  Image
 
-![sigma_schema](https://github.com/SigmaHQ/sigma-specification/images/Sigma_Schema.png)
+![sigma_schema](./images/Sigma_Schema.png)
 
 ##  Components
 
@@ -341,7 +341,7 @@ Creation date of the rule. Use the format YYYY/MM/DD
 
 **Attribute**: modified
 
-*Last* modification date of the rule. Use the format YYYY/MM/DD  
+*Last* modification date of the rule. Use the format YYYY/MM/DD
 Reasons to change the modified date:
 * changed title
 * changed detection section
@@ -398,7 +398,7 @@ A definition that can consist of two different data structures - lists and maps.
 
 #### String Wildcard
 
-Wildcards are used when part of the text is random.  
+Wildcards are used when part of the text is random.
 You can use :
 
 * `?` to replace a single mandatory character
@@ -577,7 +577,7 @@ multiple values.
   changes
   this to *AND*. This is useful if you want to express a command line invocation with different
   parameters where the order may vary and removes the need for some cumbersome workarounds.
-  
+
   Single item values are not allowed to have an `all` modifier as some back-ends cannot support it.
   If you use it as a workaround to duplicate a field in a selection, use a new selection instead.
 * `base64`: The value is encoded with Base64.
@@ -602,7 +602,7 @@ multiple values.
 #### Timeframe
 
   **Attribute**: timeframe
-  
+
   Is a special Search-Identifier used **only** with Aggregation conditions
   Defines a time period in which the aggregation should be applied.
   The following format must be used: number + letter (in lowercase)
@@ -755,7 +755,7 @@ Splunk
 
 * `AccountName: %Administrators%` convert to `tag=Administrators`
 
-Elastic Search 
+Elastic Search
 
 * `SourceWorkstation: %JumpServers%` convert to `"SourceWorkstation": SRV110[12]`
 
