@@ -302,9 +302,9 @@ Declares the status of the rule:
 
 * stable: the rule didn't produce any obvious false positives in multiple environments over a long period of time
 * test: the rule doesn't show any obvious false positives on a limited set of test systems
-* experimental: an new rule that hasn't been tested outside of lab environments and could lead to many false positives
-* deprecated: the rule is replace or cover by another one. The link is made by the `related` field.
-* unsupported: the rule can not be use in its current state (special correlation log, home-made fields)
+* experimental: a new rule that hasn't been tested outside of lab environments and could lead to many false positives
+* deprecated: the rule is to replace or cover another one. The link between both rules is made via the `related` field.
+* unsupported: the rule can not be used in its current state (special correlation log, home-made fields...etc.)
 
 ### Description (optional)
 
