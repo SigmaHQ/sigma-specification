@@ -109,8 +109,8 @@ The rules consist of a few required sections and several optional ones.
 title
 id [optional]
 related [optional]
-   - type {type-identifier}
-     id {rule-id}
+   - id {rule-id}
+     type {type-identifier}
 status [optional]
 description [optional]
 references [optional]
@@ -341,12 +341,15 @@ Creation date of the rule. Use the format YYYY/MM/DD
 
 **Attribute**: modified
 
-*Last* modification date of the rule. Use the format YYYY/MM/DD  
-Reasons to change the modified date:
-* changed title
-* changed detection section
-* changed level
-* changed logsource (rare)
+*Last* modification date of the rule. Use the format YYYY/MM/DD
+
+If one of the following fields or sections changed. Then the modified field must be updated:
+
+* Detection section
+* Level
+* Logsource (rare)
+* Status to `deprecated`
+* Title
 
 ### Log Source
 
