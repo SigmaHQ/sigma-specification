@@ -4,7 +4,7 @@ The following document defines the different aspects of the SIGMA specification.
 
 * Version 1.0.3
 * Release date 2022/12/28
-  
+
 # Summary
 
 - [Summary](#summary)
@@ -73,7 +73,7 @@ example:
 
 ## Data
 
-The rule files are written in [yaml format](https://yaml.org/spec/1.2.2/)  
+The rule files are written in [yaml format](https://yaml.org/spec/1.2.2/)
 To keep the rules interoperable use the following:
 
 - UTF-8
@@ -242,7 +242,7 @@ rest: //any
 
 ###  Image
 
-![sigma_schema](https://github.com/SigmaHQ/sigma-specification/images/Sigma_Schema.png)
+![sigma_schema](./images/Sigma_Schema.png)
 
 ##  Components
 
@@ -300,12 +300,11 @@ Currently the following types are defined:
 
 Declares the status of the rule:
 
-- stable: the rule is considered as stable and may be used in production systems or dashboards.
-- test: an almost stable rule that possibly could require some fine tuning.
-- experimental: an experimental rule that could lead to false positives results or be noisy, but could also identify interesting
-  events.
-- deprecated: the rule is replace or cover by another one. The link is made by the `related` field.
-- unsupported: the rule can not be use in its current state (special correlation log, home-made fields)
+* stable: the rule didn't produce any obvious false positives in multiple environments over a long period of time
+* test: the rule doesn't show any obvious false positives on a limited set of test systems
+* experimental: a new rule that hasn't been tested outside of lab environments and could lead to many false positives
+* deprecated: the rule is to replace or cover another one. The link between both rules is made via the `related` field.
+* unsupported: the rule can not be used in its current state (special correlation log, home-made fields...etc.)
 
 ### Description (optional)
 
@@ -401,7 +400,7 @@ A definition that can consist of two different data structures - lists and maps.
 
 #### String Wildcard
 
-Wildcards are used when part of the text is random.  
+Wildcards are used when part of the text is random.
 You can use :
 
 * `?` to replace a single mandatory character
@@ -580,7 +579,7 @@ multiple values.
   changes
   this to *AND*. This is useful if you want to express a command line invocation with different
   parameters where the order may vary and removes the need for some cumbersome workarounds.
-  
+
   Single item values are not allowed to have an `all` modifier as some back-ends cannot support it.
   If you use it as a workaround to duplicate a field in a selection, use a new selection instead.
 * `base64`: The value is encoded with Base64.
@@ -605,7 +604,7 @@ multiple values.
 #### Timeframe
 
   **Attribute**: timeframe
-  
+
   Is a special Search-Identifier used **only** with Aggregation conditions
   Defines a time period in which the aggregation should be applied.
   The following format must be used: number + letter (in lowercase)
@@ -724,7 +723,7 @@ The level field contains one of five string values. It describes the criticality
 - `low`: Notable event but rarely an incident. Low rated events can be relevant in high numbers or combination with others. Immediate reaction shouldn't be necessary, but a regular review is recommended.
 - `medium`: Relevant event that should be reviewed manually on a more frequent basis.
 - `high`: Relevant event that should trigger an internal alert and requires a prompt review.
-- `critical`: Highly relevant event that indicates an incident. Critical events should be reviewed immediately.
+- `critical`: Highly relevant event that indicates an incident. Critical events should be reviewed immediately. It is used only for cases in which probability borders certainty.
 
 ### Tags
 
@@ -758,7 +757,7 @@ Splunk
 
 * `AccountName: %Administrators%` convert to `tag=Administrators`
 
-Elastic Search 
+Elastic Search
 
 * `SourceWorkstation: %JumpServers%` convert to `"SourceWorkstation": SRV110[12]`
 
