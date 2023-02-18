@@ -69,7 +69,9 @@ All newly created rules must start with a status of `experimental`
 
 All rules must provide a public reference when possible
 
-## Single Item Lists
+## Detection
+
+### Item Lists
 
 Single item list must be expressed in the same line instead of multi-line.
 
