@@ -1,6 +1,6 @@
-# SigmaHQ Custom Specification <!-- omit in toc -->
+# SigmaHQ Rule Conventions <!-- omit in toc -->
 
-This document describes an additional set of custom requirements enforced by the SigmaHQ rule repository in order to ensure an easy to maintain rule base. For the general Sigma specification please read the [Sigma_specification.md](../Sigma_specification.md).
+This document describes an additional set of rule conventions enforced by the SigmaHQ rule repository in order to ensure an easy to maintain rule base. For the general Sigma specification please read the [Sigma_specification.md](../Sigma_specification.md).
 
 ## Summary
 
