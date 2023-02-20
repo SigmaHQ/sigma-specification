@@ -1,4 +1,4 @@
-title: Specification
+title: Specs
 description: All the specifications of Sigma format
 show_downloads: false
 color-scheme: auto
@@ -39,3 +39,8 @@ sidebar:
     icon: <i class="fa-solid fa-screwdriver-wrench"></i>
     link: https://github.com/SigmaHQ/pySigma
  
+# https://github.com/github/pages-gem/issues/399#issuecomment-301827749
+# When running locally, we run into the following error —
+# GitHub Metadata: No GitHub API authentication could be found. Some fields may be missing or have incorrect data.
+# Adding the following line to avoid the issue
+github: [metadata]
