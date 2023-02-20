@@ -1,6 +1,6 @@
 # SigmaHQ Custom Specification <!-- omit in toc -->
 
-This document describe an addtional set of custom requirements enfroced by the SigmaHQ rule repository in order to ensure an easy to maintain rule base. For the general Sigma specficiation please read the [Sigma_specification.md](../Sigma_specification.md).
+This document describes an additional set of custom requirements enforced by the SigmaHQ rule repository in order to ensure an easy to maintain rule base. For the general Sigma specification please read the [Sigma_specification.md](../Sigma_specification.md).
 
 ## Summary
 
@@ -53,7 +53,7 @@ All rule filename must follow the convention described in [Sigmahq_filename_rule
 
 ## Titles
 
-All SigmaHQ rules must titles must use title casing
+All SigmaHQ rule titles must use title casing
 
 Example:
 
