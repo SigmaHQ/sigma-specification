@@ -70,7 +70,7 @@ All newly created rules must start with a status of `experimental`
 ## References
 
 - All rules must provide a public reference when possible
-- References to git based platforms such as Github or Gitlab must provide a permalink instead of the main branch link. This is to avoid any future confusion in the intended reference in case the maintainer make changes
+- References to git-based platforms such as Github or Gitlab must provide a permalink instead of the main branch link. This is to avoid any future confusion in the intended reference in case the maintainers make changes
 
 ## Detection
 
@@ -97,14 +97,14 @@ detection:
             - '\example_3.exe'
 ```
 
-## False Postivess
+## False Postives
 
 - If the rule author expects false positives, then its must be expressed. For example:
 
 ```yml
 falsepositives:
     - During software installation
-    - Legitimate usage of the tool
+    - Legitimate administrative activity
 ```
 
 - In cases where the author doesn't know of any false positives then value the should be `Unknown`.
