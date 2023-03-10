@@ -53,6 +53,10 @@ level [required]
 
 All rule filename must follow the convention described in [Sigmahq_filename_rule.md](./Sigmahq_filename_rule.md)
 
+## Indentation
+
+The recommended indentation is `4` spaces.
+
 ## Titles
 
 All SigmaHQ rule titles must use title casing
@@ -67,10 +71,22 @@ title: Suspicious Office Child Process
 
 All newly created rules must start with a status of `experimental`
 
+## Description
+
+- All rule descriptions must explain what the rule detects. A best practice therefore is to start with the word `Detects`
+- If a description text is too long or it's expressing multiple ideas. It's advised to use the pipe symbole `|` to signify a multiline string. Example:
+
+```yml
+description: |
+    Detects password dumper activity by monitoring remote thread creation EventID 8 in combination with the lsass.exe process as TargetImage.
+    The process in field Process is the malicious program. A single execution can lead to hundreds of events.
+``` 
+
 ## References
 
-- All rules must provide a public reference when possible
-- References to git-based platforms such as Github or Gitlab must provide a permalink instead of the main branch link. This is to avoid any future confusion in the intended reference in case the maintainers make changes
+- All rules must provide a public reference, if possible.
+- References to the MITRE ATT&CK website are not allowed. Instead they shloud be expressed as tags using the appropriate MITRE tags.
+- References to git-based platforms such as Github or Gitlab must be provided as permalinks instead of main or master branch links. This is to avoid any future confusion in the intended reference in case the maintainers of said branches introduce new changes.
 
 ## Detection
 
@@ -99,12 +115,12 @@ detection:
 
 ## False Postives
 
-- If the rule author expects false positives, then its must be expressed. For example:
+- If the rule author expects false positives (found during testing or via external references), then it must be expressed as clear as possible. For example:
 
 ```yml
 falsepositives:
-    - During software installation
-    - Legitimate administrative activity
+    - During software X installation the process Y is known to behave similarly as Z 
+    - Administrators or administrator scripts might sometimes generate similar activity
 ```
 
 - In cases where the author doesn't know of any false positives then value the should be `Unknown`.
