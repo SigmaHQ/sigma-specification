@@ -264,6 +264,8 @@ title: Failed login
 id: 0e95725d-7320-415d-80f7-004da920fc12
 action: correlation
 type: value_count
+rules: 
+    - 5638f7c0-ac70-491d-8465-2a65075e0d86
 field: User
 group-by:
     - ComputerName
