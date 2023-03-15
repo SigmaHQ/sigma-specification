@@ -119,7 +119,7 @@ A brief title for the rule that should contain what the rule is supposed to dete
 
 ### Rule Identification
 
-**Attributes:** id
+**Attribute:** id
 
 Sigma meta-rules should be identified by a globally unique identifier in the *id* attribute.  
 For this purpose randomly generated UUIDs (version 4) are recommended but not mandatory.  
@@ -141,19 +141,21 @@ This field is mandatory and must have the value `correlation`
 title: login brute force
 id: 0e95725d-7320-415d-80f7-004da920fc11
 action: correlation
+```
 
 #### Related rules
 
 **Attribute:** rules
 
-refers to one or multiple Sigma or Correlations rules. Allowing the user to chain multiple correlations together
+Refers to one or multiple Sigma or Correlations rules. Allowing the user to chain multiple correlations together. A rule can be referred by the `id` or (to be defined) `name` attribute of a Sigma rule. Latter is a human-readable name and improves the readability of correlation rules.
 
 ```yaml
 title: login brute force
 id: 0e95725d-7320-415d-80f7-004da920fc11
 action: correlation
 rules:
-    -  5638f7c0-ac70-491d-8465-2a65075e0d86 # ID of the low firewall rule for action: bloc
+    - 5638f7c0-ac70-491d-8465-2a65075e0d86 # ID of the low firewall rule for action: block
+    - firewall_block
 ```
 
 #### Correlation type
