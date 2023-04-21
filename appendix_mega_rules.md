@@ -1,4 +1,9 @@
-# Sigma Meta Rules <!-- omit in toc -->
+# Sigma Correlation <!-- omit in toc -->
+
+The following document defines the standardized correlation that can be used in Sigma rules.
+
+* Version 1.0.1
+* Release date 2022/12/19
 
 - [Introduction](#introduction)
 - [Correlation](#correlation)
@@ -10,9 +15,9 @@
       - [title](#title)
     - [Rule Identification](#rule-identification)
       - [action](#action)
-      - [Relative rules](#relative-rules)
+      - [Related rules](#related-rules)
       - [Correlation type](#correlation-type)
-      - [Regrouping](#regrouping)
+      - [Grouping](#grouping)
       - [Values Field Name selection](#values-field-name-selection)
       - [Time Selection](#time-selection)
       - [Condition Selection](#condition-selection)
@@ -41,7 +46,7 @@
       - [action](#action-1)
       - [Change to Condition](#change-to-condition)
       - [Decription](#decription)
-      - [Relative rules](#relative-rules-1)
+      - [Relative rules](#relative-rules)
       - [Log source](#log-source)
       - [filter selection](#filter-selection)
     - [Example](#example)
