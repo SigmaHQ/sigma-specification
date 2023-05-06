@@ -735,7 +735,7 @@ A Sigma rule can be categorised with tags. Tags should generally follow this syn
 * no spaces
 * Tags are namespaced, the dot is used as separator. e.g. *attack.t1234* refers to technique 1234 in the namespace *attack*; Namespaces may also be nested
 * Keep tags short, e.g. numeric identifiers instead of long sentences
-* If applicable, use [predefined tags](./Tags). Feel free to send pull request or issues with proposals for new tags
+* If applicable, use [predefined tags](./Tags_specification.md). Feel free to send pull request or issues with proposals for new tags
 
 ### Placeholders
 
