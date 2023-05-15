@@ -34,7 +34,8 @@ The following document defines the standardized modifiers that can be used in Si
 * `utf16be`: Transforms value to UTF16-BE encoding, e.g. `cmd` > `00 63 00 6d 00 64` (only used in combination with base64 modifiers)
 * `wide`: Alias for `utf16le` modifier
 * `utf16`: Prepends a [byte order mark](https://en.wikipedia.org/wiki/Byte_order_mark) and encodes UTF16, e.g. `cmd` > `FF FE 63 00 6d 00 64 00` (only used in combination with base64 modifiers)
-* `windash`: Add a new variant where all `-` occurrences are replaced with `/`. The original variant is also kept unchanged.
+* `windash`: creates all possible permutations of the `-` and `/` characters. Windows command line flags can often be indicated by both characters. Using the `windash` modifier converts `-` values into `/` and vice versa and uses all possible permutation of strings in the selection.
+
 * `cidr`: The value is handled as an CIDR by backends
 * `lt`: Field is less than the value
 * `lte`: Field is less or equal than the value
