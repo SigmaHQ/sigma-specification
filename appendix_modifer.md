@@ -36,12 +36,6 @@ The following document defines the standardized modifiers that can be used in Si
 * `utf16`: Prepends a [byte order mark](https://en.wikipedia.org/wiki/Byte_order_mark) and encodes UTF16, e.g. `cmd` > `FF FE 63 00 6d 00 64 00` (only used in combination with base64 modifiers)
 * `windash`: creates all possible permutations of the `-` and `/` characters. Windows command line flags can often be indicated by both characters. Using the `windash` modifier converts `-` values into `/` and vice versa and uses all possible permutation of strings in the selection.
 
-* `cidr`: The value is handled as an CIDR by backends
-* `lt`: Field is less than the value
-* `lte`: Field is less or equal than the value
-* `gt`: Field is Greater than the value
-* `gte`: Field is Greater or equal than the value
-
 * `expand`: Modifier for expansion of placeholders in values. The final behavior of the replacement is determined by processing pipeline transformations. Current possibilities in pySigma are:
   * Expand to value list (`ValueListPlaceholderTransformation`/`value_placeholders`)
   * Replace with query expression in target query language (`QueryExpressionPlaceholderTransformation`/`query_expression_placeholders`)
@@ -50,3 +44,9 @@ The following document defines the standardized modifiers that can be used in Si
 ## Types
 
 * `re`: value is handled as a regular expression by backends.
+
+* `cidr`: The value is handled as an CIDR by backends
+* `lt`: Field is less than the value
+* `lte`: Field is less or equal than the value
+* `gt`: Field is greater than the value
+* `gte`: Field is greater or equal than the value
