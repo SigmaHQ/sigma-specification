@@ -41,7 +41,10 @@ The following document defines the standardized modifiers that can be used in Si
 * `gt`: Field is Greater than the value
 * `gte`: Field is Greater or equal than the value
 
-* `expand`: Modifier for expansion of placeholders in values. It replaces placeholder strings. (e.g. ..?)
+* `expand`: Modifier for expansion of placeholders in values. The final behavior of the replacement is determined by processing pipeline transformations. Current possibilities in pySigma are:
+  * Expand to value list (`ValueListPlaceholderTransformation`/`value_placeholders`)
+  * Replace with query expression in target query language (`QueryExpressionPlaceholderTransformation`/`query_expression_placeholders`)
+  * Replace placeholder with wildcard `*`, which should only be used as last resort. (`WildcardPlaceholderTransformation`/`wildcard_placeholders`)
 
 ## Types
 
