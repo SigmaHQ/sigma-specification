@@ -5,7 +5,7 @@ THIS IS A WORK IN PROGRESS DO NOT USE IT
 - Version 2.0.0
 - Planned release date 2023/04/02
 
-Take a look at [breaking change](V2_breaking_changes.md)
+Take a look at [breaking changes](V2_breaking_changes.md)
 
 # Summary
 
@@ -315,7 +315,7 @@ Defines the taxonomy used in the Sigma rule. A taxonomy can define:
 used in the Sigma rule. The Default taxonomy is "sigma" and can be ommited. A custom taxonomy must be handled by the used tool
 or transformed into the default taxonomy.
 
-more information in [Appendix Taxonomy](appendix_taxonomy.md)
+More information in [Appendix Taxonomy](appendix_taxonomy.md)
 
 ## Status (optional)
 
@@ -589,7 +589,7 @@ There are two types of value modifiers:
 Generally, value modifiers work on single values and value lists. A value might also expand into
 multiple values.
 
-[List of modifier](appendix_modifer.md)
+[List of modifiers](appendix_modifer.md)
 
 ## Condition
 

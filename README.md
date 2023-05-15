@@ -15,9 +15,9 @@ The version number is in the form of 3 digits 'A.B.C':
 The Sigma rules format specifications is described in the file [Sigma_specification](Sigma_specification.md)  
 The Sigma Meta-rules format specifications is described in the file [Sigma_meta_rules](Sigma_meta_rules.md)  
 
-There exists other files in the repository to describe the different modifier, fields and tags to be used in Sigma rules:
+There exists other files in the repository to describe the different modifiers, fields and tags to be used in Sigma rules:
 
-- [appendix_modifier](appendix_modifer.md) is a document that defines the different modifier use that can be used in a Sigma rule. 
+- [appendix_modifier](appendix_modifer.md) is a document that defines the different modifiers that can be used in a Sigma rule. 
 - [appendix_tags](appendix_tags.md) is a document that defines the standardized tags that can be used to categorize the different Sigma rules.
 - [appendix_taxonomy](appendix_taxonomy.md) is a document that defines the different field names and log sources that should be used to ensure sharable rules
 
