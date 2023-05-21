@@ -2,69 +2,120 @@
 
 The following document defines the standardized correlation that can be used in Sigma rules.
 
-* Version 1.0.1
-* Release date 2022/12/19
+* Version 2.0.0
+* Release date 2023/07/01
 
 - [Introduction](#introduction)
-- [Correlation](#correlation)
-  - [YAML File](#yaml-file)
-  - [Structure](#structure)
+  - [Compatibility](#compatibility)
+  - [Expression of Relationships Inside Condition of Sigma Rules](#expression-of-relationships-inside-condition-of-sigma-rules)
+  - [Type of rules](#type-of-rules)
+    - [Correlation rules](#correlation-rules)
+    - [File Inclusion](#file-inclusion)
+    - [Defeats rules](#defeats-rules)
+- [Correlation rules](#correlation-rules-1)
+  - [File Structure](#file-structure)
+    - [YAML File](#yaml-file)
     - [Schema](#schema)
     - [Syntax](#syntax)
-    - [Components](#components)
-      - [title](#title)
+  - [Components](#components)
+    - [Title](#title)
     - [Rule Identification](#rule-identification)
-      - [action](#action)
-      - [Related rules](#related-rules)
-      - [Correlation type](#correlation-type)
-      - [Grouping](#grouping)
-      - [Values Field Name selection](#values-field-name-selection)
-      - [Time Selection](#time-selection)
-      - [Condition Selection](#condition-selection)
-      - [level](#level)
-      - [aliases](#aliases)
-    - [Correlation Types](#correlation-types)
-      - [Event Count (event\_count)](#event-count-event_count)
-      - [Value Count (value\_count)](#value-count-value_count)
-      - [Temporal Proximity (temporal)](#temporal-proximity-temporal)
-    - [Conditions](#conditions)
-    - [Field Name Aliases](#field-name-aliases)
-      - [Field Name Aliases Example](#field-name-aliases-example)
+    - [Action](#action)
+    - [Related rules](#related-rules)
+    - [Correlation type](#correlation-type)
+    - [Grouping](#grouping)
+    - [Values Field Name selection](#values-field-name-selection)
+    - [Time Selection](#time-selection)
+    - [Condition Selection](#condition-selection)
+    - [Level](#level)
+    - [Aliases](#aliases)
+  - [Metric Conditions](#metric-conditions)
+  - [Event Count (event\_count)](#event-count-event_count)
+  - [Value Count (value\_count)](#value-count-value_count)
+  - [Temporal Proximity (temporal)](#temporal-proximity-temporal)
     - [Chaining](#chaining)
-      - [Correlation Chaining Example](#correlation-chaining-example)
-    - [File Inclusion](#file-inclusion)
-  - [Compatibility](#compatibility)
-  - [Alternative Proposals](#alternative-proposals)
-    - [Expression of Relationships Inside Condition of Sigma Rules](#expression-of-relationships-inside-condition-of-sigma-rules)
-- [Global filter or Defeats](#global-filter-or-defeats)
-  - [YAML File](#yaml-file-1)
-  - [Structure](#structure-1)
+    - [Correlation Chaining Example](#correlation-chaining-example)
+  - [Field Name Aliases](#field-name-aliases)
+    - [Field Name Aliases Example](#field-name-aliases-example)
+- [File Inclusion](#file-inclusion-1)
+  - [File structure](#file-structure-1)
+    - [YAML File](#yaml-file-1)
     - [Schema](#schema-1)
     - [Syntax](#syntax-1)
-    - [Components](#components-1)
-      - [title](#title-1)
-      - [action](#action-1)
-      - [Change to Condition](#change-to-condition)
-      - [Decription](#decription)
-      - [Relative rules](#relative-rules)
-      - [Log source](#log-source)
-      - [filter selection](#filter-selection)
-    - [Example](#example)
+  - [Components](#components-1)
+    - [Action:](#action-1)
+    - [Filename:](#filename)
+- [Defeats](#defeats)
+  - [File Structure](#file-structure-2)
+    - [YAML File](#yaml-file-2)
+    - [Schema](#schema-2)
+    - [Syntax](#syntax-2)
+  - [Components](#components-2)
+    - [title](#title-1)
+    - [action](#action-2)
+    - [Change to Condition](#change-to-condition)
+    - [Description](#description)
+    - [Log source](#log-source)
+    - [filter selection](#filter-selection)
 
 # Introduction
+Sometimes you need a more advanced search than simple selection.
+For that we can use a meta-rule over sigma rules.  
 
-A meta-rule is a rule over sigma rules.  
+## Compatibility
 
-With them you can do :
-- Correlation
-- Global filter or Defeats 
+Sigma correlations might exceed the capabilities of target systems for which queries are generated or required features are only supported partially by the target. Target-specific restrictions should be handled in a way that ensures that the generated queries do not create or raise users awareness for results that:
 
-# Correlation
+* could be misinterpreted
+* cause a huge amount of false positives compared to the query intended by the rule
+* cause false negatives
 
-All rules in a file, basic event rules as well as correlations, might contain an additional attribute generate.  
-If this is set to true, the rule will generate a query, even if it is referred by other correlations, which would normally cause that the rule wouldn’t generate a separate query."
+An error must be raised by the conversion backend if it should generate a query from a rule which contains a feature that is not supported but specified as must. Examples are:
 
-## YAML File
+* The target system can aggregate an occurrence count but cannot apply a condition to filter the aggregated counts.
+* The target system is not able to aggregate an occurrence count according to the given grouping criteria.
+* It is only possible to generate a query up to an intermediate correlation rule of a chain.
+
+The conversion backend should issue a warning to raise the user’s awareness about restrictions for aspects specified as should. Examples are:
+
+* Temporal relationships are recognized, but the order of the events cannot be recognized by the target system. This could cause false positives by differently ordered events.
+* Temporal relationships are only recognized within static time boundaries, e.g. a timespan 1h only matches if all events appear within a full hour, but not if some events appear in the previous and another event in the current hour. This could cause false negatives.
+
+## Expression of Relationships Inside Condition of Sigma Rules
+
+This was the first approach defined in Sigma with aggregations and the near operator. Sigma correlations are not based on this approach for the following reasons:
+
+* The coupling of rules describing singular events and relationships between multiple events is inconsistent, as the rule writer must decide which rule contains the relationship definition in case of temporal relationships.
+* It was inflexible because one Sigma rule refers exactly to one log source, which restricts the expression of relationships to events from the same log source.
+* One of the goals of Sigma rules was to keep condition logic simple. Especially the specification of temporal relationships can get quite complex in a query expression. Specifying correlation chains adds further complexity.
+* The pipe syntax sometimes caused the rule contributors to consider it as a Splunk query or another target system-specific query language. Expressing these relationships in a “Sigmaish” way should not cause these associations.
+
+## Type of rules
+### Correlation rules
+The purpose is to cover detection like:
+X invalid login alert in a host
+Invalid login alert in the same host but from X remote
+alert A,B and C in the same time laps
+
+### File Inclusion
+
+Sometimes it makes sense to define rules for events in a different file than the correlations, e.g. to make them reusable from multiple correlations or make it possible to use them independently.  
+For this reason, another document type is included for file inclusion.  
+An inclusion can be defined by setting the action attribute to include.  
+All rules contained in the referenced file are handled as if they were defined in the including file.
+
+###  Defeats rules
+The purpose is to cover the same tuning for many rules.
+Example a valid GPO script but that triggers X sigma rules.
+
+
+# Correlation rules
+
+All rules in a file, basic event rules as well as correlations, might contain an additional attribute generated.  
+If this is set to true, the rule will generate a query, even if it is referred to by other correlations, which would normally cause that the rule wouldn’t generate a separate query."
+
+## File Structure
+### YAML File
 
 To keep the file names interoperable use the following:
 
@@ -74,9 +125,9 @@ To keep the file names interoperable use the following:
 - Use `_` instead of a space
 - Use `.yml` as a file extension
 
-use prefix `mr_correlation_` and (`mr_filter_`)  ? 
+For the best pratice use the prefix `mr_correlation_`.
 
-## Structure
+
 ### Schema
 
 ```yaml
@@ -99,24 +150,14 @@ aliases: //map
 ordered: //boolean
 ```
 
-### Syntax
+###  Syntax
 
-**old file**:
-A Sigma correlation is a dedicated YAML document located in the same file as the related Sigma rules. Each Sigma rule referred by a correlation contains a field name at the top level that is used as reference identifier. Example:
-
-```yaml
-title: Failed Login Attempt
-name: failed_login
-[...]
-```
-
-**Proposition**:
 A Sigma correlation is a dedicated YAML document.  
-Like sigma rule , correlation rule have a title and a unique id to identify them.
+Like sigma rules , correlation rules have a title and a unique id to identify them.
 
-### Components
+## Components
 
-#### title 
+### Title 
 
 **Attribute:** title
 
@@ -127,7 +168,7 @@ A brief title for the rule that should contain what the rule is supposed to dete
 **Attribute:** id
 
 Sigma meta-rules should be identified by a globally unique identifier in the *id* attribute.  
-For this purpose randomly generated UUIDs (version 4) are recommended but not mandatory.  
+For this purpose randomly generated UUIDs (version 4) are recommended but not mandatory. 
 
 An example for this is:
 
@@ -136,7 +177,7 @@ title: login brute force
 id: 0e95725d-7320-415d-80f7-004da920fc11
 ```
 
-#### action
+### Action
 
 **Attribute:** action
 
@@ -148,11 +189,11 @@ id: 0e95725d-7320-415d-80f7-004da920fc11
 action: correlation
 ```
 
-#### Related rules
+### Related rules
 
 **Attribute:** rules
 
-Refers to one or multiple Sigma or Correlations rules. Allowing the user to chain multiple correlations together. A rule can be referred by the `id` or (to be defined) `name` attribute of a Sigma rule. Latter is a human-readable name and improves the readability of correlation rules.
+Refers to one or multiple Sigma or Correlations rules. Allowing the user to chain multiple correlations together. A rule can be referred to by the `id` or (to be defined) `name` attribute of a Sigma rule. Latter is a human-readable name and improves the readability of correlation rules.
 
 ```yaml
 title: login brute force
@@ -163,7 +204,7 @@ rules:
     - firewall_block
 ```
 
-#### Correlation type
+### Correlation type
 
 **Attribute:** type
 
@@ -172,9 +213,8 @@ Can be :
 - value_count
 - temporal
 
-See [correlation section](#correlation-types) for more details.
 
-#### Grouping
+### Grouping
 
 **Attribute:** group-by
 
@@ -182,7 +222,7 @@ optionally defines one or multiple fields which should be treated as separate ev
   * count events by user
   * temporal proximity must occur on one system by the same user
 
-#### Values Field Name selection
+### Values Field Name selection
 
 **Attribute:** field
 
@@ -195,7 +235,7 @@ group-by:
     - ComputerName
 ```
 
-#### Time Selection
+### Time Selection
 
 **Attribute:** timespan
 
@@ -206,33 +246,40 @@ The following format must be used: `number + letter (in lowercase)`
 - Xh hours
 - Xd days
 
-#### Condition Selection
+### Condition Selection
 
 **Attribute:** condition
 
 defines a condition for correlations counting entities see [condition section](#conditions)
 
-#### level
+### Level
 
 **Attribute:**  level
 
 defines a severity level adjustment if the correlation matches.  
 This allows to give single event hits a low or informational severity and increasing this to higher levels in case of correlating appearances of events.
 
-#### aliases
+### Aliases
 
 **Attribute:** aliases
 
 defines field name aliases that are applied to correlated Sigma rules.  
 The defined aliases can then be defined in `group-by` and allows aggregation across different fields in different event types.
 
-### Correlation Types
+## Metric Conditions
 
-The following correlation types are defined.  
-They are referred in the `type` field of a correlation document.  
-Further correlation rule types might be added in the future.
+The field condition defines the condition that must evaluate to true to generate a hit.  
+It operates on the count resulting from an event_count or value_count correlation.  
+It is a map of exactly one condition criteria:
 
-#### Event Count (event_count)
+* gt: the count must be greater than the given value
+* gte: the count must be greater than or equal the given value
+* lt: the count must be lesser than the given value
+* lte: the count must be lesser than or equal the given value
+* range: the count must be in the given range specified as value in the format min..max. The ranges include the min and max values.
+
+
+## Event Count (event_count)
 
 Counts events occurring in the given time frame specified by the referred Sigma rule or rules.  
 The resulting query must count events for each group specified by group-by separately.  
@@ -255,8 +302,7 @@ timespan: 1h
 condition:
     gte: 100
 ```
-
-#### Value Count (value_count)
+## Value Count (value_count)
 
 Counts values in a field defined by `field`.  
 The resulting query must count field values separately for each group specified by group-by.  
@@ -282,7 +328,7 @@ condition:
     gte: 100
 ```
 
-#### Temporal Proximity (temporal)
+## Temporal Proximity (temporal)
 
 All events defined by the rules referred by the rule field must occur in the time frame defined by timespan.  
 The values of fields defined in group-by must all have the same value (e.g. the same host or user).  
@@ -305,19 +351,31 @@ timespan: 5m
 ordered: false
 ```
 
-### Conditions
+### Chaining
 
-The field condition defines the condition that must evaluate to true to generate a hit.  
-It operates on the count resulting from an event_count or value_count correlation.  
-It is a map of exactly one condition criteria:
+If correlation rules are chained, the final rules of the chain must be used to generate the query.  
+Sigma rules referred by correlations and intermediate correlation rules are normally not used to generate a query.  
+This default behavior can be overridden by setting the generate attribute to true.
 
-* gt: the count must be greater than the given value
-* gte: the count must be greater than or equal the given value
-* lt: the count must be lesser than the given value
-* lte: the count must be lesser than or equal the given value
-* range: the count must be in the given range specified as value in the format min..max. The ranges include the min and max values.
+### Correlation Chaining Example
 
-### Field Name Aliases
+Many failed logins as defined above are followed by a successful login by of the same user account within 1 hour:
+
+```yaml
+action: correlation
+type: temporal
+rule:
+    - many_failed_logins
+    - successful_login
+group-by:
+    - User
+timespan: 1h
+ordered: true
+```
+
+The grouping by the ComputerName field is assumed for the many_failed_logins correlation rule but not for the final correlation.
+
+## Field Name Aliases
 
 Sometimes correlation of values in the same fields is not sufficient. E.g. a correlation rule might require to aggregate events that appear from a source address in one event and the same address as destination in another event. A Sigma correlation rule can contain an `aliases` attribute that defines an alias for different field names in events matched by different Sigma rules. The alias field names can then be referenced in `group-by` attributes and are resolved to their respective field names.
 
@@ -332,11 +390,13 @@ aliases:
 
 The field names referenced in aliases must not necessarily appear in the Sigma rules, but in the events matched by the Sigma rules.
 
-####  Field Name Aliases Example
+### Field Name Aliases Example
 
 The following correlation rule defines field name aliases `internal_ip` and `remote_ip` that are used in the `group-by` attribute.  
-The `internal_ip` alias references to the field `destination.ip` in the events matched by the Sigma rule `internal_error` and `source.ip` in the events matched by the Sigma rule `new_network_connection`.  
+The `internal_ip` alias references the field `destination.ip` in the events matched by the Sigma rule `internal_error` and `source.ip` in the events matched by the Sigma rule `new_network_connection`.  
 The correlation rule then only matches if the events appear with the same address in the respective fields of the events matching the referenced Sigma rules.
+
+Rule internal_error
 
 ```yaml
 name: internal_error
@@ -344,7 +404,11 @@ detection:
   selection:
     http.response.status_code: 500
   condition: selection
----
+```
+
+Rule new_network_connection
+
+```yaml
 name: new_network_connection
 detection:
   selection:
@@ -352,7 +416,12 @@ detection:
     event.type: connection
     event.outcome: success
   condition: selection
----
+```
+
+The correlation rule
+```yaml
+title: —
+id: —
 action: correlation
 type: temporal
 rule:
@@ -372,79 +441,10 @@ aliases:
     new_network_connection: destination.ip
 ```
 
-### Chaining
+# File Inclusion
 
-If correlation rules are chained, the final rules of the chain must be used to generate the query.  
-Sigma rules referred by correlations and intermediate correlation rules are normally not used to generate a query.  
-This default behavior can be overridden by setting the generate attribute to true.
-
-#### Correlation Chaining Example
-
-Many failed logins as defined above are followed by a successful login by of the same user account within 1 hour:
-
-```yaml
-action: correlation
-type: temporal
-rule:
-    - many_failed_logins
-    - successful_login
-group-by:
-    - User
-timespan: 1h
-ordered: true
-```
-
-The grouping by the ComputerName field is assumed for the many_failed_logins correlation rule but not for the final correlation.
-
-### File Inclusion
-
-Sometimes it makes sense to define rules for events in a different file than the correlations, e.g. to make them reusable from multiple correlations or make it possible to use them independently.  
-For this reason, another document type is included for file inclusion.  
-An inclusion can be defined by setting the action attribute to include.  
-Only the attribute filename is currently supported.  
-It references the Sigma rule file that should be included. Example:
-
-```yaml
-action: include
-filename: other_sigma_rule.yml
-```
-
-All rules contained in the referenced file are handled as if they were defined in the including file.  
-The file path is relative to the including file.  
-For security reasons it is not allowed to traverse the path upwards.
-
-## Compatibility
-
-Sigma correlations might exceed the capabilities of target systems for which queries are generated or required features are only supported partially by the target. Target-specific restrictions should be handled in a way that ensures that the generated queries do not create or raise users awareness for results that:
-
-* could be misinterpreted
-* cause a huge amount of false positives compared to the query intended by the rule
-* cause false negatives
-
-An error must be raised by the conversion backend if it should generate a query from a rule which contains a feature that is not supported but specified as must. Examples are:
-
-* The target system can aggregate an occurrence count but cannot apply a condition to filter the aggregated counts.
-* The target system is not able to aggregate an occurrence count according to the given grouping criteria.
-* It is only possible to generate a query up to an intermediate correlation rule of a chain.
-
-The conversion backend should issue a warning to raise the user’s awareness about restrictions for aspects specified as should. Examples are:
-
-* Temporal relationships are recognized, but the order of the events cannot be recognized by the target system. This could cause false positives by differently ordered events.
-* Temporal relationships are only recognized within static time boundaries, e.g. a timespan 1h only matches if all events appear within a full hour, but not if some events appear in the previous and another event in the current hour. This could cause false negatives.
-
-## Alternative Proposals
-### Expression of Relationships Inside Condition of Sigma Rules
-
-This was the first approach defined in Sigma with aggregations and the near operator. Sigma correlations are not based on this approach for the following reasons:
-
-* The coupling of rules describing singular events and relationships between multiple events is inconsistent, as the rule writer must decide which rule contains the relationship definition in case of temporal relationships.
-* It was inflexible because one Sigma rule refers exactly to one log source, which restricts the expression of relationships to events from the same log source.
-* One of the goals of Sigma rules was to keep condition logic simple. Especially the specification of temporal relationships can get quite complex in a query expression. Specifying correlation chains adds further complexity.
-* The pipe syntax sometimes caused that rule contributors considered it as Splunk query or another target system-specific query language. Expressing these relationships in a “Sigmaish” way should not cause these associations.
-
-# Global filter or Defeats
-
-## YAML File
+## File structure
+### YAML File
 
 To keep the file names interoperable use the following:
 
@@ -454,9 +454,52 @@ To keep the file names interoperable use the following:
 - Use `_` instead of a space
 - Use `.yml` as a file extension
 
-use prefix `mr_correlation_` and (`mr_filter_`)  ? 
+For the best pratice use the prefix `mr_include_`
 
-## Structure
+### Schema
+```yaml
+action: //str
+filename: //map
+```
+### Syntax
+Only the attribute filename is currently supported.  
+It references the Sigma rule file that should be included.
+
+## Components
+### Action:
+
+**Attribute:** action
+
+must be incluse
+
+### Filename:
+
+**Attribute:** filename
+
+list of the sigma rule
+The file path is relative to the including file.  
+For security reasons it is not allowed to traverse the path upward
+Example
+
+```yaml
+action: include
+filename: other_sigma_rule.yml
+```
+
+# Defeats
+## File Structure	
+
+### YAML File
+
+To keep the file names interoperable use the following:
+
+- Length between 10 and 70 characters
+- Lowercase
+- No special characters only letters (a-z) and digits (0-9)
+- Use `_` instead of a space
+- Use `.yml` as a file extension
+
+For the best pratice use the prefix `mr_defeats_` ? 
 
 ### Schema
 
@@ -475,25 +518,24 @@ selection:
 
 ### Syntax
 
-Like sigma rule , "defeats" rule have a title.  
-They don't have a id or level as it keep the original.
+Like the sigma rule , "defeats" rules have a title.  
+They don't have an id or level as it keeps the original.
 
+## Components
 
-### Components
-
-#### title 
+### title 
 
 **Attribute:** title
 
 A brief title for the rule that should contain what the rule is supposed to detect (max. 256 characters)
 
-#### action
+### action
 
 **Attribute:** action
 
 must be `filter` ?
 
-#### Change to Condition 
+### Change to Condition 
 
 **Attribute:** type
 
@@ -501,35 +543,35 @@ can be :
 - include
 - exclude
 
-#### Decription
+### Description
 
 **Attribute:** description
 
 A short description of the rule and the malicious activity that can be detected (max. 65,535 characters)
 
-#### Relative rules
+Relative rules
 
 **Attribute:** rules
 
 refers to one or multiple Sigma rules to be filter
 
-#### Log source
+### Log source
 
 **Attribute**: logsource
 
 See log source in [sigma specification](Sigma_specification.md)
 
-#### filter selection
+### filter selection
 
 **Attribute**: selection
 
 See Detection in [sigma specification](Sigma_specification.md)
 
-### Example
+Example
 
 ```yaml
 title: Filter Administrator account 
-description: the valid administrateur accout start with adm_ 
+description: the valid administrateur account start with adm_ 
 action: filter
 type: exclude
 rules: 
