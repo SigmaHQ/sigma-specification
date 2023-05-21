@@ -5,14 +5,7 @@ THIS IS A WORK IN PROGRESS DO NOT USE IT
 - Version 2.0.0
 - Planned release date 2023/04/02
 
-**Breaking changes**
-
-- New modifier `windash` : converts `-` values into `/` and vice versa. Will be used for all `CommandLine` fields in windows > `process_creation` rules.
-- New modifier `exists` that allows to define that a certain field exists or doesn't exists in a log event by providing
-  a boolean value. Currently we use filters with `field: null` as a workaround for this purpose, which is inaccurate.
-- Remove aggregation expression in sigma rule file see [Sigma meta rules](Sigma_meta_rules.md)
-
-Warning `sigmac` will not be able to convert this version. Only `pySigma` and the corresponding `sigma-cli` provide full support for version 2.
+Take a look at [breaking changes](V2_breaking_changes.md)
 
 # Summary
 
@@ -21,44 +14,41 @@ Warning `sigmac` will not be able to convert this version. Only `pySigma` and th
   - [Filename](#filename)
   - [Data](#data)
 - [Structure](#structure)
-  - [Schema](#schema)
-    - [Rx YAML](#rx-yaml)
-    - [Image](#image)
-  - [Components](#components)
-    - [Title](#title)
+  - [Rx YAML](#rx-yaml)
+  - [Image](#image)
+- [Components](#components)
+  - [Title](#title)
     - [Rule Identification](#rule-identification)
-    - [Schema (optional)](#schema-optional)
-    - [Taxonomy (optional)](#taxonomy-optional)
-    - [Status (optional)](#status-optional)
-    - [Description (optional)](#description-optional)
-    - [License (optional)](#license-optional)
-    - [Author (optional)](#author-optional)
-    - [References (optional)](#references-optional)
-    - [Date (optional)](#date-optional)
-    - [Modified (optional)](#modified-optional)
-    - [Log Source](#log-source)
-    - [Detection](#detection)
-      - [Search-Identifier](#search-identifier)
-      - [General](#general)
-      - [String Wildcard](#string-wildcard)
-      - [Escaping](#escaping)
-      - [Lists](#lists)
-      - [Maps](#maps)
-      - [Field Usage](#field-usage)
-      - [Special Field Values](#special-field-values)
-      - [Value Modifiers](#value-modifiers)
-        - [Modifier Types](#modifier-types)
-        - [Currently Available Modifiers](#currently-available-modifiers)
-          - [Transformations](#transformations)
-          - [Types](#types)
-    - [Condition](#condition)
-    - [Fields](#fields)
-    - [FalsePositives](#falsepositives)
-    - [Level](#level)
-    - [Tags](#tags)
-    - [Placeholders](#placeholders)
-      - [Standard Placeholders](#standard-placeholders)
-  - [Rule Correlation](#rule-correlation)
+  - [Schema (optional)](#schema-optional)
+  - [Taxonomy (optional)](#taxonomy-optional)
+  - [Status (optional)](#status-optional)
+  - [Description (optional)](#description-optional)
+  - [License (optional)](#license-optional)
+  - [Author (optional)](#author-optional)
+  - [References (optional)](#references-optional)
+  - [Date (optional)](#date-optional)
+  - [Modified (optional)](#modified-optional)
+  - [Log Source](#log-source)
+  - [Detection](#detection)
+    - [Search-Identifier](#search-identifier)
+    - [General](#general)
+    - [String Wildcard](#string-wildcard)
+    - [Escaping](#escaping)
+    - [Lists](#lists)
+    - [Maps](#maps)
+    - [Field Usage](#field-usage)
+    - [Special Field Values](#special-field-values)
+    - [Value Modifiers](#value-modifiers)
+      - [Modifier Types](#modifier-types)
+  - [Condition](#condition)
+  - [Fields](#fields)
+  - [FalsePositives](#falsepositives)
+  - [Level](#level)
+  - [Tags](#tags)
+  - [Placeholders](#placeholders)
+    - [Standard Placeholders](#standard-placeholders)
+- [Rule Correlation](#rule-correlation)
+- [Global filter or Defeats](#global-filter-or-defeats)
 - [History](#history)
 
 # Yaml File
@@ -148,9 +138,7 @@ tags [optional]
 [arbitrary custom fields]
 ```
 
-## Schema
-
-### Rx YAML
+## Rx YAML
 
 ```yaml
 type: //rec
@@ -252,13 +240,13 @@ optional:
 rest: //any
 ```
 
-### Image
+## Image
 
 ![sigma_schema](https://github.com/SigmaHQ/sigma-specification/blob/8e3eed135223dd3e0506b6deaca9b4314919dc65/images/Sigma_Schema.png)
 
-## Components
+# Components
 
-### Title
+## Title
 
 **Attribute:** title
 
@@ -306,7 +294,7 @@ Currently the following types are defined:
   expected that a rule with this id exists anymore.
 * similar: Use to relate similar rules to each other (e.g. same detection content applied to different log sources, rule that is a modified version of another rule with a different level)
 
-### Schema (optional)
+## Schema (optional)
 
 **Attribute:** schema
 
@@ -314,7 +302,7 @@ This is the version of the specification used in the rule.
 
 This will allow us to quickly know if the converter or software can use the rule without any problems
 
-### Taxonomy (optional)
+## Taxonomy (optional)
 
 **Attribute:** taxonomy
 
@@ -327,7 +315,9 @@ Defines the taxonomy used in the Sigma rule. A taxonomy can define:
 used in the Sigma rule. The Default taxonomy is "sigma" and can be ommited. A custom taxonomy must be handled by the used tool
 or transformed into the default taxonomy.
 
-### Status (optional)
+More information in [Appendix Taxonomy](appendix_taxonomy.md)
+
+## Status (optional)
 
 **Attribute:** status
 
@@ -340,37 +330,37 @@ Declares the status of the rule:
 - deprecated: the rule is replaced or covered by another one. The link is established by the `related` field.
 - unsupported: the rule cannot be use in its current state (special correlation log, home-made fields)
 
-### Description (optional)
+## Description (optional)
 
 **Attribute:** description
 
 A short description of the rule and the malicious activity that can be detected (max. 65,535 characters)
 
-### License (optional)
+## License (optional)
 
 **Attribute:** license
 
 License of the rule according the [SPDX ID specification](https://spdx.org/ids).
 
-### Author (optional)
+## Author (optional)
 
 **Attribute**: author
 
 Creator of the rule. (can be a name, nickname, twitter handle...etc)
 
-### References (optional)
+## References (optional)
 
 **Attribute**: reference
 
 References to the source that the rule was derived from. These could be blog articles, technical papers, presentations or even tweets.
 
-### Date (optional)
+## Date (optional)
 
 **Attribute**: date
 
 Creation date of the rule. Use the format YYYY/MM/DD or YYYY-MM-DD
 
-### Modified (optional)
+## Modified (optional)
 
 **Attribute**: modified
 
@@ -381,7 +371,7 @@ Reasons to change the modified date:
 * changed level
 * changed logsource (rare)
 
-### Log Source
+## Log Source
 
 **Attribute**: logsource
 
@@ -412,24 +402,24 @@ product: windows
 
 Instead of definition of multiple rules for Sysmon, Windows Security Auditing and possible product-specific rules.
 
-### Detection
+## Detection
 
 **Attribute**: detection
 
 A set of search-identifiers that represent properties of searches on log data.
 
-#### Search-Identifier
+### Search-Identifier
 
 A definition that can consist of two different data structures - lists and maps.
 
-#### General
+### General
 
 * All values are treated as case-insensitive strings
 * You can use wildcard characters `*` and `?` in strings (see also escaping section below)
 * Regular expressions are case-sensitive by default
 * You don't have to escape characters except the string quotation marks `'`
 
-#### String Wildcard
+### String Wildcard
 
 Wildcards are used when part of the text is random.
 You can use :
@@ -448,7 +438,7 @@ Sigma has special modifiers to facilitate the search of unbounded strings
 * `something*` see [startswith modifier](#value-modifiers)
 * `*something*` see [contains modifier](#value-modifiers)
 
-#### Escaping
+### Escaping
 
 The backslash character `\` is used for escaping of wildcards `*` and `?` as well as the backslash character itself. Escaping of the backslash is necessary if it is followed by a wildcard depending on the desired result.
 
@@ -460,7 +450,7 @@ Summarized, these are the following possibilities:
 * Three backslashes are necessary to escape both, the backslash and the wildcard and handle them as plain values: `\\\*`
 * Three or four backslashes are handled as double backslash. Four is recommended for consistency reasons: `\\\\` results in the plain value `\\`.
 
-#### Lists
+### Lists
 
 Lists can contain:
 
@@ -487,7 +477,7 @@ detection:
 
 The example above matches an image value ending with `example.exe` or an executable with a description containing the string `Test executable`
 
-#### Maps
+### Maps
 
 Maps (or dictionaries) consist of key/value pairs, in which the key is a field in the log data and the value is a string or integer value. All elements of a map are joined with a logical 'AND'.
 
@@ -517,7 +507,7 @@ detection:
 condition: selection
 ```
 
-#### Field Usage
+### Field Usage
 
 1. For fields with existing field-mappings, use the mapped field name.
 
@@ -552,7 +542,7 @@ Examples ii:
 * `<Data Name="User">NT AUTHORITY\SYSTEM</Data>` will be `User`
 * `<Data Name="ServiceName">MpKsl4eaa0a76</Data>` will be `ServiceName`
 
-#### Special Field Values
+### Special Field Values
 
 There are special field values that can be used.
 
@@ -577,13 +567,13 @@ condition:
    selection and not filter
 ```
 
-#### Value Modifiers
+### Value Modifiers
 
 The values contained in Sigma rules can be modified by *value modifiers*. Value modifiers are
 appended after the field name with a pipe character `|` as separator and can also be chained, e.g.
 `fieldname|mod1|mod2: value`. The value modifiers are applied in the given order to the value.
 
-##### Modifier Types
+#### Modifier Types
 
 There are two types of value modifiers:
 
@@ -599,45 +589,9 @@ There are two types of value modifiers:
 Generally, value modifiers work on single values and value lists. A value might also expand into
 multiple values.
 
-##### Currently Available Modifiers
+[List of modifiers](appendix_modifer.md)
 
-###### Transformations
-
-* `contains`: puts `*` wildcards around the values, such that the value is matched anywhere in the
-  field.
-* `all`: Normally, lists of values were linked with *OR* in the generated query. This modifier
-  changes
-  this to *AND*. This is useful if you want to express a command line invocation with different
-  parameters where the order may vary and removes the need for some cumbersome workarounds.
-
-  Single item values are not allowed to have an `all` modifier as some back-ends cannot support it.
-  If you use it as a workaround to duplicate a field in a selection, use a new selection instead.
-* `base64`: The value is encoded with Base64.
-* `base64offset`: If a value might appear somewhere in a base64-encoded string the representation
-  might change depending on the position of the value in the overall string. There are three variants for shifts
-  by zero to two bytes and except the first and last byte the encoded values have a static part in
-  the middle that can be recognized.
-* `endswith`: The value is expected at the end of the field's content (replaces e.g. '*\cmd.exe')
-* `startswith`: The value is expected at the beginning of the field's content. (replaces e.g. 'adm*')
-* `utf16le`: Transforms value to UTF16-LE encoding, e.g. `cmd` > `63 00 6d 00 64 00` (only used in combination with base64 modifiers)
-* `utf16be`: Transforms value to UTF16-BE encoding, e.g. `cmd` > `00 63 00 6d 00 64` (only used in combination with base64 modifiers)
-* `wide`: Alias for `utf16le` modifier
-* `utf16`: Prepends a [byte order mark](https://en.wikipedia.org/wiki/Byte_order_mark) and encodes UTF16, e.g. `cmd` > `FF FE 63 00 6d 00 64 00` (only used in combination with base64 modifiers)
-* `windash`: Add a new variant where all `-` occurrences are replaced with `/`. The original variant is also kept unchanged.
-* `cidr`: The value is handled as an IPv4 CIDR by backends (IPv6 is not supported, yet)
-* `lt`: Field is less than the value
-* `lte`: Field is less or egal than the value
-* `gt`: Field is Greater than the value
-* `gte`: Field is Greater or egal than the value
-* `expand`: Modifier for expansion of placeholders in values. It replaces placeholder strings
-
-###### Types
-
-* `re`: value is handled as regular expression by backends. Currently, this is only supported by
-  the Elasticsearch query string backend (*es-qs*). Further (like Splunk) are planned or have
-  to be implemented by contributors with access to the target systems.
-
-### Condition
+## Condition
 
 **Attribute**: condition
 
@@ -684,19 +638,19 @@ Operator Precedence (least to most binding)
 
 If multiple conditions are given, they are logically linked with OR.
 
-### Fields
+## Fields
 
 **Attribute**: fields
 
 A list of log fields that could be interesting in further analysis of the event and should be displayed to the analyst.
 
-### FalsePositives
+## FalsePositives
 
 **Attribute**: falsepositives
 
 A list of known false positives that may occur.
 
-### Level
+## Level
 
 **Attribute**: level
 
@@ -708,7 +662,7 @@ The level field contains one of five string values. It describes the criticality
 - `high`: Relevant event that should trigger an internal alert and requires a prompt review.
 - `critical`: Highly relevant event that indicates an incident. Critical events should be reviewed immediately.
 
-### Tags
+## Tags
 
 **Attribute**: tags
 
@@ -720,7 +674,9 @@ A Sigma rule can be categorised with tags. Tags should generally follow this syn
 * Keep tags short, e.g. numeric identifiers instead of long sentences
 * If applicable, use [predefined tags](./Tags). Feel free to send pull request or issues with proposals for new tags
 
-### Placeholders
+[More information about tags](appendix_tags.md)
+
+## Placeholders
 
 Placeholders are used as values that get their final meaning at conversion or usage time of the rule. This can be, but is not restricted to:
 
@@ -739,7 +695,7 @@ A plain percent character can be used by escaping it with a backslash. Examples:
 
 Placeholders must be handled appropriately by a tool that uses Sigma rules. If the tool isn't able to handle placeholders, it must reject the rule.
 
-#### Standard Placeholders
+### Standard Placeholders
 
 The following standard placeholders should be used:
 
@@ -751,9 +707,17 @@ The following standard placeholders should be used:
 
 Custom placeholders can be defined as required.
 
-## Rule Correlation
+# Rule Correlation
 
-See [Sigma_meta_rules](Sigma_meta_rules.md)
+/* Need to add text */
+
+See [Appendix Mega Rules](appendix_mega_rules.md)
+
+# Global filter or Defeats
+
+/* Need to add text */
+
+See [Appendix Mega Rules](appendix_mega_rules.md)
 
 # History
 
