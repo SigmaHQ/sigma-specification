@@ -575,10 +575,11 @@ description: the valid administrateur account start with adm_
 action: filter
 type: exclude
 rules: 
-    - 6f3e2987-db24-4c78-a860-b4f4095a7095 #Data Compressed - rar.exe
+    - 6f3e2987-db24-4c78-a860-b4f4095a7095 # Data Compressed - rar.exe
+    - df0841c0-9846-4e9f-ad8a-7df91571771b # Login on jump host
 logsource:
     category: process_creation
     product: windows 
 selection:
-    User|startswith: 'adm'
+    User|startswith: 'adm_'
 ```
