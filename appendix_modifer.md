@@ -17,19 +17,19 @@ The following document defines the standardized modifiers that can be used in Si
 
 * `startswith`: The value is expected at the beginning of the field's content. (replaces e.g. 'adm*')
 * `endswith`: The value is expected at the end of the field's content (replaces e.g. '*\cmd.exe')
-* `contains`: puts `*` wildcards around the values, such that the value is matched anywhere in the
+* `contains`: Puts `*` wildcards around the values, such that the value is matched anywhere in the
   field.
 
-* `exists`: that allows to define that a certain field exists or doesn't exists in a log event by providing a boolean value.
+* `exists`: Defines that a certain field has to exist or must not exist in a log event by providing a boolean value.
 * `cased`: Values are applied case sensitively. Default Sigma behaviour is case-insensitive matching.
 
 # String only
 
-* `windash`: creates all possible permutations of the `-` and `/` characters. Windows command line flags can often be indicated by both characters. Using the `windash` modifier converts `-` values into `/` and vice versa and uses all possible permutation of strings in the selection.
-* `re`: value is handled as a regular expression by backends. Regex is matched case-sensitive by default
-  * `i`: `re` sub-modifier to enable case-sensitive matching
-  * `m`: `re` sub-modifier to match across multiple lines.
-  * `s`: `re` sub-modifier to enable dot matches all characters.
+* `windash`: Creates all possible permutations of the `-` and `/` characters. Windows command line flags can often be indicated by both characters. Using the `windash` modifier converts `-` values into `/` and vice versa and uses all possible permutation of strings in the selection.
+* `re`: Value is handled as a regular expression by backends. Regex is matched case-sensitive by default
+  * `i`: (insensitive) `re` sub-modifier to enable case-sensitive matching.
+  * `m`: (multi line) `re` sub-modifier to match across multiple lines. `^` /`$` match the start/end of line.
+  * `s`: (single line) `re` sub-modifier to enable that dot (`.`) matches all characters, including the newline character.
 
 
 # Numeric only
@@ -66,4 +66,4 @@ The following document defines the standardized modifiers that can be used in Si
   * Replace with query expression in target query language (`QueryExpressionPlaceholderTransformation`/`query_expression_placeholders`)
   * Replace placeholder with wildcard `*`, which should only be used as last resort. (`WildcardPlaceholderTransformation`/`wildcard_placeholders`)
 
-* `fieldref`: Modifier a plain string into the field reference type.
+* `fieldref`: Modifies a plain string into the field reference type.
