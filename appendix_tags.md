@@ -2,8 +2,8 @@
 
 The following document defines the standardized tags that can be used to categorize the different Sigma rules.
 
-* Version 1.0.1
-* Release date 2022/12/19
+* Version 2.0.0
+* Release date 2023/07/01
 
 # Summary
 
@@ -19,6 +19,7 @@ The following document defines the standardized tags that can be used to categor
 
 * attack: Categorization according to [MITRE ATT&CK](https://attack.mitre.org). To get the current supported version of ATT&CK please visite [MITRE CTI](https://github.com/mitre/cti)
 * car: Link to the corresponding [MITRE Cyber Analytics Repository (CAR)](https://car.mitre.org/)
+* cve: [Common Vulnerabilities and Exposures](https://www.cve.org/)
 * tlp: [Traffic Light Protocol](https://www.first.org/tlp/)
 
 ## Namespace: attack
