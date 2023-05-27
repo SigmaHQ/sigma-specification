@@ -477,10 +477,13 @@ must be `include`
 
 **Attribute:** filename
 
-list of the sigma rule
-The file path is relative to the including file.  
-For security reasons it is not allowed to traverse the path upward
-Example
+A list of the sigma rules.
+
+The file path is relative to the including file.
+
+For security reasons it is not allowed to traverse the path upward.
+
+Example:
 
 ```yaml
 action: include
