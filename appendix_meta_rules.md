@@ -93,10 +93,10 @@ This was the first approach defined in Sigma with aggregations and the near oper
 
 ## Type of rules
 ### Correlation rules
-The purpose is to cover detection like:
-X invalid login alert in a host
-Invalid login alert in the same host but from X remote
-alert A,B and C in the same time laps
+The purpose is to cover a detection like:
+* X invalid login alerts on a host
+* Invalid login alert on the same host but from X remote
+* Alert A, B and C in the same timespan
 
 ### File Inclusion
 
