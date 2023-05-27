@@ -59,35 +59,36 @@ The following document defines the standardized correlation that can be used in 
     - [filter selection](#filter-selection)
 
 # Introduction
-Sometimes you need a more advanced search than simple selection.
-For that we can use a meta-rule over sigma rules.  
+Sometimes you need more advanced searches than simple selections.
+For that you can use meta-rules that correlate multiple Sigma rules.
 
 ## Compatibility
 
-Sigma correlations might exceed the capabilities of target systems for which queries are generated or required features are only supported partially by the target. Target-specific restrictions should be handled in a way that ensures that the generated queries do not create or raise users awareness for results that:
+When generating a backend specific query, Sigma correlations might exceed the capabilities of that targeted backend. Or the Sigma correlation might required a feature that is only supported partially by the target backend. Therefore target-specific restrictions should be handled in a way that ensures that the generated queries do not create results that:
 
-* could be misinterpreted
-* cause a huge amount of false positives compared to the query intended by the rule
-* cause false negatives
+* Could be misinterpreted
+* Change the intention/context in which the rule matches
+* Cause a huge amount of false positives
+* Cause false negatives
 
-An error must be raised by the conversion backend if it should generate a query from a rule which contains a feature that is not supported but specified as must. Examples are:
+An error must be raised by the conversion backend if it would generate a query from a rule which contains a feature that is not supported but specified as must. Examples are:
 
 * The target system can aggregate an occurrence count but cannot apply a condition to filter the aggregated counts.
 * The target system is not able to aggregate an occurrence count according to the given grouping criteria.
 * It is only possible to generate a query up to an intermediate correlation rule of a chain.
 
-The conversion backend should issue a warning to raise the user’s awareness about restrictions for aspects specified as should. Examples are:
+The conversion backend should issue a warning to raise the user’s awareness about restrictions for aspects specified as "should". Examples are:
 
 * Temporal relationships are recognized, but the order of the events cannot be recognized by the target system. This could cause false positives by differently ordered events.
-* Temporal relationships are only recognized within static time boundaries, e.g. a timespan 1h only matches if all events appear within a full hour, but not if some events appear in the previous and another event in the current hour. This could cause false negatives.
+* Temporal relationships are only recognized within static time boundaries, e.g. a timespan of 1h only matches if all events appear within a full hour, but not if some events appear in the previous and another event in the current hour. This could cause false negatives.
 
-## Expression of Relationships Inside Condition of Sigma Rules
+## Expression of Relationships In The Condition of Sigma Rules
 
-This was the first approach defined in Sigma with aggregations and the near operator. Sigma correlations are not based on this approach for the following reasons:
+This was the first approach defined in Sigma with aggregations and the near operator and is now obsolete. Sigma correlations are not based on this approach for the following reasons:
 
 * The coupling of rules describing singular events and relationships between multiple events is inconsistent, as the rule writer must decide which rule contains the relationship definition in case of temporal relationships.
 * It was inflexible because one Sigma rule refers exactly to one log source, which restricts the expression of relationships to events from the same log source.
-* One of the goals of Sigma rules was to keep condition logic simple. Especially the specification of temporal relationships can get quite complex in a query expression. Specifying correlation chains adds further complexity.
+* One of the goals of Sigma rules was to keep the condition logic simple. Especially the specification of temporal relationships can get quite complex in a query expression. Specifying correlation chains adds further complexity.
 * The pipe syntax sometimes caused the rule contributors to consider it as a Splunk query or another target system-specific query language. Expressing these relationships in a “Sigmaish” way should not cause these associations.
 
 ## Type of rules
@@ -105,8 +106,8 @@ An inclusion can be defined by setting the action attribute to include.
 All rules contained in the referenced file are handled as if they were defined in the including file.
 
 ###  Defeats rules
-The purpose is to cover the same tuning for many rules.
-Example a valid GPO script but that triggers X sigma rules.
+The purpose of defeats rules is to cover the same tuning for many rules. They are used to suppress matches of multiple rules. This is most commonly useful for environment specific tuning where a false positive prone application is used in an organization and it's false positives are accepted.
+Example: A valid GPO script that triggers X Sigma rules.
 
 
 # Correlation rules
@@ -125,7 +126,7 @@ To keep the file names interoperable use the following:
 - Use `_` instead of a space
 - Use `.yml` as a file extension
 
-For the best pratice use the prefix `mr_correlation_`.
+As a best practice use the prefix `mr_correlation_`.
 
 
 ### Schema
@@ -268,15 +269,15 @@ The defined aliases can then be defined in `group-by` and allows aggregation acr
 
 ## Metric Conditions
 
-The field condition defines the condition that must evaluate to true to generate a hit.  
+The field condition defines the condition that must evaluate to true to generate a match.  
 It operates on the count resulting from an event_count or value_count correlation.  
-It is a map of exactly one condition criteria:
+It is a map of exactly one condition criterion:
 
-* gt: the count must be greater than the given value
-* gte: the count must be greater than or equal the given value
-* lt: the count must be lesser than the given value
-* lte: the count must be lesser than or equal the given value
-* range: the count must be in the given range specified as value in the format min..max. The ranges include the min and max values.
+* `gt`: The count must be greater than the given value
+* `gte`: The count must be greater than or equal the given value
+* `lt`: The count must be lesser than the given value
+* `lte`: The count must be lesser than or equal the given value
+* `range`: The count must be in the given range specified as value in the format `min..max`. The range includes the min and max values.
 
 
 ## Event Count (event_count)
@@ -470,7 +471,7 @@ It references the Sigma rule file that should be included.
 
 **Attribute:** action
 
-must be incluse
+must be `include`
 
 ### Filename:
 
@@ -499,7 +500,7 @@ To keep the file names interoperable use the following:
 - Use `_` instead of a space
 - Use `.yml` as a file extension
 
-For the best pratice use the prefix `mr_defeats_` ? 
+As a best practice use the prefix `mr_defeats_` ? 
 
 ### Schema
 
@@ -518,8 +519,8 @@ selection:
 
 ### Syntax
 
-Like the sigma rule , "defeats" rules have a title.  
-They don't have an id or level as it keeps the original.
+Like Sigma rules, "defeats" rules have a title.  
+They don't have an id or level as they use the one from the referenced rules.
 
 ## Components
 
@@ -571,7 +572,7 @@ Example
 
 ```yaml
 title: Filter Administrator account 
-description: the valid administrateur account start with adm_ 
+description: The valid administrator account start with adm_ 
 action: filter
 type: exclude
 rules: 
