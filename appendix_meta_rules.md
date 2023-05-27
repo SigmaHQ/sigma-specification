@@ -112,8 +112,8 @@ Example: A valid GPO script that triggers X Sigma rules.
 
 # Correlation rules
 
-All rules in a file, basic event rules as well as correlations, might contain an additional attribute generated.  
-If this is set to true, the rule will generate a query, even if it is referred to by other correlations, which would normally cause that the rule wouldn’t generate a separate query."
+All rules in a file, basic event rules as well as correlations, might contain an additional attribute called "generated".  
+If it is set to true, the rule will generate a query, even if it is referred to by other correlations. Otherwise by default no "standalone" query would be generated for this rule.
 
 ## File Structure
 ### YAML File
@@ -355,8 +355,8 @@ ordered: false
 ### Chaining
 
 If correlation rules are chained, the final rules of the chain must be used to generate the query.  
-Sigma rules referred by correlations and intermediate correlation rules are normally not used to generate a query.  
-This default behavior can be overridden by setting the generate attribute to true.
+Sigma rules referred by correlations and intermediate correlation rules are by default not used to generate a query.  
+This default behavior can be overridden by setting the "generate" attribute to true.
 
 ### Correlation Chaining Example
 
