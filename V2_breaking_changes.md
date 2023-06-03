@@ -13,4 +13,4 @@ Warning `sigmac` will not be able to convert this version. Only `pySigma` and th
 
 # Corelation
 
-- Remove aggregation expression in Sigma rule file see [Sigma meta rules](Sigma_meta_rules.md)
+- Remove aggregation expression in Sigma rule file see [Sigma meta rules](appendix_meta_rules.md)
