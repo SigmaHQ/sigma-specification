@@ -96,7 +96,7 @@ This was the first approach defined in Sigma with aggregations and the near oper
 
 The purpose is to cover a detection like:
 
-* X invalid login alerts on an unique host
+* X invalid login alerts on a unique host
 * Invalid login alert on the same host but from X remote
 * Alert A, B and C in the same timespan
 
@@ -109,7 +109,7 @@ All rules contained in the referenced file are handled as if they were defined i
 
 ###  Filter rules
 
-The purpose of Filter rules is to cover the same tuning for many rules. They are used to suppress matches of multiple rules. This is most commonly useful for environment specific tuning where a false positive prone application is used in an organization and it's false positives are accepted.
+The purpose of Filter rules is to apply the same tuning on many rules with the goal to suppress matches of multiple rules. This is most commonly useful for environment specific tuning where a false positive prone application is used in an organization and its false positives are accepted.
 Example: A valid GPO script that triggers X Sigma rules.
 
 
@@ -210,10 +210,10 @@ action: correlation
 
 Refers to one or multiple Sigma or Correlations rules.
 Allowing the user to chain multiple correlations together.
-A rule can be referred to by the `id` of a sigma rule.
+A rule can be referred to by the `id` or `name` of a sigma rule.
 
-Latter is a human-readable name and improves the readability of correlation rules.
-In this case, the tool must be able to manage the human-to-id correspondence automatically.
+`name` is a unique human-readable name and improves the readability of correlation rules.
+In this case, the tool must be able to manage the name-to-id translation automatically and the referenced rule name has to be defined in the respective rule.
 
 ```yaml
 title: login brute force
@@ -221,7 +221,7 @@ id: 0e95725d-7320-415d-80f7-004da920fc11
 action: correlation
 rules:
     - 5638f7c0-ac70-491d-8465-2a65075e0d86 # ID of the low firewall rule for action: block
-    - firewall_block  # the internal tools have a lookup table to the correct rule id
+    - firewall_block  # The internal tools have a lookup table to the correct rule `id` by `name`
 ```
 
 ### Correlation type
@@ -404,8 +404,8 @@ timespan: 1h
 ordered: true
 ```
 
-Nota:
-Even if the rule many_failed_logins use a grouping by the "ComputerName" field,the correlation rule only use it own `group-by` "User".
+Note:
+Even if the rule many_failed_logins groups by the "ComputerName" field, the correlation rule only uses its own `group-by` "User".
 
 ## Field Name Aliases
 
