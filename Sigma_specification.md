@@ -15,7 +15,6 @@ Take a look at [breaking changes](V2_breaking_changes.md)
   - [Data](#data)
 - [Structure](#structure)
   - [Rx YAML](#rx-yaml)
-  - [Image](#image)
 - [Components](#components)
   - [Title](#title)
     - [Rule Identification](#rule-identification)
@@ -140,11 +139,7 @@ tags [optional]
 
 ## Rx YAML
 
-You can use the [file](sigma-schema.rx.yml)
-
-## Image
-/// Can be remove ///
-![sigma_schema](https://github.com/SigmaHQ/sigma-specification/blob/8e3eed135223dd3e0506b6deaca9b4314919dc65/images/Sigma_Schema.png)
+You schema is defined in [sigma-schema.rx.yml](sigma-schema.rx.yml)
 
 # Components
 
@@ -265,11 +260,7 @@ Creator of the rule. (can be a name, nickname, twitter handle...etc)
 References to the source that the rule was derived from. These could be blog articles, technical papers, presentations or even tweets.
 
 ## Date (optional)
-/// I think of something like
-date:
-    creation: YYYY/MM/DD
-    modified: YYYY/MM/DD
-///
+
 **Attribute**: date
 
 Creation date of the rule. Use the format YYYY/MM/DD or YYYY-MM-DD
