@@ -345,7 +345,7 @@ Declares the status of the rule:
 A short description of the rule and the malicious activity that can be detected (max. 65,535 characters)
 
 ## License (optional)
-/// Never use, do we need it ? ///
+
 **Attribute:** license
 
 License of the rule according the [SPDX ID specification](https://spdx.org/ids).
@@ -560,7 +560,7 @@ Examples ii:
 * `<Data Name="ServiceName">MpKsl4eaa0a76</Data>` will be `ServiceName`
 
 ### Special Field Values
-/// `exists` modifier can put here ? ///
+
 There are special field values that can be used.
 
 * An empty value is defined with `''`
@@ -619,7 +619,7 @@ The condition is the most complex part of the specification and will be subject 
   `keywords1 or keywords2`
 
 - 1/all of them
-  /// Can we remote it ? ///
+
   Logical OR (`1 of them`) or AND (`all of them`) across all defined search identifiers. The search identifiers
   themselves are logically linked with their default behaviour for maps (AND) and lists (OR).
 
@@ -646,7 +646,6 @@ The condition is the most complex part of the specification and will be subject 
 
 Operator Precedence (least to most binding)
 
-- |  // <- no more usefull , is it ? //
 - or
 - and
 - not
@@ -706,7 +705,7 @@ Placeholders are used as values that get their final meaning at conversion or us
 From Sigma 1.1 placeholders are only handled if the *expand* modifier is applied to the value containing the placeholder.
 A plain percent character can be used by escaping it with a backslash. Examples:
 
-* `field: %name%` handles `%name%` as placeholder.  // Shoud be only the *expand* modifier ///
+* `field: %name%` handles `%name%` as literal value.
 * `field|expand: %name%` handles `%name%` as placeholder.
 * `field|expand: \%plain%name%` handles `%plain` as plain value and `%name%` as placeholder.
 
