@@ -7,11 +7,11 @@ The following document defines the standardized correlation that can be used in 
 
 - [Introduction](#introduction)
   - [Compatibility](#compatibility)
-  - [Expression of Relationships Inside Condition of Sigma Rules](#expression-of-relationships-inside-condition-of-sigma-rules)
+  - [Expression of Relationships In The Condition of Sigma Rules](#expression-of-relationships-in-the-condition-of-sigma-rules)
   - [Type of rules](#type-of-rules)
     - [Correlation rules](#correlation-rules)
     - [File Inclusion](#file-inclusion)
-    - [Defeats rules](#defeats-rules)
+    - [Filter rules](#filter-rules)
 - [Correlation rules](#correlation-rules-1)
   - [File Structure](#file-structure)
     - [YAML File](#yaml-file)
@@ -29,12 +29,11 @@ The following document defines the standardized correlation that can be used in 
     - [Condition Selection](#condition-selection)
     - [Level](#level)
     - [Aliases](#aliases)
+    - [Generate](#generate)
   - [Metric Conditions](#metric-conditions)
   - [Event Count (event\_count)](#event-count-event_count)
   - [Value Count (value\_count)](#value-count-value_count)
   - [Temporal Proximity (temporal)](#temporal-proximity-temporal)
-    - [Chaining](#chaining)
-    - [Correlation Chaining Example](#correlation-chaining-example)
   - [Field Name Aliases](#field-name-aliases)
     - [Field Name Aliases Example](#field-name-aliases-example)
 - [File Inclusion](#file-inclusion-1)
@@ -45,7 +44,7 @@ The following document defines the standardized correlation that can be used in 
   - [Components](#components-1)
     - [Action:](#action-1)
     - [Filename:](#filename)
-- [Defeats](#defeats)
+- [Filter](#filter)
   - [File Structure](#file-structure-2)
     - [YAML File](#yaml-file-2)
     - [Schema](#schema-2)
@@ -59,6 +58,7 @@ The following document defines the standardized correlation that can be used in 
     - [filter selection](#filter-selection)
 
 # Introduction
+
 Sometimes you need more advanced searches than simple selections.
 For that you can use meta-rules that correlate multiple Sigma rules.
 
@@ -93,8 +93,10 @@ This was the first approach defined in Sigma with aggregations and the near oper
 
 ## Type of rules
 ### Correlation rules
+
 The purpose is to cover a detection like:
-* X invalid login alerts on a host
+
+* X invalid login alerts on a unique host
 * Invalid login alert on the same host but from X remote
 * Alert A, B and C in the same timespan
 
@@ -105,8 +107,9 @@ For this reason, another document type is included for file inclusion.
 An inclusion can be defined by setting the action attribute to include.  
 All rules contained in the referenced file are handled as if they were defined in the including file.
 
-###  Defeats rules
-The purpose of defeats rules is to cover the same tuning for many rules. They are used to suppress matches of multiple rules. This is most commonly useful for environment specific tuning where a false positive prone application is used in an organization and it's false positives are accepted.
+###  Filter rules
+
+The purpose of Filter rules is to apply the same tuning on many rules with the goal to suppress matches of multiple rules. This is most commonly useful for environment specific tuning where a false positive prone application is used in an organization and its false positives are accepted.
 Example: A valid GPO script that triggers X Sigma rules.
 
 
@@ -131,25 +134,36 @@ As a best practice use the prefix `mr_correlation_`.
 
 ### Schema
 
+****************************
+****** NEED SOME WORK ******
+****************************
+
 ```yaml
-title: //str
-id: //str
-action: //str
-type: //str
-rules: //map
-field: //str
-group-by: //map
-timespan: //str
-condition: //map
+type: //rec
+
+required:
+  title: //str
+  action: //str
+  type: //str
+
+optional:
+  id: //str
+  rules: //map
+  field: //str
+  group-by: //map
+  timespan: //str
+  condition: //map
     gt: //int
     gte: //int
     lt: //int
     lte: //int
     range: //int .. //int
-level: //str
-aliases: //map
-ordered: //boolean
+  level: //str
+  aliases: //map
+  ordered: //boolean
+  generate: //boolean
 ```
+
 
 ###  Syntax
 
@@ -194,7 +208,12 @@ action: correlation
 
 **Attribute:** rules
 
-Refers to one or multiple Sigma or Correlations rules. Allowing the user to chain multiple correlations together. A rule can be referred to by the `id` or (to be defined) `name` attribute of a Sigma rule. Latter is a human-readable name and improves the readability of correlation rules.
+Refers to one or multiple Sigma or Correlations rules.
+Allowing the user to chain multiple correlations together.
+A rule can be referred to by the `id` or `name` of a sigma rule.
+
+`name` is a unique human-readable name and improves the readability of correlation rules.
+In this case, the tool must be able to manage the name-to-id translation automatically and the referenced rule name has to be defined in the respective rule.
 
 ```yaml
 title: login brute force
@@ -202,7 +221,7 @@ id: 0e95725d-7320-415d-80f7-004da920fc11
 action: correlation
 rules:
     - 5638f7c0-ac70-491d-8465-2a65075e0d86 # ID of the low firewall rule for action: block
-    - firewall_block
+    - firewall_block  # The internal tools have a lookup table to the correct rule `id` by `name`
 ```
 
 ### Correlation type
@@ -251,7 +270,7 @@ The following format must be used: `number + letter (in lowercase)`
 
 **Attribute:** condition
 
-defines a condition for correlations counting entities see [condition section](#conditions)
+defines a condition for correlations counting entities see [Metric Conditions](#metric-conditions)
 
 ### Level
 
@@ -266,6 +285,21 @@ This allows to give single event hits a low or informational severity and increa
 
 defines field name aliases that are applied to correlated Sigma rules.  
 The defined aliases can then be defined in `group-by` and allows aggregation across different fields in different event types.
+
+### Generate
+
+**Attribute:** generate
+
+Usually if a Sigma rule is referenced by a correlation rule the query for the rule itself is not generated anymore.
+This attribute overrides the behavior.
+The idea is that two rules are created:
+
+* one for the singular event with informational severity.
+* the correlation rule that takes appearance of multiple events into account with a higher severity.
+
+***************************************************
+****************** NEED AN EXAMPLE ****************
+***************************************************
 
 ## Metric Conditions
 
@@ -333,7 +367,7 @@ condition:
 
 All events defined by the rules referred by the rule field must occur in the time frame defined by timespan.  
 The values of fields defined in group-by must all have the same value (e.g. the same host or user).  
-If the bool value ordered is set to true, the events should occur in the given order.  
+If the bool value `ordered` is set to true, the events should occur in the given order.  
 The time frame should not be restricted to boundaries if this is not required by the given backend.
 
 Simple example : Reconnaissance commands defined in three Sigma rules are invoked in arbitrary order within 5 minutes on a system by the same user:
@@ -352,13 +386,9 @@ timespan: 5m
 ordered: false
 ```
 
-### Chaining
-
-If correlation rules are chained, the final rules of the chain must be used to generate the query.  
-Sigma rules referred by correlations and intermediate correlation rules are by default not used to generate a query.  
-This default behavior can be overridden by setting the "generate" attribute to true.
-
-### Correlation Chaining Example
+When `ordered` is set to true the correlation rules are chained, the final rules of the chain must be used to generate the query.
+Sigma rules referred by correlations and intermediate correlation rules are by default not used to generate a query.
+This default behavior can be overridden by setting the `generate` attribute to true.
 
 Many failed logins as defined above are followed by a successful login by of the same user account within 1 hour:
 
@@ -374,7 +404,8 @@ timespan: 1h
 ordered: true
 ```
 
-The grouping by the ComputerName field is assumed for the many_failed_logins correlation rule but not for the final correlation.
+Note:
+Even if the rule many_failed_logins groups by the "ComputerName" field, the correlation rule only uses its own `group-by` "User".
 
 ## Field Name Aliases
 
@@ -490,7 +521,7 @@ action: include
 filename: other_sigma_rule.yml
 ```
 
-# Defeats
+# Filter
 ## File Structure	
 
 ### YAML File
@@ -503,7 +534,7 @@ To keep the file names interoperable use the following:
 - Use `_` instead of a space
 - Use `.yml` as a file extension
 
-As a best practice use the prefix `mr_defeats_` ? 
+As a best practice use the prefix `mr_filter_`
 
 ### Schema
 
@@ -522,7 +553,7 @@ selection:
 
 ### Syntax
 
-Like Sigma rules, "defeats" rules have a title.  
+Like Sigma rules, "Filter" rules have a title.  
 They don't have an id or level as they use the one from the referenced rules.
 
 ## Components
@@ -537,7 +568,7 @@ A brief title for the rule that should contain what the rule is supposed to dete
 
 **Attribute:** action
 
-must be `filter` ?
+must be `filter`
 
 ### Change to Condition 
 
