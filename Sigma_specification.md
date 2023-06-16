@@ -139,7 +139,7 @@ tags [optional]
 
 ## Rx YAML
 
-You schema is defined in [sigma-schema.rx.yml](sigma-schema.rx.yml)
+The schema is defined in [sigma-schema.rx.yml](sigma-schema.rx.yml)
 
 # Components
 
