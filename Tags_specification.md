@@ -57,7 +57,7 @@ All TLP levels defined by the [FIRST TLP-SIG](https://www.first.org/tlp/) in low
 
 ### namespace: detection
 
-Use the detection tag to determine the type of detection targeted by the rule. Example tag: `detection.threat_hunting`.
+Use the detection tag to indicate the type of a rule. Example tag: `detection.threat_hunting`.
 
 * dfir
 * emerging_threats
@@ -65,7 +65,7 @@ Use the detection tag to determine the type of detection targeted by the rule. E
 
 ## History
 * 2023-06-20 Tags V1.1.0
-  * Add detection tags
+  * Add detection namespace
 * 2022-12-19 Tags V1.0.1
   * Minor updates and tweaks
 * 2022-09-18 Tags V1.0.0
