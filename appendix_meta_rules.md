@@ -56,11 +56,14 @@ The following document defines the standardized correlation that can be used in 
     - [Description](#description)
     - [Log source](#log-source)
     - [filter selection](#filter-selection)
+- [Examples](#examples)
+  - [Correlation](#example-correlations)
+    - [Failed Logins Followed by Successful Login](#failed-logins-followed-by-successful-login)
 
 # Introduction
 
 Sometimes you need more advanced searches than simple selections.
-For that you can use meta-rules that correlate multiple Sigma rules.
+For that you can use meta-rules that correlate multiple Sigma rules or filter on existing rules.
 
 ## Compatibility
 
@@ -102,20 +105,20 @@ The purpose is to cover a detection like:
 
 ### File Inclusion
 
-Sometimes it makes sense to define rules for events in a different file than the correlations, e.g. to make them reusable from multiple correlations or make it possible to use them independently.  
-For this reason, another document type is included for file inclusion.  
-An inclusion can be defined by setting the action attribute to include.  
+Sometimes it makes sense to define rules for events in a different file than the correlations, e.g. to make them reusable from multiple correlations or make it possible to use them independently.
+For this reason, another document type is included for file inclusion.
+An inclusion can be defined by setting the action attribute to include.
 All rules contained in the referenced file are handled as if they were defined in the including file.
 
-###  Filter rules
+### Global Filter rules
 
 The purpose of Filter rules is to apply the same tuning on many rules with the goal to suppress matches of multiple rules. This is most commonly useful for environment specific tuning where a false positive prone application is used in an organization and its false positives are accepted.
-Example: A valid GPO script that triggers X Sigma rules.
+Example: A valid GPO script that triggers multiple Sigma rules.
 
 
 # Correlation rules
 
-All rules in a file, basic event rules as well as correlations, might contain an additional attribute called "generated".  
+All rules in a file, basic event rules as well as correlations, might contain an additional attribute called "generated".
 If it is set to true, the rule will generate a query, even if it is referred to by other correlations. Otherwise by default no "standalone" query would be generated for this rule.
 
 ## File Structure
@@ -138,41 +141,48 @@ As a best practice use the prefix `mr_correlation_`.
 ****** NEED SOME WORK ******
 ****************************
 
+
+<!-- TODO: The schema is not correct like this. Will be fixed, finalized and tested in the end -->
 ```yaml
 type: //rec
 
 required:
-  title: //str
-  action: //str
-  type: //str
+  id: //str
+  correlation:
+    type: //rec
+    required:
+      rules: //arr
+      type: //str
+    optional:
+      field: //str
+      group-by: //arr
+      timespan: //str
+      condition: //map
+        gt: //int
+        gte: //int
+        lt: //int
+        lte: //int
+        range: //int .. //int
+      aliases: //map
+      ordered: //bool
+      generate: //bool
 
 optional:
-  id: //str
-  rules: //map
-  field: //str
-  group-by: //map
-  timespan: //str
-  condition: //map
-    gt: //int
-    gte: //int
-    lt: //int
-    lte: //int
-    range: //int .. //int
+  title: //str
+  name: //str
   level: //str
-  aliases: //map
-  ordered: //boolean
-  generate: //boolean
+
 ```
 
 
 ###  Syntax
 
-A Sigma correlation is a dedicated YAML document.  
+A Sigma correlation is a dedicated YAML document.
 Like sigma rules , correlation rules have a title and a unique id to identify them.
 
 ## Components
 
-### Title 
+### Title
 
 **Attribute:** title
 
@@ -182,8 +192,8 @@ A brief title for the rule that should contain what the rule is supposed to dete
 
 **Attribute:** id
 
-Sigma meta-rules should be identified by a globally unique identifier in the *id* attribute.  
-For this purpose randomly generated UUIDs (version 4) are recommended but not mandatory. 
+Sigma meta-rules should be identified by a globally unique identifier in the *id* attribute.
+For this purpose randomly generated UUIDs (version 4) are recommended but not mandatory.
 
 An example for this is:
 
@@ -192,36 +202,24 @@ title: login brute force
 id: 0e95725d-7320-415d-80f7-004da920fc11
 ```
 
-### Action
-
-**Attribute:** action
-
-This field is mandatory and must have the value `correlation`
-
-```yml
-title: login brute force
-id: 0e95725d-7320-415d-80f7-004da920fc11
-action: correlation
-```
-
 ### Related rules
 
 **Attribute:** rules
 
 Refers to one or multiple Sigma or Correlations rules.
 Allowing the user to chain multiple correlations together.
-A rule can be referred to by the `id` or `name` of a sigma rule.
+A rule can be referred to by the `id` or `name` of a Sigma rule.
 
-`name` is a unique human-readable name and improves the readability of correlation rules.
+`name` is a **unique** human-readable name and improves the readability of correlation rules.
 In this case, the tool must be able to manage the name-to-id translation automatically and the referenced rule name has to be defined in the respective rule.
 
 ```yaml
 title: login brute force
 id: 0e95725d-7320-415d-80f7-004da920fc11
-action: correlation
-rules:
-    - 5638f7c0-ac70-491d-8465-2a65075e0d86 # ID of the low firewall rule for action: block
-    - firewall_block  # The internal tools have a lookup table to the correct rule `id` by `name`
+correlation:
+  rules:
+      - 5638f7c0-ac70-491d-8465-2a65075e0d86 # ID of the low firewall rule for action: block
+      - firewall_block  # The internal tools have a lookup table to the correct rule `id` by `name`
 ```
 
 ### Correlation type
@@ -248,7 +246,7 @@ optionally defines one or multiple fields which should be treated as separate ev
 
 Use by value_count correlation to define the field name use to count.
 
-Example: 
+Example:
 ```yaml
 field: User
 group-by:
@@ -259,12 +257,14 @@ group-by:
 
 **Attribute:** timespan
 
-defines a time period in which the correlation should be applied.  
-The following format must be used: `number + letter (in lowercase)` 
+defines a time period in which the correlation should be applied.
+The following format must be used: `number + letter (in lowercase)`
 - Xs seconds
 - Xm minutes
 - Xh hours
 - Xd days
+
+<!-- TODO: Will we support a sum of the input values? Like 1h30m should be supported, shouldn't it? -->
 
 ### Condition Selection
 
@@ -276,20 +276,20 @@ defines a condition for correlations counting entities see [Metric Conditions](#
 
 **Attribute:**  level
 
-defines a severity level adjustment if the correlation matches.  
+defines a severity level adjustment if the correlation matches.
 This allows to give single event hits a low or informational severity and increasing this to higher levels in case of correlating appearances of events.
 
 ### Aliases
 
 **Attribute:** aliases
 
-defines field name aliases that are applied to correlated Sigma rules.  
+defines field name aliases that are applied to correlated Sigma rules.
 The defined aliases can then be defined in `group-by` and allows aggregation across different fields in different event types.
 
 ### Generate
 
 **Attribute:** generate
-
+<!-- TODO: Discuss: I think we agreed on switching the default behaviour back to 'true' -->
 Usually if a Sigma rule is referenced by a correlation rule the query for the rule itself is not generated anymore.
 This attribute overrides the behavior.
 The idea is that two rules are created:
@@ -303,8 +303,8 @@ The idea is that two rules are created:
 
 ## Metric Conditions
 
-The field condition defines the condition that must evaluate to true to generate a match.  
-It operates on the count resulting from an event_count or value_count correlation.  
+The field condition defines the condition that must evaluate to true to generate a match.
+It operates on the count resulting from an event_count or value_count correlation.
 It is a map of exactly one condition criterion:
 
 * `gt`: The count must be greater than the given value
@@ -313,11 +313,13 @@ It is a map of exactly one condition criterion:
 * `lte`: The count must be lesser than or equal the given value
 * `range`: The count must be in the given range specified as value in the format `min..max`. The range includes the min and max values.
 
+If you need more complex constructs, you can always chain correlation rules together. See the examples at the far bottom, for more details.
+
 
 ## Event Count (event_count)
 
-Counts events occurring in the given time frame specified by the referred Sigma rule or rules.  
-The resulting query must count events for each group specified by group-by separately.  
+Counts events occurring in the given time frame specified by the referred Sigma rule or rules.
+The resulting query must count events for each group specified by group-by separately.
 The condition finally defines how many events must occur to generate a search hit.
 
 Need `group-by`, `timespan` and `condition`
@@ -327,20 +329,20 @@ Simple example : More than or equal 100 failed login attempts to a destination h
 ```yaml
 title: Many failed logins
 id: 0e95725d-7320-415d-80f7-004da920fc11
-action: correlation
+correlation:
 type: event_count
-rules: 
-    - 5638f7c0-ac70-491d-8465-2a65075e0d86
-group-by:
-    - ComputerName
-timespan: 1h
-condition:
-    gte: 100
+  rules:
+      - 5638f7c0-ac70-491d-8465-2a65075e0d86
+  group-by:
+      - ComputerName
+  timespan: 1h
+  condition:
+      gte: 100
 ```
 ## Value Count (value_count)
 
-Counts values in a field defined by `field`.  
-The resulting query must count field values separately for each group specified by group-by.  
+Counts values in a field defined by `field`.
+The resulting query must count field values separately for each group specified by group-by.
 The condition finally defines how many values must occur to generate a search hit.
 
 Need `field`, `group-by`,`timespan` and `condition`
@@ -350,40 +352,40 @@ Simple example : Failed logon attempts with more than 100 different user account
 ```yaml
 title: Failed login
 id: 0e95725d-7320-415d-80f7-004da920fc12
-action: correlation
-type: value_count
-rules: 
-    - 5638f7c0-ac70-491d-8465-2a65075e0d86
-field: User
-group-by:
-    - ComputerName
-    - WorkstationName
-timespan: 1d
-condition:
-    gte: 100
+correlation:
+  type: value_count
+  rules:
+      - 5638f7c0-ac70-491d-8465-2a65075e0d86
+  field: User
+  group-by:
+      - ComputerName
+      - WorkstationName
+  timespan: 1d
+  condition:
+      gte: 100
 ```
 
 ## Temporal Proximity (temporal)
 
-All events defined by the rules referred by the rule field must occur in the time frame defined by timespan.  
-The values of fields defined in group-by must all have the same value (e.g. the same host or user).  
-If the bool value `ordered` is set to true, the events should occur in the given order.  
+All events defined by the rules referred by the rule field must occur in the time frame defined by timespan.
+The values of fields defined in group-by must all have the same value (e.g. the same host or user).
+If the bool value `ordered` is set to true, the events should occur in the given order.
 The time frame should not be restricted to boundaries if this is not required by the given backend.
 
 Simple example : Reconnaissance commands defined in three Sigma rules are invoked in arbitrary order within 5 minutes on a system by the same user:
 
 ```yaml
-action: correlation
+correlation:
 type: temporal
-rules:
-    - recon_cmd_a
-    - recon_cmd_b
-    - recon_cmd_c
-group-by:
-    - ComputerName
-    - User
-timespan: 5m
-ordered: false
+  rules:
+      - recon_cmd_a
+      - recon_cmd_b
+      - recon_cmd_c
+  group-by:
+      - ComputerName
+      - User
+  timespan: 5m
+  ordered: false
 ```
 
 When `ordered` is set to true the correlation rules are chained, the final rules of the chain must be used to generate the query.
@@ -393,15 +395,15 @@ This default behavior can be overridden by setting the `generate` attribute to t
 Many failed logins as defined above are followed by a successful login by of the same user account within 1 hour:
 
 ```yaml
-action: correlation
-type: temporal
-rule:
-    - many_failed_logins
-    - successful_login
-group-by:
-    - User
-timespan: 1h
-ordered: true
+correlation:
+  type: temporal
+  rule:
+      - many_failed_logins
+      - successful_login
+  group-by:
+      - User
+  timespan: 1h
+  ordered: true
 ```
 
 Note:
@@ -422,10 +424,13 @@ aliases:
 
 The field names referenced in aliases must not necessarily appear in the Sigma rules, but in the events matched by the Sigma rules.
 
+<!-- please verify that my understanding given in this section is correct -->
+`<Sigma rule name>` is the name given by the `name` attribute. The `name` attribute is optional in general, but has to be defined, if you want to use `aliases`.
+
 ### Field Name Aliases Example
 
-The following correlation rule defines field name aliases `internal_ip` and `remote_ip` that are used in the `group-by` attribute.  
-The `internal_ip` alias references the field `destination.ip` in the events matched by the Sigma rule `internal_error` and `source.ip` in the events matched by the Sigma rule `new_network_connection`.  
+The following correlation rule defines field name aliases `internal_ip` and `remote_ip` that are used in the `group-by` attribute.
+The `internal_ip` alias references the field `destination.ip` in the events matched by the Sigma rule `internal_error` and `source.ip` in the events matched by the Sigma rule `new_network_connection`.
 The correlation rule then only matches if the events appear with the same address in the respective fields of the events matching the referenced Sigma rules.
 
 Rule internal_error
@@ -454,25 +459,26 @@ The correlation rule
 ```yaml
 title: —
 id: —
-action: correlation
-type: temporal
-rule:
-  - internal_error
-  - new_network_connection
-group-by:
-  - internal_ip
-  - remote_ip
-timespan: 10s
-ordered: true
-aliases:
-  internal_ip:
-    internal_error: destination.ip
-    new_network_connection: source.ip
-  remote_ip:
-    internal_error: source.ip
-    new_network_connection: destination.ip
+correlation:
+  type: temporal
+  rule:
+    - internal_error
+    - new_network_connection
+  group-by:
+    - internal_ip
+    - remote_ip
+  timespan: 10s
+  ordered: true
+  aliases:
+    internal_ip:
+      internal_error: destination.ip
+      new_network_connection: source.ip
+    remote_ip:
+      internal_error: source.ip
+      new_network_connection: destination.ip
 ```
 
+<!-- TODO: the whole file inclusion section is for debate. Won't be touched until the idea is accepted or rejected -->
 # File Inclusion
 
 ## File structure
@@ -486,7 +492,7 @@ To keep the file names interoperable use the following:
 - Use `_` instead of a space
 - Use `.yml` as a file extension
 
-For the best pratice use the prefix `mr_include_`
+For best practice use the prefix `mr_include_`
 
 ### Schema
 ```yaml
@@ -494,7 +500,7 @@ action: //str
 filename: //map
 ```
 ### Syntax
-Only the attribute filename is currently supported.  
+Only the attribute filename is currently supported.
 It references the Sigma rule file that should be included.
 
 ## Components
@@ -521,8 +527,9 @@ action: include
 filename: other_sigma_rule.yml
 ```
 
-# Filter
-## File Structure	
+<!-- TODO: This section needs some work after deciding to remove the action attribute -->
+# Global Filter
+## File Structure
 
 ### YAML File
 
@@ -536,6 +543,7 @@ To keep the file names interoperable use the following:
 
 As a best practice use the prefix `mr_filter_`
 
+<!-- TODO: finalize the rx schema-->
 ### Schema
 
 ```yaml
@@ -543,22 +551,28 @@ title: //str
 description: //str
 action: //str
 type: //str
-rules: //map
 logsource:
     product: //str
     service: //str
-selection:
+global_-_filter:
     type: //rec
+    required:
+      detection: //rec
+    optional:
+      <selections> // rec
+      rules: //arr # no defined rules means matching on all rules
+
 ```
 
 ### Syntax
 
-Like Sigma rules, "Filter" rules have a title.  
+Like Sigma rules, "Filter" rules have a title.
 They don't have an id or level as they use the one from the referenced rules.
+<!-- I think they should have a id, even if we don't use it (yet) -->
 
 ## Components
 
-### title 
+### title
 
 **Attribute:** title
 
@@ -570,8 +584,9 @@ A brief title for the rule that should contain what the rule is supposed to dete
 
 must be `filter`
 
-### Change to Condition 
+### Change to Condition
 
+<!-- What would be an include filter? Something added as "or" to the referenced rules instead of "and not"? -->
 **Attribute:** type
 
 can be :
@@ -605,16 +620,90 @@ See Detection in [sigma specification](Sigma_specification.md)
 Example
 
 ```yaml
-title: Filter Administrator account 
-description: The valid administrator account start with adm_ 
-action: filter
-type: exclude
-rules: 
-    - 6f3e2987-db24-4c78-a860-b4f4095a7095 # Data Compressed - rar.exe
-    - df0841c0-9846-4e9f-ad8a-7df91571771b # Login on jump host
+title: Filter Administrator account
+description: The valid administrator account start with adm_
 logsource:
     category: process_creation
-    product: windows 
-selection:
-    User|startswith: 'adm_'
+    product: windows
+global_filter:
+  rules:
+    - 6f3e2987-db24-4c78-a860-b4f4095a7095 # Data Compressed - rar.exe
+    - df0841c0-9846-4e9f-ad8a-7df91571771b # Login on jump host
+  selection:
+      User|startswith: 'adm_'
+  condition: selection
+```
+
+# Examples
+This section gives complete examples in order to make it easier for people new to Sigma to get started and for showcasing new features of the Sigma standard. Use them as a blueprint for your own ideas.
+
+## Correlation
+
+
+### Failed Logins Followed by Successful Login
+
+The following Correlation describes a use case in which an attacker successfully performs a brute-force attack. This example helps in showcasing some highlights:
+ - You can use YAMLs multi document feature (`---`) to have everything grouped together in one file
+ - Rules can be referenced in a human-friendly way using their unique `name`.
+ - Correlations can be used recursively to express more complex use cases
+
+```
+title: Correlation - Multiple Failed Logins Followed by Successful Login
+id: b180ead8-d58f-40b2-ae54-c8940995b9b6
+status: experimental
+description: Detects multiple failed logins by a single user followed by a successful login of that user
+references:
+    - https://reference.com
+author: Florian Roth (Nextron Systems)
+date: 2023/06/16
+correlation:
+   type: temporal
+   rules:
+      - multiple_failed_login
+      - successful_login
+   group-by:
+    - User
+   timespan: 10m
+   ordered: true
+falsepositives:
+    - Unlikely
+level: high
+---
+id: a8418a5a-5fc4-46b5-b23b-6c73beb19d41
+description: Detects multiple failed logins within a certain amount of time
+name: multiple_failed_login
+correlation:
+    type: event_count
+    rules:
+      - failed_login
+    group-by:
+      - User
+    timespan: 10m
+    condition:
+      gte: 10
+---
+id: 53ba33fd-3a50-4468-a5ef-c583635cfa92
+description: Detects a single failed login
+name: failed_login
+logsource:
+  product: windows
+  service: security
+detection:
+    selection:
+      EventID:
+        - 529
+        - 4625
+    condition: selection
+---
+id: 4d0a2c83-c62c-4ed4-b475-c7e23a9269b8
+description: Detects a successful login
+name: successful_login
+logsource:
+  product: windows
+  service: security
+detection:
+    selection:
+        EventID:
+          - 528
+          - 4624
 ```
