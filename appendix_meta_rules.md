@@ -645,7 +645,7 @@ This section gives complete examples in order to make it easier for people new t
 The following Correlation describes a use case in which an attacker successfully performs a brute-force attack. This example helps in showcasing some highlights:
  - You can use YAMLs multi document feature (`---`) to have everything grouped together in one file
  - Rules can be referenced in a human-friendly way using their unique `name`.
- - Correlations can be used recursively to express more complex use cases
+ - Correlations can be chained to express more complex use cases
 
 ```
 title: Correlation - Multiple Failed Logins Followed by Successful Login
