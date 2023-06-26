@@ -106,6 +106,7 @@ The rules consist of a few required sections and several optional ones.
 ```yaml
 title
 id [optional]
+name [optional]
 related [optional]
    - type {type-identifier}
      id {rule-id}
@@ -191,6 +192,8 @@ required:
                             length:
                                 min: 2
 optional:
+    id: //str
+    name: //str
     schema: //str
     taxonomy: //str
     status:
@@ -293,6 +296,11 @@ Currently the following types are defined:
   reason, e.g. from a private naming scheme to UUIDs, to resolve collisions etc. It's not
   expected that a rule with this id exists anymore.
 * similar: Use to relate similar rules to each other (e.g. same detection content applied to different log sources, rule that is a modified version of another rule with a different level)
+
+## Name (optional)
+**Attributes:** name
+
+`name` is a **unique** human-readable name that can be used instead of the *id* as a reference in correlation rules. The goal is to improve the readability of correlation rules.
 
 ## Schema (optional)
 
