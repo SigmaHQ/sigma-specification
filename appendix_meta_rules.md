@@ -551,10 +551,10 @@ title: //str
 description: //str
 action: //str
 type: //str
-logsource:
+logsource: # optional
     product: //str
     service: //str
-global_-_filter:
+global_filter:
     type: //rec
     required:
       detection: //rec
