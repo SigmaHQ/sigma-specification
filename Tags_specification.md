@@ -2,8 +2,8 @@
 
 The following document defines the standardized tags that can be used to categorize the different Sigma rules.
 
-* Version 1.0.1
-* Release date 2022/12/19
+* Version 1.1.0
+* Release date 2023-06-20
 
 ## Summary
 
@@ -13,6 +13,7 @@ The following document defines the standardized tags that can be used to categor
   - [Namespace: car](#namespace-car)
   - [Namespace: cve](#namespace-cve)
   - [Namespace: tlp](#namespace-tlp)
+  - [namespace: detection](#namespace-detection)
 - [History](#history)
 
 ## Namespaces
@@ -54,10 +55,19 @@ Use the CVE tag from the [mitre](https://cve.mitre.org) in lower case seperated 
 
 All TLP levels defined by the [FIRST TLP-SIG](https://www.first.org/tlp/) in lower case. Example tag: `tlp.amber`.
 
-## History
+### namespace: detection
 
-* 2022/12/19 Tags V1.0.1
+Use the detection tag to indicate the type of a rule. Example tag: `detection.threat_hunting`.
+
+* dfir
+* emerging_threats
+* threat_hunting 
+
+## History
+* 2023-06-20 Tags V1.1.0
+  * Add detection namespace
+* 2022-12-19 Tags V1.0.1
   * Minor updates and tweaks
-* 2022/09/18 Tags V1.0.0
+* 2022-09-18 Tags V1.0.0
   * Initial formalisation from the sigma wiki
 * 2017 Sigma creation
