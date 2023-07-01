@@ -699,7 +699,8 @@ Operator Precedence (least to most binding)
 - x of search-identifier
 - ( expression )
 
-If multiple conditions are given, they are logically linked with OR.
+The condition can be a list, in this case, each of them generates a query
+They are logically linked with OR.
 
 ### Fields
 
@@ -785,7 +786,8 @@ Alternative solution could be:
 3. A repeat action document that replaces the logsource and EventID from the rule defined in 2.
 
 # History
-
+* 2023/06/29 Specification V1.0.4
+  * Complete the information for multiple conditions
 * 2022/12/28 Specification V1.0.3
   * Add missing `timeframe` attribute
 * 2022/11/17 Specification V1.0.2
