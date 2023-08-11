@@ -1,7 +1,9 @@
 # SigmaHQ Rule Conventions <!-- omit in toc -->
 
-This document describes how to write a title for a sigma rule.
-It is impossible to be exhaustive, so it is more of a guide than a standard.
+This document provide general guidelines and tips on how to write a title for a sigma rule.
+
+Note that this is by no means an exhaustive list, it is meant to be more of a general guide for inspiration and to reduce exchange during PRs
+
 
 ## Summary
 
@@ -15,25 +17,27 @@ It is impossible to be exhaustive, so it is more of a guide than a standard.
 
 ## Generality
 
-Bear in mind that the title is the first thing the operator will see.
-It should therefore be used as a clue to guide the consideration of the alert.
+Bearing in mind that the title is one of the first things that an analyst will see. It should therefore be used as a clue and be clear as possible to guide the consideration of the alert.
 
 The title and level of the rule must be consistent
 
 
+
 ## Structure
 
-Title can be split with "-" : `Prefix - Description - Sufix`
+Titles can be split with "-" : `Prefix - Description - Sufix`
 
-### Prefix
-It is Optional.
+
+### Prefix (Optional)
+
 It is used to give a category or type of malware, an APT 
 
-Commun wordding:
-- Hack Tool
-- Lolbin (lolbas)
+Examples:
+
+- HackTool
 - PUA
 - Remote Access Tool
+
 
 Specific wording example:
 - "ATP27 - "
@@ -41,11 +45,14 @@ Specific wording example:
 - "UNC2452 - "
 - "UNC4841 - "
 
-### Suffix
-It is Optional.
-It is used to differentiate the same detection but on a different logsource.
+### Suffix (Optional)
 
-Exemple:
+Sometimes the detection are duplicated across different log-source with little changes to their logic. This is common in the case of Process Creation rules targeting the PowerShell process and rules using ScriptBlockText to check for the same. A suffix in this case will be used to offer such distinction.
+
+
+Example:
+
+
 ```yaml
 title: Invoke-Obfuscation Obfuscated IEX Invocation
 title: Invoke-Obfuscation Obfuscated IEX Invocation - PowerShell
@@ -75,12 +82,14 @@ Example : `Net.exe Execution`
 
 `medium` rules can have false positives and requires further analysis
 Wording :
-- "Suspicious "
+- "Potential "
+
 
 
 `high` rules requires a prompt review
 Wording :
-- "Potential "
+- "Suspicious "
+
 
 
 `critical` rules should be reviewed immediately
