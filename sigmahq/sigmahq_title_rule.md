@@ -1,8 +1,10 @@
 # SigmaHQ Rule Conventions <!-- omit in toc -->
 
-This document provide general guidelines and tips on how to write a title for a sigma rule.
+This document provides general guidelines and tips on how to write titles for sigma rules.
 
-Note that this is by no means an exhaustive list, it is meant to be more of a general guide for inspiration and to reduce exchange during PRs
+
+Note that this is by no means an exhaustive list. It is meant to be a general guide for inspiration and to have an easily sharable resource for new contributors (e.g. a resource to link at in PR discussions).
+
 
 
 ## Summary
@@ -17,7 +19,8 @@ Note that this is by no means an exhaustive list, it is meant to be more of a ge
 
 ## Generality
 
-Bearing in mind that the title is one of the first things that an analyst will see. It should therefore be used as a clue and be clear as possible to guide the consideration of the alert.
+Bearing in mind that the title is one of the first things that an analyst will see. It should therefore be used as a clue and be as clear as possible to guide the assessment of the alert.
+
 
 The title and level of the rule must be consistent
 
@@ -30,7 +33,8 @@ Titles can be split with "-" : `Prefix - Description - Sufix`
 
 ### Prefix (Optional)
 
-It is used to give a category or type of malware, an APT 
+It is used to give a category, type of malware or name a threat actor. The choice depends highly on the type of rule.
+
 
 Examples:
 
@@ -47,7 +51,8 @@ Specific wording example:
 
 ### Suffix (Optional)
 
-Sometimes the detection are duplicated across different log-source with little changes to their logic. This is common in the case of Process Creation rules targeting the PowerShell process and rules using ScriptBlockText to check for the same. A suffix in this case will be used to offer such distinction.
+Sometimes the detections are duplicated across different `logsource`s with little changes to their logic. This is common in the case of Process Creation rules targeting the PowerShell process. Those rules are typically duplicated for the different PowerShell `logsource`s using ScriptBlockText to check for the same characteristics. A suffix in this case will be used to differentiate between the rules of the different `logsource`s.
+
 
 
 Example:
@@ -63,7 +68,8 @@ title: Invoke-Obfuscation Obfuscated IEX Invocation - System
 
 ### Description
 
-The point here is to explain the alert in a meaningful way.
+The point of a description is to explain the alert in a meaningful way.
+
 The title does not need to use the terms "Detect", "Detection" or "Detection".
 
 We use a simple formula to describe the alert.
@@ -75,22 +81,29 @@ Example:
 - "UAC Bypass Using ..."
 
 
-`informational` and `low` are not intended for everyday use and are subject to many false positives.
-The title should therefore be general.
+Rules of level `informational` or `low` are not intended to be used to create alerts on their own. Their purpose is to conserve events or criteria of relevance, to be used in correlations or for ideas for threat hunting. A rule of those levels will by definition not create false positives as they should not be used for alerting.
+
+The title should therefore be general and should not indicate that the rule describes suspicious or malicious behaviour.
+
 
 Example : `Net.exe Execution` 
 
-`medium` rules can have false positives and requires further analysis
-Wording :
+`medium` rules can have environment dependent false positives and require a tuning/evaluation phase before deploying to production environments.
+
+Keywords used to indicate this:
+
 - "Potential "
 
 
 
-`high` rules requires a prompt review
-Wording :
+`high` rules requires a prompt review.
+
+Keywords used to indicate this:
+
 - "Suspicious "
 
 
 
-`critical` rules should be reviewed immediately
+`critical` rules should be reviewed with the highest priority.
+
 The title must therefore be precise.
