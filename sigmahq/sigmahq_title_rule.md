@@ -70,7 +70,8 @@ title: Invoke-Obfuscation Obfuscated IEX Invocation - System
 
 The point of a description is to explain the alert in a meaningful way.
 
-The title does not need to use the terms "Detect", "Detection" or "Detection".
+The title does not need to use the terms "Detect" or "Detection". It doesn't have to be a sentence. A keyword style increases the information density.
+
 
 We use a simple formula to describe the alert.
 Example:
