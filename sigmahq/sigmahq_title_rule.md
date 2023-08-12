@@ -28,7 +28,7 @@ The title and level of the rule must be consistent
 
 ## Structure
 
-Titles can be split with "-" : `Prefix - Description - Sufix`
+Titles can be split with "-" : `Prefix - Main Title - Sufix`
 
 
 ### Prefix (Optional)
