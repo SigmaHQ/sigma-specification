@@ -66,7 +66,8 @@ title: Invoke-Obfuscation Obfuscated IEX Invocation - Security
 title: Invoke-Obfuscation Obfuscated IEX Invocation - System
 ```
 
-### Description
+### Main Title
+
 
 The point of a description is to explain the alert in a meaningful way.
 
