@@ -20,6 +20,7 @@ The following document defines the standardized tags that can be used to categor
 
 * attack: Categorization according to [MITRE ATT&CK](https://attack.mitre.org). To get the current supported version of ATT&CK please visite [MITRE CTI](https://github.com/mitre/cti)
 * car: Link to the corresponding [MITRE Cyber Analytics Repository (CAR)](https://car.mitre.org/)
+* stp: Rating of detection analytic robustness according to the [MITRE Summiting the Pyramid](https://center-for-threat-informed-defense.github.io/summiting-the-pyramid/) scheme.
 * tlp: [Traffic Light Protocol](https://www.first.org/tlp/)
 
 ### Namespace: attack
@@ -45,7 +46,27 @@ Tactics:
 
 ### Namespace: car
 
-Use the CAR tag from the [analytics repository](https://car.mitre.org/analytics/) without the prepending `CAR-`. Example tag: `car.2016-04-005`.
+Use the CAR tag from the [analytics repository](https://car.mitre.org/analytics/) without the prepending `CAR-`. Example
+tag: `car.2016-04-005`.
+
+### Namespace: stp
+
+The [Summiting the Pyramid](https://center-for-threat-informed-defense.github.io/summiting-the-pyramid/) scheme created
+by MITRE defines two score dimensions for scoring of the robustness:
+
+* *Analytic robustness* between 1 and 5.
+* *Event robustness* as **A**pplication, **U**ser-mode and **K**ernel-mode in ascending order of robustness-
+
+Details for both dimensions are [defined here](https://center-for-threat-informed-defense.github.io/summiting-the-pyramid/levels/).
+
+The *stp* namespace allows to score the robustness of the detection implemented by a Sigma rule according to this
+scheme. Because the event robustness depends on the event log source that is an enviromental property, Sigma allows to
+specify the robustness in the following ways:
+
+* *analytic-only* defines just the analytic robustness in a tag like `stp.4`. This is usually appropriate for generic
+  log sources like *process_creation* where it isn't possible to anticipate the robustness of the final log source.
+* *complete* defines the whole score in a tag like `stp.3k`. Such a tag should be chosen if the detection refers to a
+  concrete log source.
 
 ### Namespace: cve
 
