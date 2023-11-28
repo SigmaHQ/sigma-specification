@@ -365,7 +365,8 @@ condition:
 
 ## Temporal Proximity (temporal)
 
-All events defined by the rules referred by the rule field must occur in the time frame defined by timespan.  
+All event types defined by the rules referred by the rule field must occur in the time frame defined by timespan.
+Alternatively, the count of event types provided in the condition must occur in the defined time frame.
 The values of fields defined in group-by must all have the same value (e.g. the same host or user).  
 If the bool value `ordered` is set to true, the events should occur in the given order.  
 The time frame should not be restricted to boundaries if this is not required by the given backend.
