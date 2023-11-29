@@ -160,7 +160,6 @@ optional:
     range: //int .. //int
   level: //str
   aliases: //map
-  ordered: //boolean
   generate: //boolean
 ```
 
@@ -232,7 +231,7 @@ Can be :
 - event_count
 - value_count
 - temporal
-
+- temporal_ordered
 
 ### Grouping
 
@@ -368,7 +367,6 @@ condition:
 All event types defined by the rules referred by the rule field must occur in the time frame defined by timespan.
 Alternatively, the count of event types provided in the condition must occur in the defined time frame.
 The values of fields defined in group-by must all have the same value (e.g. the same host or user).  
-If the bool value `ordered` is set to true, the events should occur in the given order.  
 The time frame should not be restricted to boundaries if this is not required by the given backend.
 
 Simple example : Reconnaissance commands defined in three Sigma rules are invoked in arbitrary order within 5 minutes on a system by the same user:
@@ -384,25 +382,24 @@ group-by:
     - ComputerName
     - User
 timespan: 5m
-ordered: false
 ```
 
-When `ordered` is set to true the correlation rules are chained, the final rules of the chain must be used to generate the query.
-Sigma rules referred by correlations and intermediate correlation rules are by default not used to generate a query.
-This default behavior can be overridden by setting the `generate` attribute to true.
+## Ordered Temporal Proximity (temporal_ordered)
 
-Many failed logins as defined above are followed by a successful login by of the same user account within 1 hour:
+The *temporal_ordered* correlation type behaves like *temporal* and requires in addition that the events appear in the
+order provided in the *rule* attribute.
+
+Example: many failed logins as defined above are followed by a successful login by of the same user account within 1 hour:
 
 ```yaml
 action: correlation
-type: temporal
+type: temporal_ordered
 rule:
     - many_failed_logins
     - successful_login
 group-by:
     - User
 timespan: 1h
-ordered: true
 ```
 
 Note:
@@ -456,7 +453,7 @@ The correlation rule
 title: —
 id: —
 action: correlation
-type: temporal
+type: temporal_ordered
 rule:
   - internal_error
   - new_network_connection
@@ -464,7 +461,6 @@ group-by:
   - internal_ip
   - remote_ip
 timespan: 10s
-ordered: true
 aliases:
   internal_ip:
     internal_error: destination.ip
