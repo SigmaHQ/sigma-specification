@@ -668,7 +668,7 @@ The level field contains one of five string values. It describes the criticality
 
 A Sigma rule can be categorised with tags. Tags should generally follow this syntax:
 
-* Character set: lower-case letters, underscores and hyphens
+* Character set: lower-case letters, numerals, underscores and hyphens
 * no spaces
 * Tags are namespaced, the dot is used as separator. e.g. *attack.t1234* refers to technique 1234 in the namespace *attack*; Namespaces may also be nested
 * Keep tags short, e.g. numeric identifiers instead of long sentences
