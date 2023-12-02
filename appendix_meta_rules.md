@@ -241,20 +241,7 @@ optionally defines one or multiple fields which should be treated as separate ev
   * count events by user
   * temporal proximity must occur on one system by the same user
 
-### Values Field Name selection
-
-**Attribute:** field
-
-Use by value_count correlation to define the field name use to count.
-
-Example: 
-```yaml
-field: User
-group-by:
-    - ComputerName
-```
-
-### Time Selection
+### Time
 
 **Attribute:** timespan
 
@@ -265,11 +252,42 @@ The following format must be used: `number + letter (in lowercase)`
 - Xh hours
 - Xd days
 
-### Condition Selection
+### Condition
 
 **Attribute:** condition
 
-defines a condition for correlations counting entities see [Metric Conditions](#metric-conditions)
+The condition defines when a correlation matches:
+
+* for an *event_count* correlation it defines the event count that must appear within the given time frame to match.
+* for a *value_count* correlation it defines the count of distinct values contained in the field specified in the
+  mandatory *field* attribute.
+* For a *temporal* or *temporal_ordered* correlation it specified the count of different event types (Sigma rules
+  matching) in the given time frame.
+
+It is a map of exactly one condition criterion:
+
+* `gt`: The count must be greater than the given value
+* `gte`: The count must be greater than or equal the given value
+* `lt`: The count must be lesser than the given value
+* `lte`: The count must be lesser than or equal the given value
+* `eq`: The count must be equal the given value
+
+Example:
+```yaml
+condition
+    gte: 100
+```
+
+**Subattribute:** field
+
+Used by value_count correlation to define the field name which values are counted.
+
+Example:
+```yaml
+condition
+    field: user
+    gte: 100
+```
 
 ### Level
 
@@ -300,19 +318,6 @@ The idea is that two rules are created:
 ****************** NEED AN EXAMPLE ****************
 ***************************************************
 
-## Metric Conditions
-
-The field condition defines the condition that must evaluate to true to generate a match.  
-It operates on the count resulting from an event_count or value_count correlation.  
-It is a map of exactly one condition criterion:
-
-* `gt`: The count must be greater than the given value
-* `gte`: The count must be greater than or equal the given value
-* `lt`: The count must be lesser than the given value
-* `lte`: The count must be lesser than or equal the given value
-* `range`: The count must be in the given range specified as value in the format `min..max`. The range includes the min and max values.
-
-
 ## Event Count (event_count)
 
 Counts events occurring in the given time frame specified by the referred Sigma rule or rules.  
@@ -342,7 +347,7 @@ Counts values in a field defined by `field`.
 The resulting query must count field values separately for each group specified by group-by.  
 The condition finally defines how many values must occur to generate a search hit.
 
-Need `field`, `group-by`,`timespan` and `condition`
+Requires `group-by`,`timespan` and `condition` in correlation rule and `field` in correlation rule condition.
 
 Simple example : Failed logon attempts with more than 100 different user accounts per source and destination at a day:
 
@@ -353,12 +358,12 @@ action: correlation
 type: value_count
 rules: 
     - 5638f7c0-ac70-491d-8465-2a65075e0d86
-field: User
 group-by:
     - ComputerName
     - WorkstationName
 timespan: 1d
 condition:
+    field: User
     gte: 100
 ```
 
