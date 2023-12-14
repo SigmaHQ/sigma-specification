@@ -380,7 +380,7 @@ Many failed logins as defined above are followed by a successful login by of the
 ```yaml
 correlation:
   type: temporal
-  rule:
+  rules:
       - many_failed_logins
       - successful_login
   group-by:
@@ -444,7 +444,7 @@ title: —
 id: —
 correlation:
   type: temporal
-  rule:
+  rules:
     - internal_error
     - new_network_connection
   group-by:
@@ -581,7 +581,7 @@ The following Correlation describes a use case in which an attacker successfully
  - Rules can be referenced in a human-friendly way using their unique `name`.
  - Correlations can be chained to express more complex use cases
 
-```
+```yml
 title: Correlation - Multiple Failed Logins Followed by Successful Login
 id: b180ead8-d58f-40b2-ae54-c8940995b9b6
 status: experimental
