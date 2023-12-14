@@ -10,8 +10,7 @@ The following document defines the standardized correlation that can be used in 
   - [Expression of Relationships In The Condition of Sigma Rules](#expression-of-relationships-in-the-condition-of-sigma-rules)
   - [Type of rules](#type-of-rules)
     - [Correlation rules](#correlation-rules)
-    - [File Inclusion](#file-inclusion)
-    - [Filter rules](#filter-rules)
+    - [Global Filter rules](#global-filter-rules)
 - [Correlation rules](#correlation-rules-1)
   - [File Structure](#file-structure)
     - [YAML File](#yaml-file)
@@ -20,7 +19,6 @@ The following document defines the standardized correlation that can be used in 
   - [Components](#components)
     - [Title](#title)
     - [Rule Identification](#rule-identification)
-    - [Action](#action)
     - [Related rules](#related-rules)
     - [Correlation type](#correlation-type)
     - [Grouping](#grouping)
@@ -36,28 +34,20 @@ The following document defines the standardized correlation that can be used in 
   - [Temporal Proximity (temporal)](#temporal-proximity-temporal)
   - [Field Name Aliases](#field-name-aliases)
     - [Field Name Aliases Example](#field-name-aliases-example)
-- [File Inclusion](#file-inclusion-1)
-  - [File structure](#file-structure-1)
+- [Global Filter](#global-filter)
+  - [File Structure](#file-structure-1)
     - [YAML File](#yaml-file-1)
     - [Schema](#schema-1)
     - [Syntax](#syntax-1)
   - [Components](#components-1)
-    - [Action:](#action-1)
-    - [Filename:](#filename)
-- [Filter](#filter)
-  - [File Structure](#file-structure-2)
-    - [YAML File](#yaml-file-2)
-    - [Schema](#schema-2)
-    - [Syntax](#syntax-2)
-  - [Components](#components-2)
     - [title](#title-1)
-    - [action](#action-2)
+    - [action](#action)
     - [Change to Condition](#change-to-condition)
     - [Description](#description)
     - [Log source](#log-source)
     - [filter selection](#filter-selection)
 - [Examples](#examples)
-  - [Correlation](#example-correlations)
+  - [Correlation](#correlation)
     - [Failed Logins Followed by Successful Login](#failed-logins-followed-by-successful-login)
 
 # Introduction
@@ -102,13 +92,6 @@ The purpose is to cover a detection like:
 * X invalid login alerts on a unique host
 * Invalid login alert on the same host but from X remote
 * Alert A, B and C in the same timespan
-
-### File Inclusion
-
-Sometimes it makes sense to define rules for events in a different file than the correlations, e.g. to make them reusable from multiple correlations or make it possible to use them independently.
-For this reason, another document type is included for file inclusion.
-An inclusion can be defined by setting the action attribute to include.
-All rules contained in the referenced file are handled as if they were defined in the including file.
 
 ### Global Filter rules
 
@@ -476,55 +459,6 @@ correlation:
     remote_ip:
       internal_error: source.ip
       new_network_connection: destination.ip
-```
-
-<!-- TODO: the whole file inclusion section is for debate. Won't be touched until the idea is accepted or rejected -->
-# File Inclusion
-
-## File structure
-### YAML File
-
-To keep the file names interoperable use the following:
-
-- Length between 10 and 70 characters
-- Lowercase
-- No special characters only letters (a-z) and digits (0-9)
-- Use `_` instead of a space
-- Use `.yml` as a file extension
-
-For best practice use the prefix `mr_include_`
-
-### Schema
-```yaml
-action: //str
-filename: //map
-```
-### Syntax
-Only the attribute filename is currently supported.
-It references the Sigma rule file that should be included.
-
-## Components
-### Action:
-
-**Attribute:** action
-
-must be `include`
-
-### Filename:
-
-**Attribute:** filename
-
-A list of the sigma rules.
-
-The file path is relative to the including file.
-
-For security reasons it is not allowed to traverse the path upward.
-
-Example:
-
-```yaml
-action: include
-filename: other_sigma_rule.yml
 ```
 
 <!-- TODO: This section needs some work after deciding to remove the action attribute -->
