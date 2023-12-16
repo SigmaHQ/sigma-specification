@@ -2,11 +2,21 @@
 
 The following document defines the standardized modifiers that can be used in Sigma.
 
-
 * Version 2.0.0
-* Release date 2023/07/01
+* Release date 2024-01-01
 
-# General
+## Summary
+- [Summary](#summary)
+- [General](#general)
+  - [String only](#string-only)
+  - [Numeric only](#numeric-only)
+  - [Ip only](#ip-only)
+  - [String Encoding](#string-encoding)
+- [Specific](#specific)
+- [History](#history)
+
+
+## General
 
 * `all`: Normally, lists of values are linked with *OR* in the generated query. This modifier
   changes this to *AND*. This is useful if you want to express a command line invocation with different
@@ -23,7 +33,7 @@ The following document defines the standardized modifiers that can be used in Si
 * `exists`: Defines that a certain field has to exist or must not exist in a log event by providing a boolean value.
 * `cased`: Values are applied case sensitively. Default Sigma behaviour is case-insensitive matching.
 
-# String only
+### String only
 
 * `windash`: Creates all possible permutations of the `-` and `/` characters. Windows command line flags can often be indicated by both characters. Using the `windash` modifier converts `-` values into `/` and vice versa and uses all possible permutation of strings in the selection.
 * `re`: Value is handled as a regular expression by backends. Regex is matched case-sensitive by default
@@ -32,7 +42,7 @@ The following document defines the standardized modifiers that can be used in Si
   * `s`: (single line) `re` sub-modifier to enable that dot (`.`) matches all characters, including the newline character.
 
 
-# Numeric only
+### Numeric only
 
 * `lt`: Field is less than the value
 * `lte`: Field is less or equal than the value
@@ -40,12 +50,12 @@ The following document defines the standardized modifiers that can be used in Si
 * `gte`: Field is greater or equal than the value
 
 
-# Ip only
+### Ip only
   
 * `cidr`: The value is handled as an CIDR by backends
 
 
-# String Encoding
+### String Encoding
 
 * `base64`: The value is encoded with Base64.
 * `base64offset`: If a value might appear somewhere in a base64-encoded string the representation
@@ -59,7 +69,7 @@ The following document defines the standardized modifiers that can be used in Si
 * `utf16`: Prepends a [byte order mark](https://en.wikipedia.org/wiki/Byte_order_mark) and encodes UTF16, e.g. `cmd` > `FF FE 63 00 6d 00 64 00` (only used in combination with base64 modifiers)
 
 
-# Specific
+## Specific
 
 * `expand`: Modifier for expansion of placeholders in values. The final behavior of the replacement is determined by processing pipeline transformations. Current possibilities in pySigma are:
   * Expand to value list (`ValueListPlaceholderTransformation`/`value_placeholders`)
@@ -67,3 +77,11 @@ The following document defines the standardized modifiers that can be used in Si
   * Replace placeholder with wildcard `*`, which should only be used as last resort. (`WildcardPlaceholderTransformation`/`wildcard_placeholders`)
 
 * `fieldref`: Modifies a plain string into the field reference type.
+
+## History
+* 2023-05-27
+  * Update from PySigma 0.7.6
+  * Add `fieldref`
+* 2023-05-21 v1.0.3
+  * Creation of the file
+* 2017 Sigma creation
