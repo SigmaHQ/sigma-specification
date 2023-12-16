@@ -101,7 +101,7 @@ Example: A valid GPO script that triggers multiple Sigma rules.
 
 # Correlation rules
 
-All rules in a file, basic event rules as well as correlations, might contain an additional attribute called "generated".
+All rules in a file, basic event rules as well as correlations, might contain an additional attribute called "generate".
 If it is set to true, the rule will generate a query, even if it is referred to by other correlations. Otherwise by default no "standalone" query would be generated for this rule.
 
 ## File Structure
