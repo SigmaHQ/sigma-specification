@@ -500,9 +500,9 @@ global_filter:
 
 ### Syntax
 
-Like Sigma rules, "Filter" rules have a title.
-They don't have an id or level as they use the one from the referenced rules.
-<!-- I think they should have a id, even if we don't use it (yet) -->
+Like Sigma rules, "Filter" rules have a `title` and an `id` to facilitate their management.
+It has no other meta data like level or status because its purpose is to enrich an existing Sigma rule.
+
 
 ## Components
 
