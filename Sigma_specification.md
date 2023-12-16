@@ -3,7 +3,7 @@
 THIS IS A WORK IN PROGRESS DO NOT USE IT
 
 - Version 2.0.0
-- Planned release date 2023/04/02
+- Planned release date 2023/07/01
 
 Take a look at [breaking changes](V2_breaking_changes.md)
 
@@ -48,7 +48,7 @@ Take a look at [breaking changes](V2_breaking_changes.md)
   - [Placeholders](#placeholders)
     - [Standard Placeholders](#standard-placeholders)
 - [Rule Correlation](#rule-correlation)
-- [Global filter or Defeats](#global-filter-or-defeats)
+- [Global filter](#global-filter)
 - [History](#history)
 
 # Yaml File
@@ -164,6 +164,10 @@ title: Test rule
 id: 929a690e-bef0-4204-a928-ef5e620d6fcc
 ```
 
+/// 
+it's confusing , so think somethink like:
+It is better to write a rule with a new id for the following reasons:
+///
 Rule identifiers can and should change for the following reasons:
 
 * Major changes in the rule. E.g. a different rule logic.
@@ -205,6 +209,10 @@ Currently the following types are defined:
 This is the version of the specification used in the rule.
 
 This will allow us to quickly know if the converter or software can use the rule without any problems
+The possible values are 
+  - `1.0`
+  - `2.0`
+When the field is missing, the default value is `1.0`
 
 ## Taxonomy (optional)
 
@@ -279,15 +287,18 @@ Reasons to change the modified date:
 
 **Attribute**: logsource
 
-This section describes the log data on which the detection is meant to be applied to. It describes the log source, the platform, the application and the type that is required in the detection.
+This section describes the log data on which the detection is meant to be applied to.
+It describes the log source, the platform, the application and the type that is required in the detection.
 
-It consists of three attributes that are evaluated automatically by the converters and an arbitrary number of optional elements. We recommend using a "definition" value in cases in which further explanation is necessary.
+It consists of three attributes that are evaluated automatically by the converters and an arbitrary number of optional elements.
+We recommend using a "definition" value in cases in which further explanation is necessary.
 
 * category - examples: firewall, web, antivirus
 * product - examples: windows, apache, check point fw1
 * service - examples: sshd, applocker
 
-The "category" value is used to select all log files written by a certain group of products, like firewalls or web server logs. The automatic converter will use the keyword as a selector for multiple indices.
+The "category" value is used to select all log files written by a certain group of products, like firewalls or web server logs.
+The automatic converter will use the keyword as a selector for multiple indices.
 
 The "product" value is used to select all log outputs of a certain product, e.g. all Windows Eventlog types including "Security", "System", "Application" and the new log types like "AppLocker" and "Windows Defender".
 
@@ -305,6 +316,8 @@ product: windows
 ```
 
 Instead of definition of multiple rules for Sysmon, Windows Security Auditing and possible product-specific rules.
+
+More information in [appendix_taxonomy.md](appendix_taxonomy.md) and [SigmaHQ docuementaiton](https://github.com/SigmaHQ/sigma/blob/master/documentation/README.md)
 
 ## Detection
 
@@ -533,7 +546,6 @@ The condition is the most complex part of the specification and will be subject 
 
 Operator Precedence (least to most binding)
 
-- |
 - or
 - and
 - not
@@ -572,11 +584,11 @@ The level field contains one of five string values. It describes the criticality
 
 A Sigma rule can be categorised with tags. Tags should generally follow this syntax:
 
-* Character set: lower-case letters, underscores and hyphens
+* Character set: lower-case letters, numerals, underscores and hyphens
 * no spaces
 * Tags are namespaced, the dot is used as separator. e.g. *attack.t1234* refers to technique 1234 in the namespace *attack*; Namespaces may also be nested
 * Keep tags short, e.g. numeric identifiers instead of long sentences
-* If applicable, use [predefined tags](./Tags). Feel free to send pull request or issues with proposals for new tags
+* Feel free to send pull request or issues with proposals for new tags
 
 [More information about tags](appendix_tags.md)
 
@@ -593,7 +605,7 @@ Placeholders are used as values that get their final meaning at conversion or us
 From Sigma 1.1 placeholders are only handled if the *expand* modifier is applied to the value containing the placeholder.
 A plain percent character can be used by escaping it with a backslash. Examples:
 
-* `field: %name%` handles `%name%` as placeholder.
+* `field: %name%` handles `%name%` as literal value.
 * `field|expand: %name%` handles `%name%` as placeholder.
 * `field|expand: \%plain%name%` handles `%plain` as plain value and `%name%` as placeholder.
 
@@ -613,17 +625,17 @@ Custom placeholders can be defined as required.
 
 # Rule Correlation
 
-/* Need to add text */
+// Need to add brief text //
 
 See [Appendix Mega Rules](appendix_mega_rules.md)
 
-# Global filter or Defeats
+# Global filter
 
-/* Need to add text */
+// Need to add brief text //
 
 See [Appendix Mega Rules](appendix_mega_rules.md)
 
 # History
 
-* 2023/xx/xx Specification V2.0.0
-  * Init
+* 2023/07/01 Specification V2.0.0
+  * Start a new life

@@ -154,7 +154,6 @@ optional:
   title: //str
   name: //str
   level: //str
-
 ```
 
 
@@ -213,7 +212,7 @@ Can be :
 - event_count
 - value_count
 - temporal
-
+- temporal_ordered
 
 ### Grouping
 
@@ -222,6 +221,7 @@ Can be :
 optionally defines one or multiple fields which should be treated as separate event occurrence scope. Examples:
   * count events by user
   * temporal proximity must occur on one system by the same user
+
 
 ### Values Field Name selection
 
@@ -238,6 +238,7 @@ group-by:
 
 ### Time Selection
 
+
 **Attribute:** timespan
 
 defines a time period in which the correlation should be applied.
@@ -247,13 +248,46 @@ The following format must be used: `number + letter (in lowercase)`
 - Xh hours
 - Xd days
 
+
 <!-- TODO: Will we support a sum of the input values? Like 1h30m should be supported, shouldn't it? -->
 
 ### Condition Selection
 
+
 **Attribute:** condition
 
-defines a condition for correlations counting entities see [Metric Conditions](#metric-conditions)
+The condition defines when a correlation matches:
+
+* for an *event_count* correlation it defines the event count that must appear within the given time frame to match.
+* for a *value_count* correlation it defines the count of distinct values contained in the field specified in the
+  mandatory *field* attribute.
+* For a *temporal* or *temporal_ordered* correlation it specified the count of different event types (Sigma rules
+  matching) in the given time frame.
+
+It is a map of exactly one condition criterion:
+
+* `gt`: The count must be greater than the given value
+* `gte`: The count must be greater than or equal the given value
+* `lt`: The count must be lesser than the given value
+* `lte`: The count must be lesser than or equal the given value
+* `eq`: The count must be equal the given value
+
+Example:
+```yaml
+condition
+    gte: 100
+```
+
+**Subattribute:** field
+
+Used by value_count correlation to define the field name which values are counted.
+
+Example:
+```yaml
+condition
+    field: user
+    gte: 100
+```
 
 ### Level
 
@@ -298,7 +332,6 @@ It is a map of exactly one condition criterion:
 
 If you need more complex constructs, you can always chain correlation rules together. See the examples at the far bottom, for more details.
 
-
 ## Event Count (event_count)
 
 Counts events occurring in the given time frame specified by the referred Sigma rule or rules.
@@ -328,7 +361,7 @@ Counts values in a field defined by `field`.
 The resulting query must count field values separately for each group specified by group-by.
 The condition finally defines how many values must occur to generate a search hit.
 
-Need `field`, `group-by`,`timespan` and `condition`
+Requires `group-by`,`timespan` and `condition` in correlation rule and `field` in correlation rule condition.
 
 Simple example : Failed logon attempts with more than 100 different user accounts per source and destination at a day:
 
@@ -350,9 +383,11 @@ correlation:
 
 ## Temporal Proximity (temporal)
 
+
 All events defined by the rules referred by the rule field must occur in the time frame defined by timespan.
 The values of fields defined in group-by must all have the same value (e.g. the same host or user).
 If the bool value `ordered` is set to true, the events should occur in the given order.
+
 The time frame should not be restricted to boundaries if this is not required by the given backend.
 
 Simple example : Reconnaissance commands defined in three Sigma rules are invoked in arbitrary order within 5 minutes on a system by the same user:
@@ -371,11 +406,12 @@ type: temporal
   ordered: false
 ```
 
-When `ordered` is set to true the correlation rules are chained, the final rules of the chain must be used to generate the query.
-Sigma rules referred by correlations and intermediate correlation rules are by default not used to generate a query.
-This default behavior can be overridden by setting the `generate` attribute to true.
+## Ordered Temporal Proximity (temporal_ordered)
 
-Many failed logins as defined above are followed by a successful login by of the same user account within 1 hour:
+The *temporal_ordered* correlation type behaves like *temporal* and requires in addition that the events appear in the
+order provided in the *rule* attribute.
+
+Example: many failed logins as defined above are followed by a successful login by of the same user account within 1 hour:
 
 ```yaml
 correlation:
