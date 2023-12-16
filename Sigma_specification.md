@@ -18,6 +18,7 @@ Take a look at [breaking changes](V2_breaking_changes.md)
 - [Components](#components)
   - [Title](#title)
     - [Rule Identification](#rule-identification)
+  - [Name (optional)](#name-optional)
   - [Schema (optional)](#schema-optional)
   - [Taxonomy (optional)](#taxonomy-optional)
   - [Status (optional)](#status-optional)
@@ -105,6 +106,7 @@ The rules consist of a few required sections and several optional ones.
 ```yaml
 title
 id [optional]
+name [optional]
 related [optional]
    - type {type-identifier}
      id {rule-id}
@@ -195,6 +197,11 @@ Currently the following types are defined:
   expected that a rule with this id exists anymore.
 * similar: Use to relate similar rules to each other (e.g. same detection content applied to different log sources, rule that is a modified version of another rule with a different level)
 
+## Name (optional)
+**Attributes:** name
+
+`name` is a **unique** human-readable name that can be used instead of the *id* as a reference in correlation rules. The goal is to improve the readability of correlation rules.
+
 ## Schema (optional)
 
 **Attribute:** schema
@@ -217,7 +224,7 @@ Defines the taxonomy used in the Sigma rule. A taxonomy can define:
 * field values, example: a field `image_file_name` that only contains a file name like `example.exe` and is transformed into `ImageFile: *\\example.exe`.
 * logsource names, example: `category: ProcessCreation` instead of `category: process_creation`
 
-used in the Sigma rule. The Default taxonomy is "sigma" and can be ommited. A custom taxonomy must be handled by the used tool
+used in the Sigma rule. The Default taxonomy is "sigma" and can be omitted. A custom taxonomy must be handled by the used tool
 or transformed into the default taxonomy.
 
 More information in [Appendix Taxonomy](appendix_taxonomy.md)
