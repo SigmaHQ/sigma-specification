@@ -193,7 +193,7 @@ Refers to one or multiple Sigma or Correlations rules.
 Allowing the user to chain multiple correlations together.
 A rule can be referred to by the `id` or `name` of a Sigma rule.
 
-`name` is a **unique** human-readable name and improves the readability of correlation rules.
+`name` is a per correlation **unique** human-readable name that improves the readability of correlation rules.
 In this case, the tool must be able to manage the name-to-id translation automatically and the referenced rule name has to be defined in the respective rule.
 
 ```yaml
