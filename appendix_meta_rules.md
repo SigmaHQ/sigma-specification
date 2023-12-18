@@ -15,7 +15,6 @@ The following document defines the standardized correlation that can be used in 
   - [File Structure](#file-structure)
     - [YAML File](#yaml-file)
     - [Schema](#schema)
-      - [Rx YAML](#rx-yaml)
     - [Syntax](#syntax)
   - [Components](#components)
     - [Title](#title)
@@ -122,11 +121,7 @@ As a best practice use the prefix `mr_correlation_`.
 
 ### Schema
 
-<!-- TODO Add a yaml like the Sigma_specification ? -->
-
-#### Rx YAML
-
-The schema is defined in [meta-rules-schema.rx.yml](meta-rules-schema.rx.yml)
+<!-- TODO Add a yaml like the https://github.com/SigmaHQ/sigma/blob/master/tests/validate-sigma-schema/sigma-schema.json -->
 
 ###  Syntax
 
