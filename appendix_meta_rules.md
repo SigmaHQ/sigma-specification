@@ -3,7 +3,7 @@
 The following document defines the standardized correlation that can be used in Sigma rules.
 
 * Version 2.0.0
-* Release date 2023/07/01
+* Release date 2024/01/01
 
 - [Introduction](#introduction)
   - [Compatibility](#compatibility)
@@ -15,6 +15,7 @@ The following document defines the standardized correlation that can be used in 
   - [File Structure](#file-structure)
     - [YAML File](#yaml-file)
     - [Schema](#schema)
+      - [Rx YAML](#rx-yaml)
     - [Syntax](#syntax)
   - [Components](#components)
     - [Title](#title)
@@ -32,6 +33,7 @@ The following document defines the standardized correlation that can be used in 
   - [Event Count (event\_count)](#event-count-event_count)
   - [Value Count (value\_count)](#value-count-value_count)
   - [Temporal Proximity (temporal)](#temporal-proximity-temporal)
+  - [Ordered Temporal Proximity (temporal\_ordered)](#ordered-temporal-proximity-temporal_ordered)
   - [Field Name Aliases](#field-name-aliases)
     - [Field Name Aliases Example](#field-name-aliases-example)
 - [Global Filter](#global-filter)
@@ -52,7 +54,7 @@ The following document defines the standardized correlation that can be used in 
 
 # Introduction
 
-Sometimes you need more advanced searches than simple selections.
+Sometimes you need more advanced searches than simple selections.  
 For that you can use meta-rules that correlate multiple Sigma rules or filter on existing rules.
 
 ## Compatibility
@@ -120,42 +122,11 @@ As a best practice use the prefix `mr_correlation_`.
 
 ### Schema
 
-****************************
-****** NEED SOME WORK ******
-****************************
+<!-- TODO Add a yaml like the Sigma_specification ? -->
 
+#### Rx YAML
 
-<!-- TODO: The schema is not correct like this. Will be fixed, finalized and tested in the end -->
-```yaml
-type: //rec
-
-required:
-  id: //str
-  correlation:
-    type: //rec
-    required:
-      rules: //arr
-      type: //str
-    optional:
-      field: //str
-      group-by: //arr
-      timespan: //str
-      condition: //map
-        gt: //int
-        gte: //int
-        lt: //int
-        lte: //int
-        range: //int .. //int
-      aliases: //map
-      ordered: //bool
-      generate: //bool
-
-optional:
-  title: //str
-  name: //str
-  level: //str
-```
-
+The schema is defined in [meta-rules-schema.rx.yml](meta-rules-schema.rx.yml)
 
 ###  Syntax
 
