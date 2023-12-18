@@ -346,7 +346,7 @@ Simple example : More than or equal 100 failed login attempts to a destination h
 title: Many failed logins
 id: 0e95725d-7320-415d-80f7-004da920fc11
 correlation:
-type: event_count
+  type: event_count
   rules:
       - 5638f7c0-ac70-491d-8465-2a65075e0d86
   group-by:
