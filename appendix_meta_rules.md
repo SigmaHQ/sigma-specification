@@ -676,4 +676,5 @@ detection:
         EventID:
           - 528
           - 4624
+    condition: selection
 ```
