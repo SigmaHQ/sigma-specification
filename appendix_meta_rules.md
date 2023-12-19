@@ -396,7 +396,6 @@ correlation:
 
 All events defined by the rules referred by the rule field must occur in the time frame defined by timespan.
 The values of fields defined in group-by must all have the same value (e.g. the same host or user).
-If the bool value `ordered` is set to true, the events should occur in the given order.
 
 The time frame should not be restricted to boundaries if this is not required by the given backend.
 
@@ -413,7 +412,6 @@ type: temporal
       - ComputerName
       - User
   timespan: 5m
-  ordered: false
 ```
 
 ## Ordered Temporal Proximity (temporal_ordered)
@@ -425,14 +423,13 @@ Example: many failed logins as defined above are followed by a successful login 
 
 ```yaml
 correlation:
-  type: temporal
+  type: temporal_ordered
   rules:
       - many_failed_logins
       - successful_login
   group-by:
       - User
   timespan: 1h
-  ordered: true
 ```
 
 Note:
@@ -497,7 +494,6 @@ correlation:
     - internal_ip
     - remote_ip
   timespan: 10s
-  ordered: true
   aliases:
     internal_ip:
       internal_error: destination.ip
@@ -637,14 +633,13 @@ references:
 author: Florian Roth (Nextron Systems)
 date: 2023/06/16
 correlation:
-   type: temporal
+   type: temporal_ordered
    rules:
       - multiple_failed_login
       - successful_login
    group-by:
     - User
    timespan: 10m
-   ordered: true
 falsepositives:
     - Unlikely
 level: high
