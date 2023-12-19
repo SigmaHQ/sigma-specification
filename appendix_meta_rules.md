@@ -22,13 +22,12 @@ The following document defines the standardized correlation that can be used in 
     - [Related rules](#related-rules)
     - [Correlation type](#correlation-type)
     - [Grouping](#grouping)
-    - [Values Field Name selection](#values-field-name-selection)
     - [Time Selection](#time-selection)
     - [Condition Selection](#condition-selection)
     - [Level](#level)
     - [Aliases](#aliases)
     - [Generate](#generate)
-  - [Metric Conditions](#metric-conditions)
+  - [Condition](#condition)
   - [Event Count (event\_count)](#event-count-event_count)
   - [Value Count (value\_count)](#value-count-value_count)
   - [Temporal Proximity (temporal)](#temporal-proximity-temporal)
@@ -188,22 +187,7 @@ optionally defines one or multiple fields which should be treated as separate ev
   * count events by user
   * temporal proximity must occur on one system by the same user
 
-
-### Values Field Name selection
-
-**Attribute:** field
-
-Use by value_count correlation to define the field name use to count.
-
-Example:
-```yaml
-field: User
-group-by:
-    - ComputerName
-```
-
 ### Time Selection
-
 
 **Attribute:** timespan
 
@@ -217,7 +201,7 @@ The following format must be used: `number + letter (in lowercase)`
 
 <!-- TODO: Will we support a sum of the input values? Like 1h30m should be supported, shouldn't it? -->
 
-### Condition Selection
+### Condition
 
 
 **Attribute:** condition
