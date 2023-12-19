@@ -18,16 +18,15 @@ The following document defines the standardized correlation that can be used in 
     - [Syntax](#syntax)
   - [Components](#components)
     - [Title](#title)
-    - [Rule Identification](#rule-identification)
+    - [Rule Identification  (optional)](#rule-identification--optional)
     - [Related rules](#related-rules)
     - [Correlation type](#correlation-type)
     - [Grouping](#grouping)
     - [Values Field Name selection](#values-field-name-selection)
     - [Time Selection](#time-selection)
     - [Condition Selection](#condition-selection)
-    - [Level](#level)
-    - [Aliases](#aliases)
-    - [Generate](#generate)
+    - [Level  (optional)](#level--optional)
+    - [Aliases  (optional)](#aliases--optional)
   - [Metric Conditions](#metric-conditions)
   - [Event Count (event\_count)](#event-count-event_count)
   - [Value Count (value\_count)](#value-count-value_count)
@@ -136,7 +135,7 @@ Like sigma rules , correlation rules have a title and a unique id to identify th
 A brief title for the rule that should contain what the rule is supposed to detect (max. 256 characters)
 <!-- shouldn't it be mandatory ?-->
 
-### Rule Identification
+### Rule Identification  (optional)
 
 **Attribute:** id
 
@@ -255,34 +254,19 @@ condition
     gte: 100
 ```
 
-### Level
+### Level  (optional)
 
 **Attribute:**  level
 
 defines a severity level adjustment if the correlation matches.
 This allows to give single event hits a low or informational severity and increasing this to higher levels in case of correlating appearances of events.
 
-### Aliases
+### Aliases  (optional)
 
 **Attribute:** aliases
 
 defines field name aliases that are applied to correlated Sigma rules.
 The defined aliases can then be defined in `group-by` and allows aggregation across different fields in different event types.
-
-### Generate
-
-**Attribute:** generate
-<!-- TODO: Discuss: I think we agreed on switching the default behaviour back to 'true' -->
-Usually if a Sigma rule is referenced by a correlation rule the query for the rule itself is not generated anymore.
-This attribute overrides the behavior.
-The idea is that two rules are created:
-
-* one for the singular event with informational severity.
-* the correlation rule that takes appearance of multiple events into account with a higher severity.
-
-***************************************************
-****************** NEED AN EXAMPLE ****************
-***************************************************
 
 ## Metric Conditions
 
