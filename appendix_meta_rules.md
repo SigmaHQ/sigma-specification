@@ -104,6 +104,49 @@ Example: A valid GPO script that triggers multiple Sigma rules.
 
 All rules in a file, basic event rules as well as correlations, might contain an additional attribute called "generate".
 If it is set to true, the rule will generate a query, even if it is referred to by other correlations. Otherwise by default no "standalone" query would be generated for this rule.
+<!--  Discution from the former PR
+secDre4mer Nov 27, 2023
+Should be "generate".
+Also: This implies that with this change, no current rules will generate queries (since they don't have that field).
+
+phantinuss Nov 27, 2023 •
+Nah you are right. It's affecting all existing rules.
+But +1 on the rename
+
+secDre4mer Nov 27, 2023
+
+About rename: I find it a bit counter-intuitive that this field is called "generate". From a technical perspective it's correct (no queries are generated), but from a high-level user perspective, I don't know what's generated. That it defaults to true (according to documentation below) is also strange / unexpected.
+Maybe we could invert it and call it silent instead? That would have the "expected" behaviour of defaulting to a zero value (that is, false) and it clarifies what this does (if it's set, the rule is silent and does not produce matches).
+
+ Neo23x0 Dec 14, 2023
+
+The default behaviour should be that the single rules in a correlation rule are silent.
+
+Examples:
+
+    The multiple failed logon followed by a successful logon example. You wouldn't want to trigger a rule and see a match for every failed logon.
+    A rule that detects recon activity. You wouldn't want to see matches for every "net" command execution or every "ping".
+
+So, the default behaviour of the field "silent", if we call it that way, should be "true" and the user can set it to "false" if he wants the single rules in the correlation to show up.
+
+I wouldn't overcomplicate it with lists of selections.
+But this opinion isn't by far as strong as the one I have on the default behaviour.
+We can allow the user to provide a list of rule name that he wants to see matches for. (a list that disables the "silent" for 1-n of the sub rules)
+
+phantinuss Dec 14, 2023 •
+
+The issue that @secDre4mer raised was that how does that affect existing rules.
+
+My proposal is to define it like this:
+
+    We can switch back to silent is false by default (implicitly). And silent is true if you set it to true explicitly or if there is no level defined in a rule, which is the case for all "in-file/multi-document" correlation rules that are only used as aggregates.
+
+ phantinuss Dec 14, 2023
+
+Another idea how we could specify it:
+If a rule has no level set, the default level is "informational". That also should work and we have no need to define either "generate" or "silent" at all.
+
+-->
 
 ## File Structure
 ### YAML File
@@ -121,7 +164,7 @@ As a best practice use the prefix `mr_correlation_`.
 
 ### Schema
 
-<!-- TODO Add a yaml like the https://github.com/SigmaHQ/sigma/blob/master/tests/validate-sigma-schema/sigma-schema.json -->
+[meta-rule-schema](meta-rule-schema.json)
 
 ###  Syntax
 
@@ -135,6 +178,7 @@ Like sigma rules , correlation rules have a title and a unique id to identify th
 **Attribute:** title
 
 A brief title for the rule that should contain what the rule is supposed to detect (max. 256 characters)
+<!-- shouldn't it be mandatory ?-->
 
 ### Rule Identification
 

@@ -1,0 +1,98 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Sigma Meta rule specification V2.0.0 (2024/01/01)",
+    "type": "object",
+    "required": ["title","correlation"],
+    "properties": {
+      "title": {
+        "type": "string",
+        "maxLength": 256,
+        "description": "A brief title for the rule that should contain what the rules is supposed to detect"
+      },
+      "name": {
+        "type": "string",
+        "maxLength": 256,
+        "description": "A globally unique name for the Sigma rule"
+      },
+      "id": {
+        "type": "string",
+        "description": "A globally unique identifier for the Sigma rule. This is recommended to be a UUID v4, but not mandatory.",
+        "format": "uuid"
+      },
+      "level": {
+        "type": "string",
+        "description": "The criticality of a triggered rule",
+        "oneOf": [
+          {
+            "const": "informational",
+            "description": "Rule is intended for enrichment of events, e.g. by tagging them. No case or alerting should be triggered by such rules because it is expected that a huge amount of events will match these rules"
+          },
+          {
+            "const": "low",
+            "description": "Notable event but rarely an incident. Low rated events can be relevant in high numbers or combination with others. Immediate reaction shouldn't be necessary, but a regular review is recommended"
+          },
+          {
+            "const": "medium",
+            "description": "Relevant event that should be reviewed manually on a more frequent basis"
+          },
+          {
+            "const": "high",
+            "description": "Relevant event that should trigger an internal alert and requires a prompt review"
+          },
+          {
+            "const": "critical",
+            "description": "Highly relevant event that indicates an incident. Critical events should be reviewed immediately. It is used only for cases in which probability borders certainty"
+          }
+        ]
+      },
+      "correlation": {
+        "type": "object",
+        "required": ["type"],
+        "description": "too fill",
+        "properties": {
+          "type": {
+            "type": "string",
+            "maxLength": 256,
+            "description": "to fill"
+          },
+          "rules": {
+            "type": "array",
+            "description": "to fill",
+            "uniqueItems": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "group-by": {
+            "type": "array",
+            "description": "to fill",
+            "uniqueItems": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "field": {
+            "type": "string",
+            "maxLength": 256,
+            "description": "to fill"
+          },
+          "timespan": {
+            "type": "string",
+            "maxLength": 256,
+            "description": "to fill"
+          },
+          "condition": {
+            "type": "object",
+            "description": "too fill",
+            "oneOf": [
+              {"const": "gt","description":"The count must be greater than the given value"},
+              {"const": "gte","description":"The count must be greater than or equal the given value"},
+              {"const": "lt","description":"The count must be lesser than the given value"},
+              {"const": "lte","description":"The count must be lesser than or equal the given value"},
+              {"const": "range","description":"The count must be in the given range specified as value in the format `min..max`"}
+            ]
+          }
+        }
+      }
+    }
+  }
