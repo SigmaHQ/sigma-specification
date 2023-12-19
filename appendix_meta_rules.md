@@ -102,8 +102,7 @@ Example: A valid GPO script that triggers multiple Sigma rules.
 
 # Correlation rules
 
-All rules in a file, basic event rules as well as correlations, might contain an additional attribute called "generate".
-If it is set to true, the rule will generate a query, even if it is referred to by other correlations. Otherwise by default no "standalone" query would be generated for this rule.
+The rules in a multi-document YAML that build a correlation rule are not producing individual, independent queries. They are used as a tool to define more complex constructs out of basic Sigma detections. Therefore only the outermost correlation rule may define meta information such as status, level, date or anything else.
 <!--  Discution from the former PR
 secDre4mer Nov 27, 2023
 Should be "generate".
