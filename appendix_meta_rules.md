@@ -133,7 +133,6 @@ Like sigma rules , correlation rules have a title and a unique id to identify th
 **Attribute:** title
 
 A brief title for the rule that should contain what the rule is supposed to detect (max. 256 characters)
-<!-- shouldn't it be mandatory ?-->
 
 ### Rule Identification  (optional)
 
@@ -240,17 +239,6 @@ It is a map of exactly one condition criterion:
 Example:
 ```yaml
 condition
-    gte: 100
-```
-
-**Subattribute:** field
-
-Used by value_count correlation to define the field name which values are counted.
-
-Example:
-```yaml
-condition
-    field: user
     gte: 100
 ```
 
