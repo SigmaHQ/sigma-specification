@@ -213,7 +213,7 @@ The following format must be used: `number + letter (in lowercase)`
 - Xd days
 
 
-<!-- TODO: Will we support a sum of the input values? Like 1h30m should be supported, shouldn't it? -->
+example for 1h30 : `timespan: 90m`
 
 ### Condition Selection
 
