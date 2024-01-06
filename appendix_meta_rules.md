@@ -27,7 +27,6 @@ The following document defines the standardized correlation that can be used in 
     - [Condition Selection](#condition-selection)
     - [Level  (optional)](#level--optional)
     - [Aliases  (optional)](#aliases--optional)
-  - [Metric Conditions](#metric-conditions)
   - [Event Count (event\_count)](#event-count-event_count)
   - [Value Count (value\_count)](#value-count-value_count)
   - [Temporal Proximity (temporal)](#temporal-proximity-temporal)
@@ -238,9 +237,21 @@ It is a map of exactly one condition criterion:
 
 Example:
 ```yaml
-condition
+condition:
     gte: 100
 ```
+
+To select a range , you can use the map AND
+
+Example "101 to 200":
+```yaml
+condition:
+    gt: 100
+    lte: 200
+```
+
+If you need more complex constructs, you can always chain correlation rules together.  
+See the examples at the far bottom, for more details.
 
 ### Level  (optional)
 
@@ -255,20 +266,6 @@ This allows to give single event hits a low or informational severity and increa
 
 defines field name aliases that are applied to correlated Sigma rules.
 The defined aliases can then be defined in `group-by` and allows aggregation across different fields in different event types.
-
-## Metric Conditions
-
-The field condition defines the condition that must evaluate to true to generate a match.
-It operates on the count resulting from an event_count or value_count correlation.
-It is a map of exactly one condition criterion:
-
-* `gt`: The count must be greater than the given value
-* `gte`: The count must be greater than or equal the given value
-* `lt`: The count must be lesser than the given value
-* `lte`: The count must be lesser than or equal the given value
-* `range`: The count must be in the given range specified as value in the format `min..max`. The range includes the min and max values.
-
-If you need more complex constructs, you can always chain correlation rules together. See the examples at the far bottom, for more details.
 
 ## Event Count (event_count)
 
