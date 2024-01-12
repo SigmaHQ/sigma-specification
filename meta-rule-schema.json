@@ -106,7 +106,8 @@
         "condition": {
           "type": "object",
           "description": "too fill",
-          "maxItems": 1,
+          "minItems": 1,
+          "maxItems": 2,
           "oneOf": [
             {
               "const": "gt",
@@ -129,9 +130,9 @@
               "type": "integer"
             },
             {
-              "const": "range",
-              "description": "The count must be in the given range specified as value in the format `min..max`",
-              "type": "string"
+              "const": "eq",
+              "description": "The count must be equal the given value",
+              "type": "integer"
             }
           ]
         }
