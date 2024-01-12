@@ -18,16 +18,14 @@ The following document defines the standardized correlation that can be used in 
     - [Syntax](#syntax)
   - [Components](#components)
     - [Title](#title)
-    - [Rule Identification](#rule-identification)
+    - [Rule Identification  (optional)](#rule-identification--optional)
     - [Related rules](#related-rules)
     - [Correlation type](#correlation-type)
     - [Grouping](#grouping)
     - [Time Selection](#time-selection)
     - [Condition Selection](#condition-selection)
-    - [Level](#level)
-    - [Aliases](#aliases)
-    - [Generate](#generate)
-  - [Condition](#condition)
+    - [Level  (optional)](#level--optional)
+    - [Aliases  (optional)](#aliases--optional)
   - [Event Count (event\_count)](#event-count-event_count)
   - [Value Count (value\_count)](#value-count-value_count)
   - [Temporal Proximity (temporal)](#temporal-proximity-temporal)
@@ -101,8 +99,7 @@ Example: A valid GPO script that triggers multiple Sigma rules.
 
 # Correlation rules
 
-All rules in a file, basic event rules as well as correlations, might contain an additional attribute called "generate".
-If it is set to true, the rule will generate a query, even if it is referred to by other correlations. Otherwise by default no "standalone" query would be generated for this rule.
+The rules in a multi-document YAML that build a correlation rule are not producing individual, independent queries. They are used as a tool to define more complex constructs out of basic Sigma detections. Therefore only the outermost correlation rule may define meta information such as status, level, date or anything else.
 
 ## File Structure
 ### YAML File
@@ -120,7 +117,7 @@ As a best practice use the prefix `mr_correlation_`.
 
 ### Schema
 
-<!-- TODO Add a yaml like the https://github.com/SigmaHQ/sigma/blob/master/tests/validate-sigma-schema/sigma-schema.json -->
+[meta-rule-schema](meta-rule-schema.json)
 
 ###  Syntax
 
@@ -135,7 +132,7 @@ Like sigma rules , correlation rules have a title and a unique id to identify th
 
 A brief title for the rule that should contain what the rule is supposed to detect (max. 256 characters)
 
-### Rule Identification
+### Rule Identification  (optional)
 
 **Attribute:** id
 
@@ -199,7 +196,7 @@ The following format must be used: `number + letter (in lowercase)`
 - Xd days
 
 
-<!-- TODO: Will we support a sum of the input values? Like 1h30m should be supported, shouldn't it? -->
+example for 1h30 : `timespan: 90m`
 
 ### Condition
 
@@ -224,63 +221,35 @@ It is a map of exactly one condition criterion:
 
 Example:
 ```yaml
-condition
+condition:
     gte: 100
 ```
 
-**Subattribute:** field
+To select a range , you can use the map AND
 
-Used by value_count correlation to define the field name which values are counted.
-
-Example:
+Example "101 to 200":
 ```yaml
-condition
-    field: user
-    gte: 100
+condition:
+    gt: 100
+    lte: 200
 ```
 
-### Level
+If you need more complex constructs, you can always chain correlation rules together.  
+See the examples at the far bottom, for more details.
+
+### Level  (optional)
 
 **Attribute:**  level
 
 defines a severity level adjustment if the correlation matches.
 This allows to give single event hits a low or informational severity and increasing this to higher levels in case of correlating appearances of events.
 
-### Aliases
+### Aliases  (optional)
 
 **Attribute:** aliases
 
 defines field name aliases that are applied to correlated Sigma rules.
 The defined aliases can then be defined in `group-by` and allows aggregation across different fields in different event types.
-
-### Generate
-
-**Attribute:** generate
-<!-- TODO: Discuss: I think we agreed on switching the default behaviour back to 'true' -->
-Usually if a Sigma rule is referenced by a correlation rule the query for the rule itself is not generated anymore.
-This attribute overrides the behavior.
-The idea is that two rules are created:
-
-* one for the singular event with informational severity.
-* the correlation rule that takes appearance of multiple events into account with a higher severity.
-
-***************************************************
-****************** NEED AN EXAMPLE ****************
-***************************************************
-
-## Metric Conditions
-
-The field condition defines the condition that must evaluate to true to generate a match.
-It operates on the count resulting from an event_count or value_count correlation.
-It is a map of exactly one condition criterion:
-
-* `gt`: The count must be greater than the given value
-* `gte`: The count must be greater than or equal the given value
-* `lt`: The count must be lesser than the given value
-* `lte`: The count must be lesser than or equal the given value
-* `range`: The count must be in the given range specified as value in the format `min..max`. The range includes the min and max values.
-
-If you need more complex constructs, you can always chain correlation rules together. See the examples at the far bottom, for more details.
 
 ## Event Count (event_count)
 
@@ -336,7 +305,6 @@ correlation:
 
 All events defined by the rules referred by the rule field must occur in the time frame defined by timespan.
 The values of fields defined in group-by must all have the same value (e.g. the same host or user).
-If the bool value `ordered` is set to true, the events should occur in the given order.
 
 The time frame should not be restricted to boundaries if this is not required by the given backend.
 
@@ -353,7 +321,6 @@ type: temporal
       - ComputerName
       - User
   timespan: 5m
-  ordered: false
 ```
 
 ## Ordered Temporal Proximity (temporal_ordered)
@@ -365,14 +332,13 @@ Example: many failed logins as defined above are followed by a successful login 
 
 ```yaml
 correlation:
-  type: temporal
+  type: temporal_ordered
   rules:
       - many_failed_logins
       - successful_login
   group-by:
       - User
   timespan: 1h
-  ordered: true
 ```
 
 Note:
@@ -437,7 +403,6 @@ correlation:
     - internal_ip
     - remote_ip
   timespan: 10s
-  ordered: true
   aliases:
     internal_ip:
       internal_error: destination.ip
@@ -577,14 +542,13 @@ references:
 author: Florian Roth (Nextron Systems)
 date: 2023/06/16
 correlation:
-   type: temporal
+   type: temporal_ordered
    rules:
       - multiple_failed_login
       - successful_login
    group-by:
     - User
    timespan: 10m
-   ordered: true
 falsepositives:
     - Unlikely
 level: high
