@@ -282,7 +282,7 @@ Reasons to change the modified date:
 * changed detection section
 * changed level
 * changed logsource (rare)
-* * Status to `deprecated`
+* Status to `deprecated`
 
 ## Log Source
 
@@ -638,9 +638,9 @@ See [Appendix Mega Rules](appendix_mega_rules.md)
 See [Appendix Mega Rules](appendix_mega_rules.md)
 
 # History
+* 2023/07/01 Specification V2.0.0
+  * Start a new life
 * 2023/06/29 Specification V1.0.4
   * Complete the information for multiple conditions
 * 2022/12/28 Specification V1.0.3
   * Add missing `timeframe` attribute
-* 2023/07/01 Specification V2.0.0
-  * Start a new life
