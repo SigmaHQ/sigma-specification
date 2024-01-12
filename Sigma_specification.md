@@ -282,6 +282,7 @@ Reasons to change the modified date:
 * changed detection section
 * changed level
 * changed logsource (rare)
+* * Status to `deprecated`
 
 ## Log Source
 
@@ -552,7 +553,8 @@ Operator Precedence (least to most binding)
 - x of search-identifier
 - ( expression )
 
-If multiple conditions are given, they are logically linked with OR.
+The condition can be a list, in this case, each of them generates a query
+They are logically linked with OR.
 
 ## Fields
 
@@ -576,7 +578,7 @@ The level field contains one of five string values. It describes the criticality
 - `low`: Notable event but rarely an incident. Low rated events can be relevant in high numbers or combination with others. Immediate reaction shouldn't be necessary, but a regular review is recommended.
 - `medium`: Relevant event that should be reviewed manually on a more frequent basis.
 - `high`: Relevant event that should trigger an internal alert and requires a prompt review.
-- `critical`: Highly relevant event that indicates an incident. Critical events should be reviewed immediately.
+- `critical`: Highly relevant event that indicates an incident. Critical events should be reviewed immediately. It is used only for cases in which probability borders certainty.
 
 ## Tags
 
@@ -636,6 +638,9 @@ See [Appendix Mega Rules](appendix_mega_rules.md)
 See [Appendix Mega Rules](appendix_mega_rules.md)
 
 # History
-
+* 2023/06/29 Specification V1.0.4
+  * Complete the information for multiple conditions
+* 2022/12/28 Specification V1.0.3
+  * Add missing `timeframe` attribute
 * 2023/07/01 Specification V2.0.0
   * Start a new life

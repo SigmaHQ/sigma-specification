@@ -2,6 +2,8 @@
 
 This repository is used to maintain the specification for the Sigma format.
 
+[Web version](https://sigmahq.github.io/sigma-specification/)
+
 ## Version Management
 
 The version number is in the form of 3 digits 'A.B.C':

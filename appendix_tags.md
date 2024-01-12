@@ -2,8 +2,8 @@
 
 The following document defines the standardized tags that can be used to categorize the different Sigma rules.
 
-* Version 2.0.0
-* Release date 2024-01-01
+* Version 1.1.0
+* Release date 2023-06-20
 
 ## Summary
 
