@@ -544,8 +544,8 @@ date: 2023/06/16
 correlation:
    type: temporal_ordered
    rules:
-      - multiple_failed_login
-      - successful_login
+    - multiple_failed_login
+    - successful_login
    group-by:
     - User
    timespan: 10m
@@ -553,32 +553,34 @@ falsepositives:
     - Unlikely
 level: high
 ---
+title: Multiple failed logons
 id: a8418a5a-5fc4-46b5-b23b-6c73beb19d41
 description: Detects multiple failed logins within a certain amount of time
 name: multiple_failed_login
 correlation:
-    type: event_count
-    rules:
-      - failed_login
-    group-by:
-      - User
-    timespan: 10m
-    condition:
-      gte: 10
+  type: event_count
+  rules:
+    - failed_login
+  group-by:
+    - User
+  timespan: 10m
+  condition:
+    gte: 10
 ---
+title: Single failed login
 id: 53ba33fd-3a50-4468-a5ef-c583635cfa92
-description: Detects a single failed login
 name: failed_login
 logsource:
   product: windows
   service: security
 detection:
-    selection:
-      EventID:
-        - 529
-        - 4625
-    condition: selection
+  selection:
+    EventID:
+      - 529
+      - 4625
+  condition: selection
 ---
+title: Successful login
 id: 4d0a2c83-c62c-4ed4-b475-c7e23a9269b8
 description: Detects a successful login
 name: successful_login
@@ -586,9 +588,9 @@ logsource:
   product: windows
   service: security
 detection:
-    selection:
-        EventID:
-          - 528
-          - 4624
-    condition: selection
+  selection:
+      EventID:
+        - 528
+        - 4624
+  condition: selection
 ```
