@@ -1,9 +1,7 @@
 # Sigma specification <!-- omit in toc -->
 
-THIS IS A WORK IN PROGRESS DO NOT USE IT
-
 - Version 2.0.0
-- Planned release date 2023/07/01
+- Release date 2024/01/01
 
 Take a look at [breaking changes](V2_breaking_changes.md)
 
@@ -141,7 +139,7 @@ tags [optional]
 
 ## Rx YAML
 
-The schema is defined in [sigma-schema.rx.yml](sigma-schema.rx.yml)
+The schema is defined in [sigma-schema.rx.yml](schema/sigma-schema.rx.yml)
 
 # Components
 
@@ -164,7 +162,7 @@ title: Test rule
 id: 929a690e-bef0-4204-a928-ef5e620d6fcc
 ```
 
-/// 
+/// NEED REVIEW
 it's confusing , so think somethink like:
 It is better to write a rule with a new id for the following reasons:
 ///
@@ -205,7 +203,9 @@ Currently the following types are defined:
 ## Schema (optional)
 
 **Attribute:** schema
-
+/// NEED REVIEW
+ schema should not change in a minor version, so why not just a interger `1` or `2` ?
+///
 This is the version of the specification used in the rule.
 
 This will allow us to quickly know if the converter or software can use the rule without any problems
@@ -224,6 +224,12 @@ Defines the taxonomy used in the Sigma rule. A taxonomy can define:
 * field values, example: a field `image_file_name` that only contains a file name like `example.exe` and is transformed into `ImageFile: *\\example.exe`.
 * logsource names, example: `category: ProcessCreation` instead of `category: process_creation`
 
+/// NEED REVIEW
+As is optional : 
+used in the Sigma rule. 
+The Default taxonomy is `sigma`. 
+A custom taxonomy must be handled by the used tool or transformed into the default taxonomy.
+/// 
 used in the Sigma rule. The Default taxonomy is "sigma" and can be omitted. A custom taxonomy must be handled by the used tool
 or transformed into the default taxonomy.
 
@@ -318,7 +324,7 @@ product: windows
 
 Instead of definition of multiple rules for Sysmon, Windows Security Auditing and possible product-specific rules.
 
-More information in [appendix_taxonomy.md](appendix_taxonomy.md) and [SigmaHQ docuementaiton](https://github.com/SigmaHQ/sigma/blob/master/documentation/README.md)
+More information in [appendix_taxonomy](appendix_taxonomy.md) and [SigmaHQ docuementaiton](https://github.com/SigmaHQ/sigma/blob/master/documentation/README.md)
 
 ## Detection
 
@@ -428,7 +434,9 @@ condition: selection
 ### Field Usage
 
 1. For fields with existing field-mappings, use the mapped field name.
-
+/// NEED REVIEW
+dead link to sigmac :)
+/// 
 Examples from [the generic config `tools\config\generic\windows-audit.yml`](https://github.com/SigmaHQ/sigma/blob/master/tools/config/generic/windows-audit.yml#L23-L28) (e.g. use `Image` over `NewProcessName`):
 
 ```yml
@@ -461,12 +469,17 @@ Examples ii:
 * `<Data Name="ServiceName">MpKsl4eaa0a76</Data>` will be `ServiceName`
 
 ### Special Field Values
-
+/// NEED REVIEW
+modifier `exists` ?
+///
 There are special field values that can be used.
 
 * An empty value is defined with `''`
 * A null value is defined with `null`
 
+/// NEED REVIEW
+*OBSOLETE* Can be remove ?
+///
 *OBSOLETE*: An arbitrary value except null or empty cannot be defined with `not null` anymore
 
 The application of these values depends on the target SIEM system.
@@ -595,7 +608,8 @@ A Sigma rule can be categorised with tags. Tags should generally follow this syn
 [More information about tags](appendix_tags.md)
 
 ## Placeholders
-
+/// NEED REVIEW
+///
 Placeholders are used as values that get their final meaning at conversion or usage time of the rule. This can be, but is not restricted to:
 
 * Replacement of placeholders with a single, multiple or-linked values or patterns. Example: the placeholder `%Servers%` is replaced with
