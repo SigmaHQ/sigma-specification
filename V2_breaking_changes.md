@@ -1,7 +1,8 @@
 **Breaking changes**
 
 
-Warning `sigmac` will not be able to convert this version. Only `pySigma` and the corresponding `sigma-cli` provide full support for version 2.
+Warning `sigmac` will not be able to convert all the specification of this version.
+Only `pySigma` and the corresponding `sigma-cli` provide full support for version 2.
 
 
 # New Modifiers
@@ -13,4 +14,4 @@ Warning `sigmac` will not be able to convert this version. Only `pySigma` and th
 
 # Correlation
 
-- Remove aggregation expression in Sigma rule file see [Sigma meta rules](appendix_meta_rules.md)
+- Remove aggregation expression in Sigma rule file see [Sigma meta rules](Sigma_meta_rules.md)

@@ -12,7 +12,6 @@ Take a look at [breaking changes](V2_breaking_changes.md)
   - [Filename](#filename)
   - [Data](#data)
 - [Structure](#structure)
-  - [Rx YAML](#rx-yaml)
 - [Components](#components)
   - [Title](#title)
     - [Rule Identification](#rule-identification)
@@ -137,9 +136,8 @@ tags [optional]
 [arbitrary custom fields]
 ```
 
-## Rx YAML
-
-The schema is defined in [sigma-schema.rx.yml](schema/sigma-schema.rx.yml)
+The Rx schema is defined in [sigma-schema.rx.yml](schema/sigma-schema.rx.yml)
+The Json schema is defined in [sigma-schema.json](schema/sigma-schema.json)
 
 # Components
 
@@ -233,7 +231,7 @@ A custom taxonomy must be handled by the used tool or transformed into the defau
 used in the Sigma rule. The Default taxonomy is "sigma" and can be omitted. A custom taxonomy must be handled by the used tool
 or transformed into the default taxonomy.
 
-More information in [Appendix Taxonomy](appendix_taxonomy.md)
+More information in [Appendix Taxonomy](appendix/appendix_taxonomy.md)
 
 ## Status (optional)
 
@@ -324,7 +322,7 @@ product: windows
 
 Instead of definition of multiple rules for Sysmon, Windows Security Auditing and possible product-specific rules.
 
-More information in [appendix_taxonomy](appendix_taxonomy.md) and [SigmaHQ docuementaiton](https://github.com/SigmaHQ/sigma/blob/master/documentation/README.md)
+More information in [appendix_taxonomy](appendix/appendix_taxonomy.md) and [SigmaHQ docuementaiton](https://github.com/SigmaHQ/sigma/blob/master/documentation/README.md)
 
 ## Detection
 
@@ -520,7 +518,7 @@ There are two types of value modifiers:
 Generally, value modifiers work on single values and value lists. A value might also expand into
 multiple values.
 
-[List of modifiers](appendix_modifer.md)
+[List of modifiers](appendix/appendix_modifer.md)
 
 ## Condition
 
@@ -605,7 +603,7 @@ A Sigma rule can be categorised with tags. Tags should generally follow this syn
 * Keep tags short, e.g. numeric identifiers instead of long sentences
 * Feel free to send pull request or issues with proposals for new tags
 
-[More information about tags](appendix_tags.md)
+[More information about tags](appendix/appendix_tags.md)
 
 ## Placeholders
 /// NEED REVIEW
@@ -643,13 +641,13 @@ Custom placeholders can be defined as required.
 
 // Need to add brief text //
 
-See [Appendix Mega Rules](appendix_mega_rules.md)
+See [Appendix Mega Rules](Sigma_mega_rules.md)
 
 # Global filter
 
 // Need to add brief text //
 
-See [Appendix Mega Rules](appendix_mega_rules.md)
+See [Appendix Mega Rules](Sigma_mega_rules.md)
 
 # History
 * 2023/07/01 Specification V2.0.0

@@ -23,7 +23,7 @@ The following document defines the standardized correlation that can be used in 
     - [Correlation type](#correlation-type)
     - [Grouping](#grouping)
     - [Time Selection](#time-selection)
-    - [Condition Selection](#condition-selection)
+    - [Condition](#condition)
     - [Level  (optional)](#level--optional)
     - [Aliases  (optional)](#aliases--optional)
   - [Event Count (event\_count)](#event-count-event_count)
