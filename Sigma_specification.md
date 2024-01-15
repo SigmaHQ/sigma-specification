@@ -615,14 +615,14 @@ Custom placeholders can be defined as required.
 Correlation allows several events to be linked together. /
 To make it easier to read these corelation rules, they are written in meta-rules.
 
-See [Sigma Mega Rules](Sigma_mega_rules.md)
+See [Sigma Meta Rules](Sigma_meta_rules.md)
 
 # Global filter
 
 To adapt the rules to the environment, it is sometimes useful to put the same description in several rules. /
-Their maintaint can become difficult, with a meta-rule it is possible to write it in a single place.
+Their maintenance can become difficult, with a meta-rule it is possible to write it in a single place.
 
-See [Sigma Mega Rules](Sigma_mega_rules.md)
+See [Sigma Meta Rules](Sigma_meta_rules.md)
 
 # History
 * 2024/01/01 Specification V2.0.0

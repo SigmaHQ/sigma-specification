@@ -15,7 +15,7 @@ For the general Sigma specification please read the [Sigma_specification.md](../
 - [References](#references)
 - [Detection](#detection)
   - [Item Lists](#item-lists)
-- [False Postives](#false-postives)
+- [False Positives](#false-positives)
 
 ## Structure
 
