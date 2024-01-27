@@ -21,11 +21,11 @@ There exists other files in the repository to describe the different modifiers, 
 
 - [appendix_modifier](appendix/appendix_modifer.md) is a document that defines the different modifiers that can be used in a Sigma rule. 
 - [appendix_tags](appendix/appendix_tags.md) is a document that defines the standardized tags that can be used to categorize the different Sigma rules.
-- [appendix_taxonomy](appendix/appendix_taxonomy.md) is a document that defines the different field names and log sources that should be used to ensure sharable rules
+- [appendix_taxonomy](appendix/appendix_taxonomy.md) is a document that defines the different field names and log sources that should be used to ensure sharable rules.
 
 ## SigmaHQ
 
 The following files are not part of the sigma specification. 
-They are only helpers for the management of the main [rule repository](https://github.com/SigmaHQ/sigma/tree/master/rules)
+They are only helpers for the management of the main [rule repository](https://github.com/SigmaHQ/sigma/tree/master/rules) under SigmaHQ
 
 [SigmaHQ Filename Normalisation](sigmahq/Sigmahq_filename_rule.md)
