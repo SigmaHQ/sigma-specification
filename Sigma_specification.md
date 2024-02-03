@@ -445,9 +445,7 @@ Examples ii:
 * `<Data Name="ServiceName">MpKsl4eaa0a76</Data>` will be `ServiceName`
 
 ### Special Field Values
-/// NEED REVIEW
-modifier `exists` ?
-///
+
 There are special field values that can be used.
 
 * An empty value is defined with `''`
@@ -579,8 +577,7 @@ A Sigma rule can be categorised with tags. Tags should generally follow this syn
 [More information about tags](appendix/appendix_tags.md)
 
 ## Placeholders
-/// NEED REVIEW
-///
+
 Placeholders are used as values that get their final meaning at conversion or usage time of the rule. This can be, but is not restricted to:
 
 * Replacement of placeholders with a single, multiple or-linked values or patterns. Example: the placeholder `%Servers%` is replaced with
