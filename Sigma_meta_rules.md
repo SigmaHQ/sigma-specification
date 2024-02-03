@@ -8,10 +8,8 @@ The following document defines the standardized correlation that can be used in 
 - [Introduction](#introduction)
   - [Compatibility](#compatibility)
   - [Expression of Relationships In The Condition of Sigma Rules](#expression-of-relationships-in-the-condition-of-sigma-rules)
-  - [Type of rules](#type-of-rules)
-    - [Correlation rules](#correlation-rules)
-    - [Global Filter rules](#global-filter-rules)
-- [Correlation rules](#correlation-rules-1)
+  - [Type of Correlation rules](#type-of-correlation-rules)
+- [Correlation rules](#correlation-rules)
   - [File Structure](#file-structure)
     - [YAML File](#yaml-file)
     - [Schema](#schema)
@@ -37,13 +35,6 @@ The following document defines the standardized correlation that can be used in 
     - [YAML File](#yaml-file-1)
     - [Schema](#schema-1)
     - [Syntax](#syntax-1)
-  - [Components](#components-1)
-    - [title](#title-1)
-    - [action](#action)
-    - [Change to Condition](#change-to-condition)
-    - [Description](#description)
-    - [Log source](#log-source)
-    - [filter selection](#filter-selection)
 - [Examples](#examples)
   - [Correlation](#correlation)
     - [Failed Logins Followed by Successful Login](#failed-logins-followed-by-successful-login)
@@ -51,7 +42,7 @@ The following document defines the standardized correlation that can be used in 
 # Introduction
 
 Sometimes you need more advanced searches than simple selections.  
-For that you can use meta-rules that correlate multiple Sigma rules or filter on existing rules.
+For that you can use meta-rules that correlate multiple Sigma rules.
 
 ## Compatibility
 
@@ -82,19 +73,13 @@ This was the first approach defined in Sigma with aggregations and the near oper
 * One of the goals of Sigma rules was to keep the condition logic simple. Especially the specification of temporal relationships can get quite complex in a query expression. Specifying correlation chains adds further complexity.
 * The pipe syntax sometimes caused the rule contributors to consider it as a Splunk query or another target system-specific query language. Expressing these relationships in a “Sigmaish” way should not cause these associations.
 
-## Type of rules
-### Correlation rules
+## Type of Correlation rules
 
 The purpose is to cover a detection like:
 
 * X invalid login alerts on a unique host
 * Invalid login alert on the same host but from X remote
 * Alert A, B and C in the same timespan
-
-### Global Filter rules
-
-The purpose of Filter rules is to apply the same tuning on many rules with the goal to suppress matches of multiple rules. This is most commonly useful for environment specific tuning where a false positive prone application is used in an organization and its false positives are accepted.
-Example: A valid GPO script that triggers multiple Sigma rules.
 
 
 # Correlation rules
@@ -117,7 +102,7 @@ As a best practice use the prefix `mr_correlation_`.
 
 ### Schema
 
-[meta-rule-schema](meta-rule-schema.json)
+[meta-rule-schema](/schema/meta-rule-schema.json)
 
 ###  Syntax
 
@@ -199,7 +184,6 @@ The following format must be used: `number + letter (in lowercase)`
 example for 1h30 : `timespan: 90m`
 
 ### Condition
-
 
 **Attribute:** condition
 
@@ -455,69 +439,6 @@ Like Sigma rules, "Filter" rules have a `title` and an `id` to facilitate their 
 It has no other meta data like level or status because its purpose is to enrich an existing Sigma rule.
 
 
-## Components
-
-### title
-
-**Attribute:** title
-
-A brief title for the rule that should contain what the rule is supposed to detect (max. 256 characters)
-
-### action
-
-**Attribute:** action
-
-must be `filter`
-
-### Change to Condition
-
-<!-- What would be an include filter? Something added as "or" to the referenced rules instead of "and not"? -->
-**Attribute:** type
-
-can be :
-- include
-- exclude
-
-### Description
-
-**Attribute:** description
-
-A short description of the rule and the malicious activity that can be detected (max. 65,535 characters)
-
-Relative rules
-
-**Attribute:** rules
-
-refers to one or multiple Sigma rules to be filter
-
-### Log source
-
-**Attribute**: logsource
-
-See log source in [sigma specification](Sigma_specification.md)
-
-### filter selection
-
-**Attribute**: selection
-
-See Detection in [sigma specification](Sigma_specification.md)
-
-Example
-
-```yaml
-title: Filter Administrator account
-description: The valid administrator account start with adm_
-logsource:
-    category: process_creation
-    product: windows
-global_filter:
-  rules:
-    - 6f3e2987-db24-4c78-a860-b4f4095a7095 # Data Compressed - rar.exe
-    - df0841c0-9846-4e9f-ad8a-7df91571771b # Login on jump host
-  selection:
-      User|startswith: 'adm_'
-  condition: selection
-```
 
 # Examples
 This section gives complete examples in order to make it easier for people new to Sigma to get started and for showcasing new features of the Sigma standard. Use them as a blueprint for your own ideas.
