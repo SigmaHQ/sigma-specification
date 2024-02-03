@@ -1,9 +1,7 @@
 # Sigma specification <!-- omit in toc -->
 
-THIS IS A WORK IN PROGRESS DO NOT USE IT
-
 - Version 2.0.0
-- Planned release date 2023/07/01
+- Release date 2024/01/01
 
 Take a look at [breaking changes](V2_breaking_changes.md)
 
@@ -14,12 +12,10 @@ Take a look at [breaking changes](V2_breaking_changes.md)
   - [Filename](#filename)
   - [Data](#data)
 - [Structure](#structure)
-  - [Rx YAML](#rx-yaml)
 - [Components](#components)
   - [Title](#title)
     - [Rule Identification](#rule-identification)
   - [Name (optional)](#name-optional)
-  - [Schema (optional)](#schema-optional)
   - [Taxonomy (optional)](#taxonomy-optional)
   - [Status (optional)](#status-optional)
   - [Description (optional)](#description-optional)
@@ -110,7 +106,6 @@ name [optional]
 related [optional]
    - type {type-identifier}
      id {rule-id}
-schema [optional]
 taxonomy [optional]
 status [optional]
 description [optional]
@@ -139,9 +134,8 @@ tags [optional]
 [arbitrary custom fields]
 ```
 
-## Rx YAML
-
-The schema is defined in [sigma-schema.rx.yml](sigma-schema.rx.yml)
+The Rx schema is defined in [sigma-schema.rx.yml](schema/sigma-schema.rx.yml) \
+The Json schema is defined in [sigma-schema.json](schema/sigma-schema.json)
 
 # Components
 
@@ -156,19 +150,16 @@ A brief title for the rule that should contain what the rule is supposed to dete
 **Attributes:** id, related
 
 Sigma rules should be identified by a globally unique identifier in the *id* attribute. For this
-purpose randomly generated UUIDs (version 4) are recommended but not mandatory. An example for this
-is:
+purpose randomly generated UUIDs (version 4) are recommended but not mandatory. \
+An example for this is:
 
 ```yml
 title: Test rule
 id: 929a690e-bef0-4204-a928-ef5e620d6fcc
 ```
 
-/// 
-it's confusing , so think somethink like:
+
 It is better to write a rule with a new id for the following reasons:
-///
-Rule identifiers can and should change for the following reasons:
 
 * Major changes in the rule. E.g. a different rule logic.
 * Derivation of a new rule from an existing or refinement of a rule in a way that both are kept
@@ -202,18 +193,6 @@ Currently the following types are defined:
 
 `name` is a **unique** human-readable name that can be used instead of the *id* as a reference in correlation rules. The goal is to improve the readability of correlation rules.
 
-## Schema (optional)
-
-**Attribute:** schema
-
-This is the version of the specification used in the rule.
-
-This will allow us to quickly know if the converter or software can use the rule without any problems
-The possible values are 
-  - `1.0`
-  - `2.0`
-When the field is missing, the default value is `1.0`
-
 ## Taxonomy (optional)
 
 **Attribute:** taxonomy
@@ -224,10 +203,11 @@ Defines the taxonomy used in the Sigma rule. A taxonomy can define:
 * field values, example: a field `image_file_name` that only contains a file name like `example.exe` and is transformed into `ImageFile: *\\example.exe`.
 * logsource names, example: `category: ProcessCreation` instead of `category: process_creation`
 
-used in the Sigma rule. The Default taxonomy is "sigma" and can be omitted. A custom taxonomy must be handled by the used tool
-or transformed into the default taxonomy.
 
-More information in [Appendix Taxonomy](appendix_taxonomy.md)
+The Default taxonomy is `sigma`. \
+A custom taxonomy must be handled by the used tool or transformed into the default taxonomy.
+
+More information in [Appendix Taxonomy](appendix/appendix_taxonomy.md)
 
 ## Status (optional)
 
@@ -264,34 +244,38 @@ Creator of the rule. (can be a name, nickname, twitter handle...etc)
 
 **Attribute**: reference
 
-References to the source that the rule was derived from. These could be blog articles, technical papers, presentations or even tweets.
+References to the source that the rule was derived from. \
+These could be blog articles, technical papers, presentations or even tweets.
 
 ## Date (optional)
 
 **Attribute**: date
 
-Creation date of the rule. Use the format YYYY/MM/DD or YYYY-MM-DD
+Creation date of the rule. \
+Use the format YYYY/MM/DD or YYYY-MM-DD
 
 ## Modified (optional)
 
 **Attribute**: modified
 
-*Last* modification date of the rule. Use the format YYYY/MM/DD or YYYY-MM-DD
+*Last* modification date of the rule. \
+Use the format YYYY/MM/DD or YYYY-MM-DD
+
 Reasons to change the modified date:
 * changed title
 * changed detection section
 * changed level
 * changed logsource (rare)
-* Status to `deprecated`
+* changed status to `deprecated` 
 
 ## Log Source
 
 **Attribute**: logsource
 
-This section describes the log data on which the detection is meant to be applied to.
+This section describes the log data on which the detection is meant to be applied to. \
 It describes the log source, the platform, the application and the type that is required in the detection.
 
-It consists of three attributes that are evaluated automatically by the converters and an arbitrary number of optional elements.
+It consists of three attributes that are evaluated automatically by the converters and an arbitrary number of optional elements. \
 We recommend using a "definition" value in cases in which further explanation is necessary.
 
 * category - examples: firewall, web, antivirus
@@ -318,7 +302,7 @@ product: windows
 
 Instead of definition of multiple rules for Sysmon, Windows Security Auditing and possible product-specific rules.
 
-More information in [appendix_taxonomy.md](appendix_taxonomy.md) and [SigmaHQ docuementaiton](https://github.com/SigmaHQ/sigma/blob/master/documentation/README.md)
+More information in [appendix_taxonomy](appendix/appendix_taxonomy.md) and [SigmaHQ docuementaiton](https://github.com/SigmaHQ/sigma/blob/master/documentation/README.md)
 
 ## Detection
 
@@ -429,7 +413,7 @@ condition: selection
 
 1. For fields with existing field-mappings, use the mapped field name.
 
-Examples from [the generic config `tools\config\generic\windows-audit.yml`](https://github.com/SigmaHQ/sigma/blob/master/tools/config/generic/windows-audit.yml#L23-L28) (e.g. use `Image` over `NewProcessName`):
+Examples mapping `sigma` taxonomy name to windows event build in:
 
 ```yml
 fieldmappings:
@@ -466,8 +450,6 @@ There are special field values that can be used.
 
 * An empty value is defined with `''`
 * A null value is defined with `null`
-
-*OBSOLETE*: An arbitrary value except null or empty cannot be defined with `not null` anymore
 
 The application of these values depends on the target SIEM system.
 
@@ -507,7 +489,7 @@ There are two types of value modifiers:
 Generally, value modifiers work on single values and value lists. A value might also expand into
 multiple values.
 
-[List of modifiers](appendix_modifer.md)
+[List of modifiers](appendix/appendix_modifer.md)
 
 ## Condition
 
@@ -592,7 +574,7 @@ A Sigma rule can be categorised with tags. Tags should generally follow this syn
 * Keep tags short, e.g. numeric identifiers instead of long sentences
 * Feel free to send pull request or issues with proposals for new tags
 
-[More information about tags](appendix_tags.md)
+[More information about tags](appendix/appendix_tags.md)
 
 ## Placeholders
 
@@ -627,18 +609,20 @@ Custom placeholders can be defined as required.
 
 # Rule Correlation
 
-// Need to add brief text //
+Correlation allows several events to be linked together. /
+To make it easier to read these corelation rules, they are written in meta-rules.
 
-See [Appendix Mega Rules](appendix_mega_rules.md)
+See [Sigma Meta Rules](Sigma_meta_rules.md)
 
 # Global filter
 
-// Need to add brief text //
+To adapt the rules to the environment, it is sometimes useful to put the same description in several rules. /
+Their maintenance can become difficult, with a meta-rule it is possible to write it in a single place.
 
-See [Appendix Mega Rules](appendix_mega_rules.md)
+See [Sigma Meta Rules](Sigma_meta_rules.md)
 
 # History
-* 2023/07/01 Specification V2.0.0
+* 2024/01/01 Specification V2.0.0
   * Start a new life
 * 2023/06/29 Specification V1.0.4
   * Complete the information for multiple conditions

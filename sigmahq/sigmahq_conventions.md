@@ -1,18 +1,21 @@
 # SigmaHQ Rule Conventions <!-- omit in toc -->
 
-This document describes an additional set of rule conventions enforced by the SigmaHQ rule repository in order to ensure an easy to maintain rule base. For the general Sigma specification please read the [Sigma_specification.md](../Sigma_specification.md).
+This document describes an additional set of rule conventions enforced by the SigmaHQ rule repository in order to ensure an easy to maintain rule base. 
+For the general Sigma specification please read the [Sigma_specification.md](../Sigma_specification.md).
 
 ## Summary
 
 - [Summary](#summary)
 - [Structure](#structure)
 - [Filenames](#filenames)
+- [Indentation](#indentation)
 - [Titles](#titles)
 - [Status](#status)
+- [Description](#description)
 - [References](#references)
 - [Detection](#detection)
   - [Item Lists](#item-lists)
-- [False Postivess](#false-postivess)
+- [False Positives](#false-positives)
 
 ## Structure
 
