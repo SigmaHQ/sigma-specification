@@ -20,7 +20,7 @@ The Sigma Meta filter format specifications is described in the file [Sigma_meta
 
 There exists other files in the repository to describe the different modifiers, fields and tags to be used in Sigma rules:
 
-- [appendix_modifier](appendix/appendix_modifer.md) is a document that defines the different modifiers that can be used in a Sigma rule. 
+- [appendix_modifier](appendix/appendix_modifier.md) is a document that defines the different modifiers that can be used in a Sigma rule. 
 - [appendix_tags](appendix/appendix_tags.md) is a document that defines the standardized tags that can be used to categorize the different Sigma rules.
 - [appendix_taxonomy](appendix/appendix_taxonomy.md) is a document that defines the different field names and log sources that should be used to ensure sharable rules.
 
