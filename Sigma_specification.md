@@ -471,7 +471,7 @@ condition:
 
 ### Field Existance
 
-In some case a field can be optional in the event. You can use the `exist` modifiers to check it.
+In some case a field can be optional in the event. You can use the `exists` modifiers to check it.
 
 Example:
 
@@ -479,7 +479,7 @@ Example:
 detection:
    selection:
       EventID: 4738
-      PasswordLastSet|exist: true
+      PasswordLastSet|exists: true
 condition: selection
 ```
 
