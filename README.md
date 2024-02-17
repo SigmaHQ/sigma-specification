@@ -15,7 +15,8 @@ The version number is in the form of 3 digits 'A.B.C':
 ## Current Version
 
 The Sigma rules format specifications is described in the file [Sigma_specification](Sigma_specification.md)  
-The Sigma Meta-rules format specifications is described in the file [Sigma_meta_rules](Sigma_meta_rules.md)  
+The Sigma Meta rules format specifications is described in the file [Sigma_meta_rules](Sigma_meta_rules.md)  
+The Sigma Meta filter format specifications is described in the file [Sigma_meta_filter](Sigma_meta_filter.md)  
 
 There exists other files in the repository to describe the different modifiers, fields and tags to be used in Sigma rules:
 
@@ -28,4 +29,6 @@ There exists other files in the repository to describe the different modifiers, 
 The following files are not part of the sigma specification. 
 They are only helpers for the management of the main [rule repository](https://github.com/SigmaHQ/sigma/tree/master/rules) under SigmaHQ
 
-[SigmaHQ Filename Normalisation](sigmahq/Sigmahq_filename_rule.md)
+[SigmaHQ Filename Normalisation](/sigmahq/Sigmahq_filename_rule.md)
+[SigmaHQ Rule Conventions](/sigmahq/sigmahq_conventions.md)
+[SigmaHQ Title Normalisation](/sigmahq/sigmahq_title_rule.md)

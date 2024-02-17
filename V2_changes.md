@@ -1,5 +1,7 @@
-**Breaking changes**
+The following is a non-exhaustive list of changes between the v1 and v2 specifications.
 
+
+# Breaking changes
 
 Warning `sigmac` will not be able to convert all the specification of this version.
 Only `pySigma` and the corresponding `sigma-cli` provide full support for version 2.
@@ -14,4 +16,8 @@ Only `pySigma` and the corresponding `sigma-cli` provide full support for versio
 
 # Correlation
 
-- Remove aggregation expression in Sigma rule file see [Sigma meta rules](Sigma_meta_rules.md)
+- Remove aggregation expression in Sigma rule file see [Sigma meta rules](/Sigma_meta_rules.md)
+
+# Global filter
+
+- Adds the ability to make global filters se [Sigma meta filter](/Sigma_meta_filter.md)
