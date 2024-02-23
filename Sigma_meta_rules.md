@@ -17,6 +17,8 @@ The following document defines the standardized correlation that can be used in 
   - [Components](#components)
     - [Title](#title)
     - [Rule Identification  (optional)](#rule-identification--optional)
+    - [Date (optional)](#date-optional)
+    - [Modified (optional)](#modified-optional)
     - [Related rules](#related-rules)
     - [Correlation type](#correlation-type)
     - [Grouping](#grouping)
@@ -91,7 +93,7 @@ To keep the file names interoperable use the following:
 - Use `_` instead of a space
 - Use `.yml` as a file extension
 
-As a best practice use the prefix `mr_correlation_`.
+As a best practice use the prefix `mr_`.
 
 
 ### Schema
@@ -124,6 +126,20 @@ An example for this is:
 title: login brute force
 id: 0e95725d-7320-415d-80f7-004da920fc11
 ```
+
+### Date (optional)
+
+**Attribute**: date
+
+Creation date of the meta rule. \
+Use the ISO 8601 date with separator format : YYYY-MM-DD
+
+### Modified (optional)
+
+**Attribute**: modified
+
+*Last* modification date of the meta rule. \
+Use the ISO 8601 date with separator format : YYYY-MM-DD
 
 ### Related rules
 
@@ -408,7 +424,7 @@ description: Detects multiple failed logins by a single user followed by a succe
 references:
     - https://reference.com
 author: Florian Roth (Nextron Systems)
-date: 2023/06/16
+date: 2023-06-16
 correlation:
    type: temporal_ordered
    rules:

@@ -86,7 +86,7 @@ description: Detects a whoami.exe execution
 references:
       - https://speakerdeck.com/heirhabarov/hunting-for-privilege-escalation-in-windows-environment
 author: Florian Roth
-date: 2019/10/23
+date: 2019-10-23
 logsource:
     category: process_creation
     product: windows

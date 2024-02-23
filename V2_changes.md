@@ -24,4 +24,4 @@ Version 2 only use ISO 8601 with separator format : YYYY-MM-DD
 
 # Global filter
 
-- Adds the ability to make global filters se [Sigma meta filter](/Sigma_meta_filter.md)
+- Adds the ability to make global filters see [Sigma meta filter](/Sigma_meta_filter.md)

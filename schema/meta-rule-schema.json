@@ -22,6 +22,16 @@
       "description": "A globally unique identifier for the Sigma rule. This is recommended to be a UUID v4, but not mandatory.",
       "format": "uuid"
     },
+    "date": {
+      "type": "string",
+      "description": "Creation date of the meta rule. Use the format YYYY-MM-DD",
+      "pattern": "^\\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$"
+    },
+    "modified": {
+      "type": "string",
+      "description": "Last modification date of the meta rule. Use the format YYYY-MM-DD",
+      "pattern": "^\\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$"
+    },
     "level": {
       "type": "string",
       "description": "The criticality of a triggered rule",
