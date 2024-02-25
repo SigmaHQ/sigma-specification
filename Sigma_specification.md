@@ -3,7 +3,7 @@
 - Version 2.0.0
 - Release date 2024/01/01
 
-Take a look at [breaking changes](V2_breaking_changes.md)
+Take a look at [V1-V2 changes](V2_changes.md)
 
 # Summary
 
@@ -34,6 +34,7 @@ Take a look at [breaking changes](V2_breaking_changes.md)
     - [Maps](#maps)
     - [Field Usage](#field-usage)
     - [Special Field Values](#special-field-values)
+    - [Field Existance](#field-existance)
     - [Value Modifiers](#value-modifiers)
       - [Modifier Types](#modifier-types)
   - [Condition](#condition)
@@ -43,6 +44,7 @@ Take a look at [breaking changes](V2_breaking_changes.md)
   - [Tags](#tags)
   - [Placeholders](#placeholders)
     - [Standard Placeholders](#standard-placeholders)
+  - [Scope (optional)](#scope-optional)
 - [Rule Correlation](#rule-correlation)
 - [Global filter](#global-filter)
 - [History](#history)
@@ -84,7 +86,7 @@ description: Detects a whoami.exe execution
 references:
       - https://speakerdeck.com/heirhabarov/hunting-for-privilege-escalation-in-windows-environment
 author: Florian Roth
-date: 2019/10/23
+date: 2019-10-23
 logsource:
     category: process_creation
     product: windows
@@ -252,14 +254,14 @@ These could be blog articles, technical papers, presentations or even tweets.
 **Attribute**: date
 
 Creation date of the rule. \
-Use the format YYYY/MM/DD or YYYY-MM-DD
+Use the ISO 8601 date with separator format : YYYY-MM-DD
 
 ## Modified (optional)
 
 **Attribute**: modified
 
 *Last* modification date of the rule. \
-Use the format YYYY/MM/DD or YYYY-MM-DD
+Use the ISO 8601 date with separator format : YYYY-MM-DD
 
 Reasons to change the modified date:
 * changed title
@@ -467,6 +469,21 @@ condition:
    selection and not filter
 ```
 
+### Field Existance
+
+In some case a field can be optional in the event. You can use the `exists` modifiers to check it.
+
+Example:
+
+```yml
+detection:
+   selection:
+      EventID: 4738
+      PasswordLastSet|exists: true
+condition: selection
+```
+
+
 ### Value Modifiers
 
 The values contained in Sigma rules can be modified by *value modifiers*. Value modifiers are
@@ -489,7 +506,7 @@ There are two types of value modifiers:
 Generally, value modifiers work on single values and value lists. A value might also expand into
 multiple values.
 
-[List of modifiers](appendix/appendix_modifer.md)
+[List of modifiers](appendix/appendix_modifier.md)
 
 ## Condition
 
@@ -607,6 +624,15 @@ The following standard placeholders should be used:
 
 Custom placeholders can be defined as required.
 
+## Scope (optional)
+
+**Attribute**: scope
+
+A list of intended scope of the rule. 
+
+For example , you have a rule for a registry key with exist only on windows server./
+The logsource will be `category: registry_set` and the scope `server`
+
 # Rule Correlation
 
 Correlation allows several events to be linked together. /
@@ -616,14 +642,14 @@ See [Sigma Meta Rules](Sigma_meta_rules.md)
 
 # Global filter
 
-To adapt the rules to the environment, it is sometimes useful to put the same description in several rules. /
-Their maintenance can become difficult, with a meta-rule it is possible to write it in a single place.
+To adapt the rules to the environment, it is sometimes useful to put the same exclusion in several rules. /
+Their maintenance can become difficult, with a meta-filter it is possible to write it in a single place.
 
-See [Sigma Meta Rules](Sigma_meta_rules.md)
+See [Sigma Meta Filter](Sigma_meta_filter.md)
 
 # History
 * 2024/01/01 Specification V2.0.0
-  * Start a new life
+  * init
 * 2023/06/29 Specification V1.0.4
   * Complete the information for multiple conditions
 * 2022/12/28 Specification V1.0.3

@@ -1,11 +1,15 @@
 The following is a non-exhaustive list of changes between the v1 and v2 specifications.
 
 
-# Breaking changes
+# Sigmac
 
-Warning `sigmac` will not be able to convert all the specification of this version.
+Warning `sigmac` will not be able to convert all the specification of this version. \
 Only `pySigma` and the corresponding `sigma-cli` provide full support for version 2.
 
+# Date
+
+Legacy sigma rule use YYYY/MM/DD or YYYY-MM-DD format for the date. \
+Version 2 only use ISO 8601 with separator format : YYYY-MM-DD
 
 # New Modifiers
 
@@ -20,4 +24,4 @@ Only `pySigma` and the corresponding `sigma-cli` provide full support for versio
 
 # Global filter
 
-- Adds the ability to make global filters se [Sigma meta filter](/Sigma_meta_filter.md)
+- Adds the ability to make global filters see [Sigma meta filter](/Sigma_meta_filter.md)

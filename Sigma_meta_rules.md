@@ -17,6 +17,8 @@ The following document defines the standardized correlation that can be used in 
   - [Components](#components)
     - [Title](#title)
     - [Rule Identification  (optional)](#rule-identification--optional)
+    - [Date (optional)](#date-optional)
+    - [Modified (optional)](#modified-optional)
     - [Related rules](#related-rules)
     - [Correlation type](#correlation-type)
     - [Grouping](#grouping)
@@ -30,14 +32,8 @@ The following document defines the standardized correlation that can be used in 
   - [Ordered Temporal Proximity (temporal\_ordered)](#ordered-temporal-proximity-temporal_ordered)
   - [Field Name Aliases](#field-name-aliases)
     - [Field Name Aliases Example](#field-name-aliases-example)
-- [Global Filter](#global-filter)
-  - [File Structure](#file-structure-1)
-    - [YAML File](#yaml-file-1)
-    - [Schema](#schema-1)
-    - [Syntax](#syntax-1)
 - [Examples](#examples)
-  - [Correlation](#correlation)
-    - [Failed Logins Followed by Successful Login](#failed-logins-followed-by-successful-login)
+  - [Failed Logins Followed by Successful Login](#failed-logins-followed-by-successful-login)
 
 # Introduction
 
@@ -97,7 +93,7 @@ To keep the file names interoperable use the following:
 - Use `_` instead of a space
 - Use `.yml` as a file extension
 
-As a best practice use the prefix `mr_correlation_`.
+As a best practice use the prefix `mr_`.
 
 
 ### Schema
@@ -130,6 +126,20 @@ An example for this is:
 title: login brute force
 id: 0e95725d-7320-415d-80f7-004da920fc11
 ```
+
+### Date (optional)
+
+**Attribute**: date
+
+Creation date of the meta rule. \
+Use the ISO 8601 date with separator format : YYYY-MM-DD
+
+### Modified (optional)
+
+**Attribute**: modified
+
+*Last* modification date of the meta rule. \
+Use the ISO 8601 date with separator format : YYYY-MM-DD
 
 ### Related rules
 
@@ -343,13 +353,13 @@ aliases:
 
 The field names referenced in aliases must not necessarily appear in the Sigma rules, but in the events matched by the Sigma rules.
 
-<!-- please verify that my understanding given in this section is correct -->
-`<Sigma rule name>` is the name given by the `name` attribute. The `name` attribute is optional in general, but has to be defined, if you want to use `aliases`.
+`<Sigma rule name>` is the name given by the `name` attribute. \
+The `name` attribute is optional in general, but has to be defined, if you want to use `aliases`.
 
 ### Field Name Aliases Example
 
-The following correlation rule defines field name aliases `internal_ip` and `remote_ip` that are used in the `group-by` attribute.
-The `internal_ip` alias references the field `destination.ip` in the events matched by the Sigma rule `internal_error` and `source.ip` in the events matched by the Sigma rule `new_network_connection`.
+The following correlation rule defines field name aliases `internal_ip` and `remote_ip` that are used in the `group-by` attribute. \
+The `internal_ip` alias references the field `destination.ip` in the events matched by the Sigma rule `internal_error` and `source.ip` in the events matched by the Sigma rule `new_network_connection`. \
 The correlation rule then only matches if the events appear with the same address in the respective fields of the events matching the referenced Sigma rules.
 
 Rule internal_error
@@ -396,57 +406,10 @@ correlation:
       new_network_connection: destination.ip
 ```
 
-<!-- TODO: This section needs some work after deciding to remove the action attribute -->
-# Global Filter
-## File Structure
-
-### YAML File
-
-To keep the file names interoperable use the following:
-
-- Length between 10 and 70 characters
-- Lowercase
-- No special characters only letters (a-z) and digits (0-9)
-- Use `_` instead of a space
-- Use `.yml` as a file extension
-
-As a best practice use the prefix `mr_filter_`
-
-<!-- TODO: finalize the rx schema-->
-### Schema
-
-```yaml
-title: //str
-description: //str
-action: //str
-type: //str
-logsource: # optional
-    product: //str
-    service: //str
-global_filter:
-    type: //rec
-    required:
-      detection: //rec
-    optional:
-      <selections> // rec
-      rules: //arr # no defined rules means matching on all rules
-
-```
-
-### Syntax
-
-Like Sigma rules, "Filter" rules have a `title` and an `id` to facilitate their management.
-It has no other meta data like level or status because its purpose is to enrich an existing Sigma rule.
-
-
-
 # Examples
 This section gives complete examples in order to make it easier for people new to Sigma to get started and for showcasing new features of the Sigma standard. Use them as a blueprint for your own ideas.
 
-## Correlation
-
-
-### Failed Logins Followed by Successful Login
+## Failed Logins Followed by Successful Login
 
 The following Correlation describes a use case in which an attacker successfully performs a brute-force attack. This example helps in showcasing some highlights:
  - You can use YAMLs multi document feature (`---`) to have everything grouped together in one file
@@ -461,7 +424,7 @@ description: Detects multiple failed logins by a single user followed by a succe
 references:
     - https://reference.com
 author: Florian Roth (Nextron Systems)
-date: 2023/06/16
+date: 2023-06-16
 correlation:
    type: temporal_ordered
    rules:

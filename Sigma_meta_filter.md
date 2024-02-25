@@ -15,6 +15,8 @@ The following document defines the standardized global filter that can be used w
     - [title](#title)
     - [Rule Identification  (optional)](#rule-identification--optional)
     - [Description (optional)](#description-optional)
+    - [Date (optional)](#date-optional)
+    - [Modified (optional)](#modified-optional)
     - [Log source](#log-source)
     - [Global Filter](#global-filter-1)
     - [Relative rules](#relative-rules)
@@ -40,7 +42,7 @@ To keep the file names interoperable use the following:
 - Use `_` instead of a space
 - Use `.yml` as a file extension
 
-As a best practice use the prefix `mr_filter_`
+As a best practice use the prefix `mf_`
 
 
 ### Schema
@@ -82,6 +84,20 @@ id: 0e95725d-7320-415d-80f7-004da920fc11
 **Attribute:** description
 
 A short description of the rule and the malicious activity that can be detected (max. 65,535 characters)
+
+### Date (optional)
+
+**Attribute**: date
+
+Creation date of the meta filter. \
+Use the ISO 8601 date with separator format : YYYY-MM-DD
+
+### Modified (optional)
+
+**Attribute**: modified
+
+*Last* modification date of the meta filter. \
+Use the ISO 8601 date with separator format : YYYY-MM-DD
 
 ### Log source
 
