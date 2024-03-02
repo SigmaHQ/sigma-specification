@@ -37,6 +37,7 @@ Take a look at [V1-V2 changes](V2_changes.md)
     - [Field Existance](#field-existance)
     - [Value Modifiers](#value-modifiers)
       - [Modifier Types](#modifier-types)
+    - [Keywords search](#keywords-search)
   - [Condition](#condition)
   - [Fields](#fields)
   - [FalsePositives](#falsepositives)
@@ -507,6 +508,33 @@ Generally, value modifiers work on single values and value lists. A value might 
 multiple values.
 
 [List of modifiers](appendix/appendix_modifier.md)
+
+### Keywords search
+
+Contrary to the Field Usage, It's a matter of searching for keywords across an entire event. \
+They are built by using a list under a search-identifiers.
+
+```yml
+detection:
+  mimikatz_keywords:
+    - 'event::clear'
+    - 'event::drop'
+  condition: mimikatz_keywords
+```
+Give : "event::clear" **or** "event::drop"
+
+To have a **and** operator , we use the `'|all':` modifier
+```yaml
+detection:
+  keywords_cmdlet:
+    '|all':
+      - 'OabVirtualDirectory'
+      - ' -ExternalUrl '
+condition: keywords_cmdlet
+```
+Give : "OabVirtualDirectory" **and** " -ExternalUrl "
+
+Some rules use simply `keywords` as search-identifiers name to facilitate identification. 
 
 ## Condition
 
