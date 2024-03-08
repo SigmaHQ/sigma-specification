@@ -315,12 +315,12 @@ Simple example : Reconnaissance commands defined in three Sigma rules are invoke
 correlation:
 type: temporal
   rules:
-      - recon_cmd_a
-      - recon_cmd_b
-      - recon_cmd_c
+    - recon_cmd_a
+    - recon_cmd_b
+    - recon_cmd_c
   group-by:
-      - ComputerName
-      - User
+    - ComputerName
+    - User
   timespan: 5m
 ```
 
