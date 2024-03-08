@@ -157,8 +157,8 @@ title: login brute force
 id: 0e95725d-7320-415d-80f7-004da920fc11
 correlation:
   rules:
-      - 5638f7c0-ac70-491d-8465-2a65075e0d86 # ID of the low firewall rule for action: block
-      - firewall_block  # The internal tools have a lookup table to the correct rule `id` by `name`
+    - 5638f7c0-ac70-491d-8465-2a65075e0d86 # ID of the low firewall rule for action: block
+    - firewall_block  # The internal tools have a lookup table to the correct rule `id` by `name`
 ```
 
 ### Correlation type
@@ -251,7 +251,10 @@ Counts events occurring in the given time frame specified by the referred Sigma 
 The resulting query must count events for each group specified by group-by separately.
 The condition finally defines how many events must occur to generate a search hit.
 
-Need `group-by`, `timespan` and `condition`
+Requires : 
+ - `group-by`
+ - `timespan`
+ - `condition`
 
 Simple example : More than or equal 100 failed login attempts to a destination host in an hour:
 
@@ -261,12 +264,12 @@ id: 0e95725d-7320-415d-80f7-004da920fc11
 correlation:
   type: event_count
   rules:
-      - 5638f7c0-ac70-491d-8465-2a65075e0d86
+    - 5638f7c0-ac70-491d-8465-2a65075e0d86
   group-by:
-      - ComputerName
+    - ComputerName
   timespan: 1h
   condition:
-      gte: 100
+    gte: 100
 ```
 ## Value Count (value_count)
 
@@ -274,7 +277,11 @@ Counts values in a field defined by `field`.
 The resulting query must count field values separately for each group specified by group-by.
 The condition finally defines how many values must occur to generate a search hit.
 
-Requires `group-by`,`timespan` and `condition` in correlation rule and `field` in correlation rule condition.
+Requires:
+  - `group-by`
+  - `timespan`
+  - `condition`
+  - `field` in condition section.
 
 Simple example : Failed logon attempts with more than 100 different user accounts per source and destination at a day:
 
@@ -284,14 +291,14 @@ id: 0e95725d-7320-415d-80f7-004da920fc12
 correlation:
   type: value_count
   rules:
-      - 5638f7c0-ac70-491d-8465-2a65075e0d86
-  field: User
+    - 5638f7c0-ac70-491d-8465-2a65075e0d86
   group-by:
-      - ComputerName
-      - WorkstationName
+    - ComputerName
+    - WorkstationName
   timespan: 1d
   condition:
-      gte: 100
+    field: User
+    gte: 100
 ```
 
 ## Temporal Proximity (temporal)
