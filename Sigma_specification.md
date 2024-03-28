@@ -548,12 +548,13 @@ The condition is the most complex part of the specification and will be subject 
 
 - 1/all of them
 
-  Logical OR (`1 of them`) or AND (`all of them`) across all defined search identifiers. The search identifiers
+  Logical OR (`1 of them`) or AND (`all of them`) across all defined search identifiers not starting with an underscore `_`. The search identifiers
   themselves are logically linked with their default behaviour for maps (AND) and lists (OR).
 
   The usage of `all of them` is discouraged, as it prevents the possibility of downstream users of a rule to generically filter unwanted matches. See `all of {search-identifier-pattern}` in the next section as the preferred method.
 
-  Example: `1 of them` means that one of the defined search identifiers must appear.
+  Example: `1 of them` means that one of the defined search identifiers must appear. A search identifier `_example`
+  wouldn't be included because detections starting with underscores are excluded by convention.
 
 - 1/all of search-identifier-pattern
 
