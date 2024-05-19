@@ -299,10 +299,15 @@ e.g. "sshd" on Linux or the "Security" Eventlog on Windows systems.
 The `definition` can be used to describe the log source, including some information on the log verbosity level or configurations that have to be applied. \
 It is not automatically evaluated by the converters but gives useful information to readers on how to configure the source to provide the necessary events used in the detection.
 
-The 'category', 'product' and 'service' can be used alone or in any combination.
+The 'category', 'product' and 'service' can be used alone or in any combination. \
+Their values are in **lower case** and spaces are replaced by a `_` , characters `.` and `-` are allowed.
+- Windows Channel "System" -> `service: system`
+- "Process Creation" -> `category: process_creation`
+- Cloud OneLogin events -> `service: onelogin.events`
+- Windows Channel "Microsoft-Windows-Windows Firewall With Advanced Security" -> `service: firewall-as`
 
 You can use the values of 'category, 'product' and 'service' to point the converters to a certain index. \
-You could define in the configuration files that the category 'firewall' converts to `( index=fw1* OR index=asa* )` during Splunk search conversion or the product 'windows' converts to `"_index":"logstash-windows*"` in Elasticsearch queries.
+In the configuration files, it can be defined that the category 'firewall' converts to `( index=fw1* OR index=asa* )` during Splunk search conversion or the product 'windows' converts to `"_index":"logstash-windows*"` in Elasticsearch queries.
 
 The advantages of this abstractive approach is that it does not limit the rule to a specific telemetry.
 
@@ -314,7 +319,7 @@ category: process_creation
 product: windows
 ```
 
-The rule can be use with  Sysmon, Windows Security Auditing and possible product-specific like EDR...
+The rule can be use with  Sysmon, Windows Security Auditing and possible product-specific like EDR.
 
 More information in [appendix_taxonomy](appendix/appendix_taxonomy.md) and [SigmaHQ documentation](https://github.com/SigmaHQ/sigma/blob/master/documentation/README.md)
 
