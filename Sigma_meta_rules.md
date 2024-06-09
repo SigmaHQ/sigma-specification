@@ -24,8 +24,9 @@ The following document defines the standardized correlation that can be used in 
     - [Grouping](#grouping)
     - [Time Selection](#time-selection)
     - [Condition](#condition)
-    - [Level  (optional)](#level--optional)
-    - [Aliases  (optional)](#aliases--optional)
+    - [Level (optional)](#level-optional)
+    - [Aliases (optional)](#aliases-optional)
+    - [Generate (optional)](#generate-optional)
   - [Event Count (event\_count)](#event-count-event_count)
   - [Value Count (value\_count)](#value-count-value_count)
   - [Temporal Proximity (temporal)](#temporal-proximity-temporal)
@@ -231,21 +232,30 @@ condition:
 If you need more complex constructs, you can always chain correlation rules together.  
 See the examples at the far bottom, for more details.
 
-### Level  (optional)
+### Level (optional)
 
 **Attribute:**  level
 
 defines a severity level adjustment if the correlation matches.
 This allows to give single event hits a low or informational severity and increasing this to higher levels in case of correlating appearances of events.
 
-### Aliases  (optional)
+### Aliases (optional)
 
 **Attribute:** aliases
 
 defines field name aliases that are applied to correlated Sigma rules.
-The defined aliases can then be defined in `group-by` and allows aggregation across different fields in different event types.
+The defined aliases can then be defined in `group-by` and allows aggregation across different fields in different event
+types.
 
-## Event Count (event_count)
+### Generate (optional)
+
+**Attribute:** generate
+
+defines if the rules referred from the correlation rule should be converted
+as stand-alone rules or if only the correlation query should be generated (default).
+
+## Correlation Types
+### Event Count (event_count)
 
 Counts events occurring in the given time frame specified by the referred Sigma rule or rules.
 The resulting query must count events for each group specified by group-by separately.
@@ -271,7 +281,7 @@ correlation:
   condition:
     gte: 100
 ```
-## Value Count (value_count)
+### Value Count (value_count)
 
 Counts values in a field defined by `field`.
 The resulting query must count field values separately for each group specified by group-by.
@@ -301,8 +311,7 @@ correlation:
     gte: 100
 ```
 
-## Temporal Proximity (temporal)
-
+### Temporal Proximity (temporal)
 
 All events defined by the rules referred by the rule field must occur in the time frame defined by timespan.
 The values of fields defined in group-by must all have the same value (e.g. the same host or user).
@@ -324,7 +333,7 @@ type: temporal
   timespan: 5m
 ```
 
-## Ordered Temporal Proximity (temporal_ordered)
+### Ordered Temporal Proximity (temporal_ordered)
 
 The *temporal_ordered* correlation type behaves like *temporal* and requires in addition that the events appear in the
 order provided in the *rule* attribute.
