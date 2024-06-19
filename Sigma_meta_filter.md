@@ -1,4 +1,4 @@
-# Sigma Meta Filter <!-- omit in toc -->
+# Sigma Filter <!-- omit in toc -->
 
 The following document defines the standardized global filter that can be used with Sigma rules.
 
@@ -108,7 +108,7 @@ See log source in [sigma specification](Sigma_specification.md)
 
 ### Global Filter
 
-**Attribute**: global_filter
+**Attribute**: filter
 
 
 ### Relative rules
@@ -134,7 +134,7 @@ description: The valid administrator account start with adm_
 logsource:
     category: process_creation
     product: windows
-global_filter:
+filter:
   rules:
     - 6f3e2987-db24-4c78-a860-b4f4095a7095 # Data Compressed - rar.exe
     - df0841c0-9846-4e9f-ad8a-7df91571771b # Login on jump host
