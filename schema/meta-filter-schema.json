@@ -5,7 +5,7 @@
   "required": [
     "title",
     "logsource",
-    "global_filter"
+    "filter"
   ],
   "properties": {
     "title": {
@@ -51,7 +51,7 @@
         }
       }
     },
-    "global_filter": {
+    "filter": {
       "type": "object",
       "required": ["rules","condition"],
       "description": "A set of search-identifiers that represent properties of searches on log data",
