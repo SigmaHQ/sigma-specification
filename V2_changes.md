@@ -20,8 +20,8 @@ Version 2 only use ISO 8601 with separator format : YYYY-MM-DD
 
 # Correlation
 
-- Remove aggregation expression in Sigma rule file see [Sigma meta rules](/Sigma_meta_rules.md)
+- Remove aggregation expression in Sigma rule file, see [Sigma meta rules](/Sigma_meta_rules.md)
 
 # Global filter
 
-- Adds the ability to make global filters see [Sigma meta filter](/Sigma_meta_filter.md)
+- Adds the ability to make filter rule files, see [Sigma meta filter](/Sigma_meta_filter.md)
