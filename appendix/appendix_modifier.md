@@ -76,7 +76,8 @@ The following document defines the standardized modifiers that can be used in Si
   * Replace with query expression in target query language (`QueryExpressionPlaceholderTransformation`/`query_expression_placeholders`)
   * Replace placeholder with wildcard `*`, which should only be used as last resort. (`WildcardPlaceholderTransformation`/`wildcard_placeholders`)
 
-* `fieldref`: Modifies a plain string into the field reference type.
+* `fieldref`: Modifies a plain string into a field reference. A field reference can be used to compare fields of matched
+  events directly at query/matching time.
 
 ## History
 * 2023-05-27
