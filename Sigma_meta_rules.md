@@ -263,8 +263,6 @@ condition:
 If you need more complex constructs, you can always chain correlation rules together.  
 See the examples at the far bottom, for more details.
 
-
-
 ### Level (optional)
 
 **Attribute:**  level
@@ -272,9 +270,15 @@ See the examples at the far bottom, for more details.
 defines a severity level adjustment if the correlation matches.
 This allows to give single event hits a low or informational severity and increasing this to higher levels in case of correlating appearances of events.
 
+### Generate (optional)
 
+**Attribute:** generate
 
-## Event Count (event_count)
+defines if the rules referred from the correlation rule should be converted
+as stand-alone rules or if only the correlation query should be generated (default).
+
+## Correlation Types
+### Event Count (event_count)
 
 Counts events occurring in the given time frame specified by the referred Sigma rule or rules.
 The resulting query must count events for each group specified by group-by separately.
@@ -331,8 +335,7 @@ correlation:
     gte: 100
 ```
 
-## Temporal Proximity (temporal)
-
+### Temporal Proximity (temporal)
 
 All events defined by the rules referred by the rule field must occur in the time frame defined by timespan.
 The values of fields defined in group-by must all have the same value (e.g. the same host or user).
@@ -354,7 +357,7 @@ type: temporal
   timespan: 5m
 ```
 
-## Ordered Temporal Proximity (temporal_ordered)
+### Ordered Temporal Proximity (temporal_ordered)
 
 The *temporal_ordered* correlation type behaves like *temporal* and requires in addition that the events appear in the
 order provided in the *rule* attribute.
