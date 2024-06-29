@@ -16,16 +16,20 @@ The following document defines the standardized correlation that can be used in 
     - [Syntax](#syntax)
   - [Components](#components)
     - [Title](#title)
-    - [Rule Identification  (optional)](#rule-identification--optional)
+    - [Rule Identification (optional)](#rule-identification-optional)
+    - [Description (optional)](#description-optional)
+    - [Author (optional)](#author-optional)
+    - [References (optional)](#references-optional)
     - [Date (optional)](#date-optional)
     - [Modified (optional)](#modified-optional)
-    - [Related rules](#related-rules)
-    - [Correlation type](#correlation-type)
-    - [Grouping](#grouping)
-    - [Time Selection](#time-selection)
-    - [Condition](#condition)
-    - [Level  (optional)](#level--optional)
-    - [Aliases  (optional)](#aliases--optional)
+    - [Correlation section](#correlation-section)
+      - [Correlation type](#correlation-type)
+      - [Related rules](#related-rules)
+      - [Aliases (optional)](#aliases-optional)
+      - [Grouping](#grouping)
+      - [Time Selection](#time-selection)
+      - [Condition](#condition)
+    - [Level (optional)](#level-optional)
   - [Event Count (event\_count)](#event-count-event_count)
   - [Value Count (value\_count)](#value-count-value_count)
   - [Temporal Proximity (temporal)](#temporal-proximity-temporal)
@@ -113,7 +117,7 @@ Like sigma rules , correlation rules have a title and a unique id to identify th
 
 A brief title for the rule that should contain what the rule is supposed to detect (max. 256 characters)
 
-### Rule Identification  (optional)
+### Rule Identification (optional)
 
 **Attribute:** id
 
@@ -126,6 +130,25 @@ An example for this is:
 title: login brute force
 id: 0e95725d-7320-415d-80f7-004da920fc11
 ```
+
+### Description (optional)
+
+**Attribute:** description
+
+A short description of the rule and the malicious activity that can be detected (max. 65,535 characters)
+
+### Author (optional)
+
+**Attribute**: author
+
+Creator of the rule. (can be a name, nickname, twitter handle...etc)
+
+### References (optional)
+
+**Attribute**: reference
+
+References to the source that the rule was derived from. \
+These could be blog articles, technical papers, presentations or even tweets.
 
 ### Date (optional)
 
@@ -141,7 +164,19 @@ Use the ISO 8601 date with separator format : YYYY-MM-DD
 *Last* modification date of the meta rule. \
 Use the ISO 8601 date with separator format : YYYY-MM-DD
 
-### Related rules
+### Correlation section
+
+#### Correlation type
+
+**Attribute:** type
+
+Can be :
+- event_count
+- value_count
+- temporal
+- temporal_ordered
+
+#### Related rules
 
 **Attribute:** rules
 
@@ -161,17 +196,14 @@ correlation:
     - firewall_block  # The internal tools have a lookup table to the correct rule `id` by `name`
 ```
 
-### Correlation type
+#### Aliases (optional)
 
-**Attribute:** type
+**Attribute:** aliases
 
-Can be :
-- event_count
-- value_count
-- temporal
-- temporal_ordered
+defines field name aliases that are applied to correlated Sigma rules.
+The defined aliases can then be defined in `group-by` and allows aggregation across different fields in different event types.
 
-### Grouping
+#### Grouping
 
 **Attribute:** group-by
 
@@ -179,7 +211,7 @@ optionally defines one or multiple fields which should be treated as separate ev
   * count events by user
   * temporal proximity must occur on one system by the same user
 
-### Time Selection
+#### Time Selection
 
 **Attribute:** timespan
 
@@ -193,7 +225,7 @@ The following format must be used: `number + letter (in lowercase)`
 
 example for 1h30 : `timespan: 90m`
 
-### Condition
+#### Condition
 
 **Attribute:** condition
 
@@ -231,19 +263,16 @@ condition:
 If you need more complex constructs, you can always chain correlation rules together.  
 See the examples at the far bottom, for more details.
 
-### Level  (optional)
+
+
+### Level (optional)
 
 **Attribute:**  level
 
 defines a severity level adjustment if the correlation matches.
 This allows to give single event hits a low or informational severity and increasing this to higher levels in case of correlating appearances of events.
 
-### Aliases  (optional)
 
-**Attribute:** aliases
-
-defines field name aliases that are applied to correlated Sigma rules.
-The defined aliases can then be defined in `group-by` and allows aggregation across different fields in different event types.
 
 ## Event Count (event_count)
 
@@ -271,6 +300,7 @@ correlation:
   condition:
     gte: 100
 ```
+
 ## Value Count (value_count)
 
 Counts values in a field defined by `field`.
