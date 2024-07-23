@@ -285,27 +285,43 @@ We recommend using a "definition" value in cases in which further explanation is
 * product - examples: windows, apache, check point fw1
 * service - examples: sshd, applocker
 
-The "category" value is used to select all log files written by a certain group of products, like firewalls or web server logs.
-The automatic converter will use the keyword as a selector for multiple indices.
+The `category` value is used to select all log files written of a logical group. \
+This may cover one or more sources of information depending on the system. \
+e.g. "antivirus" for the scan result, "webserver" for the web access logs. 
 
-The "product" value is used to select all log outputs of a certain product, e.g. all Windows Eventlog types including "Security", "System", "Application" and the new log types like "AppLocker" and "Windows Defender".
+The `product` value is used to select all log outputs of a certain product. \
+It can be as generic as an operating system or the name of a particular software package. \
+e.g. "windows" will include "Security", "System", "Application" and the other like "AppLocker" and "Windows Defender"...
 
-Use the "service" value to select only a subset of a product's logs, like the "sshd" on Linux or the "Security" Eventlog on Windows systems.
+The `service` value is used to select a more specific subset of logs. \
+e.g. "sshd" on Linux or the "Security" Eventlog on Windows systems.
 
-The "definition" can be used to describe the log source, including some information on the log verbosity level or configurations that have to be applied. It is not automatically evaluated by the converters but gives useful information to readers on how to configure the source to provide the necessary events used in the detection.
+The `definition` can be used to describe the log source, including some information on the log verbosity level or configurations that have to be applied. \
+It is not automatically evaluated by the converters but gives useful information to readers on how to configure the source to provide the necessary events used in the detection.
 
-You can use the values of 'category, 'product' and 'service' to point the converters to a certain index. You could define in the configuration files that the category 'firewall' converts to `( index=fw1* OR index=asa* )` during Splunk search conversion or the product 'windows' converts to `"_index":"logstash-windows*"` in Elasticsearch queries.
+The 'category', 'product' and 'service' can be used alone or in any combination. \
+Their values are in **lower case** and spaces are replaced by a `_` , characters `.` and `-` are allowed.
+- Windows Channel "System" -> `service: system`
+- "Process Creation" -> `category: process_creation`
+- Cloud OneLogin events -> `service: onelogin.events`
+- Windows Channel "Microsoft-Windows-Windows Firewall With Advanced Security" -> `service: firewall-as`
 
-Instead of referring to particular services, generic log sources may be used, e.g.:
+You can use the values of 'category, 'product' and 'service' to point the converters to a certain index. \
+In the configuration files, it can be defined that the category 'firewall' converts to `( index=fw1* OR index=asa* )` during Splunk search conversion or the product 'windows' converts to `"_index":"logstash-windows*"` in Elasticsearch queries.
+
+The advantages of this abstractive approach is that it does not limit the rule to a specific telemetry.
+
+Instead of definition of multiple rules for Sysmon, Windows Security Auditing and all other possible product-specific, a generic log sources may be used. \
+e.g.:
 
 ```yml
 category: process_creation
 product: windows
 ```
 
-Instead of definition of multiple rules for Sysmon, Windows Security Auditing and possible product-specific rules.
+The rule can be use with  Sysmon, Windows Security Auditing and possible product-specific like EDR.
 
-More information in [appendix_taxonomy](appendix/appendix_taxonomy.md) and [SigmaHQ docuementaiton](https://github.com/SigmaHQ/sigma/blob/master/documentation/README.md)
+More information in [appendix_taxonomy](appendix/appendix_taxonomy.md) and [SigmaHQ documentation](https://github.com/SigmaHQ/sigma/blob/master/documentation/README.md)
 
 ## Detection
 
