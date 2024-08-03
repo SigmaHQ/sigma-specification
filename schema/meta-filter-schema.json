@@ -53,7 +53,7 @@
     },
     "filter": {
       "type": "object",
-      "required": ["rules","condition"],
+      "required": ["rules","selection","condition"],
       "description": "A set of search-identifiers that represent properties of searches on log data",
       "additionalProperties": {
         "description": "A Search Identifier: A definition that can consist of two different data structures - lists and maps.",
@@ -88,7 +88,16 @@
       "properties": {
         "rules": {
           "type": "array",
-          "description": "to fill",
+          "description": "list of the rule where add the filter",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+        "selection": {
+          "type": "array",
+          "description": "the filter detection logic",
           "minItems": 1,
           "uniqueItems": true,
           "items": {
@@ -97,7 +106,7 @@
         },
         "condition": {
           "type": "string",
-          "description": "The relationship between the search identifiers to create the detection logic. Ex: selection1 or selection2"
+          "description": "The relationship between the search identifiers to create the detection logic. selection or not selection"
         }
       }
     }
