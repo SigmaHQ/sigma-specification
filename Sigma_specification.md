@@ -1,7 +1,7 @@
 # Sigma specification <!-- omit in toc -->
 
 - Version 2.0.0
-- Release date 2024/01/01
+- Release date 2024/09/01
 
 Take a look at [V1-V2 changes](V2_changes.md)
 
@@ -14,16 +14,16 @@ Take a look at [V1-V2 changes](V2_changes.md)
 - [Structure](#structure)
 - [Components](#components)
   - [Title](#title)
-    - [Rule Identification](#rule-identification)
-  - [Name (optional)](#name-optional)
-  - [Taxonomy (optional)](#taxonomy-optional)
-  - [Status (optional)](#status-optional)
-  - [Description (optional)](#description-optional)
-  - [License (optional)](#license-optional)
-  - [Author (optional)](#author-optional)
-  - [References (optional)](#references-optional)
-  - [Date (optional)](#date-optional)
-  - [Modified (optional)](#modified-optional)
+  - [Identification](#identification)
+  - [Name](#name)
+  - [Taxonomy](#taxonomy)
+  - [Status](#status)
+  - [Description](#description)
+  - [License](#license)
+  - [Author](#author)
+  - [References](#references)
+  - [Date](#date)
+  - [Modified](#modified)
   - [Log Source](#log-source)
   - [Detection](#detection)
     - [Search-Identifier](#search-identifier)
@@ -37,15 +37,15 @@ Take a look at [V1-V2 changes](V2_changes.md)
     - [Field Existance](#field-existance)
     - [Value Modifiers](#value-modifiers)
       - [Modifier Types](#modifier-types)
+    - [Placeholders](#placeholders)
+      - [Standard Placeholders](#standard-placeholders)
     - [Keywords search](#keywords-search)
-  - [Condition](#condition)
+    - [Condition](#condition)
   - [Fields](#fields)
   - [FalsePositives](#falsepositives)
   - [Level](#level)
   - [Tags](#tags)
-  - [Placeholders](#placeholders)
-    - [Standard Placeholders](#standard-placeholders)
-  - [Scope (optional)](#scope-optional)
+  - [Scope](#scope)
 - [Rule Correlation](#rule-correlation)
 - [Global filter](#global-filter)
 - [History](#history)
@@ -77,7 +77,8 @@ To keep the rules interoperable use:
 - LF for the line break (the Windows native editor uses CR-LF)
 - Indentation of 4 spaces
 - Lowercase keys (e.g. title, id, etc.)
-- Single quotes `'` for strings and numeric values don't use any quotes (if the string contains a single quote, double quotes may be used instead)
+- Strings values use Single quotes `'` . If the string contains a single quote, double quotes may be used instead
+- Numeric values don't use any quotes
 
 Simple Sigma example
 
@@ -133,11 +134,11 @@ fields [optional]
 falsepositives [optional]
 level [optional]
 tags [optional]
+scope [optional]
 ...
 [arbitrary custom fields]
 ```
 
-The Rx schema is defined in [sigma-schema.rx.yml](schema/sigma-schema.rx.yml) \
 The Json schema is defined in [sigma-schema.json](schema/sigma-schema.json)
 
 # Components
@@ -146,21 +147,24 @@ The Json schema is defined in [sigma-schema.json](schema/sigma-schema.json)
 
 **Attribute:** title
 
+**Use:** mandatory
+
 A brief title for the rule that should contain what the rule is supposed to detect (max. 256 characters)
 
-### Rule Identification
+## Identification
 
 **Attributes:** id, related
 
-Sigma rules should be identified by a globally unique identifier in the *id* attribute. For this
-purpose randomly generated UUIDs (version 4) are recommended but not mandatory. \
+**Use:** optional
+
+Sigma rules should be identified by a globally unique identifier in the *id* attribute. \
+For this purpose randomly generated UUIDs (version 4) is used. \
 An example for this is:
 
 ```yml
 title: Test rule
 id: 929a690e-bef0-4204-a928-ef5e620d6fcc
 ```
-
 
 It is better to write a rule with a new id for the following reasons:
 
@@ -170,8 +174,8 @@ It is better to write a rule with a new id for the following reasons:
 * Merge of rules.
 
 To be able to keep track of the relationships between detections, Sigma rules may also contain
-references to related rule identifiers in the *related* attribute. This allows to define common
-relationships between detections as follows:
+references to related rule identifiers in the *related* attribute. \
+This allows to define common relationships between detections as follows:
 
 ```yml
 related:
@@ -183,22 +187,27 @@ related:
 
 Currently the following types are defined:
 
-* derived: The rule was derived from the referred rule or rules, which may remain active.
-* obsoletes: The rule obsoletes the referred rule or rules, which aren't used anymore.
-* merged: The rule was merged from the referred rules. The rules may still exist and are in use.
-* renamed: The rule had previously the referred identifier or identifiers but was renamed for whatever
+* `derived`: The rule was derived from the referred rule or rules, which may remain active.
+* `obsoletes`: The rule obsoletes the referred rule or rules, which aren't used anymore.
+* `merged`: The rule was merged from the referred rules. The rules may still exist and are in use.
+* `renamed`: The rule had previously the referred identifier or identifiers but was renamed for whatever
   reason, e.g. from a private naming scheme to UUIDs, to resolve collisions etc. It's not
   expected that a rule with this id exists anymore.
-* similar: Use to relate similar rules to each other (e.g. same detection content applied to different log sources, rule that is a modified version of another rule with a different level)
+* `similar`: Use to relate similar rules to each other (e.g. same detection content applied to different log sources, rule that is a modified version of another rule with a different level)
 
-## Name (optional)
+## Name
 **Attributes:** name
 
-`name` is a **unique** human-readable name that can be used instead of the *id* as a reference in correlation rules. The goal is to improve the readability of correlation rules.
+**use:** optional
 
-## Taxonomy (optional)
+`name` is a **unique** human-readable name that can be used instead of the *id* as a reference in correlation rules. \
+The goal is to improve the readability of correlation rules.
+
+## Taxonomy
 
 **Attribute:** taxonomy
+
+**use:** optional
 
 Defines the taxonomy used in the Sigma rule. A taxonomy can define:
 
@@ -212,54 +221,69 @@ A custom taxonomy must be handled by the used tool or transformed into the defau
 
 More information in [Appendix Taxonomy](appendix/appendix_taxonomy.md)
 
-## Status (optional)
+## Status
 
 **Attribute:** status
 
+**use:** optional
+
 Declares the status of the rule:
 
-- stable: the rule is considered as stable and may be used in production systems or dashboards.
-- test: an almost stable rule that possibly could require some fine tuning.
-- experimental: an experimental rule that could lead to false positives results or be noisy, but could also identify interesting
+- `stable`: the rule is considered as stable and may be used in production systems or dashboards.
+- `test`: an almost stable rule that possibly could require some fine tuning.
+- `experimental`: an experimental rule that could lead to false positives results or be noisy, but could also identify interesting
   events.
-- deprecated: the rule is replaced or covered by another one. The link is established by the `related` field.
-- unsupported: the rule cannot be use in its current state (special correlation log, home-made fields)
+- `deprecated`: the rule is replaced or covered by another one. The link is established by the `related` field.
+- `unsupported`: the rule cannot be use in its current state (special correlation log, home-made fields)
 
-## Description (optional)
+## Description
 
 **Attribute:** description
 
+**use:** optional
+
 A short description of the rule and the malicious activity that can be detected (max. 65,535 characters)
 
-## License (optional)
+## License
 
 **Attribute:** license
 
+**use:** optional
+
 License of the rule according the [SPDX ID specification](https://spdx.org/ids).
 
-## Author (optional)
+## Author
 
 **Attribute**: author
 
-Creator of the rule. (can be a name, nickname, twitter handle...etc)
+**use:** optional
 
-## References (optional)
+Creator of the rule. (can be a name, nickname, twitter handle...etc) \
+If there is more than one, they are separated by a comma.
+
+## References
 
 **Attribute**: reference
+
+**use:** optional
 
 References to the source that the rule was derived from. \
 These could be blog articles, technical papers, presentations or even tweets.
 
-## Date (optional)
+## Date
 
 **Attribute**: date
+
+**use:** optional
 
 Creation date of the rule. \
 Use the ISO 8601 date with separator format : YYYY-MM-DD
 
-## Modified (optional)
+## Modified
 
 **Attribute**: modified
+
+**use:** optional
 
 *Last* modification date of the rule. \
 Use the ISO 8601 date with separator format : YYYY-MM-DD
@@ -274,6 +298,8 @@ Reasons to change the modified date:
 ## Log Source
 
 **Attribute**: logsource
+
+**Use:** mandatory
 
 This section describes the log data on which the detection is meant to be applied to. \
 It describes the log source, the platform, the application and the type that is required in the detection.
@@ -326,6 +352,8 @@ More information in [appendix_taxonomy](appendix/appendix_taxonomy.md) and [Sigm
 ## Detection
 
 **Attribute**: detection
+
+**Use:** mandatory
 
 A set of search-identifiers that represent properties of searches on log data.
 
@@ -525,6 +553,37 @@ multiple values.
 
 [List of modifiers](appendix/appendix_modifier.md)
 
+### Placeholders
+
+Placeholders are used as values that get their final meaning at conversion or usage time of the rule. This can be, but is not restricted to:
+
+* Replacement of placeholders with a single, multiple or-linked values or patterns. Example: the placeholder `%Servers%` is replaced with
+  the pattern `srv*` because servers are named so in the target environment.
+* Replacement of placeholders with a query expression. Example: replacement of `%servers%` with a lookup expression `LOOKUP(field, servers)`
+  that looks up the value of `field` in a lookup table `servers`.
+* Conducting lookups in tables or APIs while matching the Sigma rule that contains placeholders.
+
+From Sigma 1.1 placeholders are only handled if the *expand* modifier is applied to the value containing the placeholder.
+A plain percent character can be used by escaping it with a backslash. Examples:
+
+* `field: %name%` handles `%name%` as literal value.
+* `field|expand: %name%` handles `%name%` as placeholder.
+* `field|expand: \%plain%name%` handles `%plain` as plain value and `%name%` as placeholder.
+
+Placeholders must be handled appropriately by a tool that uses Sigma rules. If the tool isn't able to handle placeholders, it must reject the rule.
+
+#### Standard Placeholders
+
+The following standard placeholders should be used:
+
+* `%Administrators%`: Administrative user accounts
+* `%JumpServers%`: Server systems used as jump servers
+* `%Workstations%`: Workstation systems
+* `%Servers%`: Server systems
+* `%DomainControllers%`: Domain controller systems
+
+Custom placeholders can be defined as required.
+
 ### Keywords search
 
 Contrary to the Field Usage, It's a matter of searching for keywords across an entire event. \
@@ -552,9 +611,11 @@ Give : "OabVirtualDirectory" **and** " -ExternalUrl "
 
 Some rules use simply `keywords` as search-identifiers name to facilitate identification. 
 
-## Condition
+### Condition
 
 **Attribute**: condition
+
+**Use:** mandatory
 
 The condition is the most complex part of the specification and will be subject to change over time and arising requirements. In the first release it will support the following expressions.
 
@@ -604,17 +665,23 @@ They are logically linked with OR.
 
 **Attribute**: fields
 
+**use:** optional
+
 A list of log fields that could be interesting in further analysis of the event and should be displayed to the analyst.
 
 ## FalsePositives
 
 **Attribute**: falsepositives
 
+**use:** optional
+
 A list of known false positives that may occur.
 
 ## Level
 
 **Attribute**: level
+
+**use:** optional
 
 The level field contains one of five string values. It describes the criticality of a triggered rule. While `low` and `medium` level events have an informative character, events with `high` and `critical` level should lead to immediate reviews by security analysts.
 
@@ -628,6 +695,8 @@ The level field contains one of five string values. It describes the criticality
 
 **Attribute**: tags
 
+**use:** optional
+
 A Sigma rule can be categorised with tags. Tags should generally follow this syntax:
 
 * Character set: lower-case letters, numerals, underscores and hyphens
@@ -638,40 +707,11 @@ A Sigma rule can be categorised with tags. Tags should generally follow this syn
 
 [More information about tags](appendix/appendix_tags.md)
 
-## Placeholders
-
-Placeholders are used as values that get their final meaning at conversion or usage time of the rule. This can be, but is not restricted to:
-
-* Replacement of placeholders with a single, multiple or-linked values or patterns. Example: the placeholder `%Servers%` is replaced with
-  the pattern `srv*` because servers are named so in the target environment.
-* Replacement of placeholders with a query expression. Example: replacement of `%servers%` with a lookup expression `LOOKUP(field, servers)`
-  that looks up the value of `field` in a lookup table `servers`.
-* Conducting lookups in tables or APIs while matching the Sigma rule that contains placeholders.
-
-From Sigma 1.1 placeholders are only handled if the *expand* modifier is applied to the value containing the placeholder.
-A plain percent character can be used by escaping it with a backslash. Examples:
-
-* `field: %name%` handles `%name%` as literal value.
-* `field|expand: %name%` handles `%name%` as placeholder.
-* `field|expand: \%plain%name%` handles `%plain` as plain value and `%name%` as placeholder.
-
-Placeholders must be handled appropriately by a tool that uses Sigma rules. If the tool isn't able to handle placeholders, it must reject the rule.
-
-### Standard Placeholders
-
-The following standard placeholders should be used:
-
-* `%Administrators%`: Administrative user accounts
-* `%JumpServers%`: Server systems used as jump servers
-* `%Workstations%`: Workstation systems
-* `%Servers%`: Server systems
-* `%DomainControllers%`: Domain controller systems
-
-Custom placeholders can be defined as required.
-
-## Scope (optional)
+## Scope
 
 **Attribute**: scope
+
+**use:** optional
 
 A list of intended scope of the rule. 
 
@@ -693,8 +733,8 @@ Their maintenance can become difficult, with a meta-filter it is possible to wri
 See [Sigma Meta Filter](Sigma_meta_filter.md)
 
 # History
-* 2024/01/01 Specification V2.0.0
-  * init
+* 2024/09/01 Specification V2.0.0
+  * First release
 * 2023/06/29 Specification V1.0.4
   * Complete the information for multiple conditions
 * 2022/12/28 Specification V1.0.3
