@@ -33,7 +33,7 @@ The following document defines the standardized correlation that can be used in 
     - [Generate](#generate)
   - [Correlation Types](#correlation-types)
     - [Event Count (event\_count)](#event-count-event_count)
-  - [Value Count (value\_count)](#value-count-value_count)
+    - [Value Count (value\_count)](#value-count-value_count)
     - [Temporal Proximity (temporal)](#temporal-proximity-temporal)
     - [Ordered Temporal Proximity (temporal\_ordered)](#ordered-temporal-proximity-temporal_ordered)
   - [Field Name Aliases](#field-name-aliases)
@@ -342,7 +342,7 @@ correlation:
     gte: 100
 ```
 
-## Value Count (value_count)
+### Value Count (value_count)
 
 Counts values in a field defined by `field`.
 The resulting query must count field values separately for each group specified by group-by.
