@@ -198,7 +198,7 @@ Currently the following types are defined:
 ## Name
 **Attributes:** name
 
-**use:** optional
+**Use:** optional
 
 `name` is a **unique** human-readable name that can be used instead of the *id* as a reference in correlation rules. \
 The goal is to improve the readability of correlation rules.
@@ -207,7 +207,7 @@ The goal is to improve the readability of correlation rules.
 
 **Attribute:** taxonomy
 
-**use:** optional
+**Use:** optional
 
 Defines the taxonomy used in the Sigma rule. A taxonomy can define:
 
@@ -225,7 +225,7 @@ More information in [Appendix Taxonomy](appendix/appendix_taxonomy.md)
 
 **Attribute:** status
 
-**use:** optional
+**Use:** optional
 
 Declares the status of the rule:
 
@@ -240,7 +240,7 @@ Declares the status of the rule:
 
 **Attribute:** description
 
-**use:** optional
+**Use:** optional
 
 A short description of the rule and the malicious activity that can be detected (max. 65,535 characters)
 
@@ -248,7 +248,7 @@ A short description of the rule and the malicious activity that can be detected 
 
 **Attribute:** license
 
-**use:** optional
+**Use:** optional
 
 License of the rule according the [SPDX ID specification](https://spdx.org/ids).
 
@@ -256,7 +256,7 @@ License of the rule according the [SPDX ID specification](https://spdx.org/ids).
 
 **Attribute**: author
 
-**use:** optional
+**Use:** optional
 
 Creator of the rule. (can be a name, nickname, twitter handle...etc) \
 If there is more than one, they are separated by a comma.
@@ -265,7 +265,7 @@ If there is more than one, they are separated by a comma.
 
 **Attribute**: reference
 
-**use:** optional
+**Use:** optional
 
 References to the source that the rule was derived from. \
 These could be blog articles, technical papers, presentations or even tweets.
@@ -274,7 +274,7 @@ These could be blog articles, technical papers, presentations or even tweets.
 
 **Attribute**: date
 
-**use:** optional
+**Use:** optional
 
 Creation date of the rule. \
 Use the ISO 8601 date with separator format : YYYY-MM-DD
@@ -283,7 +283,7 @@ Use the ISO 8601 date with separator format : YYYY-MM-DD
 
 **Attribute**: modified
 
-**use:** optional
+**Use:** optional
 
 *Last* modification date of the rule. \
 Use the ISO 8601 date with separator format : YYYY-MM-DD
@@ -665,7 +665,7 @@ They are logically linked with OR.
 
 **Attribute**: fields
 
-**use:** optional
+**Use:** optional
 
 A list of log fields that could be interesting in further analysis of the event and should be displayed to the analyst.
 
@@ -673,7 +673,7 @@ A list of log fields that could be interesting in further analysis of the event 
 
 **Attribute**: falsepositives
 
-**use:** optional
+**Use:** optional
 
 A list of known false positives that may occur.
 
@@ -681,7 +681,7 @@ A list of known false positives that may occur.
 
 **Attribute**: level
 
-**use:** optional
+**Use:** optional
 
 The level field contains one of five string values. It describes the criticality of a triggered rule. While `low` and `medium` level events have an informative character, events with `high` and `critical` level should lead to immediate reviews by security analysts.
 
@@ -695,7 +695,7 @@ The level field contains one of five string values. It describes the criticality
 
 **Attribute**: tags
 
-**use:** optional
+**Use:** optional
 
 A Sigma rule can be categorised with tags. Tags should generally follow this syntax:
 
@@ -711,7 +711,7 @@ A Sigma rule can be categorised with tags. Tags should generally follow this syn
 
 **Attribute**: scope
 
-**use:** optional
+**Use:** optional
 
 A list of intended scope of the rule. 
 
