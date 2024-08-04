@@ -1,4 +1,4 @@
-# Sigma Correlation <!-- omit in toc -->
+# Sigma Correlation Rules Specification <!-- omit in toc -->
 
 The following document defines the standardized correlation that can be used in Sigma rules.
 

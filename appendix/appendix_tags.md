@@ -2,8 +2,8 @@
 
 The following document defines the standardized tags that can be used to categorize the different Sigma rules.
 
-* Version 1.2.0
-* Release date 2023-11-23
+* Version 2.0.0
+* Release date 2024-08-12
 
 ## Summary
 
@@ -19,10 +19,11 @@ The following document defines the standardized tags that can be used to categor
 
 ## Namespaces
 
-* attack: Categorization according to [MITRE ATT&CK](https://attack.mitre.org). To get the current supported version of ATT&CK please visite [MITRE CTI](https://github.com/mitre/cti)
+* attack: Categorization according to [MITRE ATT&CK](https://attack.mitre.org). To get the current supported version of ATT&CK please visit [MITRE CTI](https://github.com/mitre/cti)
 * car: Link to the corresponding [MITRE Cyber Analytics Repository (CAR)](https://car.mitre.org/)
 * stp: Rating of detection analytic robustness according to the [MITRE Summiting the Pyramid](https://center-for-threat-informed-defense.github.io/summiting-the-pyramid/) scheme.
-* tlp: [Traffic Light Protocol](https://www.first.org/tlp/)
+* tlp: [Traffic Light Protocol](https://www.first.org/tlp/).
+* detection: Categorization according to the types of rules provided in the [SigmaHQ rule repository](https://github.com/SigmaHQ/sigma).
 
 ### Namespace: attack
 
@@ -71,7 +72,7 @@ specify the robustness in the following ways:
 
 ### Namespace: cve
 
-Use the CVE tag from the [mitre](https://cve.mitre.org) in lower case seperated by dots. Example tag: `cve.2021.44228`.
+Use the CVE tag from the [mitre](https://cve.mitre.org) in lower case seperated by dots. Example tag: `cve.2021-44228`.
 
 ### Namespace: tlp
 
@@ -79,13 +80,15 @@ All TLP levels defined by the [FIRST TLP-SIG](https://www.first.org/tlp/) in low
 
 ### namespace: detection
 
-Use the detection tag to indicate the type of a rule. Example tag: `detection.threat_hunting`.
+Use the detection tag to indicate the type of a rule. Example tag: `detection.threat-hunting`.
 
 * dfir
-* emerging_threats
-* threat_hunting 
+* emerging-threats
+* threat-hunting 
 
 ## History
+* 2024-08-12 Tags V2.0.0
+  * Release of V2.0.0 of the specification
 * 2023-11-23 Tags V1.2.0
   * Add Summiting the Pyramid
 * 2023-06-20 Tags V1.1.0
@@ -93,5 +96,5 @@ Use the detection tag to indicate the type of a rule. Example tag: `detection.th
 * 2022-12-19 Tags V1.0.1
   * Minor updates and tweaks
 * 2022-09-18 Tags V1.0.0
-  * Initial formalisation from the sigma wiki
+  * Initial formalization from the sigma wiki
 * 2017 Sigma creation

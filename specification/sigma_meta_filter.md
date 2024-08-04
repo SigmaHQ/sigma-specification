@@ -1,4 +1,4 @@
-# Sigma Filter <!-- omit in toc -->
+# Sigma Filters Specification <!-- omit in toc -->
 
 The following document defines the standardized global filter that can be used with Sigma rules.
 

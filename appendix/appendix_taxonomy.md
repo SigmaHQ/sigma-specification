@@ -1,9 +1,9 @@
 # Sigma Taxonomy <!-- omit in toc -->
 
-The following document defines the field names and log sources that should be used in SIGMA rules to ensure sharable rules.
+The following document defines the field names and log sources that are allowed to be used in SIGMA rules that are shared on the official SigmaHQ repository.
 
-* Version 1.3.5
-* Release date 2023/01/21
+* Version 2.0.0
+* Release date 2024/08/12
 
 ## Summary
 

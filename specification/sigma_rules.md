@@ -1,9 +1,7 @@
-# Sigma specification <!-- omit in toc -->
+# Sigma Rules Specification <!-- omit in toc -->
 
 - Version 2.0.0
-- Release date 2024/09/01
-
-Take a look at [V1-V2 changes](V2_changes.md)
+- Release date 2024/08/12
 
 # Summary
 
