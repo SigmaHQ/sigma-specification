@@ -77,7 +77,7 @@ All newly created rules must start with a status of `experimental`
 ## Description
 
 - All rule descriptions must explain what the rule detects. A best practice therefore is to start with the word `Detects`
-- If a description text is too long or it's expressing multiple ideas. It's advised to use the pipe symbole `|` to signify a multiline string. Example:
+- If a description text is too long or it's expressing multiple ideas. It's advised to use the pipe symbol `|` to signify a multiline string. Example:
 
 ```yml
 description: |
@@ -88,7 +88,7 @@ description: |
 ## References
 
 - All rules must provide a public reference, if possible.
-- References to the MITRE ATT&CK website are not allowed. Instead they shloud be expressed as tags using the appropriate MITRE tags.
+- References to the MITRE ATT&CK website are not allowed. Instead they should be expressed as tags using the appropriate MITRE tags.
 - References to git-based platforms such as Github or Gitlab must be provided as permalinks instead of main or master branch links. This is to avoid any future confusion in the intended reference in case the maintainers of said branches introduce new changes.
 
 ## Detection
