@@ -1,6 +1,6 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Sigma Global Filter specification V2.0.0 (2024/01/01)",
+  "$schema": "https://json-schema.org/draft/2020-12/schema#",
+  "title": "Sigma Global Filter specification V2.0.0 (2024/08/12)",
   "type": "object",
   "required": [
     "title",

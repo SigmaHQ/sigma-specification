@@ -62,7 +62,7 @@ by MITRE defines two score dimensions for scoring of the robustness:
 Details for both dimensions are [defined here](https://center-for-threat-informed-defense.github.io/summiting-the-pyramid/levels/).
 
 The *stp* namespace allows to score the robustness of the detection implemented by a Sigma rule according to this
-scheme. Because the event robustness depends on the event log source that is an enviromental property, Sigma allows to
+scheme. Because the event robustness depends on the event log source that is an environmental property, Sigma allows to
 specify the robustness in the following ways:
 
 * *analytic-only* defines just the analytic robustness in a tag like `stp.4`. This is usually appropriate for generic
@@ -72,7 +72,7 @@ specify the robustness in the following ways:
 
 ### Namespace: cve
 
-Use the CVE tag from the [mitre](https://cve.mitre.org) in lower case seperated by dots. Example tag: `cve.2021-44228`.
+Use the CVE tag from the [mitre](https://cve.mitre.org) in lower case separated by dots. Example tag: `cve.2021-44228`.
 
 ### Namespace: tlp
 
