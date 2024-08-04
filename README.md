@@ -13,7 +13,6 @@
 
 <p align="center">
 <a href="https://sigmahq.io/"><img src="https://cdn.jsdelivr.net/gh/SigmaHQ/sigmahq.github.io@master/images/Sigma%20Official%20Badge.svg" alt="Sigma Official Badge"></a> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/SigmaHQ/sigma-specification">
-<img alt="GitHub all releases" src="https://img.shields.io/github/downloads/SigmaHq//sigma-specification/total">
 <br />
 <a href="https://opensourcesecurityindex.io/" target="_blank" rel="noopener">
 <img style="width: 170px;" src="https://opensourcesecurityindex.io/badge.svg" alt="Open Source Security Index - Fastest Growing Open Source Security Projects" width="170" />
