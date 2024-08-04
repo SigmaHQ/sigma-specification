@@ -180,13 +180,13 @@ related:
   - id: 08fbc97d-0a2f-491c-ae21-8ffcfd3174e9
     type: derived
   - id: 929a690e-bef0-4204-a928-ef5e620d6fcc
-    type: obsoletes
+    type: obsolete
 ```
 
 Currently the following types are defined:
 
 * `derived`: The rule was derived from the referred rule or rules, which may remain active.
-* `obsoletes`: The rule obsoletes the referred rule or rules, which aren't used anymore.
+* `obsolete`: The rule obsoletes the referred rule or rules, which aren't used anymore.
 * `merged`: The rule was merged from the referred rules. The rules may still exist and are in use.
 * `renamed`: The rule had previously the referred identifier or identifiers but was renamed for whatever
   reason, e.g. from a private naming scheme to UUIDs, to resolve collisions etc. It's not
