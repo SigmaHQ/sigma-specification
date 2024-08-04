@@ -78,13 +78,23 @@ Use the CVE tag from the [mitre](https://cve.mitre.org) in lower case separated 
 
 All TLP levels defined by the [FIRST TLP-SIG](https://www.first.org/tlp/) in lower case. Example tag: `tlp.amber`.
 
+The following tags are currently supported:
+
+* `tlp.red`
+* `tlp.amber`
+* `tlp.amber-strict`
+* `tlp.green`
+* `tlp.clear`
+
 ### namespace: detection
 
 Use the detection tag to indicate the type of a rule. Example tag: `detection.threat-hunting`.
 
-* dfir
-* emerging-threats
-* threat-hunting 
+The following tags are currently supported:
+
+* `detection.dfir`
+* `detection.emerging-threats`
+* `detection.threat-hunting`
 
 ## History
 * 2024-08-12 Tags V2.0.0
