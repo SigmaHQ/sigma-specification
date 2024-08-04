@@ -33,17 +33,17 @@ The following document defines the standardized tags that can be used to categor
 
 Tactics:
 
-* initial_access: [Initial Access](https://attack.mitre.org/tactics/TA0001/)
+* initial-access: [Initial Access](https://attack.mitre.org/tactics/TA0001/)
 * execution: [Execution](https://attack.mitre.org/tactics/TA0002/)
 * persistence: [Persistence](https://attack.mitre.org/tactics/TA0003/)
-* privilege_escalation: [Privilege Escalation](https://attack.mitre.org/tactics/TA0004/)
-* defense_evasion: [Defense Evasion](https://attack.mitre.org/tactics/TA0005/)
-* credential_access: [Credential Access](https://attack.mitre.org/tactics/TA0006/)
+* privilege-escalation: [Privilege Escalation](https://attack.mitre.org/tactics/TA0004/)
+* defense-evasion: [Defense Evasion](https://attack.mitre.org/tactics/TA0005/)
+* credential-access: [Credential Access](https://attack.mitre.org/tactics/TA0006/)
 * discovery: [Discovery](https://attack.mitre.org/tactics/TA0007/)
-* lateral_movement: [Lateral_Movement](https://attack.mitre.org/tactics/TA0008/)
+* lateral-movement: [Lateral_Movement](https://attack.mitre.org/tactics/TA0008/)
 * collection: [Collection](https://attack.mitre.org/tactics/TA0009/)
 * exfiltration: [Exfiltration](https://attack.mitre.org/tactics/TA0010/)
-* command_and_control: [Command and Control](https://attack.mitre.org/tactics/TA0011/)
+* command-and-control: [Command and Control](https://attack.mitre.org/tactics/TA0011/)
 * impact: [Impact](https://attack.mitre.org/tactics/TA0040/)
 
 ### Namespace: car
