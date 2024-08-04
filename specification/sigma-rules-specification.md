@@ -78,7 +78,7 @@ To keep the rules interoperable use:
 - Strings values use Single quotes `'` . If the string contains a single quote, double quotes may be used instead
 - Numeric values don't use any quotes
 
-Simple Sigma example
+Below is a simple Sigma rule example:
 
 ```yaml
 title: Whoami Execution
@@ -137,7 +137,7 @@ scope [optional]
 [arbitrary custom fields]
 ```
 
-The Json schema is defined in [sigma-schema.json](schema/sigma-schema.json)
+The Json schema is defined in [sigma-detection-rule-schema.json](/json-schema/sigma-detection-rule-schema.json)
 
 # Components
 
@@ -194,7 +194,8 @@ Currently the following types are defined:
 * `similar`: Use to relate similar rules to each other (e.g. same detection content applied to different log sources, rule that is a modified version of another rule with a different level)
 
 ## Name
-**Attributes:** name
+
+**Attribute:** name
 
 **Use:** optional
 
