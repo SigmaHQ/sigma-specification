@@ -4,7 +4,7 @@ This document provides general guidelines and tips on how to write titles for si
 
 Note that this is by no means an exhaustive list. It is meant to be a general guide for inspiration and to have an easily sharable resource for new contributors (e.g. a resource to link at in PR discussions).
 
-## Summary
+## Table Of Content <!-- omit in toc -->
 
 - [Summary](#summary)
 - [Generality](#generality)
@@ -13,7 +13,7 @@ Note that this is by no means an exhaustive list. It is meant to be a general gu
   - [Suffix (Optional)](#suffix-optional)
   - [Main Title](#main-title)
 
-## Generality
+## Summary
 
 Bearing in mind that the title is one of the first things that an analyst will see. It should therefore be used as a clue and be as clear as possible to guide the assessment of the alert.
 
@@ -21,7 +21,7 @@ The title and level of the rule must be consistent
 
 ## Structure
 
-Titles can be split with "-" : `Prefix - Main Title - Sufix`
+Titles can be split with "-" : `Prefix - Main Title - Suffix`
 
 ### Prefix (Optional)
 

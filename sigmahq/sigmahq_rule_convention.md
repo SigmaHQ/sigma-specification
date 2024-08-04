@@ -55,7 +55,7 @@ level [required]
 
 ## Filenames
 
-All rule filename must follow the convention described in [Sigmahq_filename_rule.md](./Sigmahq_filename_rule.md)
+All rule filename must follow the convention described in the [SigmaHQ Filename Convention](./sigmahq_filename_convention.md) file.
 
 ## Indentation
 
@@ -119,7 +119,10 @@ detection:
 
 ### Condition
 
-
+- When possible, it is recommended to use conditions in the form `1 of selection_*` or `1 of selection_*` in order to make them more readable.
+- When filtering values in the condition, it's recommended to name the filters in one of two ways:
+    - `filter_main_*`: For filters that are mandatory to the rule's logic, or if the excluded behavior or software is present by default or very common.
+    - `filter_optional_*`: For filters that are based on behaviors or software that aren't part of the default installation of the OS or service being targeted.
 
 ## False Positives
 

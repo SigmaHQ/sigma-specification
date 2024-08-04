@@ -2,9 +2,8 @@
 
 This document describe a soft convention to name rule files. The following convention has been set to help with the management of the rules files repository and is not part of the SIGMA specification.
 
-## Summary
+## Summary <!-- omit in toc -->
 
-- [Summary](#summary)
 - [Product](#product)
 - [Cloud](#cloud)
 - [Category](#category)

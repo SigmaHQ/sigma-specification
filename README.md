@@ -1,8 +1,26 @@
-# Sigma-Specification
+# Sigma Specification - Generic Signature Format for SIEM Systems
 
-This repository is used to maintain the specification for the Sigma format.
+<a href="https://sigmahq.io/">
+<p align="center">
+<br />
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./images/sigma_logo_dark.png">
+  <img width="454" alt="Sigma Logo" src="./images/sigma_logo_light.png">
+</picture>
+</p>
+</a>
+<br />
 
-[Web version](https://sigmahq.github.io/sigma-specification/)
+<p align="center">
+<a href="https://sigmahq.io/"><img src="https://cdn.jsdelivr.net/gh/SigmaHQ/sigmahq.github.io@master/images/Sigma%20Official%20Badge.svg" alt="Sigma Official Badge"></a> <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/SigmaHQ/sigma">
+<img alt="GitHub all releases" src="https://img.shields.io/github/downloads/SigmaHq/Sigma/total">
+<br />
+<a href="https://opensourcesecurityindex.io/" target="_blank" rel="noopener">
+<img style="width: 170px;" src="https://opensourcesecurityindex.io/badge.svg" alt="Open Source Security Index - Fastest Growing Open Source Security Projects" width="170" />
+</a>
+</p>
+
+Welcome to the Sigma specification repository
 
 ## Version Management
 
