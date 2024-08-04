@@ -20,7 +20,7 @@
 </a>
 </p>
 
-Welcome to the Sigma specification repository.
+Welcome to the official Sigma Specification repository.
 
 ## A Quick Rundown
 
@@ -38,7 +38,7 @@ Here's what you can expect from each of the main subfolders within this repo. Pl
 
 [Json-Schema](./json-schema/) will contain the Sigma specification format in JSON.
 
-## Appendix
+### Appendix
 
 [Appendix](./appendix/) will contain additional files providing additional details to certain fields of a Sigma rule
 
@@ -46,7 +46,7 @@ Here's what you can expect from each of the main subfolders within this repo. Pl
 * [Sigma Tags Appendix](appendix/sigma-tags-appendix.md) is a document that defines the tags namespaces that can be used to categorize the different Sigma rules.
 * [Sigma Taxonomy Appendix](appendix/sigma-taxonomy-appendix.md) is a document that defines the different field names and log sources that are currently supported by SigmaHQ in order to ensure sharable rules.
 
-## SigmaHQ
+### SigmaHQ
 
 [SigmaHQ](./sigmahq/) will contain markdown files that describe rules and recommendations that are applied to the rules hosted in SigmaHQ main rule repository.
 
