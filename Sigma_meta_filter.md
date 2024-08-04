@@ -3,7 +3,7 @@
 The following document defines the standardized global filter that can be used with Sigma rules.
 
 * Version 2.0.0
-* Release date 2024/01/01
+* Release date 2024/09/01
 
 - [Introduction](#introduction)
 - [Global filter](#global-filter)
@@ -13,15 +13,17 @@ The following document defines the standardized global filter that can be used w
     - [Syntax](#syntax)
   - [Components](#components)
     - [title](#title)
-    - [Rule Identification  (optional)](#rule-identification--optional)
-    - [Description (optional)](#description-optional)
-    - [Date (optional)](#date-optional)
-    - [Modified (optional)](#modified-optional)
+    - [Identification](#identification)
+    - [Description](#description)
+    - [Date](#date)
+    - [Modified](#modified)
     - [Log source](#log-source)
     - [Global Filter](#global-filter-1)
-    - [Relative rules](#relative-rules)
-    - [filter selection](#filter-selection)
+      - [Relative rules](#relative-rules)
+      - [filter selection](#filter-selection)
+      - [filter condition](#filter-condition)
 - [Examples](#examples)
+- [History](#history)
 
 
 # Introduction
@@ -63,11 +65,15 @@ It has no `level` or `status` because its purpose is to enrich an existing Sigma
 
 **Attribute:** title
 
+**Use:** mandatory
+
 A brief title for the rule that should contain what the rule is supposed to detect (max. 256 characters)
 
-### Rule Identification  (optional)
+### Identification
 
 **Attribute:** id
+
+**Use:** optional
 
 Sigma meta-rules should be identified by a globally unique identifier in the *id* attribute.
 For this purpose randomly generated UUIDs (version 4) are recommended but not mandatory.
@@ -79,22 +85,28 @@ title: login brute force
 id: 0e95725d-7320-415d-80f7-004da920fc11
 ```
 
-### Description (optional)
+### Description
 
 **Attribute:** description
 
+**Use:** optional
+
 A short description of the rule and the malicious activity that can be detected (max. 65,535 characters)
 
-### Date (optional)
+### Date
 
 **Attribute**: date
+
+**Use:** optional
 
 Creation date of the meta filter. \
 Use the ISO 8601 date with separator format : YYYY-MM-DD
 
-### Modified (optional)
+### Modified
 
 **Attribute**: modified
+
+**Use:** optional
 
 *Last* modification date of the meta filter. \
 Use the ISO 8601 date with separator format : YYYY-MM-DD
@@ -103,6 +115,8 @@ Use the ISO 8601 date with separator format : YYYY-MM-DD
 
 **Attribute**: logsource
 
+**Use:** mandatory
+
 See log source in [sigma specification](Sigma_specification.md)
 
 
@@ -110,17 +124,30 @@ See log source in [sigma specification](Sigma_specification.md)
 
 **Attribute**: filter
 
+**Use:** mandatory
 
-### Relative rules
+#### Relative rules
 
 **Attribute:** rules
 
-refers to one or multiple Sigma rules to be filter
+**Use:** mandatory
+
+refers to one or multiple Sigma rules where to add the filter
 
 
-### filter selection
+#### filter selection
 
 **Attribute**: selection
+
+**Use:** mandatory
+
+See Detection in [sigma specification](Sigma_specification.md)
+
+#### filter condition
+
+**Attribute**: condition
+
+**Use:** mandatory
 
 See Detection in [sigma specification](Sigma_specification.md)
 
@@ -142,3 +169,7 @@ filter:
       User|startswith: 'adm_'
   condition: selection
 ```
+
+# History
+* 2024/09/01 Specification V2.0.0
+  * First release

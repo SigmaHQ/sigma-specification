@@ -49,7 +49,8 @@
       "required": [
         "type",
         "rules",
-        "timespan"
+        "timespan",
+        "condition"
       ],
       "description": "represents the correlation searched for on the log data",
       "properties": {
@@ -194,6 +195,10 @@
           "description": "Highly relevant event that indicates an incident. Critical events should be reviewed immediately. It is used only for cases in which probability borders certainty"
         }
       ]
+    },
+    "generate": {
+      "type": "boolean",
+      "description": "defines if the rules referred from the correlation rule should be converted as stand-alone rules"
     }
   }
 }

@@ -3,7 +3,7 @@
 The following document defines the standardized correlation that can be used in Sigma rules.
 
 * Version 2.0.0
-* Release date 2024/01/01
+* Release date 2024/09/01
 
 - [Introduction](#introduction)
   - [Compatibility](#compatibility)
@@ -16,28 +16,31 @@ The following document defines the standardized correlation that can be used in 
     - [Syntax](#syntax)
   - [Components](#components)
     - [Title](#title)
-    - [Rule Identification (optional)](#rule-identification-optional)
-    - [Description (optional)](#description-optional)
-    - [Author (optional)](#author-optional)
-    - [References (optional)](#references-optional)
-    - [Date (optional)](#date-optional)
-    - [Modified (optional)](#modified-optional)
+    - [Identification](#identification)
+    - [Description](#description)
+    - [Author](#author)
+    - [References](#references)
+    - [Date](#date)
+    - [Modified](#modified)
     - [Correlation section](#correlation-section)
       - [Correlation type](#correlation-type)
       - [Related rules](#related-rules)
-      - [Aliases (optional)](#aliases-optional)
+      - [Aliases](#aliases)
       - [Grouping](#grouping)
       - [Time Selection](#time-selection)
       - [Condition](#condition)
-    - [Level (optional)](#level-optional)
-  - [Event Count (event\_count)](#event-count-event_count)
-  - [Value Count (value\_count)](#value-count-value_count)
-  - [Temporal Proximity (temporal)](#temporal-proximity-temporal)
-  - [Ordered Temporal Proximity (temporal\_ordered)](#ordered-temporal-proximity-temporal_ordered)
+    - [Level](#level)
+    - [Generate](#generate)
+  - [Correlation Types](#correlation-types)
+    - [Event Count (event\_count)](#event-count-event_count)
+    - [Value Count (value\_count)](#value-count-value_count)
+    - [Temporal Proximity (temporal)](#temporal-proximity-temporal)
+    - [Ordered Temporal Proximity (temporal\_ordered)](#ordered-temporal-proximity-temporal_ordered)
   - [Field Name Aliases](#field-name-aliases)
     - [Field Name Aliases Example](#field-name-aliases-example)
 - [Examples](#examples)
   - [Failed Logins Followed by Successful Login](#failed-logins-followed-by-successful-login)
+- [History](#history)
 
 # Introduction
 
@@ -46,7 +49,9 @@ For that you can use meta-rules that correlate multiple Sigma rules.
 
 ## Compatibility
 
-When generating a backend specific query, Sigma correlations might exceed the capabilities of that targeted backend. Or the Sigma correlation might required a feature that is only supported partially by the target backend. Therefore target-specific restrictions should be handled in a way that ensures that the generated queries do not create results that:
+When generating a backend specific query, Sigma correlations might exceed the capabilities of that targeted backend. \
+Or the Sigma correlation might required a feature that is only supported partially by the target backend. \
+Therefore target-specific restrictions should be handled in a way that ensures that the generated queries do not create results that:
 
 * Could be misinterpreted
 * Change the intention/context in which the rule matches
@@ -59,14 +64,16 @@ An error must be raised by the conversion backend if it would generate a query f
 * The target system is not able to aggregate an occurrence count according to the given grouping criteria.
 * It is only possible to generate a query up to an intermediate correlation rule of a chain.
 
-The conversion backend should issue a warning to raise the user’s awareness about restrictions for aspects specified as "should". Examples are:
+The conversion backend should issue a warning to raise the user’s awareness about restrictions for aspects specified as "should". \
+Examples are:
 
 * Temporal relationships are recognized, but the order of the events cannot be recognized by the target system. This could cause false positives by differently ordered events.
 * Temporal relationships are only recognized within static time boundaries, e.g. a timespan of 1h only matches if all events appear within a full hour, but not if some events appear in the previous and another event in the current hour. This could cause false negatives.
 
 ## Expression of Relationships In The Condition of Sigma Rules
 
-This was the first approach defined in Sigma with aggregations and the near operator and is now obsolete. Sigma correlations are not based on this approach for the following reasons:
+This was the first approach defined in Sigma with aggregations and the near operator and is now obsolete. \
+Sigma correlations are not based on this approach for the following reasons:
 
 * The coupling of rules describing singular events and relationships between multiple events is inconsistent, as the rule writer must decide which rule contains the relationship definition in case of temporal relationships.
 * It was inflexible because one Sigma rule refers exactly to one log source, which restricts the expression of relationships to events from the same log source.
@@ -115,11 +122,15 @@ Like sigma rules , correlation rules have a title and a unique id to identify th
 
 **Attribute:** title
 
+**Use:** mandatory
+
 A brief title for the rule that should contain what the rule is supposed to detect (max. 256 characters)
 
-### Rule Identification (optional)
+### Identification
 
 **Attribute:** id
+
+**Use:** optional
 
 Sigma meta-rules should be identified by a globally unique identifier in the *id* attribute.
 For this purpose randomly generated UUIDs (version 4) are recommended but not mandatory.
@@ -131,35 +142,45 @@ title: login brute force
 id: 0e95725d-7320-415d-80f7-004da920fc11
 ```
 
-### Description (optional)
+### Description
 
 **Attribute:** description
 
+**Use:** optional
+
 A short description of the rule and the malicious activity that can be detected (max. 65,535 characters)
 
-### Author (optional)
+### Author
 
 **Attribute**: author
 
+**Use:** optional
+
 Creator of the rule. (can be a name, nickname, twitter handle...etc)
 
-### References (optional)
+### References
 
 **Attribute**: reference
+
+**Use:** optional
 
 References to the source that the rule was derived from. \
 These could be blog articles, technical papers, presentations or even tweets.
 
-### Date (optional)
+### Date
 
 **Attribute**: date
+
+**Use:** optional
 
 Creation date of the meta rule. \
 Use the ISO 8601 date with separator format : YYYY-MM-DD
 
-### Modified (optional)
+### Modified
 
 **Attribute**: modified
+
+**Use:** optional
 
 *Last* modification date of the meta rule. \
 Use the ISO 8601 date with separator format : YYYY-MM-DD
@@ -170,6 +191,8 @@ Use the ISO 8601 date with separator format : YYYY-MM-DD
 
 **Attribute:** type
 
+**Use:** mandatory
+
 Can be :
 - event_count
 - value_count
@@ -179,6 +202,8 @@ Can be :
 #### Related rules
 
 **Attribute:** rules
+
+**Use:** mandatory
 
 Refers to one or multiple Sigma or Correlations rules.
 Allowing the user to chain multiple correlations together.
@@ -196,9 +221,11 @@ correlation:
     - firewall_block  # The internal tools have a lookup table to the correct rule `id` by `name`
 ```
 
-#### Aliases (optional)
+#### Aliases
 
 **Attribute:** aliases
+
+**Use:** optional
 
 defines field name aliases that are applied to correlated Sigma rules.
 The defined aliases can then be defined in `group-by` and allows aggregation across different fields in different event types.
@@ -207,6 +234,8 @@ The defined aliases can then be defined in `group-by` and allows aggregation acr
 
 **Attribute:** group-by
 
+**Use:** mandatory
+
 optionally defines one or multiple fields which should be treated as separate event occurrence scope. Examples:
   * count events by user
   * temporal proximity must occur on one system by the same user
@@ -214,6 +243,8 @@ optionally defines one or multiple fields which should be treated as separate ev
 #### Time Selection
 
 **Attribute:** timespan
+
+**Use:** mandatory
 
 defines a time period in which the correlation should be applied.
 The following format must be used: `number + letter (in lowercase)`
@@ -228,6 +259,8 @@ example for 1h30 : `timespan: 90m`
 #### Condition
 
 **Attribute:** condition
+
+**Use:** mandatory
 
 The condition defines when a correlation matches:
 
@@ -263,16 +296,20 @@ condition:
 If you need more complex constructs, you can always chain correlation rules together.  
 See the examples at the far bottom, for more details.
 
-### Level (optional)
+### Level
 
 **Attribute:**  level
+
+**Use:** optional
 
 defines a severity level adjustment if the correlation matches.
 This allows to give single event hits a low or informational severity and increasing this to higher levels in case of correlating appearances of events.
 
-### Generate (optional)
+### Generate
 
 **Attribute:** generate
+
+**Use:** optional
 
 defines if the rules referred from the correlation rule should be converted
 as stand-alone rules or if only the correlation query should be generated (default).
@@ -305,7 +342,7 @@ correlation:
     gte: 100
 ```
 
-## Value Count (value_count)
+### Value Count (value_count)
 
 Counts values in a field defined by `field`.
 The resulting query must count field values separately for each group specified by group-by.
@@ -518,3 +555,7 @@ detection:
         - 4624
   condition: selection
 ```
+
+# History
+* 2024/09/01 Specification V2.0.0
+  * First release
