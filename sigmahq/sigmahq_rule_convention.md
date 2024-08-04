@@ -1,7 +1,8 @@
 # SigmaHQ Rule Conventions <!-- omit in toc -->
 
 This document describes an additional set of rule conventions enforced by the SigmaHQ rule repository in order to ensure an easy to maintain rule base. 
-For the general Sigma specification please read the [Sigma_specification.md](../Sigma_specification.md).
+
+For the general Sigma rule specification please read see [this](/specification/sigma_rules.md)
 
 ## Summary
 
@@ -116,7 +117,11 @@ detection:
             - '\example_3.exe'
 ```
 
-## False Postives
+### Condition
+
+
+
+## False Positives
 
 - If the rule author expects false positives (found during testing or via external references), then it must be expressed as clear as possible. For example:
 
@@ -131,4 +136,4 @@ falsepositives:
 
 Also please note the following
 
-- Keywords such as `None`, `Pentest`, `Penetration Test`, `Red Team` are not accepted as valid values.
+- Keywords such as `None`, `Pentest`, `Penetration Test`, `Red Team`, Etc, are not accepted as valid values.
