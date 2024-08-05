@@ -35,7 +35,11 @@ Here's what you can expect from each of the main subfolders within this repo. Pl
 
 ### JSON Schema
 
-[Json-Schema](./json-schema/) will contain the Sigma specification format in JSON.
+[Json-Schema](./json-schema/) will contain a list of JSON schemas for the following.
+
+* [Sigma Rules](/json-schema/sigma-detection-rule-schema.json)
+* [Sigma Correlation Rules](/json-schema/sigma-correlation-rules-schema.json)
+* [Sigma Filters](/json-schema/sigma-filters-schema.json)
 
 ### Appendix
 

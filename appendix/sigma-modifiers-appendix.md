@@ -80,9 +80,11 @@ The following document defines the standardized modifiers that can be used in Si
   events directly at query/matching time.
 
 ## History
-* 2023-05-27
+
+* 2024-08-12 Modifiers Appendix v2.0.0
+* 2023-05-27 Modifiers Appendix v1.0.4
   * Update from PySigma 0.7.6
   * Add `fieldref`
-* 2023-05-21 v1.0.3
+* 2023-05-21 Modifiers Appendix v1.0.3
   * Creation of the file
 * 2017 Sigma creation

@@ -315,8 +315,7 @@ You can find all possible field values in the [Sysmon Community Guide](https://g
 
 ## History
 
-* 2024-08-12 Taxonomy V2.0.0
-  * Release of V2.0.0 of the specification
+* 2024-08-12 Taxonomy Appendix v v2.0.0
   * Fix the following windows services:
     * Change `ldap_debug` to `ldap`
   * Add new windows services:
@@ -329,11 +328,11 @@ You can find all possible field values in the [Sysmon Community Guide](https://g
     * ``service: ntfs``
     * ``service: sense``
     * ``service: servicebus-client``
-* 2023-01-21 Taxonomy V1.3.5
+* 2023-01-21 Taxonomy Appendix v1.3.5
   * Add new product and its related service:
     * `product: github`
     * `service: audit`
-* 2023-01-18 Taxonomy V1.3.4
+* 2023-01-18 Taxonomy Appendix v1.3.4
   * Add the following new windows services:
     * `service: appxdeployment-server`
     * `service: lsa-server`
@@ -349,19 +348,19 @@ You can find all possible field values in the [Sysmon Community Guide](https://g
   * Add missing category folder
   * Add missing product folder
   * Add description for a special case when using only the `product` logsource
-* 2023-01-03 Taxonomy V1.3.3
+* 2023-01-03 Taxonomy Appendix v1.3.3
   * Add windows service dns-server-analytic and bitlocker
   * Add all the W3C fields names to the category `webserver`
   * Update linux `file_create` category to `file_event`
-* 2022-12-19 Taxonomy V1.3.2
+* 2022-12-19 Taxonomy Appendix v1.3.2
   * Minor tweak and updates to the syntax and text
-* 2022-11-13 Taxonomy V1.3.1
+* 2022-11-13 Taxonomy Appendix v1.3.1
   * Add missing service shell-core
-* 2022-11-01 Taxonomy V1.3.0
+* 2022-11-01 Taxonomy Appendix v1.3.0
   * Add missing windows services
-* 2022-10-25 Taxonomy V1.2.0
+* 2022-10-25 Taxonomy Appendix v1.2.0
   * Order the windows logs
-* 2022-10-19 Taxonomy V1.1.0
+* 2022-10-19 Taxonomy Appendix v1.1.0
   * Fix links and spelling
-* 2022-09-18 Taxonomy V1.0.0
-  * First version
+* 2022-09-18 Taxonomy v1.0.0
+  * Initial release

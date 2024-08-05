@@ -3,7 +3,7 @@
 The following document defines the standardized global filter that can be used with Sigma rules.
 
 * Version 2.0.0
-* Release date 2024-09-01
+* Release date 2024-08-12
 
 - [Introduction](#introduction)
 - [Global filter](#global-filter)
@@ -29,9 +29,11 @@ The following document defines the standardized global filter that can be used w
 # Introduction
 
 The purpose of Filter rules is to apply the same tuning on many rules with the goal to suppress matches of multiple rules. This is most commonly useful for environment specific tuning where a false positive prone application is used in an organization and its false positives are accepted.
+
 Example: A valid GPO script that triggers multiple Sigma rules.
 
 # Global filter
+
 ## File Structure
 
 ### YAML File
@@ -49,7 +51,7 @@ As a best practice use the prefix `mf_`
 
 ### Schema
 
-[meta-filter-schema](/schema/meta-filter-schema.json)
+[Sigma Filters JSON Schema](/json-schema/sigma-filters-schema.json)
 
 
 ### Syntax
@@ -117,7 +119,7 @@ Use the ISO 8601 date with separator format : YYYY-MM-DD
 
 **Use:** mandatory
 
-See log source in [sigma specification](Sigma_specification.md)
+Read more on the `logsource` attribute in the [Sigma Rules Specification](/specification/sigma-rules-specification.md)
 
 
 ### Global Filter
@@ -141,7 +143,7 @@ refers to one or multiple Sigma rules where to add the filter
 
 **Use:** mandatory
 
-See Detection in [sigma specification](Sigma_specification.md)
+Read more on the 'detection' section in the [Sigma Rules Specification](/specification/sigma-rules-specification.md)
 
 #### filter condition
 
@@ -149,7 +151,7 @@ See Detection in [sigma specification](Sigma_specification.md)
 
 **Use:** mandatory
 
-See Detection in [sigma specification](Sigma_specification.md)
+Read more on the 'detection' field in the [Sigma Rules Specification](/specification/sigma-rules-specification.md)
 
 # Examples
 
@@ -162,14 +164,14 @@ logsource:
     category: process_creation
     product: windows
 filter:
-  rules:
-    - 6f3e2987-db24-4c78-a860-b4f4095a7095 # Data Compressed - rar.exe
-    - df0841c0-9846-4e9f-ad8a-7df91571771b # Login on jump host
-  selection:
-      User|startswith: 'adm_'
-  condition: selection
+    rules:
+        - 6f3e2987-db24-4c78-a860-b4f4095a7095 # Data Compressed - rar.exe
+        - df0841c0-9846-4e9f-ad8a-7df91571771b # Login on jump host
+    selection:
+        User|startswith: 'adm_'
+    condition: selection
 ```
 
 # History
-* 2024-09-01 Specification V2.0.0
-  * First release
+
+* 2024-08-12 Specification v2.0.0

@@ -3,7 +3,7 @@
 The following document defines the standardized correlation that can be used in Sigma rules.
 
 * Version 2.0.0
-* Release date 2024-09-01
+* Release date 2024-08-12
 
 - [Introduction](#introduction)
   - [Compatibility](#compatibility)
@@ -109,7 +109,7 @@ As a best practice use the prefix `mr_`.
 
 ### Schema
 
-[meta-rule-schema](/schema/meta-rule-schema.json)
+[Sigma Correlation Rules JSON Schema](/json-schema/sigma-correlation-rules-schema.json)
 
 ###  Syntax
 
@@ -332,14 +332,14 @@ Simple example : More than or equal 100 failed login attempts to a destination h
 title: Many failed logins
 id: 0e95725d-7320-415d-80f7-004da920fc11
 correlation:
-  type: event_count
-  rules:
-    - 5638f7c0-ac70-491d-8465-2a65075e0d86
-  group-by:
-    - ComputerName
-  timespan: 1h
-  condition:
-    gte: 100
+    type: event_count
+    rules:
+        - 5638f7c0-ac70-491d-8465-2a65075e0d86
+    group-by:
+        - ComputerName
+    timespan: 1h
+    condition:
+        gte: 100
 ```
 
 ### Value Count (value_count)
@@ -360,16 +360,16 @@ Simple example : Failed logon attempts with more than 100 different user account
 title: Failed login
 id: 0e95725d-7320-415d-80f7-004da920fc12
 correlation:
-  type: value_count
-  rules:
-    - 5638f7c0-ac70-491d-8465-2a65075e0d86
-  group-by:
-    - ComputerName
-    - WorkstationName
-  timespan: 1d
-  condition:
-    field: User
-    gte: 100
+    type: value_count
+    rules:
+        - 5638f7c0-ac70-491d-8465-2a65075e0d86
+    group-by:
+        - ComputerName
+        - WorkstationName
+    timespan: 1d
+    condition:
+        field: User
+        gte: 100
 ```
 
 ### Temporal Proximity (temporal)
@@ -384,14 +384,14 @@ Simple example : Reconnaissance commands defined in three Sigma rules are invoke
 ```yaml
 correlation:
 type: temporal
-  rules:
-    - recon_cmd_a
-    - recon_cmd_b
-    - recon_cmd_c
-  group-by:
-    - ComputerName
-    - User
-  timespan: 5m
+    rules:
+        - recon_cmd_a
+        - recon_cmd_b
+        - recon_cmd_c
+    group-by:
+        - ComputerName
+        - User
+    timespan: 5m
 ```
 
 ### Ordered Temporal Proximity (temporal_ordered)
@@ -403,13 +403,13 @@ Example: many failed logins as defined above are followed by a successful login 
 
 ```yaml
 correlation:
-  type: temporal_ordered
-  rules:
-      - many_failed_logins
-      - successful_login
-  group-by:
-      - User
-  timespan: 1h
+    type: temporal_ordered
+    rules:
+        - many_failed_logins
+        - successful_login
+    group-by:
+        - User
+    timespan: 1h
 ```
 
 Note:
@@ -444,9 +444,9 @@ Rule internal_error
 ```yaml
 name: internal_error
 detection:
-  selection:
-    http.response.status_code: 500
-  condition: selection
+    selection:
+        http.response.status_code: 500
+    condition: selection
 ```
 
 Rule new_network_connection
@@ -454,11 +454,11 @@ Rule new_network_connection
 ```yaml
 name: new_network_connection
 detection:
-  selection:
-    event.category: network
-    event.type: connection
-    event.outcome: success
-  condition: selection
+    selection:
+        event.category: network
+        event.type: connection
+        event.outcome: success
+    condition: selection
 ```
 
 The correlation rule
@@ -466,21 +466,21 @@ The correlation rule
 title: —
 id: —
 correlation:
-  type: temporal
-  rules:
-    - internal_error
-    - new_network_connection
-  group-by:
-    - internal_ip
-    - remote_ip
-  timespan: 10s
-  aliases:
-    internal_ip:
-      internal_error: destination.ip
-      new_network_connection: source.ip
-    remote_ip:
-      internal_error: source.ip
-      new_network_connection: destination.ip
+    type: temporal
+    rules:
+        - internal_error
+        - new_network_connection
+    group-by:
+        - internal_ip
+        - remote_ip
+    timespan: 10s
+    aliases:
+        internal_ip:
+            internal_error: destination.ip
+            new_network_connection: source.ip
+        remote_ip:
+            internal_error: source.ip
+            new_network_connection: destination.ip
 ```
 
 # Examples
@@ -503,13 +503,13 @@ references:
 author: Florian Roth (Nextron Systems)
 date: 2023-06-16
 correlation:
-   type: temporal_ordered
-   rules:
-    - multiple_failed_login
-    - successful_login
-   group-by:
-    - User
-   timespan: 10m
+    type: temporal_ordered
+    rules:
+        - multiple_failed_login
+        - successful_login
+    group-by:
+        - User
+    timespan: 10m
 falsepositives:
     - Unlikely
 level: high
@@ -519,43 +519,43 @@ id: a8418a5a-5fc4-46b5-b23b-6c73beb19d41
 description: Detects multiple failed logins within a certain amount of time
 name: multiple_failed_login
 correlation:
-  type: event_count
-  rules:
-    - failed_login
-  group-by:
-    - User
-  timespan: 10m
-  condition:
-    gte: 10
+    type: event_count
+    rules:
+        - failed_login
+    group-by:
+        - User
+    timespan: 10m
+    condition:
+        gte: 10
 ---
 title: Single failed login
 id: 53ba33fd-3a50-4468-a5ef-c583635cfa92
 name: failed_login
 logsource:
-  product: windows
-  service: security
+    product: windows
+    service: security
 detection:
-  selection:
-    EventID:
-      - 529
-      - 4625
-  condition: selection
+    selection:
+        EventID:
+            - 529
+            - 4625
+    condition: selection
 ---
 title: Successful login
 id: 4d0a2c83-c62c-4ed4-b475-c7e23a9269b8
 description: Detects a successful login
 name: successful_login
 logsource:
-  product: windows
-  service: security
+    product: windows
+    service: security
 detection:
-  selection:
-      EventID:
-        - 528
-        - 4624
-  condition: selection
+    selection:
+        EventID:
+            - 528
+            - 4624
+    condition: selection
 ```
 
 # History
-* 2024-09-01 Specification V2.0.0
-  * First release
+
+* 2024-08-12 Specification v2.0.0

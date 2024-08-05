@@ -99,14 +99,13 @@ The following tags are currently supported:
 
 ## History
 
-* 2024-08-12 Tags V2.0.0
-  * Release of V2.0.0 of the specification
-* 2023-11-23 Tags V1.2.0
+* 2024-08-12 Tags Appendix v2.0.0
+* 2023-11-23 Tags Appendix v1.2.0
   * Add Summiting the Pyramid
-* 2023-06-20 Tags V1.1.0
+* 2023-06-20 Tags Appendix v1.1.0
   * Add detection namespace
-* 2022-12-19 Tags V1.0.1
+* 2022-12-19 Tags Appendix v1.0.1
   * Minor updates and tweaks
-* 2022-09-18 Tags V1.0.0
+* 2022-09-18 Tags Appendix v1.0.0
   * Initial formalization from the sigma wiki
 * 2017 Sigma creation
