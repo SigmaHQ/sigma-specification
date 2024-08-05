@@ -31,7 +31,7 @@ The following document defines the standardized modifiers that can be used in Si
   field.
 
 * `exists`: Defines that a certain field has to exist or must not exist in a log event by providing a boolean value.
-* `cased`: Values are applied case sensitively. Default Sigma behaviour is case-insensitive matching.
+* `cased`: Values are applied case sensitively. Default Sigma behavior is case-insensitive matching.
 
 ### String only
 
