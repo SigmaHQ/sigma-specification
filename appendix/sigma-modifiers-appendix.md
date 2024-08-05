@@ -29,7 +29,7 @@ The following document defines the standardized modifiers that can be used in Si
 * `contains`: Puts `*` wildcards around the values, such that the value is matched anywhere in the
   field.
 
-* `exists`: Defines that a certain field has to exist or must not exist in a log event by providing a boolean value.
+* `exists`: Defines that a certain field has to exist or must not exist in a log event by providing a boolean value. Note that this check only verifies the presence of a field, not its value, be it empty or null.
 * `cased`: Values are applied case sensitively. Default Sigma behavior is case-insensitive matching.
 
 ### String only
