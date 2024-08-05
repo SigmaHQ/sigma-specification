@@ -230,6 +230,8 @@ correlation:
 defines field name aliases that are applied to correlated Sigma rules.
 The defined aliases can then be defined in `group-by` and allows aggregation across different fields in different event types.
 
+See the example in the chapter [Field Name Aliases](#field-name-aliases) to get a better understanding.
+
 #### Grouping
 
 **Attribute:** group-by
