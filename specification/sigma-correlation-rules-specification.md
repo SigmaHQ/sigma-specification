@@ -44,13 +44,13 @@ The following document defines the standardized correlation that can be used in 
 
 # Introduction
 
-Sometimes you need more advanced searches than simple selections.  
-For that you can use meta-rules that correlate multiple Sigma rules.
+Sometimes you need more advanced searches than simple selections.
+For this purpose, you can use meta-rules that correlate multiple Sigma rules.
 
 ## Compatibility
 
 When generating a backend specific query, Sigma correlations might exceed the capabilities of that targeted backend. \
-Or the Sigma correlation might required a feature that is only supported partially by the target backend. \
+Or the Sigma correlation might require a feature that is only supported partially by the target backend. \
 Therefore target-specific restrictions should be handled in a way that ensures that the generated queries do not create results that:
 
 * Could be misinterpreted
@@ -68,7 +68,7 @@ The conversion backend should issue a warning to raise the user’s awareness ab
 Examples are:
 
 * Temporal relationships are recognized, but the order of the events cannot be recognized by the target system. This could cause false positives by differently ordered events.
-* Temporal relationships are only recognized within static time boundaries, e.g. a timespan of 1h only matches if all events appear within a full hour, but not if some events appear in the previous and another event in the current hour. This could cause false negatives.
+* Temporal relationships are only recognized within static time boundaries, e.g. a `timespan` of 1h only matches if all events appear within a full hour, but not if some events appear in the previous and another event in the current hour. This could cause false negatives.
 
 ## Expression of Relationships In The Condition of Sigma Rules
 
@@ -84,9 +84,9 @@ Sigma correlations are not based on this approach for the following reasons:
 
 The purpose is to cover a detection like:
 
-* X invalid login alerts on a unique host
-* Invalid login alert on the same host but from X remote
-* Alert A, B and C in the same timespan
+* X invalid login alerts on a unique host.
+* Invalid login alert on the same host but from X remote.
+* Alert A, B and C in the same `timespan`.
 
 
 # Correlation rules
@@ -100,7 +100,7 @@ To keep the file names interoperable use the following:
 
 - Length between 10 and 70 characters
 - Lowercase
-- No special characters only letters (a-z) and digits (0-9)
+- No special characters, only letters (a-z) and digits (0-9)
 - Use `_` instead of a space
 - Use `.yml` as a file extension
 
@@ -114,7 +114,7 @@ As a best practice use the prefix `mr_`.
 ###  Syntax
 
 A Sigma correlation is a dedicated YAML document.
-Like sigma rules , correlation rules have a title and a unique id to identify them.
+Like Sigma rules , correlation rules have a title and a unique id to identify them.
 
 ## Components
 
@@ -174,7 +174,7 @@ These could be blog articles, technical papers, presentations or even tweets.
 **Use:** optional
 
 Creation date of the meta rule. \
-Use the ISO 8601 date with separator format : YYYY-MM-DD
+Use the ISO 8601 date with separator format: `YYYY-MM-DD`
 
 ### Modified
 
@@ -183,7 +183,7 @@ Use the ISO 8601 date with separator format : YYYY-MM-DD
 **Use:** optional
 
 *Last* modification date of the meta rule. \
-Use the ISO 8601 date with separator format : YYYY-MM-DD
+Use the ISO 8601 date with separator format : `YYYY-MM-DD`
 
 ### Correlation section
 
@@ -284,7 +284,7 @@ condition:
     gte: 100
 ```
 
-To select a range , you can use the map AND
+To define a range, you can use the conjunction 'AND' in the mapping.
 
 Example "101 to 200":
 ```yaml
