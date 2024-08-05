@@ -60,3 +60,7 @@ Here's what you can expect from each of the main subfolders within this repo. Pl
 * [SigmaHQ Rule Convention](/sigmahq/sigmahq-rule-convention.md)
 * [SigmaHQ Filename Convention](/sigmahq/sigmahq-filename-convention.md)
 * [SigmaHQ Title Convention](/sigmahq/sigmahq-title-convention.md)
+
+## Version 2 Changes
+
+You can read more on the potential breaking changes and additional features introduced in version 2.0.0 of the specification [here](version-2-changes.md)
