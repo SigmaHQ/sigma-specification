@@ -37,9 +37,10 @@ The following document defines the standardized modifiers that can be used in Si
 
 * `windash`: Creates all possible permutations of the `-` and `/` characters. Windows command line flags can often be indicated by both characters. Using the `windash` modifier converts `-` values into `/` and vice versa and uses all possible permutation of strings in the selection.
 * `re`: Value is handled as a regular expression by backends. Regex is matched case-sensitive by default
-  * `i`: (insensitive) `re` sub-modifier to enable case-sensitive matching.
-  * `m`: (multi line) `re` sub-modifier to match across multiple lines. `^` /`$` match the start/end of line.
-  * `s`: (single line) `re` sub-modifier to enable that dot (`.`) matches all characters, including the newline character.
+* `re` sub-modifier
+  * `i`: (insensitive) to enable case-sensitive matching.
+  * `m`: (multi line) to match across multiple lines. `^` /`$` match the start/end of line.
+  * `s`: (single line) to enable that dot (`.`) matches all characters, including the newline character.
 
 
 ### Numeric only
