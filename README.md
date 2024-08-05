@@ -4,8 +4,8 @@
 <p align="center">
 <br />
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="./images/sigma_logo_dark.png">
-  <img width="454" alt="Sigma Logo" src="./images/sigma_logo_light.png">
+  <source media="(prefers-color-scheme: dark)" srcset="./media/images/sigma_logo_dark.png">
+  <img width="454" alt="Sigma Logo" src="./media/images/sigma_logo_light.png">
 </picture>
 </p>
 </a>
@@ -63,4 +63,4 @@ Here's what you can expect from each of the main subfolders within this repo. Pl
 
 ## Version 2 Changes
 
-You can read more on the potential breaking changes and additional features introduced in version 2.0.0 of the specification [here](version-2-changes.md)
+You can read more on the potential breaking changes and additional features introduced in version 2.0.0 of the specification [here](./other/version-2-changes.md)
