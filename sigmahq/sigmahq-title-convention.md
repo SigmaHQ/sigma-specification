@@ -1,4 +1,4 @@
-# SigmaHQ Rule Conventions <!-- omit in toc -->
+# SigmaHQ Title Conventions <!-- omit in toc -->
 
 This document provides general guidelines and tips on how to write titles for sigma rules.
 

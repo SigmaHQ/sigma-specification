@@ -255,7 +255,6 @@ The following format must be used: `number + letter (in lowercase)`
 - Xh hours
 - Xd days
 
-
 example for 1h30 : `timespan: 90m`
 
 #### Condition

@@ -15,7 +15,6 @@ The following document defines the standardized modifiers that can be used in Si
 - [Specific](#specific)
 - [History](#history)
 
-
 ## General
 
 * `all`: Normally, lists of values are linked with *OR* in the generated query. This modifier
@@ -35,12 +34,13 @@ The following document defines the standardized modifiers that can be used in Si
 
 ### String only
 
-* `windash`: Creates all possible permutations of the `-` and `/` characters. Windows command line flags can often be indicated by both characters. Using the `windash` modifier converts `-` values into `/` and vice versa and uses all possible permutation of strings in the selection.
-* `re`: Value is handled as a regular expression by backends. Regex is matched case-sensitive by default
-  * `i`: (insensitive) `re` sub-modifier to enable case-sensitive matching.
-  * `m`: (multi line) `re` sub-modifier to match across multiple lines. `^` /`$` match the start/end of line.
-  * `s`: (single line) `re` sub-modifier to enable that dot (`.`) matches all characters, including the newline character.
+* `windash`: Creates all possible permutations of the `-`, `/`, `–` (en dash), `—` (em dash), and `―` (horizontal bar) characters. Windows command line flags can often be indicated by both characters. Using the `windash` modifier converts the aforementioned characters interchangeably and uses all possible permutation of strings in the selection.
 
+* `re`: Value is handled as a regular expression by backends. Regex is matched case-sensitive by default
+* `re` sub-modifiers:
+  * `i`: (insensitive) to enable case-sensitive matching.
+  * `m`: (multi line) to match across multiple lines. `^` /`$` match the start/end of line.
+  * `s`: (single line) to enable that dot (`.`) matches all characters, including the newline character.
 
 ### Numeric only
 
@@ -49,11 +49,9 @@ The following document defines the standardized modifiers that can be used in Si
 * `gt`: Field is greater than the value
 * `gte`: Field is greater or equal than the value
 
-
 ### Ip only
   
-* `cidr`: The value is handled as an CIDR by backends
-
+* `cidr`: The value is handled as an CIDR by backends. Supports both IPv4 and IPv6 notations.
 
 ### String Encoding
 
@@ -63,11 +61,10 @@ The following document defines the standardized modifiers that can be used in Si
   by zero to two bytes and except the first and last byte the encoded values have a static part in
   the middle that can be recognized.
 
-* `utf16le`: Transforms value to UTF16-LE encoding, e.g. `cmd` > `63 00 6d 00 64 00` (only used in combination with base64 modifiers)
-* `utf16be`: Transforms value to UTF16-BE encoding, e.g. `cmd` > `00 63 00 6d 00 64` (only used in combination with base64 modifiers)
-* `wide`: Alias for `utf16le` modifier
-* `utf16`: Prepends a [byte order mark](https://en.wikipedia.org/wiki/Byte_order_mark) and encodes UTF16, e.g. `cmd` > `FF FE 63 00 6d 00 64 00` (only used in combination with base64 modifiers)
-
+* `base64` sub-modifiers:
+  * `utf16le`: Transforms value to UTF16-LE encoding, e.g. `cmd` > `63 00 6d 00 64 00` 
+  * `utf16be`: Transforms value to UTF16-BE encoding, e.g. `cmd` > `00 63 00 6d 00 64`
+  * `utf16`: Prepends a [byte order mark](https://en.wikipedia.org/wiki/Byte_order_mark) and encodes UTF16, e.g. `cmd` > `FF FE 63 00 6d 00 64 00`
 
 ## Specific
 

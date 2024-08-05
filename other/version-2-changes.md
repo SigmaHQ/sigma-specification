@@ -26,7 +26,7 @@ The related field type `obsoletes` has been changed to `obsolete` for consistenc
 
 ## Rx Schema
 
-The latest version of the specification drops the support for the Rx-Schema in favour of a [JSON schema](/json-schema/).
+The latest version of the specification drops the support for the [Rx-Schema](https://github.com/SigmaHQ/sigma-specification/blob/69ce07a4068a9668098eef148ab874862625bbeb/archives/wiki.md#rx-yaml) in favour of a [JSON schema](/json-schema/).
 
 ## Modifiers
 

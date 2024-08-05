@@ -1,4 +1,4 @@
-# SigmaHQ Filename Normalisation <!-- omit in toc -->
+# SigmaHQ Filename Conventions <!-- omit in toc -->
 
 This document describe a soft convention to name rule files. The following convention has been set to help with the management of the rules files repository and is not part of the SIGMA specification.
 
@@ -97,7 +97,7 @@ The naming convetion for rules using linux services is the as follows:
 
 ### Windows
 
-The naming convetion for rules using windows services is the as follows:
+The naming convention for rules using windows services is the as follows:
 
 - Filename must start with `win_`
 - Followed by the service name and underscore at the end `service_`. Example: `applocker_`
