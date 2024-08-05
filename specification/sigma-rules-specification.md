@@ -1,7 +1,7 @@
 # Sigma Rules Specification <!-- omit in toc -->
 
 - Version 2.0.0
-- Release date 2024/08/12
+- Release date 2024-08-12
 
 # Summary
 
@@ -732,9 +732,9 @@ Their maintenance can become difficult, with a meta-filter it is possible to wri
 See [Sigma Meta Filter](Sigma_meta_filter.md)
 
 # History
-* 2024/09/01 Specification V2.0.0
+* 2024-09-01 Specification V2.0.0
   * First release
-* 2023/06/29 Specification V1.0.4
+* 2023-06-29 Specification V1.0.4
   * Complete the information for multiple conditions
-* 2022/12/28 Specification V1.0.3
+* 2022-12-28 Specification V1.0.3
   * Add missing `timeframe` attribute

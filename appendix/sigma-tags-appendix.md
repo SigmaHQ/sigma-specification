@@ -21,9 +21,10 @@ The following document defines the standardized tags that can be used to categor
 
 * attack: Categorization according to [MITRE ATT&CK](https://attack.mitre.org). To get the current supported version of ATT&CK please visit [MITRE CTI](https://github.com/mitre/cti)
 * car: Link to the corresponding [MITRE Cyber Analytics Repository (CAR)](https://car.mitre.org/)
+* cve: Categorization according [MITRE CVE](https://cve.mitre.org/)
+* detection: Categorization according to the types of rules provided in the [SigmaHQ rule repository](https://github.com/SigmaHQ/sigma).
 * stp: Rating of detection analytic robustness according to the [MITRE Summiting the Pyramid](https://center-for-threat-informed-defense.github.io/summiting-the-pyramid/) scheme.
 * tlp: [Traffic Light Protocol](https://www.first.org/tlp/).
-* detection: Categorization according to the types of rules provided in the [SigmaHQ rule repository](https://github.com/SigmaHQ/sigma).
 
 ### Namespace: attack
 
@@ -48,8 +49,22 @@ Tactics:
 
 ### Namespace: car
 
-Use the CAR tag from the [analytics repository](https://car.mitre.org/analytics/) without the prepending `CAR-`. Example
+Use the CAR tag from MITRE [analytics repository](https://car.mitre.org/analytics/) without the prepending `CAR-`. Example
 tag: `car.2016-04-005`.
+
+### Namespace: cve
+
+Use the CVE tag from [MITRE](https://cve.mitre.org) in lower case separated by dots. Example tag: `cve.2021-44228`.
+
+### Namespace: detection
+
+Use the detection tag to indicate the type of a rule. Example tag: `detection.threat-hunting`.
+
+The following tags are currently supported:
+
+* `detection.dfir`
+* `detection.emerging-threats`
+* `detection.threat-hunting`
 
 ### Namespace: stp
 
@@ -70,10 +85,6 @@ specify the robustness in the following ways:
 * *complete* defines the whole score in a tag like `stp.3k`. Such a tag should be chosen if the detection refers to a
   concrete log source.
 
-### Namespace: cve
-
-Use the CVE tag from the [mitre](https://cve.mitre.org) in lower case separated by dots. Example tag: `cve.2021-44228`.
-
 ### Namespace: tlp
 
 All TLP levels defined by the [FIRST TLP-SIG](https://www.first.org/tlp/) in lower case. Example tag: `tlp.amber`.
@@ -86,17 +97,8 @@ The following tags are currently supported:
 * `tlp.green`
 * `tlp.clear`
 
-### namespace: detection
-
-Use the detection tag to indicate the type of a rule. Example tag: `detection.threat-hunting`.
-
-The following tags are currently supported:
-
-* `detection.dfir`
-* `detection.emerging-threats`
-* `detection.threat-hunting`
-
 ## History
+
 * 2024-08-12 Tags V2.0.0
   * Release of V2.0.0 of the specification
 * 2023-11-23 Tags V1.2.0
