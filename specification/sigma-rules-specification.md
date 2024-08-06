@@ -1,9 +1,7 @@
-# Sigma specification <!-- omit in toc -->
+# Sigma Rules Specification <!-- omit in toc -->
 
 - Version 2.0.0
-- Release date 2024/09/01
-
-Take a look at [V1-V2 changes](V2_changes.md)
+- Release date 2024-08-12
 
 # Summary
 
@@ -34,7 +32,7 @@ Take a look at [V1-V2 changes](V2_changes.md)
     - [Maps](#maps)
     - [Field Usage](#field-usage)
     - [Special Field Values](#special-field-values)
-    - [Field Existance](#field-existance)
+    - [Field Existence](#field-existence)
     - [Value Modifiers](#value-modifiers)
       - [Modifier Types](#modifier-types)
     - [Placeholders](#placeholders)
@@ -47,7 +45,7 @@ Take a look at [V1-V2 changes](V2_changes.md)
   - [Tags](#tags)
   - [Scope](#scope)
 - [Rule Correlation](#rule-correlation)
-- [Global filter](#global-filter)
+- [Sigma Filters](#sigma-filters)
 - [History](#history)
 
 # Yaml File
@@ -80,7 +78,7 @@ To keep the rules interoperable use:
 - Strings values use Single quotes `'` . If the string contains a single quote, double quotes may be used instead
 - Numeric values don't use any quotes
 
-Simple Sigma example
+Below is a simple Sigma rule example:
 
 ```yaml
 title: Whoami Execution
@@ -113,6 +111,7 @@ related [optional]
 taxonomy [optional]
 status [optional]
 description [optional]
+license [optional]
 references [optional]
 author [optional]
 date [optional]
@@ -139,7 +138,7 @@ scope [optional]
 [arbitrary custom fields]
 ```
 
-The Json schema is defined in [sigma-schema.json](schema/sigma-schema.json)
+The Json schema is defined in [sigma-detection-rule-schema.json](/json-schema/sigma-detection-rule-schema.json)
 
 # Components
 
@@ -171,7 +170,7 @@ It is better to write a rule with a new id for the following reasons:
 * Major changes in the rule. E.g. a different rule logic.
 * Derivation of a new rule from an existing or refinement of a rule in a way that both are kept
   active.
-* Merge of rules.
+* Merging of rules.
 
 To be able to keep track of the relationships between detections, Sigma rules may also contain
 references to related rule identifiers in the *related* attribute. \
@@ -182,13 +181,13 @@ related:
   - id: 08fbc97d-0a2f-491c-ae21-8ffcfd3174e9
     type: derived
   - id: 929a690e-bef0-4204-a928-ef5e620d6fcc
-    type: obsoletes
+    type: obsolete
 ```
 
 Currently the following types are defined:
 
 * `derived`: The rule was derived from the referred rule or rules, which may remain active.
-* `obsoletes`: The rule obsoletes the referred rule or rules, which aren't used anymore.
+* `obsolete`: The rule obsoletes the referred rule or rules, which aren't used anymore.
 * `merged`: The rule was merged from the referred rules. The rules may still exist and are in use.
 * `renamed`: The rule had previously the referred identifier or identifiers but was renamed for whatever
   reason, e.g. from a private naming scheme to UUIDs, to resolve collisions etc. It's not
@@ -196,7 +195,8 @@ Currently the following types are defined:
 * `similar`: Use to relate similar rules to each other (e.g. same detection content applied to different log sources, rule that is a modified version of another rule with a different level)
 
 ## Name
-**Attributes:** name
+
+**Attribute:** name
 
 **Use:** optional
 
@@ -219,7 +219,7 @@ Defines the taxonomy used in the Sigma rule. A taxonomy can define:
 The Default taxonomy is `sigma`. \
 A custom taxonomy must be handled by the used tool or transformed into the default taxonomy.
 
-More information in [Appendix Taxonomy](appendix/appendix_taxonomy.md)
+More information on the default taxonomy can be found in the [Sigma Taxonomy Appendix](/appendix/sigma-taxonomy-appendix.md) file.
 
 ## Status
 
@@ -230,11 +230,11 @@ More information in [Appendix Taxonomy](appendix/appendix_taxonomy.md)
 Declares the status of the rule:
 
 - `stable`: the rule is considered as stable and may be used in production systems or dashboards.
-- `test`: an almost stable rule that possibly could require some fine tuning.
+- `test`: a mostly stable rule that could require some slight adjustments depending on the environement.
 - `experimental`: an experimental rule that could lead to false positives results or be noisy, but could also identify interesting
   events.
 - `deprecated`: the rule is replaced or covered by another one. The link is established by the `related` field.
-- `unsupported`: the rule cannot be use in its current state (special correlation log, home-made fields)
+- `unsupported`: the rule cannot be use in its current state (old correlation format, custom fields)
 
 ## Description
 
@@ -242,7 +242,7 @@ Declares the status of the rule:
 
 **Use:** optional
 
-A short description of the rule and the malicious activity that can be detected (max. 65,535 characters)
+A short and accurate description of the rule and the malicious or suspicious activity that can be detected (max. 65,535 characters)
 
 ## License
 
@@ -267,7 +267,7 @@ If there is more than one, they are separated by a comma.
 
 **Use:** optional
 
-References to the source that the rule was derived from. \
+References to the sources that the rule was derived from. \
 These could be blog articles, technical papers, presentations or even tweets.
 
 ## Date
@@ -289,6 +289,7 @@ Use the ISO 8601 date with separator format : YYYY-MM-DD
 Use the ISO 8601 date with separator format : YYYY-MM-DD
 
 Reasons to change the modified date:
+
 * changed title
 * changed detection section
 * changed level
@@ -325,19 +326,20 @@ e.g. "sshd" on Linux or the "Security" Eventlog on Windows systems.
 The `definition` can be used to describe the log source, including some information on the log verbosity level or configurations that have to be applied. \
 It is not automatically evaluated by the converters but gives useful information to readers on how to configure the source to provide the necessary events used in the detection.
 
-The 'category', 'product' and 'service' can be used alone or in any combination. \
+The `category`, `product` and `service` can be used alone or in any combination. \
 Their values are in **lower case** and spaces are replaced by a `_` , characters `.` and `-` are allowed.
+
 - Windows Channel "System" -> `service: system`
 - "Process Creation" -> `category: process_creation`
 - Cloud OneLogin events -> `service: onelogin.events`
 - Windows Channel "Microsoft-Windows-Windows Firewall With Advanced Security" -> `service: firewall-as`
 
-You can use the values of 'category, 'product' and 'service' to point the converters to a certain index. \
-In the configuration files, it can be defined that the category 'firewall' converts to `( index=fw1* OR index=asa* )` during Splunk search conversion or the product 'windows' converts to `"_index":"logstash-windows*"` in Elasticsearch queries.
+You can use the values of `category`, `product` and `service` to point the converters to a certain index. \
+In the configuration files, it can be defined that the category `firewall` converts to `( index=fw1* OR index=asa* )` during Splunk search conversion or the product `windows` converts to `"_index":"logstash-windows*"` in Elasticsearch queries.
 
-The advantages of this abstractive approach is that it does not limit the rule to a specific telemetry.
+The advantages of this abstract approach is that it does not limit the rule to a specific telemetry source.
 
-Instead of definition of multiple rules for Sysmon, Windows Security Auditing and all other possible product-specific, a generic log sources may be used. \
+Instead creating multiple rules for the different telemetry sources such as `Sysmon`, `Microsoft-Windows-Security-Auditing`, `Microsoft-Windows-Kernel-Process` and all the other possible product-specific sources, a generic log source may be used. \
 e.g.:
 
 ```yml
@@ -345,9 +347,7 @@ category: process_creation
 product: windows
 ```
 
-The rule can be use with  Sysmon, Windows Security Auditing and possible product-specific like EDR.
-
-More information in [appendix_taxonomy](appendix/appendix_taxonomy.md) and [SigmaHQ documentation](https://github.com/SigmaHQ/sigma/blob/master/documentation/README.md)
+More details can be found in the [Sigma Taxonomy Appendix](/appendix/sigma-taxonomy-appendix.md) file, and [SigmaHQ Logsource Guides](https://github.com/SigmaHQ/sigma/tree/master/documentation/logsource-guides)
 
 ## Detection
 
@@ -363,29 +363,29 @@ A definition that can consist of two different data structures - lists and maps.
 
 ### General
 
-* All values are treated as case-insensitive strings
-* You can use wildcard characters `*` and `?` in strings (see also escaping section below)
-* Regular expressions are case-sensitive by default
-* You don't have to escape characters except the string quotation marks `'`
+* All values are treated as case-insensitive strings.
+* You can use wildcard characters `*` and `?` in strings (see also [escaping](#escaping) section below).
+* Regular expressions are case-sensitive by default.
+* You don't have to escape characters except the string quotation marks `'`.
 
 ### String Wildcard
 
 Wildcards are used when part of the text is random.
 You can use :
 
-* `?` to replace a single mandatory character
-* `*` to replace an unbounded length wildcard
+* `?` to replace a single mandatory character.
+* `*` to replace an unbounded length wildcard.
 
-example  :
+example:
 
 * `progA.exe or progB.exe or ...` will be `prog?.exe`
 * `antivirus_V1.exe or antivirus_V21.2.1.exe or ...` will be `antivirus_V*.exe`
 
 Sigma has special modifiers to facilitate the search of unbounded strings
 
-* `*something` see [endswith modifier](#value-modifiers)
-* `something*` see [startswith modifier](#value-modifiers)
-* `*something*` see [contains modifier](#value-modifiers)
+* `*something` see [endswith modifier](#value-modifiers).
+* `something*` see [startswith modifier](#value-modifiers).
+* `*something*` see [contains modifier](#value-modifiers).
 
 ### Escaping
 
@@ -394,9 +394,9 @@ The backslash character `\` is used for escaping of wildcards `*` and `?` as wel
 Summarized, these are the following possibilities:
 
 * Plain backslash not followed by a wildcard can be expressed as single `\` or double backslash `\\`. For simplicity reasons the single notation is recommended.
-* A wildcard has to be escaped to be handled as a plain character: `\*`
-* The backslash before a wildcard has to be escaped to handle the value as a backslash followed by a wildcard: `\\*`
-* Three backslashes are necessary to escape both, the backslash and the wildcard and handle them as plain values: `\\\*`
+* A wildcard has to be escaped to be handled as a plain character. eg: `\*`, `\?`.
+* The backslash before a wildcard has to be escaped to handle the value as a backslash followed by a wildcard: `\\*`.
+* Three backslashes are necessary to escape both, the backslash and the wildcard and handle them as plain values: `\\\*`.
 * Three or four backslashes are handled as double backslash. Four is recommended for consistency reasons: `\\\\` results in the plain value `\\`.
 
 ### Lists
@@ -410,21 +410,21 @@ Example for list of strings: Matches on 'EvilService' **or** 'svchost.exe -n evi
 
 ```yml
 detection:
-  keywords:
-    - 'EVILSERVICE'
-    - 'svchost.exe -n evil'
+    keywords:
+        - 'EVILSERVICE'
+        - 'svchost.exe -n evil'
 ```
 
 Example for list of maps:
 
 ```yml
 detection:
-  selection:
-    - Image|endswith: '\\example.exe'
-    - Description|contains: 'Test executable'
+    selection:
+        - Image|endswith: '\\example.exe'
+        - Description|contains: 'Test executable'
 ```
 
-The example above matches an image value ending with `example.exe` or an executable with a description containing the string `Test executable`
+The example above matches an image value ending with `example.exe` **or** an executable with a description containing the string `Test executable`.
 
 ### Maps
 
@@ -432,35 +432,35 @@ Maps (or dictionaries) consist of key/value pairs, in which the key is a field i
 
 Examples:
 
-Matches on Eventlog 'Security' **and** ( Event ID 517 **or** Event ID 1102 )
+The example below, matches on EventLog 'Security' **and** ( Event ID 517 **or** Event ID 1102 )
 
 ```yml
 detection:
-  selection:
-    EventLog: Security
-    EventID:
-      - 517
-      - 1102
-condition: selection
+    selection:
+        EventLog: Security
+        EventID:
+            - 517
+            - 1102
+    condition: selection
 ```
 
 Matches on Eventlog 'Security' **and** Event ID 4679 **and** TicketOptions 0x40810000 **and** TicketEncryption 0x17
 
 ```yml
 detection:
-   selection:
-      EventLog: Security
-      EventID: 4769
-      TicketOptions: '0x40810000'
-      TicketEncryption: '0x17'
-condition: selection
+    selection:
+          EventLog: Security
+          EventID: 4769
+          TicketOptions: '0x40810000'
+          TicketEncryption: '0x17'
+    condition: selection
 ```
 
 ### Field Usage
 
 1. For fields with existing field-mappings, use the mapped field name.
 
-Examples mapping `sigma` taxonomy name to windows event build in:
+Below is an example mapping `sigma` taxonomy name to built-in windows events:
 
 ```yml
 fieldmappings:
@@ -473,7 +473,8 @@ fieldmappings:
 
 2. For new or rarely used fields, use them as they appear in the log source and strip all spaces. (This means: Only, if the field is not already mapped to another field name.) On Windows event log sources, use the field names of the details view as the general view might contain localized field names.
 
-Examples:
+Example:
+
 * `New Value` -> `NewValue`
 * `SAM User Account` -> `SAMUserAccount`
 
@@ -506,15 +507,14 @@ Example:
 
 ```yml
 detection:
-   selection:
-      EventID: 4738
-   filter:
-      PasswordLastSet: null
-condition:
-   selection and not filter
+    selection:
+        EventID: 4738
+    filter:
+        PasswordLastSet: null
+    condition: selection and not filter
 ```
 
-### Field Existance
+### Field Existence
 
 In some case a field can be optional in the event. You can use the `exists` modifiers to check it.
 
@@ -522,10 +522,10 @@ Example:
 
 ```yml
 detection:
-   selection:
-      EventID: 4738
-      PasswordLastSet|exists: true
-condition: selection
+    selection:
+        EventID: 4738
+        PasswordLastSet|exists: true
+    condition: selection
 ```
 
 
@@ -591,21 +591,21 @@ They are built by using a list under a search-identifiers.
 
 ```yml
 detection:
-  mimikatz_keywords:
-    - 'event::clear'
-    - 'event::drop'
-  condition: mimikatz_keywords
+    mimikatz_keywords:
+        - 'event::clear'
+        - 'event::drop'
+    condition: mimikatz_keywords
 ```
 Give : "event::clear" **or** "event::drop"
 
 To have a **and** operator , we use the `'|all':` modifier
 ```yaml
 detection:
-  keywords_cmdlet:
-    '|all':
-      - 'OabVirtualDirectory'
-      - ' -ExternalUrl '
-condition: keywords_cmdlet
+    keywords_cmdlet:
+        '|all':
+            - 'OabVirtualDirectory'
+            - ' -ExternalUrl '
+    condition: keywords_cmdlet
 ```
 Give : "OabVirtualDirectory" **and** " -ExternalUrl "
 
@@ -626,7 +626,7 @@ The condition is the most complex part of the specification and will be subject 
 - 1/all of them
 
   Logical OR (`1 of them`) or AND (`all of them`) across all defined search identifiers not starting with an underscore `_`. The search identifiers
-  themselves are logically linked with their default behaviour for maps (AND) and lists (OR).
+  themselves are logically linked with their default behavior for maps (AND) and lists (OR).
 
   The usage of `all of them` is discouraged, as it prevents the possibility of downstream users of a rule to generically filter unwanted matches. See `all of {search-identifier-pattern}` in the next section as the preferred method.
 
@@ -697,7 +697,7 @@ The level field contains one of five string values. It describes the criticality
 
 **Use:** optional
 
-A Sigma rule can be categorised with tags. Tags should generally follow this syntax:
+A Sigma rule can be categorized with tags. Tags should generally follow this syntax:
 
 * Character set: lower-case letters, numerals, underscores and hyphens
 * no spaces
@@ -705,7 +705,7 @@ A Sigma rule can be categorised with tags. Tags should generally follow this syn
 * Keep tags short, e.g. numeric identifiers instead of long sentences
 * Feel free to send pull request or issues with proposals for new tags
 
-[More information about tags](appendix/appendix_tags.md)
+[More information about tags](/appendix/sigma-tags-appendix.md)
 
 ## Scope
 
@@ -713,29 +713,27 @@ A Sigma rule can be categorised with tags. Tags should generally follow this syn
 
 **Use:** optional
 
-A list of intended scope of the rule. 
+A list of the intended scopes of the rule. This would allow you to define if a rule is meant to trigger on specific set of types of machines that might have a specific software installed.
 
-For example , you have a rule for a registry key with exist only on windows server./
-The logsource will be `category: registry_set` and the scope `server`
+For example , if you have a rule for a registry key being set, where the key only exists on windows server installations./
+A scope with the value `server` can be added to limit this rule only to Windows Servers.
 
 # Rule Correlation
 
 Correlation allows several events to be linked together. /
 To make it easier to read these corelation rules, they are written in meta-rules.
 
-See [Sigma Meta Rules](Sigma_meta_rules.md)
+Check out the [Sigma Correlation Rules Specification](/specification/sigma-correlation-rules-specification.md) for more details.
 
-# Global filter
+# Sigma Filters
 
 To adapt the rules to the environment, it is sometimes useful to put the same exclusion in several rules. /
 Their maintenance can become difficult, with a meta-filter it is possible to write it in a single place.
 
-See [Sigma Meta Filter](Sigma_meta_filter.md)
+Check out the [Sigma Filters Specification](/specification/sigma-filters-specification.md) for more details.
 
 # History
-* 2024/09/01 Specification V2.0.0
-  * First release
-* 2023/06/29 Specification V1.0.4
-  * Complete the information for multiple conditions
-* 2022/12/28 Specification V1.0.3
-  * Add missing `timeframe` attribute
+
+* 2024-08-12 Specification v2.0.0
+* 2023-06-29 Specification v1.0.4
+* 2022-12-28 Specification v1.0.3

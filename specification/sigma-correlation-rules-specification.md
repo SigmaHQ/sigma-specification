@@ -1,9 +1,9 @@
-# Sigma Correlation <!-- omit in toc -->
+# Sigma Correlation Rules Specification <!-- omit in toc -->
 
 The following document defines the standardized correlation that can be used in Sigma rules.
 
 * Version 2.0.0
-* Release date 2024/09/01
+* Release date 2024-08-12
 
 - [Introduction](#introduction)
   - [Compatibility](#compatibility)
@@ -44,13 +44,13 @@ The following document defines the standardized correlation that can be used in 
 
 # Introduction
 
-Sometimes you need more advanced searches than simple selections.  
-For that you can use meta-rules that correlate multiple Sigma rules.
+Sometimes you need more advanced searches than simple selections.
+For this purpose, you can use meta-rules that correlate multiple Sigma rules.
 
 ## Compatibility
 
 When generating a backend specific query, Sigma correlations might exceed the capabilities of that targeted backend. \
-Or the Sigma correlation might required a feature that is only supported partially by the target backend. \
+Or the Sigma correlation might require a feature that is only supported partially by the target backend. \
 Therefore target-specific restrictions should be handled in a way that ensures that the generated queries do not create results that:
 
 * Could be misinterpreted
@@ -68,7 +68,7 @@ The conversion backend should issue a warning to raise the user’s awareness ab
 Examples are:
 
 * Temporal relationships are recognized, but the order of the events cannot be recognized by the target system. This could cause false positives by differently ordered events.
-* Temporal relationships are only recognized within static time boundaries, e.g. a timespan of 1h only matches if all events appear within a full hour, but not if some events appear in the previous and another event in the current hour. This could cause false negatives.
+* Temporal relationships are only recognized within static time boundaries, e.g. a `timespan` of 1h only matches if all events appear within a full hour, but not if some events appear in the previous and another event in the current hour. This could cause false negatives.
 
 ## Expression of Relationships In The Condition of Sigma Rules
 
@@ -84,9 +84,9 @@ Sigma correlations are not based on this approach for the following reasons:
 
 The purpose is to cover a detection like:
 
-* X invalid login alerts on a unique host
-* Invalid login alert on the same host but from X remote
-* Alert A, B and C in the same timespan
+* X invalid login alerts on a unique host.
+* Invalid login alert on the same host but from X remote.
+* Alert A, B and C in the same `timespan`.
 
 
 # Correlation rules
@@ -100,7 +100,7 @@ To keep the file names interoperable use the following:
 
 - Length between 10 and 70 characters
 - Lowercase
-- No special characters only letters (a-z) and digits (0-9)
+- No special characters, only letters (a-z) and digits (0-9)
 - Use `_` instead of a space
 - Use `.yml` as a file extension
 
@@ -109,12 +109,12 @@ As a best practice use the prefix `mr_`.
 
 ### Schema
 
-[meta-rule-schema](/schema/meta-rule-schema.json)
+[Sigma Correlation Rules JSON Schema](/json-schema/sigma-correlation-rules-schema.json)
 
 ###  Syntax
 
 A Sigma correlation is a dedicated YAML document.
-Like sigma rules , correlation rules have a title and a unique id to identify them.
+Like Sigma rules , correlation rules have a title and a unique id to identify them.
 
 ## Components
 
@@ -174,7 +174,7 @@ These could be blog articles, technical papers, presentations or even tweets.
 **Use:** optional
 
 Creation date of the meta rule. \
-Use the ISO 8601 date with separator format : YYYY-MM-DD
+Use the ISO 8601 date with separator format: `YYYY-MM-DD`
 
 ### Modified
 
@@ -183,7 +183,7 @@ Use the ISO 8601 date with separator format : YYYY-MM-DD
 **Use:** optional
 
 *Last* modification date of the meta rule. \
-Use the ISO 8601 date with separator format : YYYY-MM-DD
+Use the ISO 8601 date with separator format : `YYYY-MM-DD`
 
 ### Correlation section
 
@@ -230,6 +230,8 @@ correlation:
 defines field name aliases that are applied to correlated Sigma rules.
 The defined aliases can then be defined in `group-by` and allows aggregation across different fields in different event types.
 
+See the example in the chapter [Field Name Aliases](#field-name-aliases) to get a better understanding.
+
 #### Grouping
 
 **Attribute:** group-by
@@ -252,7 +254,6 @@ The following format must be used: `number + letter (in lowercase)`
 - Xm minutes
 - Xh hours
 - Xd days
-
 
 example for 1h30 : `timespan: 90m`
 
@@ -284,7 +285,7 @@ condition:
     gte: 100
 ```
 
-To select a range , you can use the map AND
+To define a range, you can use the conjunction 'AND' in the mapping.
 
 Example "101 to 200":
 ```yaml
@@ -332,14 +333,14 @@ Simple example : More than or equal 100 failed login attempts to a destination h
 title: Many failed logins
 id: 0e95725d-7320-415d-80f7-004da920fc11
 correlation:
-  type: event_count
-  rules:
-    - 5638f7c0-ac70-491d-8465-2a65075e0d86
-  group-by:
-    - ComputerName
-  timespan: 1h
-  condition:
-    gte: 100
+    type: event_count
+    rules:
+        - 5638f7c0-ac70-491d-8465-2a65075e0d86
+    group-by:
+        - ComputerName
+    timespan: 1h
+    condition:
+        gte: 100
 ```
 
 ### Value Count (value_count)
@@ -360,16 +361,16 @@ Simple example : Failed logon attempts with more than 100 different user account
 title: Failed login
 id: 0e95725d-7320-415d-80f7-004da920fc12
 correlation:
-  type: value_count
-  rules:
-    - 5638f7c0-ac70-491d-8465-2a65075e0d86
-  group-by:
-    - ComputerName
-    - WorkstationName
-  timespan: 1d
-  condition:
-    field: User
-    gte: 100
+    type: value_count
+    rules:
+        - 5638f7c0-ac70-491d-8465-2a65075e0d86
+    group-by:
+        - ComputerName
+        - WorkstationName
+    timespan: 1d
+    condition:
+        field: User
+        gte: 100
 ```
 
 ### Temporal Proximity (temporal)
@@ -384,14 +385,14 @@ Simple example : Reconnaissance commands defined in three Sigma rules are invoke
 ```yaml
 correlation:
 type: temporal
-  rules:
-    - recon_cmd_a
-    - recon_cmd_b
-    - recon_cmd_c
-  group-by:
-    - ComputerName
-    - User
-  timespan: 5m
+    rules:
+        - recon_cmd_a
+        - recon_cmd_b
+        - recon_cmd_c
+    group-by:
+        - ComputerName
+        - User
+    timespan: 5m
 ```
 
 ### Ordered Temporal Proximity (temporal_ordered)
@@ -403,13 +404,13 @@ Example: many failed logins as defined above are followed by a successful login 
 
 ```yaml
 correlation:
-  type: temporal_ordered
-  rules:
-      - many_failed_logins
-      - successful_login
-  group-by:
-      - User
-  timespan: 1h
+    type: temporal_ordered
+    rules:
+        - many_failed_logins
+        - successful_login
+    group-by:
+        - User
+    timespan: 1h
 ```
 
 Note:
@@ -444,9 +445,9 @@ Rule internal_error
 ```yaml
 name: internal_error
 detection:
-  selection:
-    http.response.status_code: 500
-  condition: selection
+    selection:
+        http.response.status_code: 500
+    condition: selection
 ```
 
 Rule new_network_connection
@@ -454,11 +455,11 @@ Rule new_network_connection
 ```yaml
 name: new_network_connection
 detection:
-  selection:
-    event.category: network
-    event.type: connection
-    event.outcome: success
-  condition: selection
+    selection:
+        event.category: network
+        event.type: connection
+        event.outcome: success
+    condition: selection
 ```
 
 The correlation rule
@@ -466,21 +467,21 @@ The correlation rule
 title: —
 id: —
 correlation:
-  type: temporal
-  rules:
-    - internal_error
-    - new_network_connection
-  group-by:
-    - internal_ip
-    - remote_ip
-  timespan: 10s
-  aliases:
-    internal_ip:
-      internal_error: destination.ip
-      new_network_connection: source.ip
-    remote_ip:
-      internal_error: source.ip
-      new_network_connection: destination.ip
+    type: temporal
+    rules:
+        - internal_error
+        - new_network_connection
+    group-by:
+        - internal_ip
+        - remote_ip
+    timespan: 10s
+    aliases:
+        internal_ip:
+            internal_error: destination.ip
+            new_network_connection: source.ip
+        remote_ip:
+            internal_error: source.ip
+            new_network_connection: destination.ip
 ```
 
 # Examples
@@ -503,13 +504,13 @@ references:
 author: Florian Roth (Nextron Systems)
 date: 2023-06-16
 correlation:
-   type: temporal_ordered
-   rules:
-    - multiple_failed_login
-    - successful_login
-   group-by:
-    - User
-   timespan: 10m
+    type: temporal_ordered
+    rules:
+        - multiple_failed_login
+        - successful_login
+    group-by:
+        - User
+    timespan: 10m
 falsepositives:
     - Unlikely
 level: high
@@ -519,43 +520,43 @@ id: a8418a5a-5fc4-46b5-b23b-6c73beb19d41
 description: Detects multiple failed logins within a certain amount of time
 name: multiple_failed_login
 correlation:
-  type: event_count
-  rules:
-    - failed_login
-  group-by:
-    - User
-  timespan: 10m
-  condition:
-    gte: 10
+    type: event_count
+    rules:
+        - failed_login
+    group-by:
+        - User
+    timespan: 10m
+    condition:
+        gte: 10
 ---
 title: Single failed login
 id: 53ba33fd-3a50-4468-a5ef-c583635cfa92
 name: failed_login
 logsource:
-  product: windows
-  service: security
+    product: windows
+    service: security
 detection:
-  selection:
-    EventID:
-      - 529
-      - 4625
-  condition: selection
+    selection:
+        EventID:
+            - 529
+            - 4625
+    condition: selection
 ---
 title: Successful login
 id: 4d0a2c83-c62c-4ed4-b475-c7e23a9269b8
 description: Detects a successful login
 name: successful_login
 logsource:
-  product: windows
-  service: security
+    product: windows
+    service: security
 detection:
-  selection:
-      EventID:
-        - 528
-        - 4624
-  condition: selection
+    selection:
+        EventID:
+            - 528
+            - 4624
+    condition: selection
 ```
 
 # History
-* 2024/09/01 Specification V2.0.0
-  * First release
+
+* 2024-08-12 Specification v2.0.0
