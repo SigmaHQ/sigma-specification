@@ -69,25 +69,33 @@ Example:
 - "Renamed xxx Execution"
 - "UAC Bypass Using ..."
 
-Rules of level `informational` or `low` are not intended to be used to create alerts on their own. Their purpose is to conserve events or criteria of relevance, to be used in correlations or for ideas for threat hunting. A rule of those levels will by definition not create false positives as they should not be used for alerting.
+#### Informational / Low Level Rules
+
+Events matching rules of level `informational` or `low` are not intended to be used to create alerts on their own. Their purpose is to conserve events or criteria of relevance, to be used in correlations or for ideas for threat hunting. A rule of those levels will by definition not create false positives as they should not be used for alerting.
 
 The title should therefore be general and should not indicate that the rule describes suspicious or malicious behavior.
 
 Example : `Net.exe Execution`
 
-`medium` rules can have environment dependent false positives and require a tuning/evaluation phase before deploying to production environments.
+#### Medium Level Rules
+
+Events matching `medium` level rules rules can have environment dependent false positives and require a tuning/evaluation phase before deploying to production environments.
 
 Keywords used to indicate this:
 
 - "Potential "
 
-`high` rules requires a prompt review.
+#### High Level Rules
+
+Events matching `high` level rules requires a prompt review.
 
 Keywords used to indicate this:
 
 - "Suspicious "
 
-`critical` rules should be reviewed immediately
+#### Critical Level Rules
+
+Events matching `critical` level rules should be reviewed immediately
 The title must therefore be precise and indicate the specific threat.
 
 Keywords used to indicate this:
