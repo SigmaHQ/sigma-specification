@@ -3,7 +3,7 @@
 The following document defines the standardized correlation that can be used in Sigma rules.
 
 * Version 2.0.0
-* Release date 2024-08-12
+* Release date 2024-08-08
 
 - [Introduction](#introduction)
   - [Compatibility](#compatibility)
@@ -559,4 +559,4 @@ detection:
 
 # History
 
-* 2024-08-12 Specification v2.0.0
+* 2024-08-08 Specification v2.0.0

@@ -3,7 +3,7 @@
 The following document defines the standardized tags that can be used to categorize the different Sigma rules.
 
 * Version 2.0.0
-* Release date 2024-08-12
+* Release date 2024-08-08
 
 ## Summary
 
@@ -99,7 +99,7 @@ The following tags are currently supported:
 
 ## History
 
-* 2024-08-12 Tags Appendix v2.0.0
+* 2024-08-08 Tags Appendix v2.0.0
 * 2023-11-23 Tags Appendix v1.2.0
   * Add Summiting the Pyramid
 * 2023-06-20 Tags Appendix v1.1.0

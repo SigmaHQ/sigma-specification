@@ -3,7 +3,7 @@
 The following document defines the field names and log sources that are allowed to be used in SIGMA rules that are shared on the official SigmaHQ repository.
 
 * Version 2.0.0
-* Release date 2024-08-12
+* Release date 2024-08-08
 
 ## Summary
 
@@ -323,7 +323,7 @@ You can find all possible field values in the [Sysmon Community Guide](https://g
 
 ## History
 
-* 2024-08-12 Taxonomy Appendix v v2.0.0
+* 2024-08-08 Taxonomy Appendix v v2.0.0
   * Fix the following windows services:
     * Change `ldap_debug` to `ldap`
   * Add new windows services:

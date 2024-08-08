@@ -3,7 +3,7 @@
 The following document defines the standardized global filter that can be used with Sigma rules.
 
 * Version 2.0.0
-* Release date 2024-08-12
+* Release date 2024-08-08
 
 - [Introduction](#introduction)
 - [Global filter](#global-filter)
@@ -174,4 +174,4 @@ filter:
 
 # History
 
-* 2024-08-12 Specification v2.0.0
+* 2024-08-08 Specification v2.0.0

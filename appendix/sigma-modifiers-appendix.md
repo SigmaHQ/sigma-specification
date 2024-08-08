@@ -3,7 +3,7 @@
 The following document defines the standardized modifiers that can be used in Sigma.
 
 * Version 2.0.0
-* Release date 2024-08-12
+* Release date 2024-08-08
 
 ## Summary
 - [Summary](#summary)
@@ -78,7 +78,7 @@ The following document defines the standardized modifiers that can be used in Si
 
 ## History
 
-* 2024-08-12 Modifiers Appendix v2.0.0
+* 2024-08-08 Modifiers Appendix v2.0.0
 * 2023-05-27 Modifiers Appendix v1.0.4
   * Update from PySigma 0.7.6
   * Add `fieldref`

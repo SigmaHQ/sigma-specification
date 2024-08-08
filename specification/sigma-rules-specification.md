@@ -1,7 +1,7 @@
 # Sigma Rules Specification <!-- omit in toc -->
 
 - Version 2.0.0
-- Release date 2024-08-12
+- Release date 2024-08-08
 
 # Summary
 
@@ -734,6 +734,6 @@ Check out the [Sigma Filters Specification](/specification/sigma-filters-specifi
 
 # History
 
-* 2024-08-12 Specification v2.0.0
+* 2024-08-08 Specification v2.0.0
 * 2023-06-29 Specification v1.0.4
 * 2022-12-28 Specification v1.0.3
