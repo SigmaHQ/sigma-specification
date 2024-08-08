@@ -1,18 +1,22 @@
 # SigmaHQ Rule Conventions <!-- omit in toc -->
 
-This document describes an additional set of rule conventions enforced by the SigmaHQ rule repository in order to ensure an easy to maintain rule base. For the general Sigma specification please read the [Sigma_specification.md](../Sigma_specification.md).
+This document describes an additional set of rule conventions enforced by the SigmaHQ rule repository in order to ensure an easy to maintain rule base. 
+
+For the general Sigma rule specification please read see [this](/specification/sigma_rules.md)
 
 ## Summary
 
 - [Summary](#summary)
 - [Structure](#structure)
 - [Filenames](#filenames)
+- [Indentation](#indentation)
 - [Titles](#titles)
 - [Status](#status)
+- [Description](#description)
 - [References](#references)
 - [Detection](#detection)
   - [Item Lists](#item-lists)
-- [False Postivess](#false-postivess)
+- [False Positives](#false-positives)
 
 ## Structure
 
@@ -51,7 +55,7 @@ level [required]
 
 ## Filenames
 
-All rule filename must follow the convention described in [Sigmahq_filename_rule.md](./Sigmahq_filename_rule.md)
+All rule filename must follow the convention described in the [SigmaHQ Filename Convention](./sigmahq_filename_convention.md) file.
 
 ## Indentation
 
@@ -74,7 +78,7 @@ All newly created rules must start with a status of `experimental`
 ## Description
 
 - All rule descriptions must explain what the rule detects. A best practice therefore is to start with the word `Detects`
-- If a description text is too long or it's expressing multiple ideas. It's advised to use the pipe symbole `|` to signify a multiline string. Example:
+- If a description text is too long or it's expressing multiple ideas. It's advised to use the pipe symbol `|` to signify a multiline string. Example:
 
 ```yml
 description: |
@@ -85,7 +89,7 @@ description: |
 ## References
 
 - All rules must provide a public reference, if possible.
-- References to the MITRE ATT&CK website are not allowed. Instead they shloud be expressed as tags using the appropriate MITRE tags.
+- References to the MITRE ATT&CK website are not allowed. Instead they should be expressed as tags using the appropriate MITRE tags.
 - References to git-based platforms such as Github or Gitlab must be provided as permalinks instead of main or master branch links. This is to avoid any future confusion in the intended reference in case the maintainers of said branches introduce new changes.
 
 ## Detection
@@ -113,7 +117,14 @@ detection:
             - '\example_3.exe'
 ```
 
-## False Postives
+### Condition
+
+- When possible, it is recommended to use conditions in the form `1 of selection_*` or `1 of selection_*` in order to make them more readable.
+- When filtering values in the condition, it's recommended to name the filters in one of two ways:
+    - `filter_main_*`: For filters that are mandatory to the rule's logic, or if the excluded behavior or software is present by default or very common.
+    - `filter_optional_*`: For filters that are based on behaviors or software that aren't part of the default installation of the OS or service being targeted.
+
+## False Positives
 
 - If the rule author expects false positives (found during testing or via external references), then it must be expressed as clear as possible. For example:
 
@@ -128,4 +139,4 @@ falsepositives:
 
 Also please note the following
 
-- Keywords such as `None`, `Pentest`, `Penetration Test`, `Red Team` are not accepted as valid values.
+- Keywords such as `None`, `Pentest`, `Penetration Test`, `Red Team`, Etc, are not accepted as valid values.

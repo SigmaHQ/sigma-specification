@@ -1,9 +1,9 @@
 # Sigma Taxonomy <!-- omit in toc -->
 
-The following document defines the field names and log sources that should be used in SIGMA rules to ensure sharable rules.
+The following document defines the field names and log sources that are allowed to be used in SIGMA rules that are shared on the official SigmaHQ repository.
 
-* Version 1.3.5
-* Release date 2023/01/21
+* Version 2.0.0
+* Release date 2024-08-08
 
 ## Summary
 
@@ -29,6 +29,14 @@ The following document defines the field names and log sources that should be us
 For a better comprehension, the log sources are organized by directory name similar to the [rules](https://github.com/SigmaHQ/sigma/tree/master/rules) structure in the SIGMA project
 
 ### Application Folder
+
+The *application* folder contains rules that are intended for application security monitoring. The rules are organized into folders per application technology. All rules define log sources as follows:
+
+* The *category* log source attribute is set to `application`. This can be used by processing pipelines to create a technology-agnostic conversion configuration in cases where the application technology stack is unknown.
+
+* The *product* log source attribute is set to the name of the technology and should be equal to the folder name.
+
+Because application logs are often ingested as raw text events with poor decomposition into fields by many target systems, these rules are keyword rules that don't match on specific fields.
 
 | Product       | Logsource                                       | Event |
 | ------------- | ----------------------------------------------- | ----- |
@@ -151,25 +159,31 @@ For a better comprehension, the log sources are organized by directory name simi
 | windows | product: windows<br>category: sysmon_status                       | EventID: <br> - 4<br> - 16<br>Channel: Microsoft-Windows-Sysmon/Operational                                                                                                                                                |
 | windows | product: windows<br>category: wmi_event                           | EventID: <br> - 19<br> - 20<br> - 21<br>Channel: Microsoft-Windows-Sysmon/Operational                                                                                                                                      |
 | windows | product: windows<br>service: application                          | Channel: Application                                                                                                                                                                                                 |
+| windows | product: windows<br>service: application-experience               | Channel:<br> - Microsoft-Windows-Application-Experience/Program-Telemetry<br> - Microsoft-Windows-Application-Experience/Program-Compatibility-Assistant                                                             |
 | windows | product: windows<br>service: applocker                            | Channel:<br> - Microsoft-Windows-AppLocker/MSI and Script<br> - Microsoft-Windows-AppLocker/EXE and DLL<br> - Microsoft-Windows-AppLocker/Packaged app-Deployment<br> - Microsoft-Windows-AppLocker/Packaged app-Execution |
 | windows | product: windows<br>service: appmodel-runtime                     | Channel: Microsoft-Windows-AppModel-Runtime/Admin                                                                                                                                                                    |
 | windows | product: windows<br>service: appxdeployment-server                | Channel: Microsoft-Windows-AppXDeploymentServer/Operational                                                                                                                                                          |
 | windows | product: windows<br>service: appxpackaging-om                     | Channel: Microsoft-Windows-AppxPackaging/Operational                                                                                                                                                                 |
 | windows | product: windows<br>service: bitlocker                            | Channel: Microsoft-Windows-BitLocker/BitLocker Management                                                                                                                                                            |
 | windows | product: windows<br>service: bits-client                          | Channel: Microsoft-Windows-Bits-Client/Operational                                                                                                                                                                   |
+| windows | product: windows<br>service: capi2                                | Channel: Microsoft-Windows-CAPI2/Operational                                                                                                                                                                         |
+| windows | product: windows<br>service: certificateservicesclient-lifecycle-system  | Channel: Microsoft-Windows-CertificateServicesClient-Lifecycle-System/Operational                                                                                                                             |
 | windows | product: windows<br>service: codeintegrity-operational            | Channel: Microsoft-Windows-CodeIntegrity/Operational                                                                                                                                                                 |
 | windows | product: windows<br>service: dhcp                                 | Channel: Microsoft-Windows-DHCP-Server/Operational                                                                                                                                                                   |
 | windows | product: windows<br>service: diagnosis-scripted                   | Channel: Microsoft-Windows-Diagnosis-Scripted/Operational                                                                                                                                                            |
 | windows | product: windows<br>service: dns-client                           | Channel: Microsoft-Windows-DNS Client Events/Operational                                                                                                                                                             |
 | windows | product: windows<br>service: dns-server                           | Channel: DNS Server                                                                                                                                                                                                  |
-| windows | product: windows<br>service: dns-server-audit                     | Channel: Microsoft-Windows-DNS-Server/Audit                                                                                                                                                                          |
 | windows | product: windows<br>service: dns-server-analytic                  | Channel: Microsoft-Windows-DNS-Server/Analytical                                                                                                                                                                     |
+| windows | product: windows<br>service: dns-server-audit                     | Channel: Microsoft-Windows-DNS-Server/Audit                                                                                                                                                                          |
 | windows | product: windows<br>service: driver-framework                     | Channel: Microsoft-Windows-DriverFrameworks-UserMode/Operational                                                                                                                                                     |
 | windows | product: windows<br>service: firewall-as                          | Channel: Microsoft-Windows-Windows Firewall With Advanced Security/Firewall                                                                                                                                          |
-| windows | product: windows<br>service: ldap_debug                           | Channel: Microsoft-Windows-LDAP-Client/Debug                                                                                                                                                                         |
+| windows | product: windows<br>service: hyper-v-worker                       | Channel: Microsoft-Windows-Hyper-V-Worker                                                                                                                                                                            |
+| windows | product: windows<br>service: kernel-event-tracing                 | Channel: Microsoft-Windows-Kernel-EventTracing                                                                                                                                                                       |
+| windows | product: windows<br>service: kernel-shimengine                    | Channel:<br> - Microsoft-Windows-Kernel-ShimEngine/Operational<br> - WinEventLog:Microsoft-Windows-Kernel-ShimEngine/Diagnostic                                                                                      |
+| windows | product: windows<br>service: ldap                                 | Channel: Microsoft-Windows-LDAP-Client/Debug                                                                                                                                                                         |
 | windows | product: windows<br>service: lsa-server                           | Channel: Microsoft-Windows-LSA/Operational                                                                                                                                                                           |
-| windows | product: windows<br>service: microsoft-servicebus-client          | Channel: Microsoft-ServiceBus-Client                                                                                                                                                                                 |
 | windows | product: windows<br>service: msexchange-management                | Channel: MSExchange Management                                                                                                                                                                                       |
+| windows | product: windows<br>service: ntfs                                 | Channel: Microsoft-Windows-Ntfs/Operational                                                                                                                                                                          |
 | windows | product: windows<br>service: ntlm                                 | Channel: Microsoft-Windows-NTLM/Operational                                                                                                                                                                          |
 | windows | product: windows<br>service: openssh                              | Channel: OpenSSH/Operational                                                                                                                                                                                         |
 | windows | product: windows<br>service: powershell                           | Channel: Microsoft-Windows-PowerShell/Operational                                                                                                                                                                    |
@@ -177,9 +191,11 @@ For a better comprehension, the log sources are organized by directory name simi
 | windows | product: windows<br>service: printservice-admin                   | Channel: Microsoft-Windows-PrintService/Admin                                                                                                                                                                        |
 | windows | product: windows<br>service: printservice-operational             | Channel: Microsoft-Windows-PrintService/Operational                                                                                                                                                                  |
 | windows | product: windows<br>service: security                             | Channel: Security                                                                                                                                                                                                    |
-| windows | product: windows<br>service: security-mitigations                 | Channel:<br> - Microsoft-Windows-Security-Mitigations/Kernel Mode<br> - Microsoft-Windows-Security-Mitigations/User Mode                                                                                                   |
-| windows | product: windows<br>service: smbclient-security                   | Channel: Microsoft-Windows-SmbClient/Security                                                                                                                                                                        |
+| windows | product: windows<br>service: security-mitigations                 | Channel:<br> - Microsoft-Windows-Security-Mitigations/Kernel Mode<br> - Microsoft-Windows-Security-Mitigations/User Mode                                                                                             |
+| windows | product: windows<br>service: sense                                | Channel: Microsoft-Windows-SENSE/Operational                                                                                                                                                                         |
+| windows | product: windows<br>service: servicebus-client                    | Channel: <br> - Microsoft-ServiceBus-Client/Operational<br> -  Microsoft-ServiceBus-Client/Admin                                                                                                                     |
 | windows | product: windows<br>service: shell-core                           | Channel: Microsoft-Windows-Shell-Core/Operational                                                                                                                                                                    |
+| windows | product: windows<br>service: smbclient-security                   | Channel: Microsoft-Windows-SmbClient/Security                                                                                                                                                                        |
 | windows | product: windows<br>service: sysmon                               | Channel: Microsoft-Windows-Sysmon/Operational                                                                                                                                                                        |
 | windows | product: windows<br>service: system                               | Channel: System                                                                                                                                                                                                      |
 | windows | product: windows<br>service: taskscheduler                        | Channel: Microsoft-Windows-TaskScheduler/Operational                                                                                                                                                                 |
@@ -307,11 +323,24 @@ You can find all possible field values in the [Sysmon Community Guide](https://g
 
 ## History
 
-* 2023/01/21 Taxonomy V1.3.5
+* 2024-08-08 Taxonomy Appendix v v2.0.0
+  * Fix the following windows services:
+    * Change `ldap_debug` to `ldap`
+  * Add new windows services:
+    * ``service: application-experience``
+    * ``service: capi2``
+    * ``service: certificateservicesclient-lifecycle-system``
+    * ``service: hyper-v-worker``
+    * ``service: kernel-event-tracing``
+    * ``service: kernel-shimengine``
+    * ``service: ntfs``
+    * ``service: sense``
+    * ``service: servicebus-client``
+* 2023-01-21 Taxonomy Appendix v1.3.5
   * Add new product and its related service:
     * `product: github`
     * `service: audit`
-* 2023/01/18 Taxonomy V1.3.4
+* 2023-01-18 Taxonomy Appendix v1.3.4
   * Add the following new windows services:
     * `service: appxdeployment-server`
     * `service: lsa-server`
@@ -327,19 +356,19 @@ You can find all possible field values in the [Sysmon Community Guide](https://g
   * Add missing category folder
   * Add missing product folder
   * Add description for a special case when using only the `product` logsource
-* 2023/01/03 Taxonomy V1.3.3
+* 2023-01-03 Taxonomy Appendix v1.3.3
   * Add windows service dns-server-analytic and bitlocker
   * Add all the W3C fields names to the category `webserver`
   * Update linux `file_create` category to `file_event`
-* 2022/12/19 Taxonomy V1.3.2
+* 2022-12-19 Taxonomy Appendix v1.3.2
   * Minor tweak and updates to the syntax and text
-* 2022/11/13 Taxonomy V1.3.1
+* 2022-11-13 Taxonomy Appendix v1.3.1
   * Add missing service shell-core
-* 2022/11/01 Taxonomy V1.3.0
+* 2022-11-01 Taxonomy Appendix v1.3.0
   * Add missing windows services
-* 2022/10/25 Taxonomy V1.2.0
+* 2022-10-25 Taxonomy Appendix v1.2.0
   * Order the windows logs
-* 2022/10/19 Taxonomy V1.1.0
+* 2022-10-19 Taxonomy Appendix v1.1.0
   * Fix links and spelling
-* 2022/09/18 Taxonomy V1.0.0
-  * First version
+* 2022-09-18 Taxonomy v1.0.0
+  * Initial release
