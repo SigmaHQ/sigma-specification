@@ -2,7 +2,7 @@
 
 The following document defines the field names and log sources that are allowed to be used in SIGMA rules that are shared on the official SigmaHQ repository.
 
-* Version 2.0.0
+* Version 2.0.1
 * Release date 2024-08-08
 
 ## Summary
@@ -26,7 +26,7 @@ The following document defines the field names and log sources that are allowed 
 
 ## Log Sources
 
-For a better comprehension, the log sources are organized by directory name similar to the [rules](https://github.com/SigmaHQ/sigma/tree/master/rules) structure in the SIGMA project
+For a better comprehension, the log sources are organized by directory name similar to the [rules](https://github.com/SigmaHQ/sigma/tree/master/rules) structure in the SIGMA project.
 
 ### Application Folder
 
@@ -38,13 +38,40 @@ The *application* folder contains rules that are intended for application securi
 
 Because application logs are often ingested as raw text events with poor decomposition into fields by many target systems, these rules are keyword rules that don't match on specific fields.
 
+#### Django
+
 | Product       | Logsource                                       | Event |
 | ------------- | ----------------------------------------------- | ----- |
 | django        | category: application<br>product: django        |       |
+
+#### Python
+
+| Product       | Logsource                                       | Event |
+| ------------- | ----------------------------------------------- | ----- |
 | python        | category: application<br>product: python        |       |
+
+#### RPC Firewall
+
+| Product       | Logsource                                       | Event |
+| ------------- | ----------------------------------------------- | ----- |
 | rpc_firewall  | category: application<br>product: rpc_firewall  |       |
+
+#### Ruby on Rails
+
+| Product       | Logsource                                       | Event |
+| ------------- | ----------------------------------------------- | ----- |
 | ruby_on_rails | category: application<br>product: ruby_on_rails |       |
+
+#### Spring Framework
+
+| Product       | Logsource                                       | Event |
+| ------------- | ----------------------------------------------- | ----- |
 | spring        | category: application<br>product: spring        |       |
+
+#### SQL
+
+| Product       | Logsource                                       | Event |
+| ------------- | ----------------------------------------------- | ----- |
 | sql           | category: application<br>product: sql           |       |
 
 ### Category Folder
@@ -56,26 +83,82 @@ Because application logs are often ingested as raw text events with poor decompo
 
 ### Cloud Folder
 
+#### AWS
+
 | Product    | Logsource                                                    | Event                  |
 | ---------- | ------------------------------------------------------------ | ---------------------- |
 | Aws        | product: aws<br>service: cloudtrail                          |                        |
+
+#### Azure
+
+| Product    | Logsource                                                    | Event                  |
+| ---------- | ------------------------------------------------------------ | ---------------------- |
 | Azure      | product: azure<br>service: activitylogs                      |                        |
+| Azure      | product: azure<br>service: auditlogs                         |                        |
+| Azure      | product: azure<br>service: riskdetection                     |                        |
+| Azure      | product: azure<br>service: pim                               |                        |
 | Azure      | product: azure<br>service: signinlogs                        |                        |
-| Gcp        | product: gcp<br>service: gcp.audit                           |                        |
+
+#### Bitbucket
+
+| Product    | Logsource                                                    | Event                  |
+| ---------- | ------------------------------------------------------------ | ---------------------- |
+| Bitbucket  | product: bitbucket<br>service: audit                         |                        |
+
+#### Cisco
+
+| Product    | Logsource                                                    | Event                  |
+| ---------- | ------------------------------------------------------------ | ---------------------- |
+| Cisco      | product: cisco<br>service: duo                               |                        |
+
+#### GCP
+
+| Product    | Logsource                                                    | Event                  |
+| ---------- | ------------------------------------------------------------ | ---------------------- |
+| GCP        | product: gcp<br>service: gcp.audit                           |                        |
+| GCP        | product: gcp<br>service: google_workspace.admin              |                        |
+
+#### Github
+
+| Product    | Logsource                                                    | Event                  |
+| ---------- | ------------------------------------------------------------ | ---------------------- |
 | Github     | product: github<br>service: audit                            | organization Audit log |
-| Gworkspace | product: google_workspace<br>service: google_workspace.admin |                        |
+
+#### M365
+
+| Product    | Logsource                                                    | Event                  |
+| ---------- | ------------------------------------------------------------ | ---------------------- |
+| M365       | product: m365<br>service: audit                              |                        |
+| M365       | product: m365<br>service: exchange                           |                        |
+| M365       | product: m365<br>service: threat_detection                   |                        |
 | M365       | product: m365<br>service: threat_management                  |                        |
+
+#### Okta
+
+| Product    | Logsource                                                    | Event                  |
+| ---------- | ------------------------------------------------------------ | ---------------------- |
 | Okta       | product: okta<br>service: okta                               |                        |
+
+#### OneLogin
+
+| Product    | Logsource                                                    | Event                  |
+| ---------- | ------------------------------------------------------------ | ---------------------- |
 | Onelogin   | product: onelogin<br>service: onelogin.events                |                        |
 
 ### Linux Folder
 
+#### Category
+
 | Product | Logsource                                      | Event                          |
 | ------- | ---------------------------------------------- | ------------------------------ |
-| Linux   | product: linux                                 | All Linux Logs                 |
 | Linux   | product: linux<br>category: file_event         | EventID: 11<br>service: sysmon |
 | Linux   | product: linux<br>category: network_connection | EventID: 3<br>service: sysmon  |
 | Linux   | product: linux<br>category: process_creation   | EventID: 1<br>service: sysmon  |
+
+#### Service
+
+| Product | Logsource                                      | Event                          |
+| ------- | ---------------------------------------------- | ------------------------------ |
 | Linux   | product: linux<br>service: auditd              | auditd.log                     |
 | Linux   | product: linux<br>service: auth                | auth.log                       |
 | Linux   | product: linux<br>service: clamav              |                                |
@@ -88,32 +171,55 @@ Because application logs are often ingested as raw text events with poor decompo
 
 ### Macos Folder
 
+#### Category
+
 | Product | Logsource                                    | Event               |
 | ------- | -------------------------------------------- | ------------------- |
-| Macos   | product: macos                               |  All Macos Logs     |
 | Macos   | product: macos<br>category: file_event       |                     |
 | Macos   | product: macos<br>category: process_creation |                     |
 
 ### Network Folder
 
-| Product | Logsource                           | Event |
-| ------- | ----------------------------------- | ----- |
-| Cisco   | product: cisco<br>service: aaa      |
-| Cisco   | product: cisco<br>service: bgp      |
-| Cisco   | product: cisco<br>service: ldp      |
-| Huawei  | product: huawei<br>service: ldp     |
-| Juniper | product: juniper<br>service: ldp    |
-| Zeek    | product: zeek<br>service: dce_rpc   |
-| Zeek    | product: zeek<br>service: dns       |
-| Zeek    | product: zeek<br>service: http      |
-| Zeek    | product: zeek<br>service: kerberos  |
-| Zeek    | product: zeek<br>service: rdp       |
-| Zeek    | product: zeek<br>service: smb_files |
-| Zeek    | product: zeek<br>service: x509      |
-|         | category: dns                       |
-|         | category: firewall                  |
-|         | category: proxy                     |
-|         | category: webserver                 |
+#### Cisco
+
+| Product | Logsource                           | Description |
+| ------- | ----------------------------------- | ------------|
+| Cisco   | product: cisco<br>service: aaa      |             |
+| Cisco   | product: cisco<br>service: bgp      |             |
+| Cisco   | product: cisco<br>service: ldp      |             |
+
+#### Huawei
+
+| Product | Logsource                           | Description |
+| ------- | ----------------------------------- | ------------|
+| Huawei  | product: huawei<br>service: ldp     |             |
+
+#### Juniper
+
+| Product | Logsource                           | Description |
+| ------- | ----------------------------------- | ------------|
+| Juniper | product: juniper<br>service: ldp    |             |
+
+#### Zeek
+
+| Product | Logsource                           | Description |
+| ------- | ----------------------------------- | ------------|
+| Zeek    | product: zeek<br>service: dce_rpc   |             |
+| Zeek    | product: zeek<br>service: dns       |             |
+| Zeek    | product: zeek<br>service: http      |             |
+| Zeek    | product: zeek<br>service: kerberos  |             |
+| Zeek    | product: zeek<br>service: rdp       |             |
+| Zeek    | product: zeek<br>service: smb_files |             |
+| Zeek    | product: zeek<br>service: x509      |             |
+
+### Other
+
+| Product | Logsource                           | Description |
+| ------- | ----------------------------------- | ------------|
+|    N/A  | category: dns                       |             |
+|    N/A  | category: firewall                  |             |
+|    N/A  | category: proxy                     |             |
+|    N/A  | category: webserver                 |             |
 
 ### Product Folder
 
@@ -124,40 +230,50 @@ Because application logs are often ingested as raw text events with poor decompo
 
 ### Windows Folder
 
-| Product | Logsource                                                         | Event                                                                                                                                                                                                                      |
+#### Category
+
+| Product | Logsource                                                         | Description                                                                                                                                                                                                                |
 | ------- | ----------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| windows | product: windows                                                  | All Windows Logs                                                                                                                                                                                                           |
-| windows | product: windows<br>category: clipboard_capture                   | EventID: 24<br>Channel: Microsoft-Windows-Sysmon/Operational                                                                                                                                                               |
-| windows | product: windows<br>category: create_remote_thread                | EventID: 8<br>Channel: Microsoft-Windows-Sysmon/Operational                                                                                                                                                                |
-| windows | product: windows<br>category: create_stream_hash                  | EventID: 15<br>Channel: Microsoft-Windows-Sysmon/Operational                                                                                                                                                               |
-| windows | product: windows<br>category: dns_query                           | EventID: 22<br>Channel: Microsoft-Windows-Sysmon/Operational                                                                                                                                                               |
-| windows | product: windows<br>category: driver_load                         | EventID: 6<br>Channel: Microsoft-Windows-Sysmon/Operational                                                                                                                                                                |
-| windows | product: windows<br>category: file_access                         | ETW Provider: Microsoft-Windows-Kernel-File                                                                                                                                                                                |
-| windows | product: windows<br>category: file_change                         | EventID: 2<br>Channel: Microsoft-Windows-Sysmon/Operational                                                                                                                                                                |
-| windows | product: windows<br>category: file_delete                         | EventID:<br> - 23<br> - 26<br>Channel: Microsoft-Windows-Sysmon/Operational                                                                                                                                                |
-| windows | product: windows<br>category: file_event                          | EventID: 11<br>Channel: Microsoft-Windows-Sysmon/Operational                                                                                                                                                               |
-| windows | product: windows<br>category: file_rename                         | ETW Provider: Microsoft-Windows-Kernel-File                                                                                                                                                                                |
-| windows | product: windows<br>category: image_load                          | EventID: 7<br>Channel: Microsoft-Windows-Sysmon/Operational                                                                                                                                                                |
-| windows | product: windows<br>category: network_connection                  | EventID: 3<br>Channel: Microsoft-Windows-Sysmon/Operational                                                                                                                                                                |
-| windows | product: windows<br>category: pipe_created                        | EventID:<br> - 17<br> - 18<br>Channel: Microsoft-Windows-Sysmon/Operational                                                                                                                                                |
-| windows | product: windows<br>category: process_access                      | EventID: 10<br>Channel: Microsoft-Windows-Sysmon/Operational                                                                                                                                                               |
 | windows | product: windows<br>category: process_creation                    | EventID: 1<br>Channel: Microsoft-Windows-Sysmon/Operational                                                                                                                                                                |
-| windows | product: windows<br>category: process_tampering                   | EventID: 25<br>Channel: Microsoft-Windows-Sysmon/Operational                                                                                                                                                               |
+| windows | product: windows<br>category: file_change                         | EventID: 2<br>Channel: Microsoft-Windows-Sysmon/Operational                                                                                                                                                                |
+| windows | product: windows<br>category: network_connection                  | EventID: 3<br>Channel: Microsoft-Windows-Sysmon/Operational                                                                                                                                                                |
+| windows | product: windows<br>category: sysmon_status                       | EventIDs: <br> - 4<br> - 16<br>Channel: Microsoft-Windows-Sysmon/Operational                                                                                                                                               |
 | windows | product: windows<br>category: process_termination                 | EventID: 5<br>Channel: Microsoft-Windows-Sysmon/Operational                                                                                                                                                                |
-| windows | product: windows<br>category: ps_classic_provider_start           | EventID: 600<br>Channel: Windows PowerShell                                                                                                                                                                                |
-| windows | product: windows<br>category: ps_classic_script                   | EventID: 800<br>Channel: Windows PowerShell                                                                                                                                                                                |
-| windows | product: windows<br>category: ps_classic_start                    | EventID: 400<br>Channel: Windows PowerShell                                                                                                                                                                                |
-| windows | product: windows<br>category: ps_module                           | EventID: 4103<br>Channel:<br> - Microsoft-Windows-PowerShell/Operational<br> - PowerShellCore/Operational                                                                                                                  |
-| windows | product: windows<br>category: ps_script                           | EventID: 4104<br>Channel:<br> - Microsoft-Windows-PowerShell/Operational<br> - PowerShellCore/Operational                                                                                                                  |
+| windows | product: windows<br>category: driver_load                         | EventID: 6<br>Channel: Microsoft-Windows-Sysmon/Operational                                                                                                                                                                |
+| windows | product: windows<br>category: image_load                          | EventID: 7<br>Channel: Microsoft-Windows-Sysmon/Operational                                                                                                                                                                |
+| windows | product: windows<br>category: create_remote_thread                | EventID: 8<br>Channel: Microsoft-Windows-Sysmon/Operational                                                                                                                                                                |
 | windows | product: windows<br>category: raw_access_thread                   | EventID: 9<br>Channel: Microsoft-Windows-Sysmon/Operational                                                                                                                                                                |
+| windows | product: windows<br>category: process_access                      | EventID: 10<br>Channel: Microsoft-Windows-Sysmon/Operational                                                                                                                                                               |
+| windows | product: windows<br>category: file_event                          | EventID: 11<br>Channel: Microsoft-Windows-Sysmon/Operational                                                                                                                                                               |
+| windows | product: windows<br>category: registry_event                      | EventID: <br> - 12<br> - 13<br> - 14<br>Channel: Microsoft-Windows-Sysmon/Operational                                                                                                                                      |
 | windows | product: windows<br>category: registry_add                        | EventID: 12<br>Channel: Microsoft-Windows-Sysmon/Operational                                                                                                                                                               |
 | windows | product: windows<br>category: registry_delete                     | EventID: 12<br>Channel: Microsoft-Windows-Sysmon/Operational                                                                                                                                                               |
-| windows | product: windows<br>category: registry_event                      | EventID: <br> - 12<br> - 13<br> - 14<br>Channel: Microsoft-Windows-Sysmon/Operational                                                                                                                                      |
-| windows | product: windows<br>category: registry_rename                     | EventID: 14<br>Channel: Microsoft-Windows-Sysmon/Operational                                                                                                                                                               |
 | windows | product: windows<br>category: registry_set                        | EventID: 13<br>Channel: Microsoft-Windows-Sysmon/Operational                                                                                                                                                               |
+| windows | product: windows<br>category: registry_rename                     | EventID: 14<br>Channel: Microsoft-Windows-Sysmon/Operational                                                                                                                                                               |
+| windows | product: windows<br>category: create_stream_hash                  | EventID: 15<br>Channel: Microsoft-Windows-Sysmon/Operational                                                                                                                                                               |
+| windows | product: windows<br>category: pipe_created                        | EventIDs: <br> - 17<br> - 18<br>Channel: Microsoft-Windows-Sysmon/Operational                                                                                                                                              |
+| windows | product: windows<br>category: wmi_event                           | EventIDs: <br> - 19<br> - 20<br> - 21<br>Channel: Microsoft-Windows-Sysmon/Operational                                                                                                                                     |
+| windows | product: windows<br>category: dns_query                           | EventID: 22<br>Channel: Microsoft-Windows-Sysmon/Operational                                                                                                                                                               |
+| windows | product: windows<br>category: file_delete                         | EventID: 23<br>Channel: Microsoft-Windows-Sysmon/Operational                                                                                                                                                               |
+| windows | product: windows<br>category: clipboard_capture                   | EventID: 24<br>Channel: Microsoft-Windows-Sysmon/Operational                                                                                                                                                               |
+| windows | product: windows<br>category: process_tampering                   | EventID: 25<br>Channel: Microsoft-Windows-Sysmon/Operational                                                                                                                                                               |
+| windows | product: windows<br>category: file_delete_detected                | EventID: 26<br>Channel: Microsoft-Windows-Sysmon/Operational                                                                                                                                                               |
+| windows | product: windows<br>category: file_block_executable               | EventID: 27<br>Channel: Microsoft-Windows-Sysmon/Operational                                                                                                                                                               |
+| windows | product: windows<br>category: file_block_shredding                | EventID: 28<br>Channel: Microsoft-Windows-Sysmon/Operational                                                                                                                                                               |
+| windows | product: windows<br>category: file_executable_detected            | EventID: 29<br>Channel: Microsoft-Windows-Sysmon/Operational                                                                                                                                                               |
 | windows | product: windows<br>category: sysmon_error                        | EventID: 255<br>Channel: Microsoft-Windows-Sysmon/Operational                                                                                                                                                              |
-| windows | product: windows<br>category: sysmon_status                       | EventID: <br> - 4<br> - 16<br>Channel: Microsoft-Windows-Sysmon/Operational                                                                                                                                                |
-| windows | product: windows<br>category: wmi_event                           | EventID: <br> - 19<br> - 20<br> - 21<br>Channel: Microsoft-Windows-Sysmon/Operational                                                                                                                                      |
+| windows | product: windows<br>category: file_access                         | ETW Provider: Microsoft-Windows-Kernel-File                                                                                                                                                                                |
+| windows | product: windows<br>category: ps_classic_start                    | EventID: 400<br>Channel: Windows PowerShell                                                                                                                                                                                |
+| windows | product: windows<br>category: ps_classic_provider_start           | EventID: 600<br>Channel: Windows PowerShell                                                                                                                                                                                |
+| windows | product: windows<br>category: ps_classic_script                   | EventID: 800<br>Channel: Windows PowerShell                                                                                                                                                                                |
+| windows | product: windows<br>category: ps_module                           | EventID: 4103<br>Channel:<br> - Microsoft-Windows-PowerShell/Operational<br> - PowerShellCore/Operational                                                                                                                  |
+| windows | product: windows<br>category: ps_script                           | EventID: 4104<br>Channel:<br> - Microsoft-Windows-PowerShell/Operational<br> - PowerShellCore/Operational                                                                                                                  |
+| windows | product: windows<br>category: file_rename                         | ETW Provider: Microsoft-Windows-Kernel-File                                                                                                                                                                                |
+
+#### Service
+
+| Product | Logsource                                                         | Description                                                                                                                                                                                                                |
+| ------- | ----------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | windows | product: windows<br>service: application                          | Channel: Application                                                                                                                                                                                                 |
 | windows | product: windows<br>service: application-experience               | Channel:<br> - Microsoft-Windows-Application-Experience/Program-Telemetry<br> - Microsoft-Windows-Application-Experience/Program-Compatibility-Assistant                                                             |
 | windows | product: windows<br>service: applocker                            | Channel:<br> - Microsoft-Windows-AppLocker/MSI and Script<br> - Microsoft-Windows-AppLocker/EXE and DLL<br> - Microsoft-Windows-AppLocker/Packaged app-Deployment<br> - Microsoft-Windows-AppLocker/Packaged app-Execution |
@@ -323,6 +439,8 @@ You can find all possible field values in the [Sysmon Community Guide](https://g
 
 ## History
 
+* 2024-08-11 Taxonomy Appendix v v2.0.1
+  * Restructure the document for a better reading experience
 * 2024-08-08 Taxonomy Appendix v v2.0.0
   * Fix the following windows services:
     * Change `ldap_debug` to `ldap`
