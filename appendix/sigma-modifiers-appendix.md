@@ -1,21 +1,23 @@
-# Modifiers <!-- omit in toc -->
+# Sigma Modifiers <!-- omit in toc -->
 
 The following document defines the standardized modifiers that can be used in Sigma.
 
-* Version 2.0.0
+* Version 2.0.1
 * Release date 2024-08-08
 
-## Summary
-- [Summary](#summary)
-- [General](#general)
-  - [String only](#string-only)
-  - [Numeric only](#numeric-only)
-  - [Ip only](#ip-only)
+### Summary
+
+- [Generic](#generic)
+- [String](#string)
   - [String Encoding](#string-encoding)
+- [Numeric](#numeric)
+- [IP (Internet  Protocol)](#ip-internet-protocol)
 - [Specific](#specific)
 - [History](#history)
 
-## General
+### Generic
+
+The following modifiers are considered generic modifiers and can be applied on all types of fields.
 
 * `all`: Normally, lists of values are linked with *OR* in the generated query. This modifier
   changes this to *AND*. This is useful if you want to express a command line invocation with different
@@ -32,7 +34,9 @@ The following document defines the standardized modifiers that can be used in Si
 * `exists`: Defines that a certain field has to exist or must not exist in a log event by providing a boolean value. Note that this check only verifies the presence of a field, not its value, be it empty or null.
 * `cased`: Values are applied case sensitively. Default Sigma behavior is case-insensitive matching.
 
-### String only
+### String 
+
+The following modifiers can only be applied to strings.
 
 * `windash`: Creates all possible permutations of the `-`, `/`, `–` (en dash), `—` (em dash), and `―` (horizontal bar) characters. Windows command line flags can often be indicated by both characters. Using the `windash` modifier converts the aforementioned characters interchangeably and uses all possible permutation of strings in the selection.
 
@@ -42,18 +46,7 @@ The following document defines the standardized modifiers that can be used in Si
   * `m`: (multi line) to match across multiple lines. `^` /`$` match the start/end of line.
   * `s`: (single line) to enable that dot (`.`) matches all characters, including the newline character.
 
-### Numeric only
-
-* `lt`: Field is less than the value
-* `lte`: Field is less or equal than the value
-* `gt`: Field is greater than the value
-* `gte`: Field is greater or equal than the value
-
-### Ip only
-  
-* `cidr`: The value is handled as an CIDR by backends. Supports both IPv4 and IPv6 notations.
-
-### String Encoding
+#### String Encoding
 
 * `base64`: The value is encoded with Base64.
 * `base64offset`: If a value might appear somewhere in a base64-encoded string the representation
@@ -65,6 +58,22 @@ The following document defines the standardized modifiers that can be used in Si
   * `utf16le`: Transforms value to UTF16-LE encoding, e.g. `cmd` > `63 00 6d 00 64 00` 
   * `utf16be`: Transforms value to UTF16-BE encoding, e.g. `cmd` > `00 63 00 6d 00 64`
   * `utf16`: Prepends a [byte order mark](https://en.wikipedia.org/wiki/Byte_order_mark) and encodes UTF16, e.g. `cmd` > `FF FE 63 00 6d 00 64 00`
+  * `wide`: an alias for the `utf16le` modifier.
+
+### Numeric
+
+The following modifiers can only be applied to numeric values.
+
+* `lt`: Field is less than the value
+* `lte`: Field is less or equal than the value
+* `gt`: Field is greater than the value
+* `gte`: Field is greater or equal than the value
+
+### IP (Internet Protocol)
+
+The following modifiers are only applied to IP fields.
+  
+* `cidr`: The value is handled as an CIDR by backends. Supports both IPv4 and IPv6 notations.
 
 ## Specific
 
@@ -78,6 +87,7 @@ The following document defines the standardized modifiers that can be used in Si
 
 ## History
 
+* 2024-08-10 Modifiers Appendix v2.0.0
 * 2024-08-08 Modifiers Appendix v2.0.0
 * 2023-05-27 Modifiers Appendix v1.0.4
   * Update from PySigma 0.7.6
