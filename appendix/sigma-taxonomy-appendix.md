@@ -3,7 +3,7 @@
 The following document defines the field names and log sources that are allowed to be used in SIGMA rules that are shared on the official SigmaHQ repository.
 
 * Version 2.0.1
-* Release date 2024-08-08
+* Release date 2024-08-11
 
 ## Summary
 
