@@ -3,7 +3,7 @@
 The following document defines the standardized modifiers that can be used in Sigma.
 
 * Version 2.0.1
-* Release date 2024-08-08
+* Release date 2024-08-10
 
 ### Summary
 
@@ -87,7 +87,7 @@ The following modifiers are only applied to IP fields.
 
 ## History
 
-* 2024-08-10 Modifiers Appendix v2.0.0
+* 2024-08-10 Modifiers Appendix v2.0.1
 * 2024-08-08 Modifiers Appendix v2.0.0
 * 2023-05-27 Modifiers Appendix v1.0.4
   * Update from PySigma 0.7.6
