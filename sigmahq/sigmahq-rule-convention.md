@@ -16,6 +16,7 @@ For the general Sigma rule specification please read see [this](/specification/s
 - [References](#references)
 - [Detection](#detection)
   - [Item Lists](#item-lists)
+  - [Condition](#condition)
 - [False Positives](#false-positives)
 
 ## Structure

@@ -7,11 +7,14 @@ Note that this is by no means an exhaustive list. It is meant to be a general gu
 ## Table Of Content <!-- omit in toc -->
 
 - [Summary](#summary)
-- [Generality](#generality)
 - [Structure](#structure)
   - [Prefix (Optional)](#prefix-optional)
   - [Suffix (Optional)](#suffix-optional)
   - [Main Title](#main-title)
+    - [Informational / Low Level Rules](#informational--low-level-rules)
+    - [Medium Level Rules](#medium-level-rules)
+    - [High Level Rules](#high-level-rules)
+    - [Critical Level Rules](#critical-level-rules)
 
 ## Summary
 
