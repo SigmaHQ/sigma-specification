@@ -16,7 +16,6 @@ The following document defines the standardized tags that can be used to categor
   - [Namespace: detection](#namespace-detection)
   - [Namespace: stp](#namespace-stp)
   - [Namespace: tlp](#namespace-tlp)
-  - [namespace: detection](#namespace-detection)
 - [History](#history)
 
 ## Namespaces
