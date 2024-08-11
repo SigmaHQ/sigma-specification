@@ -1,9 +1,9 @@
-# Tags <!-- omit in toc -->
+# Sigma Tags <!-- omit in toc -->
 
 The following document defines the standardized tags that can be used to categorize the different Sigma rules.
 
-* Version 2.0.0
-* Release date 2024-08-08
+* Version 2.1.0
+* Release date 2024-08-11
 
 ## Summary
 
@@ -11,10 +11,11 @@ The following document defines the standardized tags that can be used to categor
 - [Namespaces](#namespaces)
   - [Namespace: attack](#namespace-attack)
   - [Namespace: car](#namespace-car)
-  - [Namespace: stp](#namespace-stp)
   - [Namespace: cve](#namespace-cve)
+  - [Namespace: d3fend](#namespace-d3fend)
+  - [Namespace: detection](#namespace-detection)
+  - [Namespace: stp](#namespace-stp)
   - [Namespace: tlp](#namespace-tlp)
-  - [namespace: detection](#namespace-detection)
 - [History](#history)
 
 ## Namespaces
@@ -22,6 +23,7 @@ The following document defines the standardized tags that can be used to categor
 * attack: Categorization according to [MITRE ATT&CK](https://attack.mitre.org). To get the current supported version of ATT&CK please visit [MITRE CTI](https://github.com/mitre/cti)
 * car: Link to the corresponding [MITRE Cyber Analytics Repository (CAR)](https://car.mitre.org/)
 * cve: Categorization according [MITRE CVE](https://cve.mitre.org/)
+* d3fend: Categorization according to [MITRE D3FEND](https://d3fend.mitre.org/). To get the current supported version of D3FEND please visit [D3FEND Ontology](https://github.com/d3fend/d3fend-ontology)
 * detection: Categorization according to the types of rules provided in the [SigmaHQ rule repository](https://github.com/SigmaHQ/sigma).
 * stp: Rating of detection analytic robustness according to the [MITRE Summiting the Pyramid](https://center-for-threat-informed-defense.github.io/summiting-the-pyramid/) scheme.
 * tlp: [Traffic Light Protocol](https://www.first.org/tlp/).
@@ -55,6 +57,28 @@ tag: `car.2016-04-005`.
 ### Namespace: cve
 
 Use the CVE tag from [MITRE](https://cve.mitre.org) in lower case separated by dots. Example tag: `cve.2021-44228`.
+
+### Namespace: d3fend
+
+[D3FEND](https://d3fend.mitre.org/) is a knowledge base, and more specifically a knowledge graph, of cybersecurity countermeasure techniques.
+It is a catalog of defensive cybersecurity techniques and their relationships to offensive/adversary techniques.
+
+* d3-**abc**: Refers to a [technique](https://d3fend.mitre.org/)
+* d3f-**abc**: Refers to an [artifact](https://d3fend.mitre.org/dao/artifact/)
+
+For example:
+
+* `d3fend.d3-am`: [Access Modeling](https://d3fend.mitre.org/technique/d3f:AccessModeling/)
+* `d3fend.d3f-WindowsNtOpenFile`: [Windows NtOpenFile](https://d3fend.mitre.org/dao/artifact/d3f:WindowsNtOpenFile/)
+
+Tactics:
+
+* model: [Model](https://d3fend.mitre.org/tactic/d3f:Model/)
+* harden: [Harden](https://d3fend.mitre.org/tactic/d3f:Harden/)
+* detect: [Detect](https://d3fend.mitre.org/tactic/d3f:Model/)
+* isolate: [Isolate](https://d3fend.mitre.org/tactic/d3f:Isolate)
+* deceive: [Deceive](https://d3fend.mitre.org/tactic/d3f:Deceive)
+* evict: [Evict](https://d3fend.mitre.org/tactic/d3f:Evict)
 
 ### Namespace: detection
 
@@ -99,6 +123,8 @@ The following tags are currently supported:
 
 ## History
 
+* 2024-08-11 Tags Appendix v2.1.0
+  * Add mitre d3fend namespace
 * 2024-08-08 Tags Appendix v2.0.0
 * 2023-11-23 Tags Appendix v1.2.0
   * Add Summiting the Pyramid
