@@ -3,13 +3,12 @@
 - Version 2.0.0
 - Release date 2024-08-08
 
-# Summary
+## Summary
 
 - [Summary](#summary)
-- [Yaml File](#yaml-file)
-  - [Filename](#filename)
-  - [Data](#data)
-- [Structure](#structure)
+- [File Structure](#file-structure)
+  - [Yaml File](#yaml-file)
+  - [Schema](#schema)
 - [Components](#components)
   - [Title](#title)
   - [Identification](#identification)
@@ -22,7 +21,7 @@
   - [References](#references)
   - [Date](#date)
   - [Modified](#modified)
-  - [Log Source](#log-source)
+  - [LogSource](#logsource)
   - [Detection](#detection)
     - [Search-Identifier](#search-identifier)
     - [General](#general)
@@ -38,7 +37,7 @@
     - [Placeholders](#placeholders)
       - [Standard Placeholders](#standard-placeholders)
     - [Keywords search](#keywords-search)
-    - [Condition](#condition)
+  - [Condition](#condition)
   - [Fields](#fields)
   - [FalsePositives](#falsepositives)
   - [Level](#level)
@@ -48,56 +47,7 @@
 - [Sigma Filters](#sigma-filters)
 - [History](#history)
 
-# Yaml File
-
-## Filename
-
-To keep the file names interoperable use the following:
-
-- Length between 10 and 70 characters
-- All characters of the filename should be in lowercase
-- No special characters only letters (a-z) and digits (0-9)
-- Use `_` instead of a space
-- Use `.yml` as a file extension
-
-example:
-
-- lnx_auditd_change_file_time_attr.yml
-- web_cve_2022_33891_spark_shell_command_injection.yml
-- sysmon_file_block_exe.yml
-
-## Data
-
-The rule files are written in [yaml format](https://yaml.org/spec/1.2.2/)
-To keep the rules interoperable use:
-
-- UTF-8
-- LF for the line break (the Windows native editor uses CR-LF)
-- Indentation of 4 spaces
-- Lowercase keys (e.g. title, id, etc.)
-- Strings values use Single quotes `'` . If the string contains a single quote, double quotes may be used instead
-- Numeric values don't use any quotes
-
-Below is a simple Sigma rule example:
-
-```yaml
-title: Whoami Execution
-description: Detects a whoami.exe execution
-references:
-      - https://speakerdeck.com/heirhabarov/hunting-for-privilege-escalation-in-windows-environment
-author: Florian Roth
-date: 2019-10-23
-logsource:
-    category: process_creation
-    product: windows
-detection:
-    selection:
-        Image: 'C:\Windows\System32\whoami.exe'
-    condition: selection
-level: high
-```
-
-# Structure
+## File Structure
 
 The rules consist of a few required sections and several optional ones.
 
@@ -138,11 +88,58 @@ scope [optional]
 [arbitrary custom fields]
 ```
 
+### Yaml File
+
+The rule files are written in [yaml format](https://yaml.org/spec/1.2.2/)
+In order to keep the rules interoperable use the following:
+
+- UTF-8 encoding.
+- LF for the line break (the Windows native editor uses CR-LF).
+- Indentation of 4 spaces.
+- Lowercase keys (e.g. title, id, etc.).
+- Strings values use Single quotes `'` . If the string contains a single quote, double quotes may be used instead.
+- Numeric values don't use any quotes.
+
+Below is a simple Sigma rule example:
+
+```yaml
+title: Whoami Execution
+description: Detects a whoami.exe execution
+references:
+      - https://speakerdeck.com/heirhabarov/hunting-for-privilege-escalation-in-windows-environment
+author: Florian Roth
+date: 2019-10-23
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection:
+        Image: 'C:\Windows\System32\whoami.exe'
+    condition: selection
+level: high
+```
+
+To keep the file names interoperable use the following:
+
+- Length between 10 and 70 characters
+- All characters of the filename should be in lowercase
+- No special characters only letters (a-z) and digits (0-9)
+- Use `_` instead of a space
+- Use `.yml` as a file extension
+
+example:
+
+- ``lnx_auditd_change_file_time_attr.yml``
+- ``web_cve_2022_33891_spark_shell_command_injection.yml``
+- ``sysmon_file_block_exe.yml``
+
+### Schema
+
 The Json schema is defined in [sigma-detection-rule-schema.json](/json-schema/sigma-detection-rule-schema.json)
 
-# Components
+## Components
 
-## Title
+### Title
 
 **Attribute:** title
 
@@ -150,7 +147,7 @@ The Json schema is defined in [sigma-detection-rule-schema.json](/json-schema/si
 
 A brief title for the rule that should contain what the rule is supposed to detect (max. 256 characters)
 
-## Identification
+### Identification
 
 **Attributes:** id, related
 
@@ -168,8 +165,7 @@ id: 929a690e-bef0-4204-a928-ef5e620d6fcc
 It is better to write a rule with a new id for the following reasons:
 
 * Major changes in the rule. E.g. a different rule logic.
-* Derivation of a new rule from an existing or refinement of a rule in a way that both are kept
-  active.
+* Derivation of a new rule from an existing or refinement of a rule in a way that both are kept active.
 * Merging of rules.
 
 To be able to keep track of the relationships between detections, Sigma rules may also contain
@@ -194,7 +190,7 @@ Currently the following types are defined:
   expected that a rule with this id exists anymore.
 * `similar`: Use to relate similar rules to each other (e.g. same detection content applied to different log sources, rule that is a modified version of another rule with a different level)
 
-## Name
+### Name
 
 **Attribute:** name
 
@@ -203,7 +199,7 @@ Currently the following types are defined:
 `name` is a **unique** human-readable name that can be used instead of the *id* as a reference in correlation rules. \
 The goal is to improve the readability of correlation rules.
 
-## Taxonomy
+### Taxonomy
 
 **Attribute:** taxonomy
 
@@ -215,13 +211,11 @@ Defines the taxonomy used in the Sigma rule. A taxonomy can define:
 * field values, example: a field `image_file_name` that only contains a file name like `example.exe` and is transformed into `ImageFile: *\\example.exe`.
 * logsource names, example: `category: ProcessCreation` instead of `category: process_creation`
 
-
-The Default taxonomy is `sigma`. \
-A custom taxonomy must be handled by the used tool or transformed into the default taxonomy.
+The Default taxonomy is `sigma`. A custom taxonomy must be handled by the used tool or transformed into the default taxonomy.
 
 More information on the default taxonomy can be found in the [Sigma Taxonomy Appendix](/appendix/sigma-taxonomy-appendix.md) file.
 
-## Status
+### Status
 
 **Attribute:** status
 
@@ -236,7 +230,7 @@ Declares the status of the rule:
 - `deprecated`: the rule is replaced or covered by another one. The link is established by the `related` field.
 - `unsupported`: the rule cannot be use in its current state (old correlation format, custom fields)
 
-## Description
+### Description
 
 **Attribute:** description
 
@@ -244,7 +238,7 @@ Declares the status of the rule:
 
 A short and accurate description of the rule and the malicious or suspicious activity that can be detected (max. 65,535 characters)
 
-## License
+### License
 
 **Attribute:** license
 
@@ -252,7 +246,7 @@ A short and accurate description of the rule and the malicious or suspicious act
 
 License of the rule according the [SPDX ID specification](https://spdx.org/ids).
 
-## Author
+### Author
 
 **Attribute**: author
 
@@ -261,7 +255,7 @@ License of the rule according the [SPDX ID specification](https://spdx.org/ids).
 Creator of the rule. (can be a name, nickname, twitter handle...etc) \
 If there is more than one, they are separated by a comma.
 
-## References
+### References
 
 **Attribute**: reference
 
@@ -270,7 +264,7 @@ If there is more than one, they are separated by a comma.
 References to the sources that the rule was derived from. \
 These could be blog articles, technical papers, presentations or even tweets.
 
-## Date
+### Date
 
 **Attribute**: date
 
@@ -279,7 +273,7 @@ These could be blog articles, technical papers, presentations or even tweets.
 Creation date of the rule. \
 Use the ISO 8601 date with separator format : YYYY-MM-DD
 
-## Modified
+### Modified
 
 **Attribute**: modified
 
@@ -294,9 +288,9 @@ Reasons to change the modified date:
 * changed detection section
 * changed level
 * changed logsource (rare)
-* changed status to `deprecated` 
+* changed status to `deprecated`
 
-## Log Source
+### LogSource
 
 **Attribute**: logsource
 
@@ -314,7 +308,7 @@ We recommend using a "definition" value in cases in which further explanation is
 
 The `category` value is used to select all log files written of a logical group. \
 This may cover one or more sources of information depending on the system. \
-e.g. "antivirus" for the scan result, "webserver" for the web access logs. 
+e.g. "antivirus" for the scan result, "webserver" for the web access logs.
 
 The `product` value is used to select all log outputs of a certain product. \
 It can be as generic as an operating system or the name of a particular software package. \
@@ -349,7 +343,7 @@ product: windows
 
 More details can be found in the [Sigma Taxonomy Appendix](/appendix/sigma-taxonomy-appendix.md) file, and [SigmaHQ Logsource Guides](https://github.com/SigmaHQ/sigma/tree/master/documentation/logsource-guides)
 
-## Detection
+### Detection
 
 **Attribute**: detection
 
@@ -357,18 +351,18 @@ More details can be found in the [Sigma Taxonomy Appendix](/appendix/sigma-taxon
 
 A set of search-identifiers that represent properties of searches on log data.
 
-### Search-Identifier
+#### Search-Identifier
 
 A definition that can consist of two different data structures - lists and maps.
 
-### General
+#### General
 
 * All values are treated as case-insensitive strings.
 * You can use wildcard characters `*` and `?` in strings (see also [escaping](#escaping) section below).
 * Regular expressions are case-sensitive by default.
 * You don't have to escape characters except the string quotation marks `'`.
 
-### String Wildcard
+#### String Wildcard
 
 Wildcards are used when part of the text is random.
 You can use :
@@ -387,7 +381,7 @@ Sigma has special modifiers to facilitate the search of unbounded strings
 * `something*` see [startswith modifier](#value-modifiers).
 * `*something*` see [contains modifier](#value-modifiers).
 
-### Escaping
+#### Escaping
 
 The backslash character `\` is used for escaping of wildcards `*` and `?` as well as the backslash character itself. Escaping of the backslash is necessary if it is followed by a wildcard depending on the desired result.
 
@@ -399,7 +393,7 @@ Summarized, these are the following possibilities:
 * Three backslashes are necessary to escape both, the backslash and the wildcard and handle them as plain values: `\\\*`.
 * Three or four backslashes are handled as double backslash. Four is recommended for consistency reasons: `\\\\` results in the plain value `\\`.
 
-### Lists
+#### Lists
 
 Lists can contain:
 
@@ -426,7 +420,7 @@ detection:
 
 The example above matches an image value ending with `example.exe` **or** an executable with a description containing the string `Test executable`.
 
-### Maps
+#### Maps
 
 Maps (or dictionaries) consist of key/value pairs, in which the key is a field in the log data and the value is a string or integer value. All elements of a map are joined with a logical 'AND'.
 
@@ -456,7 +450,7 @@ detection:
     condition: selection
 ```
 
-### Field Usage
+#### Field Usage
 
 1. For fields with existing field-mappings, use the mapped field name.
 
@@ -492,7 +486,7 @@ Examples ii:
 * `<Data Name="User">NT AUTHORITY\SYSTEM</Data>` will be `User`
 * `<Data Name="ServiceName">MpKsl4eaa0a76</Data>` will be `ServiceName`
 
-### Special Field Values
+#### Special Field Values
 
 There are special field values that can be used.
 
@@ -514,7 +508,7 @@ detection:
     condition: selection and not filter
 ```
 
-### Field Existence
+#### Field Existence
 
 In some case a field can be optional in the event. You can use the `exists` modifiers to check it.
 
@@ -528,14 +522,13 @@ detection:
     condition: selection
 ```
 
-
-### Value Modifiers
+#### Value Modifiers
 
 The values contained in Sigma rules can be modified by *value modifiers*. Value modifiers are
 appended after the field name with a pipe character `|` as separator and can also be chained, e.g.
 `fieldname|mod1|mod2: value`. The value modifiers are applied in the given order to the value.
 
-#### Modifier Types
+##### Modifier Types
 
 There are two types of value modifiers:
 
@@ -553,7 +546,7 @@ multiple values.
 
 [List of modifiers](appendix/appendix_modifier.md)
 
-### Placeholders
+#### Placeholders
 
 Placeholders are used as values that get their final meaning at conversion or usage time of the rule. This can be, but is not restricted to:
 
@@ -572,7 +565,7 @@ A plain percent character can be used by escaping it with a backslash. Examples:
 
 Placeholders must be handled appropriately by a tool that uses Sigma rules. If the tool isn't able to handle placeholders, it must reject the rule.
 
-#### Standard Placeholders
+##### Standard Placeholders
 
 The following standard placeholders should be used:
 
@@ -584,7 +577,7 @@ The following standard placeholders should be used:
 
 Custom placeholders can be defined as required.
 
-### Keywords search
+#### Keywords search
 
 Contrary to the Field Usage, It's a matter of searching for keywords across an entire event. \
 They are built by using a list under a search-identifiers.
@@ -609,7 +602,7 @@ detection:
 ```
 Give : "OabVirtualDirectory" **and** " -ExternalUrl "
 
-Some rules use simply `keywords` as search-identifiers name to facilitate identification. 
+Some rules use simply `keywords` as search-identifiers name to facilitate identification.
 
 ### Condition
 
@@ -661,7 +654,7 @@ Operator Precedence (least to most binding)
 The condition can be a list, in this case, each of them generates a query
 They are logically linked with OR.
 
-## Fields
+### Fields
 
 **Attribute**: fields
 
@@ -669,7 +662,7 @@ They are logically linked with OR.
 
 A list of log fields that could be interesting in further analysis of the event and should be displayed to the analyst.
 
-## FalsePositives
+### FalsePositives
 
 **Attribute**: falsepositives
 
@@ -677,7 +670,7 @@ A list of log fields that could be interesting in further analysis of the event 
 
 A list of known false positives that may occur.
 
-## Level
+### Level
 
 **Attribute**: level
 
@@ -691,7 +684,7 @@ The level field contains one of five string values. It describes the criticality
 - `high`: Relevant event that should trigger an internal alert and requires a prompt review.
 - `critical`: Highly relevant event that indicates an incident. Critical events should be reviewed immediately. It is used only for cases in which probability borders certainty.
 
-## Tags
+### Tags
 
 **Attribute**: tags
 
@@ -707,7 +700,7 @@ A Sigma rule can be categorized with tags. Tags should generally follow this syn
 
 [More information about tags](/appendix/sigma-tags-appendix.md)
 
-## Scope
+### Scope
 
 **Attribute**: scope
 
@@ -718,21 +711,20 @@ A list of the intended scopes of the rule. This would allow you to define if a r
 For example , if you have a rule for a registry key being set, where the key only exists on windows server installations./
 A scope with the value `server` can be added to limit this rule only to Windows Servers.
 
-# Rule Correlation
+## Rule Correlation
 
-Correlation allows several events to be linked together. /
-To make it easier to read these corelation rules, they are written in meta-rules.
+Correlation allows several events to be linked together. To make it easier to read these corelation rules, they are written in meta-rules.
 
 Check out the [Sigma Correlation Rules Specification](/specification/sigma-correlation-rules-specification.md) for more details.
 
-# Sigma Filters
+## Sigma Filters
 
 To adapt the rules to the environment, it is sometimes useful to put the same exclusion in several rules. /
 Their maintenance can become difficult, with a meta-filter it is possible to write it in a single place.
 
 Check out the [Sigma Filters Specification](/specification/sigma-filters-specification.md) for more details.
 
-# History
+## History
 
 * 2024-08-08 Specification v2.0.0
 * 2023-06-29 Specification v1.0.4
