@@ -94,7 +94,7 @@ The modifiers listed in this section can only be applied to numeric values.
 
 The modifiers listed in this section can only applied to IP values.
 
-* `cidr`: The value is handled as an CIDR by backends. Supports both IPv4 and IPv6 notations.
+* `cidr`: The value is handled as an CIDR by backends. Supports both IPv4 and IPv6 notations. Example: `DestinationIp|cidr: 10.0.0.0/8`
 
 ### Specific Modifiers
 
