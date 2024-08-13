@@ -10,7 +10,7 @@
     "title": {
       "type": "string",
       "maxLength": 256,
-      "description": "A brief title for the rule that should contain what the rules is supposed to detect"
+      "description": "A brief title for the rule that should contain what the rule is supposed to detect"
     },
     "id": {
       "type": "string",
@@ -52,35 +52,35 @@
         "timespan",
         "condition"
       ],
-      "description": "represents the correlation searched for on the log data",
+      "description": "Represents the correlation searched for on the log data",
       "properties": {
         "type": {
           "type": "string",
           "maxLength": 16,
-          "description": "Defines the corelation type",
+          "description": "Defines the correlation type",
           "oneOf": [
             {
               "const": "event_count"
-            },
-            {
-              "const": "value_count"
             },
             {
               "const": "temporal"
             },
             {
               "const": "temporal_ordered"
+            },
+            {
+              "const": "value_count"
             }
           ]
         },
-        "rules":{
+        "rules": {
           "description": "Refers to one or multiple Sigma or Correlations rules",
           "uniqueItems": true,
           "anyOf": [
             {
               "type": "array",
               "items": {
-                "anyOf":[
+                "anyOf": [
                   {
                     "type": "string",
                     "minLength": 2
@@ -90,15 +90,14 @@
                     "format": "uuid"
                   }
                 ]
-
               }
             }
           ]
         },
-        "alias":{
+        "alias": {
           "type": "object",
-          "description": "defines field name aliases that are applied to correlated Sigma rules",
-          "additionalProperties":{
+          "description": "Defines field name aliases that are applied to correlated Sigma rules",
+          "additionalProperties": {
             "anyOf": [
               {
                 "type": "object",
@@ -111,7 +110,7 @@
         },
         "group-by": {
           "type": "array",
-          "description": "defines one or multiple fields which should be treated as separate event occurrence scope",
+          "description": "Defines one or multiple fields which should be treated as separate event occurrence scope",
           "uniqueItems": true,
           "items": {
             "type": "string"
@@ -120,7 +119,7 @@
         "timespan": {
           "type": "string",
           "maxLength": 10,
-          "description": "defines a time period in which the correlation should be applied. used: `number + letter (in lowercase)`"
+          "description": "Defines a time period in which the correlation should be applied. Used: `number + letter (in lowercase)`"
         },
         "condition": {
           "type": "object",
@@ -137,7 +136,7 @@
             },
             {
               "gte": {
-                "description": "The count must be greater than or equal the given value",
+                "description": "The count must be greater than or equal to the given value",
                 "type": "integer"
               }
             },
@@ -149,26 +148,44 @@
             },
             {
               "lte": {
-                "description": "The count must be lesser than or equal the given value",
+                "description": "The count must be lesser than or equal to the given value",
                 "type": "integer"
               }
             },
             {
               "eq": {
-                "description": "The count must be equal the given value",
+                "description": "The count must be equal to the given value",
                 "type": "integer"
               }
             },
             {
               "field": {
-                "description": "name of the field to counts values",
+                "description": "Name of the field to count values",
                 "type": "string",
                 "maxLength": 256
               }
             }
           ]
         }
-      }
+      },
+      "allOf": [
+        {
+        "if": { "properties": {"type": {"const": "event_count"}}},
+        "then": {"required": ["condition", "group-by", "timespan"]}
+        },
+        {
+        "if": { "properties": {"type": {"const": "temporal"}}},
+        "then": {"required": ["group-by", "timespan"]}
+        },
+        {
+        "if": { "properties": {"type": {"const": "temporal_ordered"}}},
+        "then": {"required": ["group-by", "timespan"]}
+        },
+        {
+        "if": { "properties": {"type": {"const": "value_count"}}},
+        "then": {"required": ["condition", "field", "group-by", "timespan"]}
+        }
+      ]
     },
     "level": {
       "type": "string",
@@ -180,7 +197,7 @@
         },
         {
           "const": "low",
-          "description": "Notable event but rarely an incident. Low rated events can be relevant in high numbers or combination with others. Immediate reaction shouldn't be necessary, but a regular review is recommended"
+          "description": "Notable event but rarely an incident. Low-rated events can be relevant in high numbers or in combination with others. Immediate reaction shouldn't be necessary, but a regular review is recommended"
         },
         {
           "const": "medium",
@@ -198,7 +215,7 @@
     },
     "generate": {
       "type": "boolean",
-      "description": "defines if the rules referred from the correlation rule should be converted as stand-alone rules"
+      "description": "Defines if the rules referred to by the correlation rule should be converted into stand-alone rules"
     }
   }
 }
