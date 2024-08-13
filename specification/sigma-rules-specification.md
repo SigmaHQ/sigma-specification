@@ -135,7 +135,7 @@ example:
 
 ### Schema
 
-The Json schema is defined in [sigma-detection-rule-schema.json](/json-schema/sigma-detection-rule-schema.json)
+The Json schema is defined in [sigma-detection-rule-schema.json](/json-schema/sigma-detection-rule-schema.json). Check it out for additional details on the required fields, their types and other information.
 
 ## Components
 
