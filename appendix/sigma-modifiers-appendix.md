@@ -63,7 +63,7 @@ The modifiers listed in this section can only be applied to string values.
 
 
 * `re` sub-modifiers:
-  * `i`: (insensitive) to enable case-sensitive matching.
+  * `i`: (insensitive) to enable case-insensitive matching.
   * `m`: (multi line) to match across multiple lines. `^` /`$` match the start/end of line.
   * `s`: (single line) to enable that dot (`.`) matches all characters, including the newline character.
 
