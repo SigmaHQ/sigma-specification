@@ -30,7 +30,7 @@ The latest version of the specification drops the support for the [Rx-Schema](ht
 
 ## Modifiers
 
-The latest version of the specification and by extension the `pySigma` library, introduces a new set of modifier. You can check the full list of all currently supported modifiers in the [Sigma Modifiers Appendix](./appendix/sigma-modifiers-appendix.md).
+The latest version of the specification and by extension the `pySigma` library, introduces a new set of modifier. You can check the full list of all currently supported modifiers in the [Sigma Modifiers Appendix](../appendix/sigma-modifiers-appendix.md).
 
 ## Correlation
 
