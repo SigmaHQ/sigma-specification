@@ -1,26 +1,30 @@
-# Modifiers <!-- omit in toc -->
+# Sigma Modifiers <!-- omit in toc -->
 
 The following document defines the standardized modifiers that can be used in Sigma.
 
-* Version 2.0.0
-* Release date 2024-08-08
+* Version 2.0.1
+* Release date 2024-08-10
 
 ## Summary
+
 - [Summary](#summary)
-- [General](#general)
-  - [String only](#string-only)
-  - [Numeric only](#numeric-only)
-  - [Ip only](#ip-only)
-  - [String Encoding](#string-encoding)
-- [Specific](#specific)
+  - [Generic Modifiers](#generic-modifiers)
+  - [String Modifiers](#string-modifiers)
+    - [Regular Expression](#regular-expression)
+    - [Encoding](#encoding)
+  - [Numeric Modifiers](#numeric-modifiers)
+  - [IP (Internet Protocol) Modifiers](#ip-internet-protocol-modifiers)
+  - [Specific Modifiers](#specific-modifiers)
 - [History](#history)
 
-## General
+### Generic Modifiers
+
+The following modifiers are considered generic modifiers and can be applied on all types of fields.
 
 * `all`: Normally, lists of values are linked with *OR* in the generated query. This modifier
   changes this to *AND*. This is useful if you want to express a command line invocation with different
   parameters where the order may vary and removes the need for some cumbersome workarounds.
-  
+
   Single item values are not allowed to have an `all` modifier as some back-ends cannot support it.
   If you use it as a workaround to duplicate a field in a selection, use a new selection instead.
 
@@ -32,28 +36,38 @@ The following document defines the standardized modifiers that can be used in Si
 * `exists`: Defines that a certain field has to exist or must not exist in a log event by providing a boolean value. Note that this check only verifies the presence of a field, not its value, be it empty or null.
 * `cased`: Values are applied case sensitively. Default Sigma behavior is case-insensitive matching.
 
-### String only
+### String Modifiers
+
+The modifiers listed in this section can only be applied to string values.
 
 * `windash`: Creates all possible permutations of the `-`, `/`, `–` (en dash), `—` (em dash), and `―` (horizontal bar) characters. Windows command line flags can often be indicated by both characters. Using the `windash` modifier converts the aforementioned characters interchangeably and uses all possible permutation of strings in the selection.
 
-* `re`: Value is handled as a regular expression by backends. Regex is matched case-sensitive by default
+#### Regular Expression
+
+* `re`: Value is handled as a regular expression by backends. Regex is matched case-sensitive by default.
+  * Currently the supported flavor is PCRE with the following metacharacters:
+    * Wildcards: `.`.
+    * Anchors: `^`, `$`.
+    * Quantifiers: `*`, `+`, `?`, `{n,m}`.
+    * Character Classes: [a-z], [^a-z].
+    * Grouping and Capturing: `()`.
+    * Alternation: `|`.
+  * The following metacharacters are unsupported:
+    * Character Classes: `[[:digit:]]`
+    * Lookahead Assertions:
+      * Positive Lookahead: `(?=...)`
+      * Negative Lookahead: `(?!...)`
+      * Positive Lookbehind: `(?<=...)`
+      * Negative Lookbehind: `(?<!...)`
+    * Atomic Grouping: `(?>`
+
+
 * `re` sub-modifiers:
-  * `i`: (insensitive) to enable case-sensitive matching.
+  * `i`: (insensitive) to enable case-insensitive matching.
   * `m`: (multi line) to match across multiple lines. `^` /`$` match the start/end of line.
   * `s`: (single line) to enable that dot (`.`) matches all characters, including the newline character.
 
-### Numeric only
-
-* `lt`: Field is less than the value
-* `lte`: Field is less or equal than the value
-* `gt`: Field is greater than the value
-* `gte`: Field is greater or equal than the value
-
-### Ip only
-  
-* `cidr`: The value is handled as an CIDR by backends. Supports both IPv4 and IPv6 notations.
-
-### String Encoding
+#### Encoding
 
 * `base64`: The value is encoded with Base64.
 * `base64offset`: If a value might appear somewhere in a base64-encoded string the representation
@@ -62,11 +76,27 @@ The following document defines the standardized modifiers that can be used in Si
   the middle that can be recognized.
 
 * `base64` sub-modifiers:
-  * `utf16le`: Transforms value to UTF16-LE encoding, e.g. `cmd` > `63 00 6d 00 64 00` 
+  * `utf16le`: Transforms value to UTF16-LE encoding, e.g. `cmd` > `63 00 6d 00 64 00`
   * `utf16be`: Transforms value to UTF16-BE encoding, e.g. `cmd` > `00 63 00 6d 00 64`
   * `utf16`: Prepends a [byte order mark](https://en.wikipedia.org/wiki/Byte_order_mark) and encodes UTF16, e.g. `cmd` > `FF FE 63 00 6d 00 64 00`
+  * `wide`: an alias for the `utf16le` modifier.
 
-## Specific
+### Numeric Modifiers
+
+The modifiers listed in this section can only be applied to numeric values.
+
+* `lt`: Field is less than the value
+* `lte`: Field is less or equal than the value
+* `gt`: Field is greater than the value
+* `gte`: Field is greater or equal than the value
+
+### IP (Internet Protocol) Modifiers
+
+The modifiers listed in this section can only applied to IP values.
+
+* `cidr`: The value is handled as an CIDR by backends. Supports both IPv4 and IPv6 notations. Example: `DestinationIp|cidr: 10.0.0.0/8`
+
+### Specific Modifiers
 
 * `expand`: Modifier for expansion of placeholders in values. The final behavior of the replacement is determined by processing pipeline transformations. Current possibilities in pySigma are:
   * Expand to value list (`ValueListPlaceholderTransformation`/`value_placeholders`)
@@ -78,6 +108,9 @@ The following document defines the standardized modifiers that can be used in Si
 
 ## History
 
+* 2024-08-10 Modifiers Appendix v2.0.1
+  * Add regular expression flavor definition.
+  * restructure titles
 * 2024-08-08 Modifiers Appendix v2.0.0
 * 2023-05-27 Modifiers Appendix v1.0.4
   * Update from PySigma 0.7.6
