@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Sigma Meta rule specification V2.0.0 (2024-08-08)",
+  "title": "Sigma Meta rule specification V2.0.1 (2024-09-03)",
   "type": "object",
   "required": [
     "title",
@@ -16,6 +16,31 @@
       "type": "string",
       "description": "A globally unique identifier for the Sigma rule. This is recommended to be a UUID v4, but not mandatory.",
       "format": "uuid"
+    },
+    "status": {
+      "type": "string",
+      "oneOf": [
+        {
+          "const": "stable",
+          "description": "The rule didn't produce any obvious false positives in multiple environments over a long period of time"
+        },
+        {
+          "const": "test",
+          "description": "The rule doesn't show any obvious false positives on a limited set of test systems"
+        },
+        {
+          "const": "experimental",
+          "description": "A new rule that hasn't been tested outside of lab environments and could lead to many false positives"
+        },
+        {
+          "const": "deprecated",
+          "description": "The rule was replaced or is now covered by another one. The link between both rules is made via the `related` field"
+        },
+        {
+          "const": "unsupported",
+          "description": "The rule can not be used in its current state (special correlation log, home-made fields, etc.)"
+        }
+      ]
     },
     "description": {
       "type": "string",
@@ -94,7 +119,7 @@
             }
           ]
         },
-        "alias": {
+        "aliases": {
           "type": "object",
           "description": "Defines field name aliases that are applied to correlated Sigma rules",
           "additionalProperties": {
@@ -184,6 +209,23 @@
         {
         "if": { "properties": {"type": {"const": "value_count"}}},
         "then": {"required": ["condition", "field", "group-by", "timespan"]}
+        }
+      ]
+    },
+    "falsepositives": {
+      "description": "A list of known false positives that may occur",
+      "uniqueItems": true,
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 2
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 2
+          }
         }
       ]
     },

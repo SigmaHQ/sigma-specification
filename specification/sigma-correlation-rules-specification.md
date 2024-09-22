@@ -2,8 +2,8 @@
 
 The following document defines the standardized correlation that can be used in Sigma rules.
 
-* Version 2.0.0
-* Release date 2024-08-08
+* Version 2.0.1
+* Release date 2024-09-03
 
 - [Introduction](#introduction)
   - [Compatibility](#compatibility)
@@ -17,6 +17,7 @@ The following document defines the standardized correlation that can be used in 
   - [Components](#components)
     - [Title](#title)
     - [Identification](#identification)
+    - [Status](#status)
     - [Description](#description)
     - [Author](#author)
     - [References](#references)
@@ -29,6 +30,7 @@ The following document defines the standardized correlation that can be used in 
       - [Grouping](#grouping)
       - [Time Selection](#time-selection)
       - [Condition](#condition)
+    - [FalsePositives](#falsepositives)
     - [Level](#level)
     - [Generate](#generate)
   - [Correlation Types](#correlation-types)
@@ -140,6 +142,21 @@ An example for this is:
 title: login brute force
 id: 0e95725d-7320-415d-80f7-004da920fc11
 ```
+
+#### Status
+
+**Attribute:** status
+
+**Use:** optional
+
+Declares the status of the rule:
+
+- `stable`: the rule is considered as stable and may be used in production systems or dashboards.
+- `test`: a mostly stable rule that could require some slight adjustments depending on the environement.
+- `experimental`: an experimental rule that could lead to false positives results or be noisy, but could also identify interesting
+  events.
+- `deprecated`: the rule is replaced or covered by another one. The link is established by the `related` field.
+- `unsupported`: the rule cannot be use in its current state (old correlation format, custom fields)
 
 #### Description
 
@@ -298,6 +315,14 @@ condition:
 
 If you need more complex constructs, you can always chain correlation rules together.
 See the examples at the far bottom, for more details.
+
+#### FalsePositives
+
+**Attribute**: falsepositives
+
+**Use:** optional
+
+A list of known false positives that may occur.
 
 #### Level
 
@@ -563,5 +588,6 @@ detection:
 ```
 
 ## History
-
+* 2024-09-03 Specification V2.0.1
+  * add missing `status` and `falsepositives`
 * 2024-08-08 Specification v2.0.0
