@@ -53,38 +53,12 @@
     },
     "filter": {
       "type": "object",
-      "required": ["rules","selection","condition"],
+      "required": [
+        "rules",
+        "selection",
+        "condition"
+      ],
       "description": "A set of search-identifiers that represent properties of searches on log data",
-      "additionalProperties": {
-        "description": "A Search Identifier: A definition that can consist of two different data structures - lists and maps.",
-        "anyOf": [
-          {
-            "type": "array",
-            "items": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "integer"
-                },
-                {
-                  "type": "object",
-                  "items": {
-                    "type": "string"
-                  }
-                }
-              ]
-            }
-          },
-          {
-            "type": "object",
-            "items": {
-              "type": "string"
-            }
-          }
-        ]
-      },
       "properties": {
         "rules": {
           "type": "array",
@@ -96,13 +70,29 @@
           }
         },
         "selection": {
-          "type": "array",
-          "description": "the filter detection logic",
-          "minItems": 1,
-          "uniqueItems": true,
-          "items": {
-            "type": "string"
-          }
+          "description": "A Search Identifier: A definition that can consist of two different data structures - lists and maps.",
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "object"
+                  }
+                ]
+              }
+            },
+            {
+              "type": "object",
+              "description": "An object that contains key-value pairs representing filter conditions"
+            }
+          ]
         },
         "condition": {
           "type": "string",
