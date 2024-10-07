@@ -83,10 +83,7 @@
                     "type": "integer"
                   },
                   {
-                    "type": "object",
-                    "items": {
-                      "type": "string"
-                    }
+                    "type": "object"
                   }
                 ]
               }
