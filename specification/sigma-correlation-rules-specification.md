@@ -260,6 +260,15 @@ optionally defines one or multiple fields which should be treated as separate ev
 * count events by user
 * temporal proximity must occur on one system by the same user
 
+When you use multiple fields they are linked by an **AND**.
+
+for example, if we want to group by the unique "name/domain" pair:
+```yaml
+group-by:
+    - TargetUserName
+    - TargetDomainName
+```
+
 ##### Time Selection
 
 **Attribute:** timespan
