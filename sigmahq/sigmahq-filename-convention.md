@@ -76,7 +76,7 @@ This document describe a soft convention to name rule files. The following conve
 
 ### Linux
 
-The naming convetion for rules using linux services is the as follows:
+The naming convention for rules using linux services is the as follows:
 
 - Filename must start with `lnx_`
 - Followed by the service name and underscore at the end `service_`. Example: `auditd_`
