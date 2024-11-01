@@ -2,8 +2,8 @@
 
 The following document defines the standardized correlation that can be used in Sigma rules.
 
-* Version 2.0.1
-* Release date 2024-09-03
+* Version 2.0.2
+* Release date 2024-11-01
 
 - [Introduction](#introduction)
   - [Compatibility](#compatibility)
@@ -417,6 +417,11 @@ The values of fields defined in group-by must all have the same value (e.g. the 
 
 The time frame should not be restricted to boundaries if this is not required by the given backend.
 
+Requires:
+  - `rules`
+  - `group-by`
+  - `timespan`
+
 Simple example : Reconnaissance commands defined in three Sigma rules are invoked in arbitrary order within 5 minutes on a system by the same user:
 
 ```yaml
@@ -436,6 +441,11 @@ type: temporal
 
 The *temporal_ordered* correlation type behaves like *temporal* and requires in addition that the events appear in the
 order provided in the *rule* attribute.
+
+Requires:
+  - `rules`
+  - `group-by`
+  - `timespan`
 
 Example: many failed logins as defined above are followed by a successful login by of the same user account within 1 hour:
 
@@ -597,6 +607,9 @@ detection:
 ```
 
 ## History
+
+* 2024-11-01 Specification V2.0.2
+  * add Requires field for temporal rules
 * 2024-09-03 Specification V2.0.1
   * add missing `status` and `falsepositives`
 * 2024-08-08 Specification v2.0.0
