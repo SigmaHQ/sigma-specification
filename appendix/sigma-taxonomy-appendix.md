@@ -2,8 +2,8 @@
 
 The following document defines the field names and log sources that are allowed to be used in SIGMA rules that are shared on the official SigmaHQ repository.
 
-* Version 2.0.1
-* Release date 2024-08-11
+* Version 2.0.2
+* Release date 2024-11-01
 
 ## Summary
 
@@ -15,12 +15,11 @@ The following document defines the field names and log sources that are allowed 
   - [Linux Folder](#linux-folder)
   - [Macos Folder](#macos-folder)
   - [Network Folder](#network-folder)
+  - [Other](#other)
   - [Product Folder](#product-folder)
   - [Windows Folder](#windows-folder)
 - [Fields](#fields)
   - [Generic](#generic)
-    - [Process Creation Events](#process-creation-events)
-    - [Other Generic Rule Categories](#other-generic-rule-categories)
   - [Specific](#specific)
 - [History](#history)
 
@@ -294,6 +293,7 @@ Because application logs are often ingested as raw text events with poor decompo
 | windows | product: windows<br>service: driver-framework                     | Channel: Microsoft-Windows-DriverFrameworks-UserMode/Operational                                                                                                                                                     |
 | windows | product: windows<br>service: firewall-as                          | Channel: Microsoft-Windows-Windows Firewall With Advanced Security/Firewall                                                                                                                                          |
 | windows | product: windows<br>service: hyper-v-worker                       | Channel: Microsoft-Windows-Hyper-V-Worker                                                                                                                                                                            |
+| windows | product: windows<br>service: iis-configuration                    | Channel: Microsoft-IIS-Configuration/Operational                                                                                                                                                                     |
 | windows | product: windows<br>service: kernel-event-tracing                 | Channel: Microsoft-Windows-Kernel-EventTracing                                                                                                                                                                       |
 | windows | product: windows<br>service: kernel-shimengine                    | Channel:<br> - Microsoft-Windows-Kernel-ShimEngine/Operational<br> - WinEventLog:Microsoft-Windows-Kernel-ShimEngine/Diagnostic                                                                                      |
 | windows | product: windows<br>service: ldap                                 | Channel: Microsoft-Windows-LDAP-Client/Debug                                                                                                                                                                         |
@@ -439,6 +439,9 @@ You can find all possible field values in the [Sysmon Community Guide](https://g
 
 ## History
 
+* 2024-11-01 Taxonomy Appendix v v2.0.2
+  * Add new windows services:
+    * ``service: iis-configuration``
 * 2024-08-11 Taxonomy Appendix v v2.0.1
   * Restructure the document for a better reading experience
 * 2024-08-08 Taxonomy Appendix v v2.0.0
