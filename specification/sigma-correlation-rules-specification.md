@@ -421,7 +421,7 @@ Simple example : Reconnaissance commands defined in three Sigma rules are invoke
 
 ```yaml
 correlation:
-type: temporal
+    type: temporal
     rules:
         - recon_cmd_a
         - recon_cmd_b
