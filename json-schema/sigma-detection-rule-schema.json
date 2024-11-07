@@ -194,19 +194,11 @@
     "falsepositives": {
       "description": "A list of known false positives that may occur",
       "uniqueItems": true,
-      "anyOf": [
-        {
-          "type": "string",
-          "minLength": 2
-        },
-        {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "minLength": 2
-          }
-        }
-      ]
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 2
+      }
     },
     "level": {
       "type": "string",
