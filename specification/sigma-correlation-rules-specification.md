@@ -386,6 +386,8 @@ Counts values in a field defined by `field`.
 The resulting query must count field values separately for each group specified by group-by.
 The condition finally defines how many values must occur to generate a search hit.
 
+When you use multiple values in `field` they are linked by an **AND**.
+
 Requires:
   - `group-by`
   - `timespan`
