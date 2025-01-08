@@ -2,8 +2,8 @@
 
 The following document defines the standardized modifiers that can be used in Sigma.
 
-* Version 2.0.1
-* Release date 2024-08-10
+* Version 2.1.0
+* Release date 2025-01-08
 
 ## Summary
 
@@ -45,7 +45,7 @@ The modifiers listed in this section can only be applied to string values.
 #### Regular Expression
 
 * `re`: Value is handled as a regular expression by backends. Regex is matched case-sensitive by default.
-  * Currently the supported flavor is PCRE with the following metacharacters:
+  * Currently, the supported flavor is PCRE with the following metacharacters:
     * Wildcards: `.`.
     * Anchors: `^`, `$`.
     * Quantifiers: `*`, `+`, `?`, `{n,m}`.
@@ -89,10 +89,16 @@ The modifiers listed in this section can only be applied to numeric values.
 * `lte`: Field is less or equal than the value
 * `gt`: Field is greater than the value
 * `gte`: Field is greater or equal than the value
+* `minute`: Parses the field as a datetime/timestamp and transforms value to the minute number. Between 0 and 59.
+* `hour`: Parses the field as a datetime/timestamp and transforms value to the hour number. Between 0 and 23.
+* `day`: Parses the field as a datetime/timestamp and transforms value to the day number. Between 1 and 31.
+* `week`: Parses the field as a datetime/timestamp and transforms value to the week number. Between 1 and 52.
+* `month`: Parses the field as a datetime/timestamp and transforms value to the month number. Between 1 and 12.
+* `year`: Parses the field as a datetime/timestamp and transforms value to the year number.
 
 ### IP (Internet Protocol) Modifiers
 
-The modifiers listed in this section can only applied to IP values.
+The modifiers listed in this section can only be applied to IP values.
 
 * `cidr`: The value is handled as an CIDR by backends. Supports both IPv4 and IPv6 notations. Example: `DestinationIp|cidr: 10.0.0.0/8`
 
