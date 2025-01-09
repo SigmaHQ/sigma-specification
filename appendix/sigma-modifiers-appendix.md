@@ -89,12 +89,20 @@ The modifiers listed in this section can only be applied to numeric values.
 * `lte`: Field is less or equal than the value
 * `gt`: Field is greater than the value
 * `gte`: Field is greater or equal than the value
-* `minute`: Parses the field as a datetime/timestamp and transforms value to the minute number. Between 0 and 59.
-* `hour`: Parses the field as a datetime/timestamp and transforms value to the hour number. Between 0 and 23.
-* `day`: Parses the field as a datetime/timestamp and transforms value to the day number. Between 1 and 31.
-* `week`: Parses the field as a datetime/timestamp and transforms value to the week number. Between 1 and 52.
-* `month`: Parses the field as a datetime/timestamp and transforms value to the month number. Between 1 and 12.
-* `year`: Parses the field as a datetime/timestamp and transforms value to the year number.
+
+## Time Modifiers
+
+The modifiers listed in this section can only be applied to date values.
+it extracts a numeric value from a date.
+
+Warning It is not designed to handle timezone or format conversions.
+
+* `minute`: number between 0 and 59.
+* `hour`:  number between 0 and 23.
+* `day`:  number between 1 and 31.
+* `week`: number between 1 and 52.
+* `month`: number between 1 and 12.
+* `year`: number of the year
 
 ### IP (Internet Protocol) Modifiers
 
