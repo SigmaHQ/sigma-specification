@@ -13,6 +13,7 @@ The following document defines the standardized modifiers that can be used in Si
     - [Regular Expression](#regular-expression)
     - [Encoding](#encoding)
   - [Numeric Modifiers](#numeric-modifiers)
+  - [Time Modifiers](#time-modifiers)
   - [IP (Internet Protocol) Modifiers](#ip-internet-protocol-modifiers)
   - [Specific Modifiers](#specific-modifiers)
 - [History](#history)
@@ -90,12 +91,12 @@ The modifiers listed in this section can only be applied to numeric values.
 * `gt`: Field is greater than the value
 * `gte`: Field is greater or equal than the value
 
-## Time Modifiers
+### Time Modifiers
 
 The modifiers listed in this section can only be applied to date values.
 it extracts a numeric value from a date.
 
-Warning It is not designed to handle timezone or format conversions.
+**Warning**: It is not designed to handle timezone or format conversions.
 
 * `minute`: number between 0 and 59.
 * `hour`:  number between 0 and 23.
