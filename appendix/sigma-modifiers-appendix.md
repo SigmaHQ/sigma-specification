@@ -123,6 +123,8 @@ The modifiers listed in this section can only be applied to IP values.
 
 ## History
 
+* 2025-03-03 Modifiers Appendix v2.1.0
+  * Add time modifiers
 * 2024-08-10 Modifiers Appendix v2.0.1
   * Add regular expression flavor definition.
   * restructure titles
