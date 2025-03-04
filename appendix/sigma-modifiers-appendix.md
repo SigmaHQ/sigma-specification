@@ -2,8 +2,8 @@
 
 The following document defines the standardized modifiers that can be used in Sigma.
 
-* Version 2.0.1
-* Release date 2024-08-10
+* Version 2.1.0
+* Release date 2025-01-08
 
 ## Summary
 
@@ -13,6 +13,7 @@ The following document defines the standardized modifiers that can be used in Si
     - [Regular Expression](#regular-expression)
     - [Encoding](#encoding)
   - [Numeric Modifiers](#numeric-modifiers)
+  - [Time Modifiers](#time-modifiers)
   - [IP (Internet Protocol) Modifiers](#ip-internet-protocol-modifiers)
   - [Specific Modifiers](#specific-modifiers)
 - [History](#history)
@@ -45,7 +46,7 @@ The modifiers listed in this section can only be applied to string values.
 #### Regular Expression
 
 * `re`: Value is handled as a regular expression by backends. Regex is matched case-sensitive by default.
-  * Currently the supported flavor is PCRE with the following metacharacters:
+  * Currently, the supported flavor is PCRE with the following metacharacters:
     * Wildcards: `.`.
     * Anchors: `^`, `$`.
     * Quantifiers: `*`, `+`, `?`, `{n,m}`.
@@ -90,9 +91,23 @@ The modifiers listed in this section can only be applied to numeric values.
 * `gt`: Field is greater than the value
 * `gte`: Field is greater or equal than the value
 
+### Time Modifiers
+
+The modifiers listed in this section can only be applied to date values.
+it extracts a numeric value from a date.
+
+**Warning**: It is not designed to handle timezone or format conversions.
+
+* `minute`: number between 0 and 59.
+* `hour`:  number between 0 and 23.
+* `day`:  number between 1 and 31.
+* `week`: number between 1 and 52.
+* `month`: number between 1 and 12.
+* `year`: number of the year
+
 ### IP (Internet Protocol) Modifiers
 
-The modifiers listed in this section can only applied to IP values.
+The modifiers listed in this section can only be applied to IP values.
 
 * `cidr`: The value is handled as an CIDR by backends. Supports both IPv4 and IPv6 notations. Example: `DestinationIp|cidr: 10.0.0.0/8`
 
@@ -108,6 +123,8 @@ The modifiers listed in this section can only applied to IP values.
 
 ## History
 
+* 2025-03-03 Modifiers Appendix v2.1.0
+  * Add time modifiers
 * 2024-08-10 Modifiers Appendix v2.0.1
   * Add regular expression flavor definition.
   * restructure titles
