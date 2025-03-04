@@ -185,9 +185,20 @@
             },
             {
               "field": {
-                "description": "Name of the field to count values",
-                "type": "string",
-                "maxLength": 256
+                "description": "Name of the field(s) to count values",
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "maxLength": 256
+                  },
+                  {
+                    "type": "array",
+                    "items": {           
+                      "type": "string",
+                      "maxLength": 256
+                    }
+                  }
+                ]                
               }
             }
           ]
