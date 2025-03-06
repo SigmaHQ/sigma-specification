@@ -90,6 +90,7 @@ The modifiers listed in this section can only be applied to numeric values.
 * `lte`: Field is less or equal than the value
 * `gt`: Field is greater than the value
 * `gte`: Field is greater or equal than the value
+* `neq`: Field is different than the value
 
 ### Time Modifiers
 
