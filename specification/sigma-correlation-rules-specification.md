@@ -306,6 +306,7 @@ It is a map of exactly one condition criterion:
 * `lt`: The count must be lesser than the given value
 * `lte`: The count must be lesser than or equal the given value
 * `eq`: The count must be equal the given value
+* `neq`: The count must be different the given value
 
 Example:
 ```yaml
