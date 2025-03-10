@@ -482,17 +482,17 @@ The operation can be :
 - max ?
 - min ?
 - average
-- median
-- mode
+- median -> it percencile eq=50 :)
+- mode ?
 - percencile
-- range
-- standard-deviation
+- range ?
+- standard-deviation ?
 
 #### Operation sum
 
 Check if the `sum` of a number field match a limit 
 
-Requires in the comdition:
+Requires in the condition:
 - operation
 - Math condition
 - field
@@ -517,7 +517,7 @@ correlation:
 
 Check if the `max` of a number field match a limit  
 
-Requires in the comdition:
+Requires in the condition:
 - operation
 - field
 
@@ -563,7 +563,7 @@ correlation:
 
 Check if the `average` of a number field match a limit
 
-Requires in the comdition:
+Requires in the condition:
 - operation
 - field
 
@@ -586,7 +586,7 @@ correlation:
 
 Check if the `median` of a number field match a limit
 
-Requires in the comdition:
+Requires in the condition:
 - operation
 - field
 
@@ -605,6 +605,96 @@ correlation:
     field: BytesOut
 ```
 
+#### Operation mode
+
+Check the most frequent value in a field. 
+
+Requires in the condition:
+- operation
+- field
+
+```yaml
+title: Need to find a usecase
+correlation:
+  type: metric 
+  rules: 
+    - request_to_website
+  group-by:
+    - domainName
+    - Username
+  timespan: 24h
+  condition:
+    operation: mode
+    field: BytesOut
+```
+
+#### Operation percentile
+
+Check when a certain percentage of observed values occur. 
+
+Requires in the condition:
+- operation
+- Math condition
+
+```yaml
+title: A computer spawned more processes in a day than 99% of the other computers.
+correlation:
+  type: metric
+  rules: 
+    - process_creation
+  group-by:
+    - ComputerName
+  timespan: 24h
+  condition:
+    operation: percentile
+    gte: 99
+```
+
+#### Operation range
+
+Check the difference between the maximum and minimum values in a field. 
+
+Requires in the condition:
+- operation
+- field
+
+```yaml
+title: Need to find a usecase
+correlation:
+  type: metric 
+  rules: 
+    - request_to_website
+  group-by:
+    - domainName
+    - Username
+  timespan: 24h
+  condition:
+    operation: range
+    field: BytesOut
+```
+
+#### Operation standard-deviation
+
+Check ? 
+
+Requires in the condition:
+- operation
+- field
+
+```yaml
+title: Need to find a usecase
+correlation:
+  type: metric 
+  rules: 
+    - request_to_website
+  group-by:
+    - domainName
+    - Username
+  timespan: 24h
+  condition:
+    operation: standard-deviation
+    field: BytesOut
+```
 
 ### Field Name Aliases
 
