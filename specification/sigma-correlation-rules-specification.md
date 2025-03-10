@@ -465,6 +465,147 @@ correlation:
 Note:
 Even if the rule many_failed_logins groups by the "ComputerName" field, the correlation rule only uses its own `group-by` "User".
 
+#### Metric (metric)
+
+The aim is to find a deviance from a fixe mathematic limit 
+
+Requires:
+- rules
+- group-by
+- timespan
+
+In the condition section
+- operation
+
+The operation can be :
+- sum
+- max ?
+- min ?
+- average
+- median
+- mode
+- percencile
+- range
+- standard-deviation
+
+#### Operation sum
+
+Check if the `sum` of a number field match a limit 
+
+Requires in the comdition:
+- operation
+- Math condition
+- field
+
+```yaml
+title: At least 1000MB was sent to a website in the span of 1 day by a single user.
+correlation:
+  type: metric 
+  rules: 
+    - request_to_website
+  group-by:
+    - domainName
+    - Username
+  timespan: 24h
+  condition:
+    operation: sum
+    gte: 1000000000
+    field: BytesOut
+```
+
+#### Operation max
+
+Check if the `max` of a number field match a limit  
+
+Requires in the comdition:
+- operation
+- field
+
+```yaml
+title: Need to find a usecase
+correlation:
+  type: metric 
+  rules: 
+    - request_to_website
+  group-by:
+    - domainName
+    - Username
+  timespan: 24h
+  condition:
+    operation: max
+    field: BytesOut
+```
+
+#### Operation min
+
+Check if the `min` of a number field match a limit
+
+Requires in the comdition:
+- operation
+- field
+
+```yaml
+title: Need to find a usecase
+correlation:
+  type: metric 
+  rules: 
+    - request_to_website
+  group-by:
+    - domainName
+    - Username
+  timespan: 24h
+  condition:
+    operation: min
+    field: BytesOut
+```
+
+#### Operation average
+
+Check if the `average` of a number field match a limit
+
+Requires in the comdition:
+- operation
+- field
+
+```yaml
+title: Need to find a usecase
+correlation:
+  type: metric 
+  rules: 
+    - request_to_website
+  group-by:
+    - domainName
+    - Username
+  timespan: 24h
+  condition:
+    operation: average
+    field: BytesOut
+```
+
+#### Operation median
+
+Check if the `median` of a number field match a limit
+
+Requires in the comdition:
+- operation
+- field
+
+```yaml
+title: Need to find a usecase
+correlation:
+  type: metric 
+  rules: 
+    - request_to_website
+  group-by:
+    - domainName
+    - Username
+  timespan: 24h
+  condition:
+    operation: median
+    field: BytesOut
+```
+
+
 ### Field Name Aliases
 
 Sometimes correlation of values in the same fields is not sufficient. E.g. a correlation rule might require to aggregate events that appear from a source address in one event and the same address as destination in another event. A Sigma correlation rule can contain an `aliases` attribute that defines an alias for different field names in events matched by different Sigma rules. The alias field names can then be referenced in `group-by` attributes and are resolved to their respective field names.
