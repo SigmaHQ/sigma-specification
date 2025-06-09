@@ -1,4 +1,4 @@
-# Sigma Tags <!-- omit in toc -->
+# Sigma Tags
 
 The following document defines the standardized tags that can be used to categorize the different Sigma rules.
 
