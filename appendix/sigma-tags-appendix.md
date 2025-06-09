@@ -2,8 +2,8 @@
 
 The following document defines the standardized tags that can be used to categorize the different Sigma rules.
 
-* Version 2.1.0
-* Release date 2024-08-11
+* Version 2.2.0
+* Release date 2025-06-09
 
 ## Summary
 
@@ -13,6 +13,7 @@ The following document defines the standardized tags that can be used to categor
   - [Namespace: car](#namespace-car)
   - [Namespace: cve](#namespace-cve)
   - [Namespace: d3fend](#namespace-d3fend)
+  - [Namespace: defenses](#namespace-defenses)
   - [Namespace: detection](#namespace-detection)
   - [Namespace: stp](#namespace-stp)
   - [Namespace: tlp](#namespace-tlp)
@@ -24,6 +25,7 @@ The following document defines the standardized tags that can be used to categor
 * car: Link to the corresponding [MITRE Cyber Analytics Repository (CAR)](https://car.mitre.org/)
 * cve: Categorization according [MITRE CVE](https://cve.mitre.org/)
 * d3fend: Categorization according to [MITRE D3FEND](https://d3fend.mitre.org/). To get the current supported version of D3FEND please visit [D3FEND Ontology](https://github.com/d3fend/d3fend-ontology)
+* defences: Link to the corresponding [MITRE ATT&CK](https://attack.mitre.org) defenses section.
 * detection: Categorization according to the types of rules provided in the [SigmaHQ rule repository](https://github.com/SigmaHQ/sigma).
 * stp: Rating of detection analytic robustness according to the [MITRE Summiting the Pyramid](https://center-for-threat-informed-defense.github.io/summiting-the-pyramid/) scheme.
 * tlp: [Traffic Light Protocol](https://www.first.org/tlp/).
@@ -80,6 +82,20 @@ Tactics:
 * deceive: [Deceive](https://d3fend.mitre.org/tactic/d3f:Deceive)
 * evict: [Evict](https://d3fend.mitre.org/tactic/d3f:Evict)
 
+### Namespace: defenses
+
+Use the defenses tag for the MITRE Defenses section :
+
+* Data Source: [ds](https://attack.mitre.org/datasources/)
+* Mitigation: [m](https://attack.mitre.org/mitigations/)
+* Assets: [a](https://attack.mitre.org/assets/)
+
+For example:
+
+* `defenses.ds0026`: [Active Directory](https://attack.mitre.org/datasources/DS0026/)
+* `defenses.m1036`: [Account Use Policies](https://attack.mitre.org/mitigations/M1036/)
+* `defenses.a0014`: [Routers](https://attack.mitre.org/assets/A0014/)
+
 ### Namespace: detection
 
 Use the detection tag to indicate the type of a rule. Example tag: `detection.threat-hunting`.
@@ -123,6 +139,8 @@ The following tags are currently supported:
 
 ## History
 
+* 2025-06-09 Tags Appendix v2.2.0
+  * Add mitre defenses nanespace
 * 2024-08-11 Tags Appendix v2.1.0
   * Add mitre d3fend namespace
 * 2024-08-08 Tags Appendix v2.0.0
