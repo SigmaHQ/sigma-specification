@@ -24,7 +24,6 @@ The following document defines the standardized tags that can be used to categor
 * car: Link to the corresponding [MITRE Cyber Analytics Repository (CAR)](https://car.mitre.org/)
 * cve: Categorization according [MITRE CVE](https://cve.mitre.org/)
 * d3fend: Categorization according to [MITRE D3FEND](https://d3fend.mitre.org/). To get the current supported version of D3FEND please visit [D3FEND Ontology](https://github.com/d3fend/d3fend-ontology)
-* defences: Link to the corresponding [MITRE ATT&CK](https://attack.mitre.org) defenses section.
 * detection: Categorization according to the types of rules provided in the [SigmaHQ rule repository](https://github.com/SigmaHQ/sigma).
 * stp: Rating of detection analytic robustness according to the [MITRE Summiting the Pyramid](https://center-for-threat-informed-defense.github.io/summiting-the-pyramid/) scheme.
 * tlp: [Traffic Light Protocol](https://www.first.org/tlp/).
