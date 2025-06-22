@@ -1,9 +1,9 @@
-# Sigma Tags <!-- omit in toc -->
+# Sigma Tags
 
 The following document defines the standardized tags that can be used to categorize the different Sigma rules.
 
-* Version 2.1.0
-* Release date 2024-08-11
+* Version 2.1.1
+* Release date 2025-06-09
 
 ## Summary
 
@@ -33,6 +33,9 @@ The following document defines the standardized tags that can be used to categor
 * t*1234*: Refers to a [technique](https://attack.mitre.org/wiki/All_Techniques)
 * g*1234*: Refers to a [group](https://attack.mitre.org/wiki/Groups)
 * s*1234*: Refers to [software](https://attack.mitre.org/wiki/Software)
+* ds*1234*: Refers to [Data sources](https://attack.mitre.org/datasources/)
+* m*1234*: Refers to [Mitigations](https://attack.mitre.org/mitigations/)
+* a*1234*: Refers to [Assets](https://attack.mitre.org/assets/)
 
 Tactics:
 
@@ -123,6 +126,8 @@ The following tags are currently supported:
 
 ## History
 
+* 2025-06-09 Tags Appendix v2.1.1
+  * Add mitre Data Sources, Mitigations and Assets
 * 2024-08-11 Tags Appendix v2.1.0
   * Add mitre d3fend namespace
 * 2024-08-08 Tags Appendix v2.0.0
