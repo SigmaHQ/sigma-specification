@@ -1,4 +1,4 @@
-# Sigma Correlation Rules Specification <!-- omit in toc -->
+# Sigma Correlation Rules Specification
 
 The following document defines the standardized correlation that can be used in Sigma rules.
 
@@ -38,6 +38,12 @@ The following document defines the standardized correlation that can be used in 
     - [Value Count (value\_count)](#value-count-value_count)
     - [Temporal Proximity (temporal)](#temporal-proximity-temporal)
     - [Ordered Temporal Proximity (temporal\_ordered)](#ordered-temporal-proximity-temporal_ordered)
+    - [Metric](#metric-metric)
+      - [Operation sum](#operation-sum)
+      - [Operation max](#operation-max)
+      - [Operation min](#operation-min)
+      - [Operation average](#operation-average)
+      - [Operation percentile](#operation-percentile)
   - [Field Name Aliases](#field-name-aliases)
     - [Field Name Aliases Example](#field-name-aliases-example)
 - [Examples](#examples)
@@ -467,26 +473,23 @@ Even if the rule many_failed_logins groups by the "ComputerName" field, the corr
 
 #### Metric (metric)
 
-The aim is to find a deviance from a fixe mathematic limit 
+The aim is to find a deviance from a fixed mathematical limit
 
 Requires:
-- rules
-- group-by
-- timespan
+  - `rules`
+  - `group-by`
+  - `timespan`
 
 In the condition section
-- operation
+  - `operation`
 
 The operation can be :
-- sum
-- max ?
-- min ?
-- average
-- median -> it percencile eq=50 :)
-- mode ?
-- percencile
-- range ?
-- standard-deviation ?
+  - sum
+  - max
+  - min
+  - average
+  - percentile
+
 
 #### Operation sum
 
@@ -582,55 +585,10 @@ correlation:
     field: BytesOut
 ```
 
-#### Operation median
-
-Check if the `median` of a number field match a limit
-
-Requires in the condition:
-- operation
-- field
-
-```yaml
-title: Need to find a usecase
-correlation:
-  type: metric 
-  rules: 
-    - request_to_website
-  group-by:
-    - domainName
-    - Username
-  timespan: 24h
-  condition:
-    operation: median
-    field: BytesOut
-```
-
-#### Operation mode
-
-Check the most frequent value in a field. 
-
-Requires in the condition:
-- operation
-- field
-
-```yaml
-title: Need to find a usecase
-correlation:
-  type: metric 
-  rules: 
-    - request_to_website
-  group-by:
-    - domainName
-    - Username
-  timespan: 24h
-  condition:
-    operation: mode
-    field: BytesOut
-```
-
 #### Operation percentile
 
-Check when a certain percentage of observed values occur. 
+Check when a certain percentage of observed values occur.
+Tips: median is a percentile 50
 
 Requires in the condition:
 - operation
@@ -650,51 +608,6 @@ correlation:
     gte: 99
 ```
 
-#### Operation range
-
-Check the difference between the maximum and minimum values in a field. 
-
-Requires in the condition:
-- operation
-- field
-
-```yaml
-title: Need to find a usecase
-correlation:
-  type: metric 
-  rules: 
-    - request_to_website
-  group-by:
-    - domainName
-    - Username
-  timespan: 24h
-  condition:
-    operation: range
-    field: BytesOut
-```
-
-#### Operation standard-deviation
-
-Check ? 
-
-Requires in the condition:
-- operation
-- field
-
-```yaml
-title: Need to find a usecase
-correlation:
-  type: metric 
-  rules: 
-    - request_to_website
-  group-by:
-    - domainName
-    - Username
-  timespan: 24h
-  condition:
-    operation: standard-deviation
-    field: BytesOut
-```
 
 ### Field Name Aliases
 
