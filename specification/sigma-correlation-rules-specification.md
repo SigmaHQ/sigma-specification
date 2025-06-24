@@ -38,12 +38,11 @@ The following document defines the standardized correlation that can be used in 
     - [Value Count (value\_count)](#value-count-value_count)
     - [Temporal Proximity (temporal)](#temporal-proximity-temporal)
     - [Ordered Temporal Proximity (temporal\_ordered)](#ordered-temporal-proximity-temporal_ordered)
-    - [Metric](#metric-metric)
-      - [Operation sum](#operation-sum)
-      - [Operation max](#operation-max)
-      - [Operation min](#operation-min)
-      - [Operation average](#operation-average)
-      - [Operation percentile](#operation-percentile)
+    - [Metric sum](#metric-sum)
+    - [Metric max](#metric-max)
+    - [Metric min](#metric-min)
+    - [Metric average](#metric-average)
+    - [Metric percentile](#metric-percentile)
   - [Field Name Aliases](#field-name-aliases)
     - [Field Name Aliases Example](#field-name-aliases-example)
 - [Examples](#examples)
@@ -471,39 +470,24 @@ correlation:
 Note:
 Even if the rule many_failed_logins groups by the "ComputerName" field, the correlation rule only uses its own `group-by` "User".
 
-#### Metric (metric)
+#### Metric sum
 
-The aim is to find a deviance from a fixed mathematical limit
+Check if the `sum` of a number field match a limit 
 
 Requires:
   - `rules`
   - `group-by`
   - `timespan`
-
-In the condition section
-  - `operation`
-
-The operation can be :
-  - sum
-  - max
-  - min
-  - average
-  - percentile
-
-
-#### Operation sum
-
-Check if the `sum` of a number field match a limit 
+  - `condition`
 
 Requires in the condition:
-- operation
-- Math condition
-- field
+  - field
+  - Math condition
 
 ```yaml
 title: At least 1000MB was sent to a website in the span of 1 day by a single user.
 correlation:
-  type: metric 
+  type: metric-sum 
   rules: 
     - request_to_website
   group-by:
@@ -511,23 +495,29 @@ correlation:
     - Username
   timespan: 24h
   condition:
-    operation: sum
-    gte: 1000000000
     field: BytesOut
+    gte: 1000000000
 ```
 
-#### Operation max
+
+#### Metric max
 
 Check if the `max` of a number field match a limit  
 
+Requires:
+  - `rules`
+  - `group-by`
+  - `timespan`
+  - `condition`
+
 Requires in the condition:
-- operation
-- field
+  - field
+  - Math condition
 
 ```yaml
 title: Need to find a usecase
 correlation:
-  type: metric 
+  type: metric-max
   rules: 
     - request_to_website
   group-by:
@@ -535,22 +525,28 @@ correlation:
     - Username
   timespan: 24h
   condition:
-    operation: max
     field: BytesOut
+    lge: 200
 ```
 
-#### Operation min
+#### Metric min
 
 Check if the `min` of a number field match a limit
 
-Requires in the comdition:
-- operation
-- field
+Requires:
+  - `rules`
+  - `group-by`
+  - `timespan`
+  - `condition`
+
+Requires in the condition:
+  - field
+  - Math condition
 
 ```yaml
 title: Need to find a usecase
 correlation:
-  type: metric 
+  type: metric-min
   rules: 
     - request_to_website
   group-by:
@@ -558,22 +554,28 @@ correlation:
     - Username
   timespan: 24h
   condition:
-    operation: min
     field: BytesOut
+    lte: 400
 ```
 
-#### Operation average
+#### Metric average
 
 Check if the `average` of a number field match a limit
 
+Requires:
+  - `rules`
+  - `group-by`
+  - `timespan`
+  - `condition`
+
 Requires in the condition:
-- operation
-- field
+  - field
+  - Math condition
 
 ```yaml
 title: Need to find a usecase
 correlation:
-  type: metric 
+  type: metric-average
   rules: 
     - request_to_website
   group-by:
@@ -581,30 +583,34 @@ correlation:
     - Username
   timespan: 24h
   condition:
-    operation: average
     field: BytesOut
+    eq: 500
 ```
 
-#### Operation percentile
+#### Metric percentile
 
 Check when a certain percentage of observed values occur.
 Tips: median is a percentile 50
 
+Requires:
+  - `rules`
+  - `group-by`
+  - `timespan`
+  - `condition`
+
 Requires in the condition:
-- operation
-- Math condition
+  - Math condition
 
 ```yaml
 title: A computer spawned more processes in a day than 99% of the other computers.
 correlation:
-  type: metric
+  type: metric-percentile
   rules: 
     - process_creation
   group-by:
     - ComputerName
   timespan: 24h
   condition:
-    operation: percentile
     gte: 99
 ```
 
