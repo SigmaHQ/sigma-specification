@@ -38,11 +38,11 @@ The following document defines the standardized correlation that can be used in 
     - [Value Count (value\_count)](#value-count-value_count)
     - [Temporal Proximity (temporal)](#temporal-proximity-temporal)
     - [Ordered Temporal Proximity (temporal\_ordered)](#ordered-temporal-proximity-temporal_ordered)
-    - [Metric sum](#metric-sum)
-    - [Metric max](#metric-max)
-    - [Metric min](#metric-min)
-    - [Metric average](#metric-average)
-    - [Metric percentile](#metric-percentile)
+    - [Value sum (value\_sum)](#value-sum-value_sum)
+    - [Value Max (value\_max)](#value-max-value_max)
+    - [Value Min (value\_min)](#value-min-value_min)
+    - [Value Average (value\_avg)](#value-average-value_avg)
+    - [Value Percentile (value\_percentile)](#value-percentile-value_percentile)
   - [Field Name Aliases](#field-name-aliases)
     - [Field Name Aliases Example](#field-name-aliases-example)
 - [Examples](#examples)
@@ -470,83 +470,70 @@ correlation:
 Note:
 Even if the rule many_failed_logins groups by the "ComputerName" field, the correlation rule only uses its own `group-by` "User".
 
-#### Metric sum
+#### Value Sum (value_sum)
 
 Check if the `sum` of a number field match a limit 
 
 Requires:
-  - `rules`
   - `group-by`
   - `timespan`
   - `condition`
-
-Requires in the condition:
-  - field
-  - Math condition
+  - `field` in condition section.
 
 ```yaml
-title: At least 1000MB was sent to a website in the span of 1 day by a single user.
+title: Possible Exfiltration to Website
 correlation:
-  type: metric-sum 
-  rules: 
-    - request_to_website
-  group-by:
-    - domainName
-    - Username
-  timespan: 24h
-  condition:
-    field: BytesOut
-    gte: 1000000000
+    type: value_sum
+    rules:
+        - website_access
+    group-by:
+        - SourceIP
+        - User
+    timespan: 1h
+    condition:
+        field: bytes_sent
+        gt: 1000000
 ```
 
-
-#### Metric max
+#### Value Max (value_max)
 
 Check if the `max` of a number field match a limit  
 
 Requires:
-  - `rules`
   - `group-by`
   - `timespan`
   - `condition`
-
-Requires in the condition:
-  - field
-  - Math condition
+  - `field` in condition section.
 
 ```yaml
-title: Need to find a usecase
+title: Maximum value reached
 correlation:
-  type: metric-max
+  type: value_max
   rules: 
-    - request_to_website
+        - rule_a_id
   group-by:
-    - domainName
-    - Username
-  timespan: 24h
+        - field1
+        - field2
+    timespan: 30m
   condition:
-    field: BytesOut
-    lge: 200
+        field: numeric_value
+        gte: 100
 ```
 
-#### Metric min
+#### Value Min (value_min)
 
 Check if the `min` of a number field match a limit
 
 Requires:
-  - `rules`
   - `group-by`
   - `timespan`
   - `condition`
-
-Requires in the condition:
-  - field
-  - Math condition
+  - `field` in condition section.
 
 ```yaml
-title: Need to find a usecase
+title: Possible C2 Communication
 correlation:
-  type: metric-min
+  type: value_min
   rules: 
     - request_to_website
   group-by:
@@ -558,60 +545,59 @@ correlation:
     lte: 400
 ```
 
-#### Metric average
+#### Value Average (value_avg)
 
 Check if the `average` of a number field match a limit
 
 Requires:
-  - `rules`
   - `group-by`
   - `timespan`
   - `condition`
-
-Requires in the condition:
-  - field
-  - Math condition
+  - `field` in condition section.
 
 ```yaml
-title: Need to find a usecase
+title: Suspicious average network traffic
 correlation:
-  type: metric-average
-  rules: 
-    - request_to_website
-  group-by:
-    - domainName
-    - Username
-  timespan: 24h
-  condition:
-    field: BytesOut
-    eq: 500
+    type: value_avg
+    rules: 
+        - rule_a_id
+    group-by:
+        - SourceIP
+        - User
+    timespan: 24h
+    condition:
+        field: BytesOut
+        gt: 500
 ```
 
-#### Metric percentile
+Note: The `condition` for value_avg requires a comparison operator (like gt, gte, etc.) and compares it to an integer or float threshold.
+This example shows that we are looking for groups where the average bytes sent over a period exceeds 500.
+
+Also note: In the condition section, the field must be present and specify which numeric field should be used for the aggregation.
+
+#### Value Percentile (value_percentile)
 
 Check when a certain percentage of observed values occur.
 Tips: median is a percentile 50
 
 Requires:
-  - `rules`
   - `group-by`
   - `timespan`
   - `condition`
-
-Requires in the condition:
-  - Math condition
+  - `field` in condition section.
 
 ```yaml
-title: A computer spawned more processes in a day than 99% of the other computers.
+title: A computer spawned a processes name in the last 24h than 1% of all the processes.
 correlation:
-  type: metric-percentile
-  rules: 
-    - process_creation
-  group-by:
-    - ComputerName
-  timespan: 24h
-  condition:
-    gte: 99
+    type: value_percentile
+    rules: 
+        - process_creation
+    group-by:
+        - ComputerName
+    timespan: 24h
+    condition:
+        field: image
+        lte: 1
 ```
 
 
@@ -759,9 +745,16 @@ detection:
 ```
 
 ## History
-
+* 2025-06-25 Specification V2.1.0
+  * add metric corelation with:
+      * value_sum
+      * value_max
+      * value_min
+      * value_avg
+      * value_percentile
 * 2024-11-01 Specification V2.0.2
   * add Requires field for temporal rules
 * 2024-09-03 Specification V2.0.1
   * add missing `status` and `falsepositives`
 * 2024-08-08 Specification v2.0.0
+
