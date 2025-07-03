@@ -511,7 +511,7 @@ detection:
     condition: selection and not filter
 ```
 
-`null` cannot be part of a list of field values as it is its own type and therefore shares no type with any other value.
+Also `null` cannot be part of a list of field values as it is its own type and therefore shares no type with any other value.
 
 Valid Example:
 ```yml
