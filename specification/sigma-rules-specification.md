@@ -515,6 +515,7 @@ Also `null` cannot be part of a list of field values as it is its own type and t
 
 Valid Example:
 ```yml
+detection:
     selection_main:
         FieldA: 'something'
     selection_empty1:
@@ -526,6 +527,7 @@ Valid Example:
 
 Invalid Example:
 ```yml
+detection:
     selection_main:
         FieldA: 'something'
         FieldB:
