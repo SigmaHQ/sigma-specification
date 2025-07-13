@@ -1,0 +1,19 @@
+---
+name: Lint the project
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  mdformat:
+    name: Check formatting with mdformat
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          python-version: '3.13'
+          enable-cache: true
+      - name: Check Markdown formatting
+        run: uvx mdformat --check .
