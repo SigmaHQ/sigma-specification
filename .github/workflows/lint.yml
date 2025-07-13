@@ -13,5 +13,4 @@ jobs:
       with:
         python-version: '3.13'
         cache: 'pip' # caching pip dependencies
-    - run: pip install mdformat mdformat-gfm mdformat-frontmatter mdformat-footnote mdformat-gfm-alerts mdformat-toc
     - run: mdformat --check .
