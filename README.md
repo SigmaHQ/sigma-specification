@@ -29,37 +29,36 @@ Here's what you can expect from each of the main subfolders within this repo. Pl
 
 [Specification](./specification/) will contain markdown files describing the Sigma specification format in details.
 
-* [Sigma Rules Specification](./specification/sigma-rules-specification.md) - Describes what constitute a Sigma rule.
-* [Sigma Correlation Specification](./specification/sigma-correlation-rules-specification.md) - Describes the Sigma correlation format.
-* [Sigma Filters Specification](./specification/sigma-filters-specification.md) - Described the Sigma filters format.
+- [Sigma Rules Specification](./specification/sigma-rules-specification.md) - Describes what constitute a Sigma rule.
+- [Sigma Correlation Specification](./specification/sigma-correlation-rules-specification.md) - Describes the Sigma correlation format.
+- [Sigma Filters Specification](./specification/sigma-filters-specification.md) - Described the Sigma filters format.
 
 ### JSON Schema
 
 [Json-Schema](./json-schema/) will contain a list of JSON schemas for the following.
 
-* [Sigma Rules](/json-schema/sigma-detection-rule-schema.json)
-* [Sigma Correlation Rules](/json-schema/sigma-correlation-rules-schema.json)
-* [Sigma Filters](/json-schema/sigma-filters-schema.json)
+- [Sigma Rules](/json-schema/sigma-detection-rule-schema.json)
+- [Sigma Correlation Rules](/json-schema/sigma-correlation-rules-schema.json)
+- [Sigma Filters](/json-schema/sigma-filters-schema.json)
 
 ### Appendix
 
 [Appendix](./appendix/) will contain additional files providing additional details to certain fields of a Sigma rule
 
-* [Sigma Modifiers Appendix](appendix/sigma-modifiers-appendix.md) is a document that defines the different modifiers that can be used in a Sigma rule. 
-* [Sigma Tags Appendix](appendix/sigma-tags-appendix.md) is a document that defines the tags namespaces that can be used to categorize the different Sigma rules.
-* [Sigma Taxonomy Appendix](appendix/sigma-taxonomy-appendix.md) is a document that defines the different field names and log sources that are currently supported by SigmaHQ in order to ensure sharable rules.
+- [Sigma Modifiers Appendix](appendix/sigma-modifiers-appendix.md) is a document that defines the different modifiers that can be used in a Sigma rule.
+- [Sigma Tags Appendix](appendix/sigma-tags-appendix.md) is a document that defines the tags namespaces that can be used to categorize the different Sigma rules.
+- [Sigma Taxonomy Appendix](appendix/sigma-taxonomy-appendix.md) is a document that defines the different field names and log sources that are currently supported by SigmaHQ in order to ensure sharable rules.
 
 ### SigmaHQ
 
 [SigmaHQ](./sigmahq/) will contain markdown files that describe rules and recommendations that are applied to the rules hosted in SigmaHQ main rule repository.
 
-> **Note**
->
+> [!NOTE]
 > The SigmaHQ folder and the files contains within are not part of the sigma specification. They are there to ensure and easier management of the rules hosted in the main [rule repository](https://github.com/SigmaHQ/sigma/tree/master/rules)
 
-* [SigmaHQ Rule Convention](/sigmahq/sigmahq-rule-convention.md)
-* [SigmaHQ Filename Convention](/sigmahq/sigmahq-filename-convention.md)
-* [SigmaHQ Title Convention](/sigmahq/sigmahq-title-convention.md)
+- [SigmaHQ Rule Convention](/sigmahq/sigmahq-rule-convention.md)
+- [SigmaHQ Filename Convention](/sigmahq/sigmahq-filename-convention.md)
+- [SigmaHQ Title Convention](/sigmahq/sigmahq-title-convention.md)
 
 ## Version 2 Changes
 
