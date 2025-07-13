@@ -8,12 +8,10 @@ jobs:
     name: Check formatting with mdformat
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      - name: Install uv
-        uses: astral-sh/setup-uv@v6
-        with:
-          python-version: '3.13'
-          enable-cache: true
-      - name: Check Markdown formatting
-        run: uvx mdformat --check .
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.13'
+        cache: 'pip' # caching pip dependencies
+    - run: pip install mdformat mdformat-gfm mdformat-frontmatter mdformat-footnote mdformat-gfm-alerts mdformat-toc
+    - run: mdformat --check .
