@@ -3,7 +3,7 @@
 The following document defines the standardized modifiers that can be used in Sigma.
 
 * Version 2.1.0
-* Release date 2025-01-08
+* Release date 2025-07-17
 
 ## Summary
 
@@ -36,6 +36,7 @@ The following modifiers are considered generic modifiers and can be applied on a
 
 * `exists`: Defines that a certain field has to exist or must not exist in a log event by providing a boolean value. Note that this check only verifies the presence of a field, not its value, be it empty or null.
 * `cased`: Values are applied case sensitively. Default Sigma behavior is case-insensitive matching.
+* `neq`:  The field is different from the value. It's can be used with string or number.
 
 ### String Modifiers
 
@@ -90,7 +91,6 @@ The modifiers listed in this section can only be applied to numeric values.
 * `lte`: Field is less or equal than the value
 * `gt`: Field is greater than the value
 * `gte`: Field is greater or equal than the value
-* `neq`: Field is different than the value
 
 ### Time Modifiers
 
@@ -123,7 +123,8 @@ The modifiers listed in this section can only be applied to IP values.
   events directly at query/matching time.
 
 ## History
-
+* 2025-07-17 Modifiers Appendix v2.1.0
+  * `neq` can be use with string or number
 * 2025-03-03 Modifiers Appendix v2.1.0
   * Add time modifiers
 * 2024-08-10 Modifiers Appendix v2.0.1
