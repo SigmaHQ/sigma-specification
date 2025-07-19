@@ -184,6 +184,12 @@
               }
             },
             {
+              "neq": {
+                "description": "The count must different to the given value",
+                "type": "integer"
+              }
+            },
+            {
               "field": {
                 "description": "Name of the field(s) to count values",
                 "anyOf": [

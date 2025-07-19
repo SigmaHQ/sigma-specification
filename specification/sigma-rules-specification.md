@@ -1,11 +1,10 @@
-# Sigma Rules Specification <!-- omit in toc -->
+# Sigma Rules Specification
 
 - Version 2.0.0
 - Release date 2024-08-08
 
-## Summary
+<!-- mdformat-toc start --slug=github --maxlevel=6 --minlevel=2 -->
 
-- [Summary](#summary)
 - [File Structure](#file-structure)
   - [Yaml File](#yaml-file)
   - [Schema](#schema)
@@ -47,7 +46,9 @@
 - [Sigma Filters](#sigma-filters)
 - [History](#history)
 
-## File Structure
+<!-- mdformat-toc end -->
+
+## File Structure<a name="file-structure"></a>
 
 The rules consist of a few required sections and several optional ones.
 
@@ -88,7 +89,7 @@ scope [optional]
 [arbitrary custom fields]
 ```
 
-### Yaml File
+### Yaml File<a name="yaml-file"></a>
 
 The rule files are written in [yaml format](https://yaml.org/spec/1.2.2/)
 In order to keep the rules interoperable use the following:
@@ -129,17 +130,17 @@ To keep the file names interoperable use the following:
 
 example:
 
-- ``lnx_auditd_change_file_time_attr.yml``
-- ``web_cve_2022_33891_spark_shell_command_injection.yml``
-- ``sysmon_file_block_exe.yml``
+- `lnx_auditd_change_file_time_attr.yml`
+- `web_cve_2022_33891_spark_shell_command_injection.yml`
+- `sysmon_file_block_exe.yml`
 
-### Schema
+### Schema<a name="schema"></a>
 
 The Json schema is defined in [sigma-detection-rule-schema.json](/json-schema/sigma-detection-rule-schema.json). Check it out for additional details on the required fields, their types and other information.
 
-## Components
+## Components<a name="components"></a>
 
-### Title
+### Title<a name="title"></a>
 
 **Attribute:** title
 
@@ -147,7 +148,7 @@ The Json schema is defined in [sigma-detection-rule-schema.json](/json-schema/si
 
 A brief title for the rule that should contain what the rule is supposed to detect (max. 256 characters)
 
-### Identification
+### Identification<a name="identification"></a>
 
 **Attributes:** id, related
 
@@ -164,9 +165,9 @@ id: 929a690e-bef0-4204-a928-ef5e620d6fcc
 
 It is better to write a rule with a new id for the following reasons:
 
-* Major changes in the rule. E.g. a different rule logic.
-* Derivation of a new rule from an existing or refinement of a rule in a way that both are kept active.
-* Merging of rules.
+- Major changes in the rule. E.g. a different rule logic.
+- Derivation of a new rule from an existing or refinement of a rule in a way that both are kept active.
+- Merging of rules.
 
 To be able to keep track of the relationships between detections, Sigma rules may also contain
 references to related rule identifiers in the *related* attribute. \
@@ -182,15 +183,15 @@ related:
 
 Currently the following types are defined:
 
-* `derived`: The rule was derived from the referred rule or rules, which may remain active.
-* `obsolete`: The rule obsoletes the referred rule or rules, which aren't used anymore.
-* `merged`: The rule was merged from the referred rules. The rules may still exist and are in use.
-* `renamed`: The rule had previously the referred identifier or identifiers but was renamed for whatever
+- `derived`: The rule was derived from the referred rule or rules, which may remain active.
+- `obsolete`: The rule obsoletes the referred rule or rules, which aren't used anymore.
+- `merged`: The rule was merged from the referred rules. The rules may still exist and are in use.
+- `renamed`: The rule had previously the referred identifier or identifiers but was renamed for whatever
   reason, e.g. from a private naming scheme to UUIDs, to resolve collisions etc. It's not
   expected that a rule with this id exists anymore.
-* `similar`: Use to relate similar rules to each other (e.g. same detection content applied to different log sources, rule that is a modified version of another rule with a different level)
+- `similar`: Use to relate similar rules to each other (e.g. same detection content applied to different log sources, rule that is a modified version of another rule with a different level)
 
-### Name
+### Name<a name="name"></a>
 
 **Attribute:** name
 
@@ -199,7 +200,7 @@ Currently the following types are defined:
 `name` is a **unique** human-readable name that can be used instead of the *id* as a reference in correlation rules. \
 The goal is to improve the readability of correlation rules.
 
-### Taxonomy
+### Taxonomy<a name="taxonomy"></a>
 
 **Attribute:** taxonomy
 
@@ -207,15 +208,15 @@ The goal is to improve the readability of correlation rules.
 
 Defines the taxonomy used in the Sigma rule. A taxonomy can define:
 
-* field names, example: `process_command_line` instead of `CommandLine`.
-* field values, example: a field `image_file_name` that only contains a file name like `example.exe` and is transformed into `ImageFile: *\\example.exe`.
-* logsource names, example: `category: ProcessCreation` instead of `category: process_creation`
+- field names, example: `process_command_line` instead of `CommandLine`.
+- field values, example: a field `image_file_name` that only contains a file name like `example.exe` and is transformed into `ImageFile: *\\example.exe`.
+- logsource names, example: `category: ProcessCreation` instead of `category: process_creation`
 
 The Default taxonomy is `sigma`. A custom taxonomy must be handled by the used tool or transformed into the default taxonomy.
 
 More information on the default taxonomy can be found in the [Sigma Taxonomy Appendix](/appendix/sigma-taxonomy-appendix.md) file.
 
-### Status
+### Status<a name="status"></a>
 
 **Attribute:** status
 
@@ -230,7 +231,7 @@ Declares the status of the rule:
 - `deprecated`: the rule is replaced or covered by another one. The link is established by the `related` field.
 - `unsupported`: the rule cannot be use in its current state (old correlation format, custom fields)
 
-### Description
+### Description<a name="description"></a>
 
 **Attribute:** description
 
@@ -238,7 +239,7 @@ Declares the status of the rule:
 
 A short and accurate description of the rule and the malicious or suspicious activity that can be detected (max. 65,535 characters)
 
-### License
+### License<a name="license"></a>
 
 **Attribute:** license
 
@@ -246,7 +247,7 @@ A short and accurate description of the rule and the malicious or suspicious act
 
 License of the rule according the [SPDX ID specification](https://spdx.org/ids).
 
-### Author
+### Author<a name="author"></a>
 
 **Attribute**: author
 
@@ -255,7 +256,7 @@ License of the rule according the [SPDX ID specification](https://spdx.org/ids).
 Creator of the rule. (can be a name, nickname, twitter handle...etc) \
 If there is more than one, they are separated by a comma.
 
-### References
+### References<a name="references"></a>
 
 **Attribute**: reference
 
@@ -264,7 +265,7 @@ If there is more than one, they are separated by a comma.
 References to the sources that the rule was derived from. \
 These could be blog articles, technical papers, presentations or even tweets.
 
-### Date
+### Date<a name="date"></a>
 
 **Attribute**: date
 
@@ -273,7 +274,7 @@ These could be blog articles, technical papers, presentations or even tweets.
 Creation date of the rule. \
 Use the ISO 8601 date with separator format : YYYY-MM-DD
 
-### Modified
+### Modified<a name="modified"></a>
 
 **Attribute**: modified
 
@@ -284,13 +285,13 @@ Use the ISO 8601 date with separator format : YYYY-MM-DD
 
 Reasons to change the modified date:
 
-* changed title
-* changed detection section
-* changed level
-* changed logsource (rare)
-* changed status to `deprecated`
+- changed title
+- changed detection section
+- changed level
+- changed logsource (rare)
+- changed status to `deprecated`
 
-### LogSource
+### LogSource<a name="logsource"></a>
 
 **Attribute**: logsource
 
@@ -302,9 +303,9 @@ It describes the log source, the platform, the application and the type that is 
 It consists of three attributes that are evaluated automatically by the converters and an arbitrary number of optional elements. \
 We recommend using a "definition" value in cases in which further explanation is necessary.
 
-* category - examples: firewall, web, antivirus
-* product - examples: windows, apache, check point fw1
-* service - examples: sshd, applocker
+- category - examples: firewall, web, antivirus
+- product - examples: windows, apache, check point fw1
+- service - examples: sshd, applocker
 
 The `category` value is used to select all log files written of a logical group. \
 This may cover one or more sources of information depending on the system. \
@@ -343,7 +344,7 @@ product: windows
 
 More details can be found in the [Sigma Taxonomy Appendix](/appendix/sigma-taxonomy-appendix.md) file, and [SigmaHQ Logsource Guides](https://github.com/SigmaHQ/sigma/tree/master/documentation/logsource-guides)
 
-### Detection
+### Detection<a name="detection"></a>
 
 **Attribute**: detection
 
@@ -351,54 +352,54 @@ More details can be found in the [Sigma Taxonomy Appendix](/appendix/sigma-taxon
 
 A set of search-identifiers that represent properties of searches on log data.
 
-#### Search-Identifier
+#### Search-Identifier<a name="search-identifier"></a>
 
 A definition that can consist of two different data structures - lists and maps.
 
-#### General
+#### General<a name="general"></a>
 
-* All values are treated as case-insensitive strings.
-* You can use wildcard characters `*` and `?` in strings (see also [escaping](#escaping) section below).
-* Regular expressions are case-sensitive by default.
-* You don't have to escape characters except the string quotation marks `'`.
+- All values are treated as case-insensitive strings.
+- You can use wildcard characters `*` and `?` in strings (see also [escaping](#escaping) section below).
+- Regular expressions are case-sensitive by default.
+- You don't have to escape characters except the string quotation marks `'`.
 
-#### String Wildcard
+#### String Wildcard<a name="string-wildcard"></a>
 
 Wildcards are used when part of the text is random.
 You can use :
 
-* `?` to replace a single mandatory character.
-* `*` to replace an unbounded length wildcard.
+- `?` to replace a single mandatory character.
+- `*` to replace an unbounded length wildcard.
 
 example:
 
-* `progA.exe or progB.exe or ...` will be `prog?.exe`
-* `antivirus_V1.exe or antivirus_V21.2.1.exe or ...` will be `antivirus_V*.exe`
+- `progA.exe or progB.exe or ...` will be `prog?.exe`
+- `antivirus_V1.exe or antivirus_V21.2.1.exe or ...` will be `antivirus_V*.exe`
 
 Sigma has special modifiers to facilitate the search of unbounded strings
 
-* `*something` see [endswith modifier](#value-modifiers).
-* `something*` see [startswith modifier](#value-modifiers).
-* `*something*` see [contains modifier](#value-modifiers).
+- `*something` see [endswith modifier](#value-modifiers).
+- `something*` see [startswith modifier](#value-modifiers).
+- `*something*` see [contains modifier](#value-modifiers).
 
-#### Escaping
+#### Escaping<a name="escaping"></a>
 
 The backslash character `\` is used for escaping of wildcards `*` and `?` as well as the backslash character itself. Escaping of the backslash is necessary if it is followed by a wildcard depending on the desired result.
 
 Summarized, these are the following possibilities:
 
-* Plain backslash not followed by a wildcard can be expressed as single `\` or double backslash `\\`. For simplicity reasons the single notation is recommended.
-* A wildcard has to be escaped to be handled as a plain character. eg: `\*`, `\?`.
-* The backslash before a wildcard has to be escaped to handle the value as a backslash followed by a wildcard: `\\*`.
-* Three backslashes are necessary to escape both, the backslash and the wildcard and handle them as plain values: `\\\*`.
-* Three or four backslashes are handled as double backslash. Four is recommended for consistency reasons: `\\\\` results in the plain value `\\`.
+- Plain backslash not followed by a wildcard can be expressed as single `\` or double backslash `\\`. For simplicity reasons the single notation is recommended.
+- A wildcard has to be escaped to be handled as a plain character. eg: `\*`, `\?`.
+- The backslash before a wildcard has to be escaped to handle the value as a backslash followed by a wildcard: `\\*`.
+- Three backslashes are necessary to escape both, the backslash and the wildcard and handle them as plain values: `\\\*`.
+- Three or four backslashes are handled as double backslash. Four is recommended for consistency reasons: `\\\\` results in the plain value `\\`.
 
-#### Lists
+#### Lists<a name="lists"></a>
 
 Lists can contain:
 
-* strings that are applied to the full log message and are linked with a logical 'OR'.
-* maps (see below). All map items of a list are logically linked with 'OR'.
+- strings that are applied to the full log message and are linked with a logical 'OR'.
+- maps (see below). All map items of a list are logically linked with 'OR'.
 
 Example for list of strings: Matches on 'EvilService' **or** 'svchost.exe -n evil'
 
@@ -420,7 +421,7 @@ detection:
 
 The example above matches an image value ending with `example.exe` **or** an executable with a description containing the string `Test executable`.
 
-#### Maps
+#### Maps<a name="maps"></a>
 
 Maps (or dictionaries) consist of key/value pairs, in which the key is a field in the log data and the value is a string or integer value. All elements of a map are joined with a logical 'AND'.
 
@@ -450,7 +451,7 @@ detection:
     condition: selection
 ```
 
-#### Field Usage
+#### Field Usage<a name="field-usage"></a>
 
 1. For fields with existing field-mappings, use the mapped field name.
 
@@ -469,33 +470,36 @@ fieldmappings:
 
 Example:
 
-* `New Value` -> `NewValue`
-* `SAM User Account` -> `SAMUserAccount`
+- `New Value` -> `NewValue`
+- `SAM User Account` -> `SAMUserAccount`
 
 3. Clarification on Windows events from the EventViewer:
-    1. Some fields are defined as attributes of the XML tags (in the `<System>` header of the events). The tag and attribute names have to be linked with an underscore character '_'.
-    2. In the `<EventData>` body of the event the field name is given by the `Name` attribute of the `Data` tag.
+   1. Some fields are defined as attributes of the XML tags (in the `<System>` header of the events). The tag and attribute names have to be linked with an underscore character '\_'.
+   1. In the `<EventData>` body of the event the field name is given by the `Name` attribute of the `Data` tag.
 
 Examples i:
 
-* `<Provider Name="Service Control Manager" Guid="[...]" EventSourceName="[...]" />` will be `Provider_Name`
-* ` <Execution ProcessID="788" ThreadID="792" />` will be `Execution_ProcessID`
+- `<Provider Name="Service Control Manager" Guid="[...]" EventSourceName="[...]" />` will be `Provider_Name`
+- ` <Execution ProcessID="788" ThreadID="792" />` will be `Execution_ProcessID`
 
 Examples ii:
 
-* `<Data Name="User">NT AUTHORITY\SYSTEM</Data>` will be `User`
-* `<Data Name="ServiceName">MpKsl4eaa0a76</Data>` will be `ServiceName`
+- `<Data Name="User">NT AUTHORITY\SYSTEM</Data>` will be `User`
+- `<Data Name="ServiceName">MpKsl4eaa0a76</Data>` will be `ServiceName`
 
-#### Special Field Values
+#### Special Field Values<a name="special-field-values"></a>
 
 There are special field values that can be used.
 
-* An empty value is defined with `''`
-* A null value is defined with `null`
+- An empty value is defined with `''`
+- A null value is defined with `null`
 
 The application of these values depends on the target SIEM system.
 
-To get an expression that say `not null` you have to create another selection and negate it in the condition.
+In general it is encouraged to take special care of `null` during rule creation. A `not null` construct should be its
+own selection and `null` cannot be part of a list of field values.
+
+To get an expression that says `not null` you have to create another selection and negate it in the condition.
 
 Example:
 
@@ -508,7 +512,34 @@ detection:
     condition: selection and not filter
 ```
 
-#### Field Existence
+Also `null` cannot be part of a list of field values as it is its own type and therefore shares no type with any other value.
+
+Valid Example:
+
+```yml
+detection:
+    selection_main:
+        FieldA: 'something'
+    selection_empty1:
+        FieldB: ''
+    selection_empty2:
+        FieldB: null
+    condition: selection_main and 1 of selection_empty*
+```
+
+Invalid Example:
+
+```yml
+detection:
+    selection_main:
+        FieldA: 'something'
+        FieldB:
+            - ''
+            - null
+    condition: selection_main
+```
+
+#### Field Existence<a name="field-existence"></a>
 
 In some case a field can be optional in the event. You can use the `exists` modifiers to check it.
 
@@ -522,21 +553,21 @@ detection:
     condition: selection
 ```
 
-#### Value Modifiers
+#### Value Modifiers<a name="value-modifiers"></a>
 
 The values contained in Sigma rules can be modified by *value modifiers*. Value modifiers are
 appended after the field name with a pipe character `|` as separator and can also be chained, e.g.
 `fieldname|mod1|mod2: value`. The value modifiers are applied in the given order to the value.
 
-##### Modifier Types
+##### Modifier Types<a name="modifier-types"></a>
 
 There are two types of value modifiers:
 
-* *Transformation modifiers* transform values into different values, like the two Base64 modifiers
+- *Transformation modifiers* transform values into different values, like the two Base64 modifiers
   mentioned below. Furthermore, this type of modifiers is also able to change the logical operation
   between values. Transformation modifiers are generally backend-agnostic. Meaning: you can use them
   with any backend.
-* *Type modifiers* change the type of a value. The value itself might also be changed by such a
+- *Type modifiers* change the type of a value. The value itself might also be changed by such a
   modifier, but the main purpose is to tell the backend that a value should be handled differently
   by the backend, e.g. it should be treated as regular expression when the *re* modifier is used.
   Type modifiers must be supported by the backend.
@@ -546,38 +577,38 @@ multiple values.
 
 [List of modifiers](appendix/sigma-modifiers-appendix.md)
 
-#### Placeholders
+#### Placeholders<a name="placeholders"></a>
 
 Placeholders are used as values that get their final meaning at conversion or usage time of the rule. This can be, but is not restricted to:
 
-* Replacement of placeholders with a single, multiple or-linked values or patterns. Example: the placeholder `%Servers%` is replaced with
+- Replacement of placeholders with a single, multiple or-linked values or patterns. Example: the placeholder `%Servers%` is replaced with
   the pattern `srv*` because servers are named so in the target environment.
-* Replacement of placeholders with a query expression. Example: replacement of `%servers%` with a lookup expression `LOOKUP(field, servers)`
+- Replacement of placeholders with a query expression. Example: replacement of `%servers%` with a lookup expression `LOOKUP(field, servers)`
   that looks up the value of `field` in a lookup table `servers`.
-* Conducting lookups in tables or APIs while matching the Sigma rule that contains placeholders.
+- Conducting lookups in tables or APIs while matching the Sigma rule that contains placeholders.
 
 From Sigma 1.1 placeholders are only handled if the *expand* modifier is applied to the value containing the placeholder.
 A plain percent character can be used by escaping it with a backslash. Examples:
 
-* `field: %name%` handles `%name%` as literal value.
-* `field|expand: %name%` handles `%name%` as placeholder.
-* `field|expand: \%plain%name%` handles `%plain` as plain value and `%name%` as placeholder.
+- `field: %name%` handles `%name%` as literal value.
+- `field|expand: %name%` handles `%name%` as placeholder.
+- `field|expand: \%plain%name%` handles `%plain` as plain value and `%name%` as placeholder.
 
 Placeholders must be handled appropriately by a tool that uses Sigma rules. If the tool isn't able to handle placeholders, it must reject the rule.
 
-##### Standard Placeholders
+##### Standard Placeholders<a name="standard-placeholders"></a>
 
 The following standard placeholders should be used:
 
-* `%Administrators%`: Administrative user accounts
-* `%JumpServers%`: Server systems used as jump servers
-* `%Workstations%`: Workstation systems
-* `%Servers%`: Server systems
-* `%DomainControllers%`: Domain controller systems
+- `%Administrators%`: Administrative user accounts
+- `%JumpServers%`: Server systems used as jump servers
+- `%Workstations%`: Workstation systems
+- `%Servers%`: Server systems
+- `%DomainControllers%`: Domain controller systems
 
 Custom placeholders can be defined as required.
 
-#### Keywords search
+#### Keywords search<a name="keywords-search"></a>
 
 Contrary to the Field Usage, It's a matter of searching for keywords across an entire event. \
 They are built by using a list under a search-identifiers.
@@ -589,9 +620,11 @@ detection:
         - 'event::drop'
     condition: mimikatz_keywords
 ```
+
 Give : "event::clear" **or** "event::drop"
 
 To have a **and** operator , we use the `'|all':` modifier
+
 ```yaml
 detection:
     keywords_cmdlet:
@@ -600,11 +633,12 @@ detection:
             - ' -ExternalUrl '
     condition: keywords_cmdlet
 ```
+
 Give : "OabVirtualDirectory" **and** " -ExternalUrl "
 
 Some rules use simply `keywords` as search-identifiers name to facilitate identification.
 
-### Condition
+### Condition<a name="condition"></a>
 
 **Attribute**: condition
 
@@ -631,6 +665,7 @@ The condition is the most complex part of the specification and will be subject 
   Same as *1/all of them*, but restricted to matching search identifiers. Matching is done with * wildcards (any number of characters) at arbitrary positions in the pattern.
 
   Examples:
+
   - `all of selection*`
   - `1 of selection* and keywords`
   - `1 of selection* and not 1 of filter*`
@@ -654,7 +689,7 @@ Operator Precedence (least to most binding)
 The condition can be a list, in this case, each of them generates a query
 They are logically linked with OR.
 
-### Fields
+### Fields<a name="fields"></a>
 
 **Attribute**: fields
 
@@ -662,7 +697,7 @@ They are logically linked with OR.
 
 A list of log fields that could be interesting in further analysis of the event and should be displayed to the analyst.
 
-### FalsePositives
+### FalsePositives<a name="falsepositives"></a>
 
 **Attribute**: falsepositives
 
@@ -670,7 +705,7 @@ A list of log fields that could be interesting in further analysis of the event 
 
 A list of known false positives that may occur.
 
-### Level
+### Level<a name="level"></a>
 
 **Attribute**: level
 
@@ -684,7 +719,7 @@ The level field contains one of five string values. It describes the criticality
 - `high`: Relevant event that should trigger an internal alert and requires a prompt review.
 - `critical`: Highly relevant event that indicates an incident. Critical events should be reviewed immediately. It is used only for cases in which probability borders certainty.
 
-### Tags
+### Tags<a name="tags"></a>
 
 **Attribute**: tags
 
@@ -692,15 +727,15 @@ The level field contains one of five string values. It describes the criticality
 
 A Sigma rule can be categorized with tags. Tags should generally follow this syntax:
 
-* Character set: lower-case letters, numerals, underscores and hyphens
-* no spaces
-* Tags are namespaced, the dot is used as separator. e.g. *attack.t1234* refers to technique 1234 in the namespace *attack*; Namespaces may also be nested
-* Keep tags short, e.g. numeric identifiers instead of long sentences
-* Feel free to send pull request or issues with proposals for new tags
+- Character set: lower-case letters, numerals, underscores and hyphens
+- no spaces
+- Tags are namespaced, the dot is used as separator. e.g. *attack.t1234* refers to technique 1234 in the namespace *attack*; Namespaces may also be nested
+- Keep tags short, e.g. numeric identifiers instead of long sentences
+- Feel free to send pull request or issues with proposals for new tags
 
 [More information about tags](/appendix/sigma-tags-appendix.md)
 
-### Scope
+### Scope<a name="scope"></a>
 
 **Attribute**: scope
 
@@ -711,21 +746,21 @@ A list of the intended scopes of the rule. This would allow you to define if a r
 For example , if you have a rule for a registry key being set, where the key only exists on windows server installations./
 A scope with the value `server` can be added to limit this rule only to Windows Servers.
 
-## Rule Correlation
+## Rule Correlation<a name="rule-correlation"></a>
 
 Correlation allows several events to be linked together. To make it easier to read these corelation rules, they are written in meta-rules.
 
 Check out the [Sigma Correlation Rules Specification](/specification/sigma-correlation-rules-specification.md) for more details.
 
-## Sigma Filters
+## Sigma Filters<a name="sigma-filters"></a>
 
 To adapt the rules to the environment, it is sometimes useful to put the same exclusion in several rules. /
 Their maintenance can become difficult, with a meta-filter it is possible to write it in a single place.
 
 Check out the [Sigma Filters Specification](/specification/sigma-filters-specification.md) for more details.
 
-## History
+## History<a name="history"></a>
 
-* 2024-08-08 Specification v2.0.0
-* 2023-06-29 Specification v1.0.4
-* 2022-12-28 Specification v1.0.3
+- 2024-08-08 Specification v2.0.0
+- 2023-06-29 Specification v1.0.4
+- 2022-12-28 Specification v1.0.3
