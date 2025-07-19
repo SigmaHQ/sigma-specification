@@ -226,6 +226,26 @@
         {
         "if": { "properties": {"type": {"const": "value_count"}}},
         "then": {"required": ["condition", "field", "group-by", "timespan"]}
+        },
+        {
+        "if": { "properties": {"type": {"const": "value_sum"}}},
+        "then": {"required": ["condition", "field", "group-by", "timespan"]}
+        },
+        {
+        "if": { "properties": {"type": {"const": "value_max"}}},
+        "then": {"required": ["condition", "field", "group-by", "timespan"]}
+        },
+        {
+        "if": { "properties": {"type": {"const": "value_min"}}},
+        "then": {"required": ["condition", "field", "group-by", "timespan"]}
+        },
+        {
+        "if": { "properties": {"type": {"const": "value_avg"}}},
+        "then": {"required": ["condition", "field", "group-by", "timespan"]}
+        },
+        {
+        "if": { "properties": {"type": {"const": "value_percentile"}}},
+        "then": {"required": ["condition", "field", "group-by", "timespan"]}
         }
       ]
     },

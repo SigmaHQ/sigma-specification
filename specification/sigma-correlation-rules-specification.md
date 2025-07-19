@@ -40,6 +40,11 @@ The following document defines the standardized correlation that can be used in 
     - [Value Count (value_count)](#value-count-value_count)
     - [Temporal Proximity (temporal)](#temporal-proximity-temporal)
     - [Ordered Temporal Proximity (temporal_ordered)](#ordered-temporal-proximity-temporal_ordered)
+    - [Value Sum (value_sum)](#value-sum-value_sum)
+    - [Value Max (value_max)](#value-max-value_max)
+    - [Value Min (value_min)](#value-min-value_min)
+    - [Value Average (value_avg)](#value-average-value_avg)
+    - [Value Percentile (value_percentile)](#value-percentile-value_percentile)
   - [Field Name Aliases](#field-name-aliases)
     - [Field Name Aliases Example](#field-name-aliases-example)
 - [Examples](#examples)
@@ -477,6 +482,141 @@ correlation:
 Note:
 Even if the rule many_failed_logins groups by the "ComputerName" field, the correlation rule only uses its own `group-by` "User".
 
+#### Value Sum (value_sum)<a name="value-sum-value_sum"></a>
+
+Check if the `sum` of a number field match a limit
+
+Requires:
+
+- `group-by`
+- `timespan`
+- `condition`
+- `field` in condition section.
+
+```yaml
+title: Possible Exfiltration to Website
+correlation:
+    type: value_sum
+    rules:
+        - website_access
+    group-by:
+        - SourceIP
+        - User
+    timespan: 1h
+    condition:
+        field: bytes_sent
+        gt: 1000000
+```
+
+#### Value Max (value_max)<a name="value-max-value_max"></a>
+
+Check if the `max` of a number field match a limit
+
+Requires:
+
+- `group-by`
+- `timespan`
+- `condition`
+- `field` in condition section.
+
+```yaml
+title: Maximum value reached
+correlation:
+  type: value_max
+  rules: 
+        - rule_a_id
+  group-by:
+        - field1
+        - field2
+    timespan: 30m
+  condition:
+        field: numeric_value
+        gte: 100
+```
+
+#### Value Min (value_min)<a name="value-min-value_min"></a>
+
+Check if the `min` of a number field match a limit
+
+Requires:
+
+- `group-by`
+- `timespan`
+- `condition`
+- `field` in condition section.
+
+```yaml
+title: Possible C2 Communication
+correlation:
+  type: value_min
+  rules: 
+    - request_to_website
+  group-by:
+    - domainName
+    - Username
+  timespan: 24h
+  condition:
+    field: BytesOut
+    lte: 400
+```
+
+#### Value Average (value_avg)<a name="value-average-value_avg"></a>
+
+Check if the `average` of a number field match a limit
+
+Requires:
+
+- `group-by`
+- `timespan`
+- `condition`
+- `field` in condition section.
+
+```yaml
+title: Suspicious average network traffic
+correlation:
+    type: value_avg
+    rules: 
+        - rule_a_id
+    group-by:
+        - SourceIP
+        - User
+    timespan: 24h
+    condition:
+        field: BytesOut
+        gt: 500
+```
+
+Note: The `condition` for value_avg requires a comparison operator (like gt, gte, etc.) and compares it to an integer or float threshold.
+This example shows that we are looking for groups where the average bytes sent over a period exceeds 500.
+
+Also note: In the condition section, the field must be present and specify which numeric field should be used for the aggregation.
+
+#### Value Percentile (value_percentile)<a name="value-percentile-value_percentile"></a>
+
+Check when a certain percentage of observed values occur.
+Tips: median is a percentile 50
+
+Requires:
+
+- `group-by`
+- `timespan`
+- `condition`
+- `field` in condition section.
+
+```yaml
+title: A computer spawned a processes name in the last 24h than 1% of all the processes.
+correlation:
+    type: value_percentile
+    rules: 
+        - process_creation
+    group-by:
+        - ComputerName
+    timespan: 24h
+    condition:
+        field: image
+        lte: 1
+```
+
 ### Field Name Aliases<a name="field-name-aliases"></a>
 
 Sometimes correlation of values in the same fields is not sufficient. E.g. a correlation rule might require to aggregate events that appear from a source address in one event and the same address as destination in another event. A Sigma correlation rule can contain an `aliases` attribute that defines an alias for different field names in events matched by different Sigma rules. The alias field names can then be referenced in `group-by` attributes and are resolved to their respective field names.
@@ -623,6 +763,13 @@ detection:
 
 ## History<a name="history"></a>
 
+- 2025-06-25 Specification V2.1.0
+  - add metric corelation with:
+    - value_sum
+    - value_max
+    - value_min
+    - value_avg
+    - value_percentile
 - 2024-11-01 Specification V2.0.2
   - add Requires field for temporal rules
 - 2024-09-03 Specification V2.0.1
