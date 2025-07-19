@@ -495,7 +495,10 @@ There are special field values that can be used.
 
 The application of these values depends on the target SIEM system.
 
-To get an expression that say `not null` you have to create another selection and negate it in the condition.
+In general it is encouraged to take special care of `null` during rule creation. A `not null` construct should be its
+own selection and `null` cannot be part of a list of field values.
+
+To get an expression that says `not null` you have to create another selection and negate it in the condition.
 
 Example:
 
@@ -506,6 +509,31 @@ detection:
     filter:
         PasswordLastSet: null
     condition: selection and not filter
+```
+
+Also `null` cannot be part of a list of field values as it is its own type and therefore shares no type with any other value.
+
+Valid Example:
+```yml
+detection:
+    selection_main:
+        FieldA: 'something'
+    selection_empty1:
+        FieldB: ''
+    selection_empty2:
+        FieldB: null
+    condition: selection_main and 1 of selection_empty*
+```
+
+Invalid Example:
+```yml
+detection:
+    selection_main:
+        FieldA: 'something'
+        FieldB:
+            - ''
+            - null
+    condition: selection_main
 ```
 
 #### Field Existence
