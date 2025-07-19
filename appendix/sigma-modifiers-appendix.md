@@ -2,10 +2,8 @@
 
 The following document defines the standardized modifiers that can be used in Sigma.
 
-
-* Version 2.1.0
-* Release date 2025-07-17
-
+- Version 2.1.0
+- Release date 2025-07-17
 
 <!-- mdformat-toc start --slug=github --maxlevel=6 --minlevel=2 -->
 
@@ -41,8 +39,7 @@ The following modifiers are considered generic modifiers and can be applied on a
 
 * `exists`: Defines that a certain field has to exist or must not exist in a log event by providing a boolean value. Note that this check only verifies the presence of a field, not its value, be it empty or null.
 * `cased`: Values are applied case sensitively. Default Sigma behavior is case-insensitive matching.
-* `neq`:  The field is different from the value. It's can be used with string or number.
-
+* `neq`: The field is different from the value. It's can be used with string or number.
 
 ### String Modifiers<a name="string-modifiers"></a>
 
@@ -132,20 +129,19 @@ The modifiers listed in this section can only be applied to IP values.
 - `fieldref`: Modifies a plain string into a field reference. A field reference can be used to compare fields of matched
   events directly at query/matching time.
 
+## History<a name="history"></a>
 
-## History
-* 2025-07-17 Modifiers Appendix v2.1.0
-  * `neq` can be use with string or number
-* 2025-03-03 Modifiers Appendix v2.1.0
-  * Add time modifiers
-* 2024-08-10 Modifiers Appendix v2.0.1
-  * Add regular expression flavor definition.
-  * restructure titles
-* 2024-08-08 Modifiers Appendix v2.0.0
-* 2023-05-27 Modifiers Appendix v1.0.4
-  * Update from PySigma 0.7.6
-  * Add `fieldref`
-* 2023-05-21 Modifiers Appendix v1.0.3
-  * Creation of the file
-* 2017 Sigma creation
-
+- 2025-07-17 Modifiers Appendix v2.1.0
+  - `neq` can be use with string or number
+- 2025-03-03 Modifiers Appendix v2.1.0
+  - Add time modifiers
+- 2024-08-10 Modifiers Appendix v2.0.1
+  - Add regular expression flavor definition.
+  - restructure titles
+- 2024-08-08 Modifiers Appendix v2.0.0
+- 2023-05-27 Modifiers Appendix v1.0.4
+  - Update from PySigma 0.7.6
+  - Add `fieldref`
+- 2023-05-21 Modifiers Appendix v1.0.3
+  - Creation of the file
+- 2017 Sigma creation

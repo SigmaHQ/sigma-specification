@@ -306,14 +306,12 @@ The condition defines when a correlation matches:
 
 It is a map of exactly one condition criterion:
 
-
-* `gt`: The count must be greater than the given value
-* `gte`: The count must be greater than or equal the given value
-* `lt`: The count must be lesser than the given value
-* `lte`: The count must be lesser than or equal the given value
-* `eq`: The count must be equal the given value
-* `neq`: The count must be different the given value
-
+- `gt`: The count must be greater than the given value
+- `gte`: The count must be greater than or equal the given value
+- `lt`: The count must be lesser than the given value
+- `lte`: The count must be lesser than or equal the given value
+- `eq`: The count must be equal the given value
+- `neq`: The count must be different the given value
 
 Example:
 

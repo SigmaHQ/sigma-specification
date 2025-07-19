@@ -515,6 +515,7 @@ detection:
 Also `null` cannot be part of a list of field values as it is its own type and therefore shares no type with any other value.
 
 Valid Example:
+
 ```yml
 detection:
     selection_main:
@@ -527,6 +528,7 @@ detection:
 ```
 
 Invalid Example:
+
 ```yml
 detection:
     selection_main:
@@ -537,8 +539,7 @@ detection:
     condition: selection_main
 ```
 
-#### Field Existence <a name="field-existence"></a>
-
+#### Field Existence<a name="field-existence"></a>
 
 In some case a field can be optional in the event. You can use the `exists` modifiers to check it.
 
