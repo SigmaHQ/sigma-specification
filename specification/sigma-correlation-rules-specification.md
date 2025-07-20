@@ -161,7 +161,7 @@ id: 0e95725d-7320-415d-80f7-004da920fc11
 Declares the status of the rule:
 
 - `stable`: the rule is considered as stable and may be used in production systems or dashboards.
-- `test`: a mostly stable rule that could require some slight adjustments depending on the environement.
+- `test`: a mostly stable rule that could require some slight adjustments depending on the environment.
 - `experimental`: an experimental rule that could lead to false positives results or be noisy, but could also identify interesting
   events.
 - `deprecated`: the rule is replaced or covered by another one. The link is established by the `related` field.
