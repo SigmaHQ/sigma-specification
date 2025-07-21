@@ -544,7 +544,7 @@ There are two types of value modifiers:
 Generally, value modifiers work on single values and value lists. A value might also expand into
 multiple values.
 
-[List of modifiers](appendix/sigma-modifiers-appendix.md)
+[List of modifiers](../appendix/sigma-modifiers-appendix.md)
 
 #### Placeholders
 
