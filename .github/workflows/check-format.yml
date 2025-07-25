@@ -26,6 +26,7 @@ jobs:
         cache: 'pip' # caching pip dependencies
     - run: pip install -r requirements.txt
     - run: |
+        check-jsonschema --schemafile ./json-schema/sigma-correlation-rules-schema.json ./tests/correlation/*.yml
         check-jsonschema --schemafile ./json-schema/sigma-detection-rule-schema.json  ./tests/rules/*.yml
         check-jsonschema --schemafile ./json-schema/sigma-filters-schema.json ./tests/filter/*.yml
         
