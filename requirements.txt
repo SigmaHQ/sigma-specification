@@ -4,3 +4,4 @@ mdformat-footnote
 mdformat-gfm
 mdformat-gfm-alerts
 mdformat-toc
+check-jsonschema

@@ -1,0 +1,12 @@
+title: Possible C2 Communication
+correlation:
+  type: value_min
+  rules: 
+    - request_to_website
+  group-by:
+    - domainName
+    - Username
+  timespan: 24h
+  condition:
+    field: BytesOut
+    lte: 400
