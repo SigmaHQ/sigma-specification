@@ -1,0 +1,12 @@
+title: Suspicious average network traffic
+correlation:
+    type: value_avg
+    rules: 
+        - rule_a_id
+    group-by:
+        - SourceIP
+        - User
+    timespan: 24h
+    condition:
+        field: BytesOut
+        gt: 500

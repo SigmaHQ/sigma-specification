@@ -1,0 +1,12 @@
+title: Possible Exfiltration to Website
+correlation:
+    type: value_sum
+    rules:
+        - website_access
+    group-by:
+        - SourceIP
+        - User
+    timespan: 1h
+    condition:
+        field: bytes_sent
+        gt: 1000000
