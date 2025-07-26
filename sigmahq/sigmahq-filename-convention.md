@@ -2,7 +2,7 @@
 
 This document describe a soft convention to name rule files. The following convention has been set to help with the management of the rules files repository and is not part of the SIGMA specification.
 
-<!-- mdformat-toc start --slug=github --maxlevel=6 --minlevel=2 -->
+<!-- mdformat-toc start --slug=github --no-anchors --maxlevel=6 --minlevel=2 -->
 
 - [Product](#product)
 - [Cloud](#cloud)
@@ -14,13 +14,13 @@ This document describe a soft convention to name rule files. The following conve
 
 <!-- mdformat-toc end -->
 
-## Product<a name="product"></a>
+## Product
 
 | product | Pattern    | example                    |
 | ------- | ---------- | -------------------------- |
 | modsec  | modsec\_\* | modsec_mulitple_blocks.yml |
 
-## Cloud<a name="cloud"></a>
+## Cloud
 
 | product    | Pattern          | example                                                 |
 | ---------- | ---------------- | ------------------------------------------------------- |
@@ -32,7 +32,7 @@ This document describe a soft convention to name rule files. The following conve
 | okta       | okta\_\*         | okta_application_sign_on_policy_modified_or_deleted.yml |
 | onelogin   | onelogin\_\*     | onelogin_user_account_locked.yml                        |
 
-## Category<a name="category"></a>
+## Category
 
 | Category             | Pattern                      | example                                         |
 | -------------------- | ---------------------------- | ----------------------------------------------- |
@@ -66,7 +66,7 @@ This document describe a soft convention to name rule files. The following conve
 | sysmon_status        |                              |                                                 |
 | wmi_event            |                              |                                                 |
 
-## Category without product<a name="category-without-product"></a>
+## Category without product
 
 | Category  | Pattern          | example                                 |
 | --------- | ---------------- | --------------------------------------- |
@@ -74,9 +74,9 @@ This document describe a soft convention to name rule files. The following conve
 | firewall  | net_firewall\_\* | net_firewall_high_dns_requests_rate.yml |
 | webserver | web\_\*          | web_cve_2020_5902_f5_bigip.yml          |
 
-## Service<a name="service"></a>
+## Service
 
-### Linux<a name="linux"></a>
+### Linux
 
 The naming convention for rules using linux services is the as follows:
 
@@ -97,7 +97,7 @@ The naming convention for rules using linux services is the as follows:
 | syslog    | lnx_syslog\_\*    | lnx_syslog_susp_named.yml                     |
 | vsftpd    | lnx_vsftpd\_\*    | lnx_vsftp_error_messages.yml                  |
 
-### Windows<a name="windows"></a>
+### Windows
 
 The naming convention for rules using windows services is the as follows:
 

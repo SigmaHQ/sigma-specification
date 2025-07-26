@@ -5,7 +5,7 @@ The following document defines the standardized modifiers that can be used in Si
 - Version 2.1.0
 - Release date 2025-07-17
 
-<!-- mdformat-toc start --slug=github --maxlevel=6 --minlevel=2 -->
+<!-- mdformat-toc start --slug=github --no-anchors --maxlevel=6 --minlevel=2 -->
 
 - [Generic Modifiers](#generic-modifiers)
 - [String Modifiers](#string-modifiers)
@@ -19,7 +19,7 @@ The following document defines the standardized modifiers that can be used in Si
 
 <!-- mdformat-toc end -->
 
-### Generic Modifiers<a name="generic-modifiers"></a>
+### Generic Modifiers
 
 The following modifiers are considered generic modifiers and can be applied on all types of fields.
 
@@ -41,13 +41,13 @@ The following modifiers are considered generic modifiers and can be applied on a
 * `cased`: Values are applied case sensitively. Default Sigma behavior is case-insensitive matching.
 * `neq`: The field is different from the value. It's can be used with string or number.
 
-### String Modifiers<a name="string-modifiers"></a>
+### String Modifiers
 
 The modifiers listed in this section can only be applied to string values.
 
 - `windash`: Creates all possible permutations of the `-`, `/`, `–` (en dash), `—` (em dash), and `―` (horizontal bar) characters. Windows command line flags can often be indicated by both characters. Using the `windash` modifier converts the aforementioned characters interchangeably and uses all possible permutation of strings in the selection.
 
-#### Regular Expression<a name="regular-expression"></a>
+#### Regular Expression
 
 - `re`: Value is handled as a regular expression by backends. Regex is matched case-sensitive by default.
 
@@ -73,7 +73,7 @@ The modifiers listed in this section can only be applied to string values.
   - `m`: (multi line) to match across multiple lines. `^` /`$` match the start/end of line.
   - `s`: (single line) to enable that dot (`.`) matches all characters, including the newline character.
 
-#### Encoding<a name="encoding"></a>
+#### Encoding
 
 - `base64`: The value is encoded with Base64.
 
@@ -89,7 +89,7 @@ The modifiers listed in this section can only be applied to string values.
   - `utf16`: Prepends a [byte order mark](https://en.wikipedia.org/wiki/Byte_order_mark) and encodes UTF16, e.g. `cmd` > `FF FE 63 00 6d 00 64 00`
   - `wide`: an alias for the `utf16le` modifier.
 
-### Numeric Modifiers<a name="numeric-modifiers"></a>
+### Numeric Modifiers
 
 The modifiers listed in this section can only be applied to numeric values.
 
@@ -98,7 +98,7 @@ The modifiers listed in this section can only be applied to numeric values.
 - `gt`: Field is greater than the value
 - `gte`: Field is greater or equal than the value
 
-### Time Modifiers<a name="time-modifiers"></a>
+### Time Modifiers
 
 The modifiers listed in this section can only be applied to date values.
 it extracts a numeric value from a date.
@@ -112,13 +112,13 @@ it extracts a numeric value from a date.
 - `month`: number between 1 and 12.
 - `year`: number of the year
 
-### IP (Internet Protocol) Modifiers<a name="ip-internet-protocol-modifiers"></a>
+### IP (Internet Protocol) Modifiers
 
 The modifiers listed in this section can only be applied to IP values.
 
 - `cidr`: The value is handled as an CIDR by backends. Supports both IPv4 and IPv6 notations. Example: `DestinationIp|cidr: 10.0.0.0/8`
 
-### Specific Modifiers<a name="specific-modifiers"></a>
+### Specific Modifiers
 
 - `expand`: Modifier for expansion of placeholders in values. The final behavior of the replacement is determined by processing pipeline transformations. Current possibilities in pySigma are:
 
@@ -129,7 +129,7 @@ The modifiers listed in this section can only be applied to IP values.
 - `fieldref`: Modifies a plain string into a field reference. A field reference can be used to compare fields of matched
   events directly at query/matching time.
 
-## History<a name="history"></a>
+## History
 
 - 2025-07-17 Modifiers Appendix v2.1.0
   - `neq` can be use with string or number

@@ -15,6 +15,15 @@ jobs:
         cache: 'pip' # caching pip dependencies
     - run: pip install -r requirements.txt
     - run: mdformat --check .
+  markdown-link-check:
+    name: Check link in the markdown
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: tcort/github-action-markdown-link-check@v1
+      with:
+        use-quiet-mode: 'yes'
+        use-verbose-mode: 'yes'
   jsonschema:
     name: Check the json schema
     runs-on: ubuntu-latest
@@ -29,4 +38,4 @@ jobs:
         check-jsonschema --schemafile ./json-schema/sigma-correlation-rules-schema.json ./tests/correlation/*.yml
         check-jsonschema --schemafile ./json-schema/sigma-detection-rule-schema.json  ./tests/rules/*.yml
         check-jsonschema --schemafile ./json-schema/sigma-filters-schema.json ./tests/filter/*.yml
-        
+   

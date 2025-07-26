@@ -3,7 +3,7 @@
 - Version 2.0.0
 - Release date 2024-08-08
 
-<!-- mdformat-toc start --slug=github --maxlevel=6 --minlevel=2 -->
+<!-- mdformat-toc start --slug=github --no-anchors --maxlevel=6 --minlevel=2 -->
 
 - [File Structure](#file-structure)
   - [Yaml File](#yaml-file)
@@ -25,7 +25,7 @@
     - [Search-Identifier](#search-identifier)
     - [General](#general)
     - [String Wildcard](#string-wildcard)
-    - [Escaping](#escaping)
+    - [Escaping Character](#escaping-character)
     - [Lists](#lists)
     - [Maps](#maps)
     - [Field Usage](#field-usage)
@@ -48,7 +48,7 @@
 
 <!-- mdformat-toc end -->
 
-## File Structure<a name="file-structure"></a>
+## File Structure
 
 The rules consist of a few required sections and several optional ones.
 
@@ -89,7 +89,7 @@ scope [optional]
 [arbitrary custom fields]
 ```
 
-### Yaml File<a name="yaml-file"></a>
+### Yaml File
 
 The rule files are written in [yaml format](https://yaml.org/spec/1.2.2/)
 In order to keep the rules interoperable use the following:
@@ -134,13 +134,13 @@ example:
 - `web_cve_2022_33891_spark_shell_command_injection.yml`
 - `sysmon_file_block_exe.yml`
 
-### Schema<a name="schema"></a>
+### Schema
 
-The Json schema is defined in [sigma-detection-rule-schema.json](/json-schema/sigma-detection-rule-schema.json). Check it out for additional details on the required fields, their types and other information.
+The Json schema is defined in [sigma-detection-rule-schema.json](../json-schema/sigma-detection-rule-schema.json). Check it out for additional details on the required fields, their types and other information.
 
-## Components<a name="components"></a>
+## Components
 
-### Title<a name="title"></a>
+### Title
 
 **Attribute:** title
 
@@ -148,7 +148,7 @@ The Json schema is defined in [sigma-detection-rule-schema.json](/json-schema/si
 
 A brief title for the rule that should contain what the rule is supposed to detect (max. 256 characters)
 
-### Identification<a name="identification"></a>
+### Identification
 
 **Attributes:** id, related
 
@@ -191,7 +191,7 @@ Currently the following types are defined:
   expected that a rule with this id exists anymore.
 - `similar`: Use to relate similar rules to each other (e.g. same detection content applied to different log sources, rule that is a modified version of another rule with a different level)
 
-### Name<a name="name"></a>
+### Name
 
 **Attribute:** name
 
@@ -200,7 +200,7 @@ Currently the following types are defined:
 `name` is a **unique** human-readable name that can be used instead of the *id* as a reference in correlation rules. \
 The goal is to improve the readability of correlation rules.
 
-### Taxonomy<a name="taxonomy"></a>
+### Taxonomy
 
 **Attribute:** taxonomy
 
@@ -214,9 +214,9 @@ Defines the taxonomy used in the Sigma rule. A taxonomy can define:
 
 The Default taxonomy is `sigma`. A custom taxonomy must be handled by the used tool or transformed into the default taxonomy.
 
-More information on the default taxonomy can be found in the [Sigma Taxonomy Appendix](/appendix/sigma-taxonomy-appendix.md) file.
+More information on the default taxonomy can be found in the [Sigma Taxonomy Appendix](sigma-appendix-taxonomy.md) file.
 
-### Status<a name="status"></a>
+### Status
 
 **Attribute:** status
 
@@ -231,7 +231,7 @@ Declares the status of the rule:
 - `deprecated`: the rule is replaced or covered by another one. The link is established by the `related` field.
 - `unsupported`: the rule cannot be use in its current state (old correlation format, custom fields)
 
-### Description<a name="description"></a>
+### Description
 
 **Attribute:** description
 
@@ -239,7 +239,7 @@ Declares the status of the rule:
 
 A short and accurate description of the rule and the malicious or suspicious activity that can be detected (max. 65,535 characters)
 
-### License<a name="license"></a>
+### License
 
 **Attribute:** license
 
@@ -247,7 +247,7 @@ A short and accurate description of the rule and the malicious or suspicious act
 
 License of the rule according the [SPDX ID specification](https://spdx.org/ids).
 
-### Author<a name="author"></a>
+### Author
 
 **Attribute**: author
 
@@ -256,7 +256,7 @@ License of the rule according the [SPDX ID specification](https://spdx.org/ids).
 Creator of the rule. (can be a name, nickname, twitter handle...etc) \
 If there is more than one, they are separated by a comma.
 
-### References<a name="references"></a>
+### References
 
 **Attribute**: reference
 
@@ -265,7 +265,7 @@ If there is more than one, they are separated by a comma.
 References to the sources that the rule was derived from. \
 These could be blog articles, technical papers, presentations or even tweets.
 
-### Date<a name="date"></a>
+### Date
 
 **Attribute**: date
 
@@ -274,7 +274,7 @@ These could be blog articles, technical papers, presentations or even tweets.
 Creation date of the rule. \
 Use the ISO 8601 date with separator format : YYYY-MM-DD
 
-### Modified<a name="modified"></a>
+### Modified
 
 **Attribute**: modified
 
@@ -291,7 +291,7 @@ Reasons to change the modified date:
 - changed logsource (rare)
 - changed status to `deprecated`
 
-### LogSource<a name="logsource"></a>
+### LogSource
 
 **Attribute**: logsource
 
@@ -342,9 +342,9 @@ category: process_creation
 product: windows
 ```
 
-More details can be found in the [Sigma Taxonomy Appendix](/appendix/sigma-taxonomy-appendix.md) file, and [SigmaHQ Logsource Guides](https://github.com/SigmaHQ/sigma/tree/master/documentation/logsource-guides)
+More details can be found in the [Sigma Taxonomy Appendix](sigma-appendix-taxonomy.md) file, and [SigmaHQ Logsource Guides](https://github.com/SigmaHQ/sigma/tree/master/documentation/logsource-guides)
 
-### Detection<a name="detection"></a>
+### Detection
 
 **Attribute**: detection
 
@@ -352,18 +352,18 @@ More details can be found in the [Sigma Taxonomy Appendix](/appendix/sigma-taxon
 
 A set of search-identifiers that represent properties of searches on log data.
 
-#### Search-Identifier<a name="search-identifier"></a>
+#### Search-Identifier
 
 A definition that can consist of two different data structures - lists and maps.
 
-#### General<a name="general"></a>
+#### General
 
 - All values are treated as case-insensitive strings.
-- You can use wildcard characters `*` and `?` in strings (see also [escaping](#escaping) section below).
+- You can use wildcard characters `*` and `?` in strings (see also [escaping](#escaping-character) section below).
 - Regular expressions are case-sensitive by default.
 - You don't have to escape characters except the string quotation marks `'`.
 
-#### String Wildcard<a name="string-wildcard"></a>
+#### String Wildcard
 
 Wildcards are used when part of the text is random.
 You can use :
@@ -382,7 +382,7 @@ Sigma has special modifiers to facilitate the search of unbounded strings
 - `something*` see [startswith modifier](#value-modifiers).
 - `*something*` see [contains modifier](#value-modifiers).
 
-#### Escaping<a name="escaping"></a>
+#### Escaping Character
 
 The backslash character `\` is used for escaping of wildcards `*` and `?` as well as the backslash character itself. Escaping of the backslash is necessary if it is followed by a wildcard depending on the desired result.
 
@@ -394,7 +394,7 @@ Summarized, these are the following possibilities:
 - Three backslashes are necessary to escape both, the backslash and the wildcard and handle them as plain values: `\\\*`.
 - Three or four backslashes are handled as double backslash. Four is recommended for consistency reasons: `\\\\` results in the plain value `\\`.
 
-#### Lists<a name="lists"></a>
+#### Lists
 
 Lists can contain:
 
@@ -421,7 +421,7 @@ detection:
 
 The example above matches an image value ending with `example.exe` **or** an executable with a description containing the string `Test executable`.
 
-#### Maps<a name="maps"></a>
+#### Maps
 
 Maps (or dictionaries) consist of key/value pairs, in which the key is a field in the log data and the value is a string or integer value. All elements of a map are joined with a logical 'AND'.
 
@@ -451,7 +451,7 @@ detection:
     condition: selection
 ```
 
-#### Field Usage<a name="field-usage"></a>
+#### Field Usage
 
 1. For fields with existing field-mappings, use the mapped field name.
 
@@ -487,7 +487,7 @@ Examples ii:
 - `<Data Name="User">NT AUTHORITY\SYSTEM</Data>` will be `User`
 - `<Data Name="ServiceName">MpKsl4eaa0a76</Data>` will be `ServiceName`
 
-#### Special Field Values<a name="special-field-values"></a>
+#### Special Field Values
 
 There are special field values that can be used.
 
@@ -539,7 +539,7 @@ detection:
     condition: selection_main
 ```
 
-#### Field Existence<a name="field-existence"></a>
+#### Field Existence
 
 In some case a field can be optional in the event. You can use the `exists` modifiers to check it.
 
@@ -553,13 +553,13 @@ detection:
     condition: selection
 ```
 
-#### Value Modifiers<a name="value-modifiers"></a>
+#### Value Modifiers
 
 The values contained in Sigma rules can be modified by *value modifiers*. Value modifiers are
 appended after the field name with a pipe character `|` as separator and can also be chained, e.g.
 `fieldname|mod1|mod2: value`. The value modifiers are applied in the given order to the value.
 
-##### Modifier Types<a name="modifier-types"></a>
+##### Modifier Types
 
 There are two types of value modifiers:
 
@@ -575,9 +575,9 @@ There are two types of value modifiers:
 Generally, value modifiers work on single values and value lists. A value might also expand into
 multiple values.
 
-[List of modifiers](appendix/sigma-modifiers-appendix.md)
+[List of modifiers](sigma-appendix-modifiers.md)
 
-#### Placeholders<a name="placeholders"></a>
+#### Placeholders
 
 Placeholders are used as values that get their final meaning at conversion or usage time of the rule. This can be, but is not restricted to:
 
@@ -596,7 +596,7 @@ A plain percent character can be used by escaping it with a backslash. Examples:
 
 Placeholders must be handled appropriately by a tool that uses Sigma rules. If the tool isn't able to handle placeholders, it must reject the rule.
 
-##### Standard Placeholders<a name="standard-placeholders"></a>
+##### Standard Placeholders
 
 The following standard placeholders should be used:
 
@@ -608,7 +608,7 @@ The following standard placeholders should be used:
 
 Custom placeholders can be defined as required.
 
-#### Keywords search<a name="keywords-search"></a>
+#### Keywords search
 
 Contrary to the Field Usage, It's a matter of searching for keywords across an entire event. \
 They are built by using a list under a search-identifiers.
@@ -638,7 +638,7 @@ Give : "OabVirtualDirectory" **and** " -ExternalUrl "
 
 Some rules use simply `keywords` as search-identifiers name to facilitate identification.
 
-### Condition<a name="condition"></a>
+### Condition
 
 **Attribute**: condition
 
@@ -689,7 +689,7 @@ Operator Precedence (least to most binding)
 The condition can be a list, in this case, each of them generates a query
 They are logically linked with OR.
 
-### Fields<a name="fields"></a>
+### Fields
 
 **Attribute**: fields
 
@@ -697,7 +697,7 @@ They are logically linked with OR.
 
 A list of log fields that could be interesting in further analysis of the event and should be displayed to the analyst.
 
-### FalsePositives<a name="falsepositives"></a>
+### FalsePositives
 
 **Attribute**: falsepositives
 
@@ -705,7 +705,7 @@ A list of log fields that could be interesting in further analysis of the event 
 
 A list of known false positives that may occur.
 
-### Level<a name="level"></a>
+### Level
 
 **Attribute**: level
 
@@ -719,7 +719,7 @@ The level field contains one of five string values. It describes the criticality
 - `high`: Relevant event that should trigger an internal alert and requires a prompt review.
 - `critical`: Highly relevant event that indicates an incident. Critical events should be reviewed immediately. It is used only for cases in which probability borders certainty.
 
-### Tags<a name="tags"></a>
+### Tags
 
 **Attribute**: tags
 
@@ -733,9 +733,9 @@ A Sigma rule can be categorized with tags. Tags should generally follow this syn
 - Keep tags short, e.g. numeric identifiers instead of long sentences
 - Feel free to send pull request or issues with proposals for new tags
 
-[More information about tags](/appendix/sigma-tags-appendix.md)
+[More information about tags](sigma-appendix-tags.md)
 
-### Scope<a name="scope"></a>
+### Scope
 
 **Attribute**: scope
 
@@ -746,20 +746,20 @@ A list of the intended scopes of the rule. This would allow you to define if a r
 For example , if you have a rule for a registry key being set, where the key only exists on windows server installations./
 A scope with the value `server` can be added to limit this rule only to Windows Servers.
 
-## Rule Correlation<a name="rule-correlation"></a>
+## Rule Correlation
 
 Correlation allows several events to be linked together. To make it easier to read these corelation rules, they are written in meta-rules.
 
-Check out the [Sigma Correlation Rules Specification](/specification/sigma-correlation-rules-specification.md) for more details.
+Check out the [Sigma Correlation Rules Specification](sigma-correlation-rules-specification.md) for more details.
 
-## Sigma Filters<a name="sigma-filters"></a>
+## Sigma Filters
 
 To adapt the rules to the environment, it is sometimes useful to put the same exclusion in several rules. /
 Their maintenance can become difficult, with a meta-filter it is possible to write it in a single place.
 
-Check out the [Sigma Filters Specification](/specification/sigma-filters-specification.md) for more details.
+Check out the [Sigma Filters Specification](sigma-filters-specification.md) for more details.
 
-## History<a name="history"></a>
+## History
 
 - 2024-08-08 Specification v2.0.0
 - 2023-06-29 Specification v1.0.4
