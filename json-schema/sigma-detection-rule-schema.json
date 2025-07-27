@@ -59,7 +59,7 @@
       "maxLength": 256,
       "description": "a unique human-readable name that can be used instead of the id as a reference in correlation rules"
     },
-    "taxonomy":{
+    "taxonomy": {
       "type": "string",
       "maxLength": 256,
       "description": "Defines the taxonomy used in the Sigma rule"
@@ -136,7 +136,7 @@
           "description": "A subset of a product's logs, like sshd",
           "type": "string"
         },
-        "definition":{
+        "definition": {
           "description": "can be used to describe the log source",
           "type": "string"
         }
@@ -235,13 +235,13 @@
         "pattern": "^[a-z0-9_-]+\\.[a-z0-9._-]+$"
       }
     },
-    "scope":{
+    "scope": {
       "description": "A list of intended scope of the rule",
       "type": "array",
-          "items": {
-            "type": "string",
-            "minLength": 2
-          }
+      "items": {
+        "type": "string",
+        "minLength": 2
+      }
     }
   }
 }

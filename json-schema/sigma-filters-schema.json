@@ -2,11 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema#",
   "title": "Sigma Global Filter specification V2.0.0 (2024-08-08)",
   "type": "object",
-  "required": [
-    "title",
-    "logsource",
-    "filter"
-  ],
+  "required": ["title", "logsource", "filter"],
   "properties": {
     "title": {
       "type": "string",
@@ -53,11 +49,7 @@
     },
     "filter": {
       "type": "object",
-      "required": [
-        "rules",
-        "selection",
-        "condition"
-      ],
+      "required": ["rules", "selection", "condition"],
       "description": "A set of search-identifiers that represent properties of searches on log data",
       "properties": {
         "rules": {
