@@ -15,8 +15,19 @@ jobs:
         cache: 'pip' # caching pip dependencies
     - run: pip install -r requirements.txt
     - run: mdformat --check .
+  jsonformat:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check json formatting with biome
+        uses: actions/checkout@v4
+      - name: Setup Biome
+        uses: biomejs/setup-biome@v2
+        with:
+          version: latest
+      - name: Run Biome
+        run: biome ci --json-linter-enabled=true --json-formatter-enabled=true --json-formatter-indent-style=space --json-formatter-line-ending=lf ./json-schema
   jsonschema:
-    name: Check the json schema
+    name: Check the json schema against test rules
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
