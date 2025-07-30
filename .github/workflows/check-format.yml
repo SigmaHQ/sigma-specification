@@ -27,7 +27,7 @@ jobs:
       - name: Run Biome
         run: biome ci --json-linter-enabled=true --json-formatter-enabled=true --json-formatter-indent-style=space --json-formatter-line-ending=lf ./json-schema
   jsonschema:
-    name: Check the json schema agains rules
+    name: Check the json schema against test rules
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
