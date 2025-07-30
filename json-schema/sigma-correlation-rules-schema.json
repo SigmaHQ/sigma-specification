@@ -2,10 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Sigma Meta rule specification V2.1.0 (2025-07-25)",
   "type": "object",
-  "required": [
-    "title",
-    "correlation"
-  ],
+  "required": ["title", "correlation"],
   "properties": {
     "title": {
       "type": "string",
@@ -71,11 +68,7 @@
     },
     "correlation": {
       "type": "object",
-      "required": [
-        "type",
-        "rules",
-        "timespan"
-      ],
+      "required": ["type", "rules", "timespan"],
       "description": "Represents the correlation searched for on the log data",
       "properties": {
         "type": {
@@ -213,12 +206,12 @@
                   },
                   {
                     "type": "array",
-                    "items": {           
+                    "items": {
                       "type": "string",
                       "maxLength": 256
                     }
                   }
-                ]                
+                ]
               }
             }
           ]
@@ -226,81 +219,81 @@
       },
       "allOf": [
         {
-        "if": { "properties": {"type": {"const": "event_count"}}},
-        "then": {"required": ["condition", "group-by", "timespan"]}
+          "if": { "properties": { "type": { "const": "event_count" } } },
+          "then": { "required": ["condition", "group-by", "timespan"] }
         },
         {
-        "if": { "properties": {"type": {"const": "temporal"}}},
-        "then": {"required": ["group-by", "timespan"]}
+          "if": { "properties": { "type": { "const": "temporal" } } },
+          "then": { "required": ["group-by", "timespan"] }
         },
         {
-        "if": { "properties": {"type": {"const": "temporal_ordered"}}},
-        "then": {"required": ["group-by", "timespan"]}
+          "if": { "properties": { "type": { "const": "temporal_ordered" } } },
+          "then": { "required": ["group-by", "timespan"] }
         },
         {
-        "if": { "properties": {"type": {"const": "value_count"}}},
-        "then": {
-          "condition": {
-            "type": "object",
-            "properties": { "field": { "type": "string"}},
-            "required": ["field"]
+          "if": { "properties": { "type": { "const": "value_count" } } },
+          "then": {
+            "condition": {
+              "type": "object",
+              "properties": { "field": { "type": "string" } },
+              "required": ["field"]
             },
-          "required": ["condition","group-by", "timespan"]
+            "required": ["condition", "group-by", "timespan"]
           }
         },
         {
-        "if": { "properties": {"type": {"const": "value_sum"}}},
-        "then": {
-          "condition": {
-            "type": "object",
-            "properties": { "field": { "type": "string"}},
-            "required": ["field"]
+          "if": { "properties": { "type": { "const": "value_sum" } } },
+          "then": {
+            "condition": {
+              "type": "object",
+              "properties": { "field": { "type": "string" } },
+              "required": ["field"]
             },
-          "required": ["condition","group-by", "timespan"]
+            "required": ["condition", "group-by", "timespan"]
           }
         },
         {
-        "if": { "properties": {"type": {"const": "value_max"}}},
-        "then": {
-          "condition": {
-            "type": "object",
-            "properties": { "field": { "type": "string"}},
-            "required": ["field"]
+          "if": { "properties": { "type": { "const": "value_max" } } },
+          "then": {
+            "condition": {
+              "type": "object",
+              "properties": { "field": { "type": "string" } },
+              "required": ["field"]
             },
-          "required": ["condition","group-by", "timespan"]
+            "required": ["condition", "group-by", "timespan"]
           }
         },
         {
-        "if": { "properties": {"type": {"const": "value_min"}}},
-        "then": {
-          "condition": {
-            "type": "object",
-            "properties": { "field": { "type": "string"}},
-            "required": ["field"]
+          "if": { "properties": { "type": { "const": "value_min" } } },
+          "then": {
+            "condition": {
+              "type": "object",
+              "properties": { "field": { "type": "string" } },
+              "required": ["field"]
             },
-          "required": ["condition","group-by", "timespan"]
+            "required": ["condition", "group-by", "timespan"]
           }
         },
         {
-        "if": { "properties": {"type": {"const": "value_avg"}}},
-        "then": {
-          "condition": {
-            "type": "object",
-            "properties": { "field": { "type": "string"}},
-            "required": ["field"]
+          "if": { "properties": { "type": { "const": "value_avg" } } },
+          "then": {
+            "condition": {
+              "type": "object",
+              "properties": { "field": { "type": "string" } },
+              "required": ["field"]
             },
-          "required": ["condition","group-by", "timespan"]
+            "required": ["condition", "group-by", "timespan"]
           }
         },
         {
-        "if": { "properties": {"type": {"const": "value_percentile"}}},
-        "then": {
-          "condition": {
-            "type": "object",
-            "properties": { "field": { "type": "string"}},
-            "required": ["field"]
+          "if": { "properties": { "type": { "const": "value_percentile" } } },
+          "then": {
+            "condition": {
+              "type": "object",
+              "properties": { "field": { "type": "string" } },
+              "required": ["field"]
             },
-          "required": ["condition","group-by", "timespan"]
+            "required": ["condition", "group-by", "timespan"]
           }
         }
       ]
