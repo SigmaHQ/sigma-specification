@@ -5,15 +5,15 @@ The following document defines the field names and log sources that are allowed 
 - Version 2.0.2
 - Release date 2024-11-01
 
-<!-- mdformat-toc start --slug=github --maxlevel=6 --minlevel=2 -->
+<!-- mdformat-toc start --slug=github --no-anchors --maxlevel=6 --minlevel=2 -->
 
 - [Log Sources](#log-sources)
   - [Application Folder](#application-folder)
-    - [Django](#django)
+    - [Django<](#django)
     - [Python](#python)
     - [RPC Firewall](#rpc-firewall)
     - [Ruby on Rails](#ruby-on-rails)
-    - [Spring Framework](#spring-framework)
+    - [Spring Framewor](#spring-framewor)
     - [SQL](#sql)
   - [Category Folder](#category-folder)
   - [Cloud Folder](#cloud-folder)
@@ -50,11 +50,11 @@ The following document defines the field names and log sources that are allowed 
 
 <!-- mdformat-toc end -->
 
-## Log Sources<a name="log-sources"></a>
+## Log Sources
 
 For a better comprehension, the log sources are organized by directory name similar to the [rules](https://github.com/SigmaHQ/sigma/tree/master/rules) structure in the SIGMA project.
 
-### Application Folder<a name="application-folder"></a>
+### Application Folder
 
 The *application* folder contains rules that are intended for application security monitoring. The rules are organized into folders per application technology. All rules define log sources as follows:
 
@@ -64,58 +64,58 @@ The *application* folder contains rules that are intended for application securi
 
 Because application logs are often ingested as raw text events with poor decomposition into fields by many target systems, these rules are keyword rules that don't match on specific fields.
 
-#### Django<a name="django"></a>
+#### Django\<
 
 | Product | Logsource                                | Event |
 | ------- | ---------------------------------------- | ----- |
 | django  | category: application<br>product: django |       |
 
-#### Python<a name="python"></a>
+#### Python
 
 | Product | Logsource                                | Event |
 | ------- | ---------------------------------------- | ----- |
 | python  | category: application<br>product: python |       |
 
-#### RPC Firewall<a name="rpc-firewall"></a>
+#### RPC Firewall
 
 | Product      | Logsource                                      | Event |
 | ------------ | ---------------------------------------------- | ----- |
 | rpc_firewall | category: application<br>product: rpc_firewall |       |
 
-#### Ruby on Rails<a name="ruby-on-rails"></a>
+#### Ruby on Rails
 
 | Product       | Logsource                                       | Event |
 | ------------- | ----------------------------------------------- | ----- |
 | ruby_on_rails | category: application<br>product: ruby_on_rails |       |
 
-#### Spring Framework<a name="spring-framework"></a>
+#### Spring Framewor
 
 | Product | Logsource                                | Event |
 | ------- | ---------------------------------------- | ----- |
 | spring  | category: application<br>product: spring |       |
 
-#### SQL<a name="sql"></a>
+#### SQL
 
 | Product | Logsource                             | Event |
 | ------- | ------------------------------------- | ----- |
 | sql     | category: application<br>product: sql |       |
 
-### Category Folder<a name="category-folder"></a>
+### Category Folder
 
 | Product | Logsource           | Event                                                      |
 | ------- | ------------------- | ---------------------------------------------------------- |
 |         | category: antivirus | antivirus detection message (format depends on the editor) |
 |         | category: database  | sql queries log (drop, select,...)                         |
 
-### Cloud Folder<a name="cloud-folder"></a>
+### Cloud Folder
 
-#### AWS<a name="aws"></a>
+#### AWS
 
 | Product | Logsource                           | Event |
 | ------- | ----------------------------------- | ----- |
 | Aws     | product: aws<br>service: cloudtrail |       |
 
-#### Azure<a name="azure"></a>
+#### Azure
 
 | Product | Logsource                                | Event |
 | ------- | ---------------------------------------- | ----- |
@@ -125,32 +125,32 @@ Because application logs are often ingested as raw text events with poor decompo
 | Azure   | product: azure<br>service: pim           |       |
 | Azure   | product: azure<br>service: signinlogs    |       |
 
-#### Bitbucket<a name="bitbucket"></a>
+#### Bitbucket
 
 | Product   | Logsource                            | Event |
 | --------- | ------------------------------------ | ----- |
 | Bitbucket | product: bitbucket<br>service: audit |       |
 
-#### Cisco<a name="cisco"></a>
+#### Cisco
 
 | Product | Logsource                      | Event |
 | ------- | ------------------------------ | ----- |
 | Cisco   | product: cisco<br>service: duo |       |
 
-#### GCP<a name="gcp"></a>
+#### GCP
 
 | Product | Logsource                                       | Event |
 | ------- | ----------------------------------------------- | ----- |
 | GCP     | product: gcp<br>service: gcp.audit              |       |
 | GCP     | product: gcp<br>service: google_workspace.admin |       |
 
-#### Github<a name="github"></a>
+#### Github
 
 | Product | Logsource                         | Event                  |
 | ------- | --------------------------------- | ---------------------- |
 | Github  | product: github<br>service: audit | organization Audit log |
 
-#### M365<a name="m365"></a>
+#### M365
 
 | Product | Logsource                                   | Event |
 | ------- | ------------------------------------------- | ----- |
@@ -159,21 +159,21 @@ Because application logs are often ingested as raw text events with poor decompo
 | M365    | product: m365<br>service: threat_detection  |       |
 | M365    | product: m365<br>service: threat_management |       |
 
-#### Okta<a name="okta"></a>
+#### Okta
 
 | Product | Logsource                      | Event |
 | ------- | ------------------------------ | ----- |
 | Okta    | product: okta<br>service: okta |       |
 
-#### OneLogin<a name="onelogin"></a>
+#### OneLogin
 
 | Product  | Logsource                                     | Event |
 | -------- | --------------------------------------------- | ----- |
 | Onelogin | product: onelogin<br>service: onelogin.events |       |
 
-### Linux Folder<a name="linux-folder"></a>
+### Linux Folder
 
-#### Category<a name="category"></a>
+#### Category
 
 | Product | Logsource                                      | Event                          |
 | ------- | ---------------------------------------------- | ------------------------------ |
@@ -181,7 +181,7 @@ Because application logs are often ingested as raw text events with poor decompo
 | Linux   | product: linux<br>category: network_connection | EventID: 3<br>service: sysmon  |
 | Linux   | product: linux<br>category: process_creation   | EventID: 1<br>service: sysmon  |
 
-#### Service<a name="service"></a>
+#### Service
 
 | Product | Logsource                            | Event      |
 | ------- | ------------------------------------ | ---------- |
@@ -195,18 +195,18 @@ Because application logs are often ingested as raw text events with poor decompo
 | Linux   | product: linux<br>service: syslog    |            |
 | Linux   | product: linux<br>service: vsftpd    |            |
 
-### Macos Folder<a name="macos-folder"></a>
+### Macos Folder
 
-#### Category<a name="category-1"></a>
+#### Category
 
 | Product | Logsource                                    | Event |
 | ------- | -------------------------------------------- | ----- |
 | Macos   | product: macos<br>category: file_event       |       |
 | Macos   | product: macos<br>category: process_creation |       |
 
-### Network Folder<a name="network-folder"></a>
+### Network Folder
 
-#### Cisco<a name="cisco-1"></a>
+#### Cisco
 
 | Product | Logsource                      | Description |
 | ------- | ------------------------------ | ----------- |
@@ -214,19 +214,19 @@ Because application logs are often ingested as raw text events with poor decompo
 | Cisco   | product: cisco<br>service: bgp |             |
 | Cisco   | product: cisco<br>service: ldp |             |
 
-#### Huawei<a name="huawei"></a>
+#### Huawei
 
 | Product | Logsource                       | Description |
 | ------- | ------------------------------- | ----------- |
 | Huawei  | product: huawei<br>service: ldp |             |
 
-#### Juniper<a name="juniper"></a>
+#### Juniper
 
 | Product | Logsource                        | Description |
 | ------- | -------------------------------- | ----------- |
 | Juniper | product: juniper<br>service: ldp |             |
 
-#### Zeek<a name="zeek"></a>
+#### Zeek
 
 | Product | Logsource                           | Description |
 | ------- | ----------------------------------- | ----------- |
@@ -238,7 +238,7 @@ Because application logs are often ingested as raw text events with poor decompo
 | Zeek    | product: zeek<br>service: smb_files |             |
 | Zeek    | product: zeek<br>service: x509      |             |
 
-### Other<a name="other"></a>
+### Other
 
 | Product | Logsource           | Description |
 | ------- | ------------------- | ----------- |
@@ -247,16 +247,16 @@ Because application logs are often ingested as raw text events with poor decompo
 | N/A     | category: proxy     |             |
 | N/A     | category: webserver |             |
 
-### Product Folder<a name="product-folder"></a>
+### Product Folder
 
 | Product     | Logsource            | Event                 |
 | ----------- | -------------------- | --------------------- |
 | Apache      | service: apache      | Application error.log |
 | Modsecurity | product: modsecurity |                       |
 
-### Windows Folder<a name="windows-folder"></a>
+### Windows Folder
 
-#### Category<a name="category-2"></a>
+#### Category
 
 | Product | Logsource                                               | Description                                                                                               |
 | ------- | ------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
@@ -296,7 +296,7 @@ Because application logs are often ingested as raw text events with poor decompo
 | windows | product: windows<br>category: ps_script                 | EventID: 4104<br>Channel:<br> - Microsoft-Windows-PowerShell/Operational<br> - PowerShellCore/Operational |
 | windows | product: windows<br>category: file_rename               | ETW Provider: Microsoft-Windows-Kernel-File                                                               |
 
-#### Service<a name="service-1"></a>
+#### Service
 
 | Product | Logsource                                                               | Description                                                                                                                                                                                                                |
 | ------- | ----------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -347,11 +347,11 @@ Because application logs are often ingested as raw text events with poor decompo
 | windows | product: windows<br>service: windefend                                  | Channel: Microsoft-Windows-Windows Defender/Operational                                                                                                                                                                    |
 | windows | product: windows<br>service: wmi                                        | Channel: Microsoft-Windows-WMI-Activity/Operational                                                                                                                                                                        |
 
-## Fields<a name="fields"></a>
+## Fields
 
-### Generic<a name="generic"></a>
+### Generic
 
-#### Process Creation Events<a name="process-creation-events"></a>
+#### Process Creation Events
 
 Process creation events can be defined with the generic log source category *process_creation*. The event scope can be further restricted with *product*. Example for a process creation event log source restricted to Windows:
 
@@ -388,12 +388,12 @@ The field names follow the field names used in [Sysmon](https://docs.microsoft.c
 | ParentImage       | C:\\Windows\\System32\\taskeng.exe                                                        |         |
 | ParentCommandLine | taskeng.exe {88F94E5C-5DC3-4606-AEFA-BDCA976D6113} S-1-5-18:NT AUTHORITY\\System:Service: |         |
 
-#### Other Generic Rule Categories<a name="other-generic-rule-categories"></a>
+#### Other Generic Rule Categories
 
 We align our field names to the field names that [Sysmon](https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon) uses.
 You can find all possible field values in the [Sysmon Community Guide](https://github.com/trustedsec/SysmonCommunityGuide/blob/master/chapters/Sysmon.md) and on [UltimateWindowsSecurity.com](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/default.aspx).
 
-### Specific<a name="specific"></a>
+### Specific
 
 - `product: windows`: Windows Operating System logs. The naming of Windows Eventlog attributes is used in Sigma rules.
   - `service: security`: Windows Security Event Log. Some may be covered by [generic log sources](#generic).
@@ -464,7 +464,7 @@ You can find all possible field values in the [Sysmon Community Guide](https://g
     - `Signature`: name of the threat like "EICAR-Test-File"
     - `Action`: action take by the antivirus like "delete"
 
-## History<a name="history"></a>
+## History
 
 - 2024-11-01 Taxonomy Appendix v v2.0.2
   - Add new windows services:

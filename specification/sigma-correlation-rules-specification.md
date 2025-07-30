@@ -5,7 +5,7 @@ The following document defines the standardized correlation that can be used in 
 - Version 2.0.2
 - Release date 2024-11-01
 
-<!-- mdformat-toc start --slug=github --maxlevel=6 --minlevel=2 -->
+<!-- mdformat-toc start --slug=github --no-anchors --maxlevel=6 --minlevel=2 -->
 
 - [Introduction](#introduction)
   - [Compatibility](#compatibility)
@@ -18,7 +18,7 @@ The following document defines the standardized correlation that can be used in 
     - [Syntax](#syntax)
   - [Components](#components)
     - [Title](#title)
-    - [Identification](#identification)
+    - [Identification<](#identification)
     - [Status](#status)
     - [Description](#description)
     - [Author](#author)
@@ -47,18 +47,18 @@ The following document defines the standardized correlation that can be used in 
     - [Value Percentile (value_percentile)](#value-percentile-value_percentile)
   - [Field Name Aliases](#field-name-aliases)
     - [Field Name Aliases Example](#field-name-aliases-example)
-- [Examples](#examples)
+- [Example](#example)
   - [Failed Logins Followed by Successful Login](#failed-logins-followed-by-successful-login)
 - [History](#history)
 
 <!-- mdformat-toc end -->
 
-## Introduction<a name="introduction"></a>
+## Introduction
 
 Sometimes you need more advanced searches than simple selections.
 For this purpose, you can use meta-rules that correlate multiple Sigma rules.
 
-### Compatibility<a name="compatibility"></a>
+### Compatibility
 
 When generating a backend specific query, Sigma correlations might exceed the capabilities of that targeted backend. \
 Or the Sigma correlation might require a feature that is only supported partially by the target backend. \
@@ -81,7 +81,7 @@ Examples are:
 - Temporal relationships are recognized, but the order of the events cannot be recognized by the target system. This could cause false positives by differently ordered events.
 - Temporal relationships are only recognized within static time boundaries, e.g. a `timespan` of 1h only matches if all events appear within a full hour, but not if some events appear in the previous and another event in the current hour. This could cause false negatives.
 
-### Expression of Relationships In The Condition of Sigma Rules<a name="expression-of-relationships-in-the-condition-of-sigma-rules"></a>
+### Expression of Relationships In The Condition of Sigma Rules
 
 This was the first approach defined in Sigma with aggregations and the near operator and is now obsolete. \
 Sigma correlations are not based on this approach for the following reasons:
@@ -91,7 +91,7 @@ Sigma correlations are not based on this approach for the following reasons:
 - One of the goals of Sigma rules was to keep the condition logic simple. Especially the specification of temporal relationships can get quite complex in a query expression. Specifying correlation chains adds further complexity.
 - The pipe syntax sometimes caused the rule contributors to consider it as a Splunk query or another target system-specific query language. Expressing these relationships in a “Sigmaish” way should not cause these associations.
 
-### Type of Correlation rules<a name="type-of-correlation-rules"></a>
+### Type of Correlation rules
 
 The purpose is to cover a detection like:
 
@@ -99,13 +99,13 @@ The purpose is to cover a detection like:
 - Invalid login alert on the same host but from X remote.
 - Alert A, B and C in the same `timespan`.
 
-## Correlation rules<a name="correlation-rules"></a>
+## Correlation rules
 
 The rules in a multi-document YAML that build a correlation rule are not producing individual, independent queries. They are used as a tool to define more complex constructs out of basic Sigma detections. Therefore only the outermost correlation rule may define meta information such as status, level, date or anything else.
 
-### File Structure<a name="file-structure"></a>
+### File Structure
 
-#### YAML File<a name="yaml-file"></a>
+#### YAML File
 
 To keep the file names interoperable use the following:
 
@@ -117,18 +117,18 @@ To keep the file names interoperable use the following:
 
 As a best practice use the prefix `mr_`.
 
-#### Schema<a name="schema"></a>
+#### Schema
 
-[Sigma Correlation Rules JSON Schema](/json-schema/sigma-correlation-rules-schema.json)
+[Sigma Correlation Rules JSON Schema](../json-schema/sigma-correlation-rules-schema.json)
 
-#### Syntax<a name="syntax"></a>
+#### Syntax
 
 A Sigma correlation is a dedicated YAML document.
 Like Sigma rules , correlation rules have a title and a unique id to identify them.
 
-### Components<a name="components"></a>
+### Components
 
-#### Title<a name="title"></a>
+#### Title
 
 **Attribute:** title
 
@@ -136,7 +136,7 @@ Like Sigma rules , correlation rules have a title and a unique id to identify th
 
 A brief title for the rule that should contain what the rule is supposed to detect (max. 256 characters)
 
-#### Identification<a name="identification"></a>
+#### Identification\<
 
 **Attribute:** id
 
@@ -152,7 +152,7 @@ title: login brute force
 id: 0e95725d-7320-415d-80f7-004da920fc11
 ```
 
-#### Status<a name="status"></a>
+#### Status
 
 **Attribute:** status
 
@@ -167,7 +167,7 @@ Declares the status of the rule:
 - `deprecated`: the rule is replaced or covered by another one. The link is established by the `related` field.
 - `unsupported`: the rule cannot be use in its current state (old correlation format, custom fields)
 
-#### Description<a name="description"></a>
+#### Description
 
 **Attribute:** description
 
@@ -175,7 +175,7 @@ Declares the status of the rule:
 
 A short description of the rule and the malicious activity that can be detected (max. 65,535 characters)
 
-#### Author<a name="author"></a>
+#### Author
 
 **Attribute**: author
 
@@ -183,7 +183,7 @@ A short description of the rule and the malicious activity that can be detected 
 
 Creator of the rule. (can be a name, nickname, twitter handle...etc)
 
-#### References<a name="references"></a>
+#### References
 
 **Attribute**: reference
 
@@ -192,7 +192,7 @@ Creator of the rule. (can be a name, nickname, twitter handle...etc)
 References to the source that the rule was derived from. \
 These could be blog articles, technical papers, presentations or even tweets.
 
-#### Date<a name="date"></a>
+#### Date
 
 **Attribute**: date
 
@@ -201,7 +201,7 @@ These could be blog articles, technical papers, presentations or even tweets.
 Creation date of the meta rule. \
 Use the ISO 8601 date with separator format: `YYYY-MM-DD`
 
-#### Modified<a name="modified"></a>
+#### Modified
 
 **Attribute**: modified
 
@@ -210,9 +210,9 @@ Use the ISO 8601 date with separator format: `YYYY-MM-DD`
 *Last* modification date of the meta rule. \
 Use the ISO 8601 date with separator format : `YYYY-MM-DD`
 
-#### Correlation section<a name="correlation-section"></a>
+#### Correlation section
 
-##### Correlation type<a name="correlation-type"></a>
+##### Correlation type
 
 **Attribute:** type
 
@@ -225,7 +225,7 @@ Allowed values:
 - temporal
 - temporal_ordered
 
-##### Related rules<a name="related-rules"></a>
+##### Related rules
 
 **Attribute:** rules
 
@@ -247,7 +247,7 @@ correlation:
     - firewall_block  # The internal tools have a lookup table to the correct rule `id` by `name`
 ```
 
-##### Aliases<a name="aliases"></a>
+##### Aliases
 
 **Attribute:** aliases
 
@@ -258,7 +258,7 @@ The defined aliases can then be defined in `group-by` and allows aggregation acr
 
 See the example in the chapter [Field Name Aliases](#field-name-aliases) to get a better understanding.
 
-##### Grouping<a name="grouping"></a>
+##### Grouping
 
 **Attribute:** group-by
 
@@ -279,7 +279,7 @@ group-by:
     - TargetDomainName
 ```
 
-##### Time Selection<a name="time-selection"></a>
+##### Time Selection
 
 **Attribute:** timespan
 
@@ -295,7 +295,7 @@ The following format must be used: `number + letter (in lowercase)`
 
 example for 1h30 : `timespan: 90m`
 
-##### Condition<a name="condition"></a>
+##### Condition
 
 **Attribute:** condition
 
@@ -338,7 +338,7 @@ condition:
 If you need more complex constructs, you can always chain correlation rules together.
 See the examples at the far bottom, for more details.
 
-#### FalsePositives<a name="falsepositives"></a>
+#### FalsePositives
 
 **Attribute**: falsepositives
 
@@ -346,7 +346,7 @@ See the examples at the far bottom, for more details.
 
 A list of known false positives that may occur.
 
-#### Level<a name="level"></a>
+#### Level
 
 **Attribute:** level
 
@@ -355,7 +355,7 @@ A list of known false positives that may occur.
 defines a severity level adjustment if the correlation matches.
 This allows to give single event hits a low or informational severity and increasing this to higher levels in case of correlating appearances of events.
 
-#### Generate<a name="generate"></a>
+#### Generate
 
 **Attribute:** generate
 
@@ -364,9 +364,9 @@ This allows to give single event hits a low or informational severity and increa
 defines if the rules referred from the correlation rule should be converted
 as stand-alone rules or if only the correlation query should be generated (default).
 
-### Correlation Types<a name="correlation-types"></a>
+### Correlation Types
 
-#### Event Count (event_count)<a name="event-count-event_count"></a>
+#### Event Count (event_count)
 
 Counts events occurring in the given time frame specified by the referred Sigma rule or rules.
 The resulting query must count events for each group specified by group-by separately.
@@ -394,7 +394,7 @@ correlation:
         gte: 100
 ```
 
-#### Value Count (value_count)<a name="value-count-value_count"></a>
+#### Value Count (value_count)
 
 Counts values in a field defined by `field`.
 The resulting query must count field values separately for each group specified by group-by.
@@ -427,7 +427,7 @@ correlation:
         gte: 100
 ```
 
-#### Temporal Proximity (temporal)<a name="temporal-proximity-temporal"></a>
+#### Temporal Proximity (temporal)
 
 All events defined by the rules referred by the rule field must occur in the time frame defined by timespan.
 The values of fields defined in group-by must all have the same value (e.g. the same host or user).
@@ -455,7 +455,7 @@ correlation:
     timespan: 5m
 ```
 
-#### Ordered Temporal Proximity (temporal_ordered)<a name="ordered-temporal-proximity-temporal_ordered"></a>
+#### Ordered Temporal Proximity (temporal_ordered)
 
 The *temporal_ordered* correlation type behaves like *temporal* and requires in addition that the events appear in the
 order provided in the *rule* attribute.
@@ -482,7 +482,7 @@ correlation:
 Note:
 Even if the rule many_failed_logins groups by the "ComputerName" field, the correlation rule only uses its own `group-by` "User".
 
-#### Value Sum (value_sum)<a name="value-sum-value_sum"></a>
+#### Value Sum (value_sum)
 
 Check if the `sum` of a number field match a limit
 
@@ -508,7 +508,7 @@ correlation:
         gt: 1000000
 ```
 
-#### Value Max (value_max)<a name="value-max-value_max"></a>
+#### Value Max (value_max)
 
 Check if the `max` of a number field match a limit
 
@@ -534,7 +534,7 @@ correlation:
         gte: 100
 ```
 
-#### Value Min (value_min)<a name="value-min-value_min"></a>
+#### Value Min (value_min)
 
 Check if the `min` of a number field match a limit
 
@@ -560,7 +560,7 @@ correlation:
     lte: 400
 ```
 
-#### Value Average (value_avg)<a name="value-average-value_avg"></a>
+#### Value Average (value_avg)
 
 Check if the `average` of a number field match a limit
 
@@ -591,7 +591,7 @@ This example shows that we are looking for groups where the average bytes sent o
 
 Also note: In the condition section, the field must be present and specify which numeric field should be used for the aggregation.
 
-#### Value Percentile (value_percentile)<a name="value-percentile-value_percentile"></a>
+#### Value Percentile (value_percentile)
 
 Check when a certain percentage of observed values occur.
 Tips: median is a percentile 50
@@ -617,7 +617,7 @@ correlation:
         lte: 1
 ```
 
-### Field Name Aliases<a name="field-name-aliases"></a>
+### Field Name Aliases
 
 Sometimes correlation of values in the same fields is not sufficient. E.g. a correlation rule might require to aggregate events that appear from a source address in one event and the same address as destination in another event. A Sigma correlation rule can contain an `aliases` attribute that defines an alias for different field names in events matched by different Sigma rules. The alias field names can then be referenced in `group-by` attributes and are resolved to their respective field names.
 
@@ -635,7 +635,7 @@ The field names referenced in aliases must not necessarily appear in the Sigma r
 `<Sigma rule name>` is the name given by the `name` attribute. \
 The `name` attribute is optional in general, but has to be defined, if you want to use `aliases`.
 
-#### Field Name Aliases Example<a name="field-name-aliases-example"></a>
+#### Field Name Aliases Example
 
 The following correlation rule defines field name aliases `internal_ip` and `remote_ip` that are used in the `group-by` attribute. \
 The `internal_ip` alias references the field `destination.ip` in the events matched by the Sigma rule `internal_error` and `source.ip` in the events matched by the Sigma rule `new_network_connection`. \
@@ -686,11 +686,11 @@ correlation:
             new_network_connection: destination.ip
 ```
 
-## Examples<a name="examples"></a>
+## Example
 
 This section gives complete examples in order to make it easier for people new to Sigma to get started and for showcasing new features of the Sigma standard. Use them as a blueprint for your own ideas.
 
-### Failed Logins Followed by Successful Login<a name="failed-logins-followed-by-successful-login"></a>
+### Failed Logins Followed by Successful Login
 
 The following Correlation describes a use case in which an attacker successfully performs a brute-force attack. This example helps in showcasing some highlights:
 
@@ -761,7 +761,7 @@ detection:
     condition: selection
 ```
 
-## History<a name="history"></a>
+## History
 
 - 2025-06-25 Specification V2.1.0
   - add metric corelation with:

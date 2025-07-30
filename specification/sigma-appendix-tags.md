@@ -5,7 +5,7 @@ The following document defines the standardized tags that can be used to categor
 - Version 2.1.1
 - Release date 2025-06-09
 
-<!-- mdformat-toc start --slug=github --maxlevel=6 --minlevel=2 -->
+<!-- mdformat-toc start --slug=github --no-anchors --maxlevel=6 --minlevel=2 -->
 
 - [Namespaces](#namespaces)
   - [Namespace: attack](#namespace-attack)
@@ -19,7 +19,7 @@ The following document defines the standardized tags that can be used to categor
 
 <!-- mdformat-toc end -->
 
-## Namespaces<a name="namespaces"></a>
+## Namespaces
 
 - attack: Categorization according to [MITRE ATT&CK](https://attack.mitre.org). To get the current supported version of ATT&CK please visit [MITRE CTI](https://github.com/mitre/cti)
 - car: Link to the corresponding [MITRE Cyber Analytics Repository (CAR)](https://car.mitre.org/)
@@ -29,7 +29,7 @@ The following document defines the standardized tags that can be used to categor
 - stp: Rating of detection analytic robustness according to the [MITRE Summiting the Pyramid](https://center-for-threat-informed-defense.github.io/summiting-the-pyramid/) scheme.
 - tlp: [Traffic Light Protocol](https://www.first.org/tlp/).
 
-### Namespace: attack<a name="namespace-attack"></a>
+### Namespace: attack
 
 - t*1234*: Refers to a [technique](https://attack.mitre.org/wiki/All_Techniques)
 - g*1234*: Refers to a [group](https://attack.mitre.org/wiki/Groups)
@@ -53,16 +53,16 @@ Tactics:
 - command-and-control: [Command and Control](https://attack.mitre.org/tactics/TA0011/)
 - impact: [Impact](https://attack.mitre.org/tactics/TA0040/)
 
-### Namespace: car<a name="namespace-car"></a>
+### Namespace: car
 
 Use the CAR tag from MITRE [analytics repository](https://car.mitre.org/analytics/) without the prepending `CAR-`. Example
 tag: `car.2016-04-005`.
 
-### Namespace: cve<a name="namespace-cve"></a>
+### Namespace: cve
 
 Use the CVE tag from [MITRE](https://cve.mitre.org) in lower case separated by dots. Example tag: `cve.2021-44228`.
 
-### Namespace: d3fend<a name="namespace-d3fend"></a>
+### Namespace: d3fend
 
 [D3FEND](https://d3fend.mitre.org/) is a knowledge base, and more specifically a knowledge graph, of cybersecurity countermeasure techniques.
 It is a catalog of defensive cybersecurity techniques and their relationships to offensive/adversary techniques.
@@ -84,7 +84,7 @@ Tactics:
 - deceive: [Deceive](https://d3fend.mitre.org/tactic/d3f:Deceive)
 - evict: [Evict](https://d3fend.mitre.org/tactic/d3f:Evict)
 
-### Namespace: detection<a name="namespace-detection"></a>
+### Namespace: detection
 
 Use the detection tag to indicate the type of a rule. Example tag: `detection.threat-hunting`.
 
@@ -94,7 +94,7 @@ The following tags are currently supported:
 - `detection.emerging-threats`
 - `detection.threat-hunting`
 
-### Namespace: stp<a name="namespace-stp"></a>
+### Namespace: stp
 
 The [Summiting the Pyramid](https://center-for-threat-informed-defense.github.io/summiting-the-pyramid/) scheme created
 by MITRE defines two score dimensions for scoring of the robustness:
@@ -113,7 +113,7 @@ specify the robustness in the following ways:
 - *complete* defines the whole score in a tag like `stp.3k`. Such a tag should be chosen if the detection refers to a
   concrete log source.
 
-### Namespace: tlp<a name="namespace-tlp"></a>
+### Namespace: tlp
 
 All TLP levels defined by the [FIRST TLP-SIG](https://www.first.org/tlp/) in lower case. Example tag: `tlp.amber`.
 
@@ -125,7 +125,7 @@ The following tags are currently supported:
 - `tlp.green`
 - `tlp.clear`
 
-## History<a name="history"></a>
+## History
 
 - 2025-06-09 Tags Appendix v2.1.1
   - Add mitre Data Sources, Mitigations and Assets

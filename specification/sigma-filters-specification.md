@@ -5,7 +5,7 @@ The following document defines the standardized global filter that can be used w
 - Version 2.0.0
 - Release date 2024-08-08
 
-<!-- mdformat-toc start --slug=github --maxlevel=6 --minlevel=2 -->
+<!-- mdformat-toc start --slug=github --no-anchors --maxlevel=6 --minlevel=2 -->
 
 - [Introduction](#introduction)
 - [Global filter](#global-filter)
@@ -29,17 +29,17 @@ The following document defines the standardized global filter that can be used w
 
 <!-- mdformat-toc end -->
 
-## Introduction<a name="introduction"></a>
+## Introduction
 
 The purpose of Filter rules is to apply the same tuning on many rules with the goal to suppress matches of multiple rules. This is most commonly useful for environment specific tuning where a false positive prone application is used in an organization and its false positives are accepted.
 
 Example: A valid GPO script that triggers multiple Sigma rules.
 
-## Global filter<a name="global-filter"></a>
+## Global filter
 
-### File Structure<a name="file-structure"></a>
+### File Structure
 
-#### YAML File<a name="yaml-file"></a>
+#### YAML File
 
 To keep the file names interoperable use the following:
 
@@ -51,19 +51,19 @@ To keep the file names interoperable use the following:
 
 As a best practice use the prefix `mf_`
 
-#### Schema<a name="schema"></a>
+#### Schema
 
-[Sigma Filters JSON Schema](/json-schema/sigma-filters-schema.json)
+[Sigma Filters JSON Schema](../json-schema/sigma-filters-schema.json)
 
-#### Syntax<a name="syntax"></a>
+#### Syntax
 
 A Sigma global filter is a dedicated YAML document.
 Like Sigma rules, "Filter" rules have a `title` and a unique `id` to identify them.
 It has no `level` or `status` because its purpose is to enrich an existing Sigma rule.
 
-### Components<a name="components"></a>
+### Components
 
-#### title<a name="title"></a>
+#### title
 
 **Attribute:** title
 
@@ -71,7 +71,7 @@ It has no `level` or `status` because its purpose is to enrich an existing Sigma
 
 A brief title for the rule that should contain what the rule is supposed to detect (max. 256 characters)
 
-#### Identification<a name="identification"></a>
+#### Identification
 
 **Attribute:** id
 
@@ -87,7 +87,7 @@ title: login brute force
 id: 0e95725d-7320-415d-80f7-004da920fc11
 ```
 
-#### Description<a name="description"></a>
+#### Description
 
 **Attribute:** description
 
@@ -95,7 +95,7 @@ id: 0e95725d-7320-415d-80f7-004da920fc11
 
 A short description of the rule and the malicious activity that can be detected (max. 65,535 characters)
 
-#### Date<a name="date"></a>
+#### Date
 
 **Attribute**: date
 
@@ -104,7 +104,7 @@ A short description of the rule and the malicious activity that can be detected 
 Creation date of the meta filter. \
 Use the ISO 8601 date with separator format : YYYY-MM-DD
 
-#### Modified<a name="modified"></a>
+#### Modified
 
 **Attribute**: modified
 
@@ -113,21 +113,21 @@ Use the ISO 8601 date with separator format : YYYY-MM-DD
 *Last* modification date of the meta filter. \
 Use the ISO 8601 date with separator format : YYYY-MM-DD
 
-#### Log source<a name="log-source"></a>
+#### Log source
 
 **Attribute**: logsource
 
 **Use:** mandatory
 
-Read more on the `logsource` attribute in the [Sigma Rules Specification](/specification/sigma-rules-specification.md)
+Read more on the `logsource` attribute in the [Sigma Rules Specification](sigma-rules-specification.md)
 
-#### Global Filter<a name="global-filter"></a>
+#### Global Filter
 
 **Attribute**: filter
 
 **Use:** mandatory
 
-##### Relative rules<a name="relative-rules"></a>
+##### Relative rules
 
 **Attribute:** rules
 
@@ -135,23 +135,23 @@ Read more on the `logsource` attribute in the [Sigma Rules Specification](/speci
 
 refers to one or multiple Sigma rules where to add the filter
 
-##### filter selection<a name="filter-selection"></a>
+##### filter selection
 
 **Attribute**: selection
 
 **Use:** mandatory
 
-Read more on the 'detection' section in the [Sigma Rules Specification](/specification/sigma-rules-specification.md)
+Read more on the 'detection' section in the [Sigma Rules Specification](sigma-rules-specification.md)
 
-##### filter condition<a name="filter-condition"></a>
+##### filter condition
 
 **Attribute**: condition
 
 **Use:** mandatory
 
-Read more on the 'detection' field in the [Sigma Rules Specification](/specification/sigma-rules-specification.md)
+Read more on the 'detection' field in the [Sigma Rules Specification](sigma-rules-specification.md)
 
-## Examples<a name="examples"></a>
+## Examples
 
 This section gives complete examples in order to make it easier for people new to Sigma to get started and for showcasing new features of the Sigma standard. Use them as a blueprint for your own ideas.
 
@@ -170,6 +170,6 @@ filter:
     condition: selection
 ```
 
-## History<a name="history"></a>
+## History
 
 - 2024-08-08 Specification v2.0.0
