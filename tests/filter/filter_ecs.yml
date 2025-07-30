@@ -1,0 +1,13 @@
+title: Filter google 
+description: User use google
+taxonomy: ecs
+logsource:
+    category: network
+    service: dns
+filter:
+    rules:
+        - 6f3e2987-db24-4c78-a860-b4f4095a7095 # rule 1
+        - df0841c0-9846-4e9f-ad8a-7df91571771b # rule 2
+    selection:
+        dns.question.name|startswith: 'www.google.'
+    condition: selection

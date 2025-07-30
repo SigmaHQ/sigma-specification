@@ -29,6 +29,11 @@
       "description": "Last modification date of the meta filter. Use the format YYYY-MM-DD",
       "pattern": "^\\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$"
     },
+    "taxonomy": {
+      "type": "string",
+      "maxLength": 256,
+      "description": "Defines the taxonomy used in the meta filter"
+    },
     "logsource": {
       "type": "object",
       "description": "The log source that the rule is supposed to detect malicious activity in.",
