@@ -35,12 +35,13 @@ Here's what you can expect from each of the main subfolders within this repo. Pl
 
 - [Sigma Filters Specification](./specification/sigma-filters-specification.md) - Described the Sigma filters format.
 
-- \[Sigma Modifiers Appendix\](.
-  /specification/sigma-appendix-modifiers.md) is a document that defines the different modifiers that can be used in a Sigma rule.
+- [Sigma Modifiers Appendix](./specification/sigma-appendix-modifiers.md) is a document that defines the different modifiers that can be used in a Sigma rule.
 
 - [Sigma Tags Appendix](./specification/sigma-appendix-tags.md) is a document that defines the tags namespaces that can be used to categorize the different Sigma rules.
 
 - [Sigma Taxonomy Appendix](./specification/sigma-appendix-taxonomy.md) is a document that defines the different field names and log sources that are currently supported by SigmaHQ in order to ensure sharable rules.
+
+- [Sigma Custom Taxonomy Appendix](./specification/sigma-appendix-custom-taxonomy.md) is a document that defines the different field names and log sources that use another taxonomy that sigma.
 
 ### JSON Schema
 
