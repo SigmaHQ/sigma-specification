@@ -25,7 +25,7 @@
     - [Search-Identifier](#search-identifier)
     - [General](#general)
     - [String Wildcard](#string-wildcard)
-    - [Escaping Character](#escaping-character)
+    - [Escape Character](#escape-character)
     - [Lists](#lists)
     - [Maps](#maps)
     - [Field Usage](#field-usage)
