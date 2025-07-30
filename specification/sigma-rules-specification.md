@@ -382,7 +382,7 @@ Sigma has special modifiers to facilitate the search of unbounded strings
 - `something*` see [startswith modifier](#value-modifiers).
 - `*something*` see [contains modifier](#value-modifiers).
 
-#### Escaping Character
+#### Escape Character
 
 The backslash character `\` is used for escaping of wildcards `*` and `?` as well as the backslash character itself. Escaping of the backslash is necessary if it is followed by a wildcard depending on the desired result.
 
