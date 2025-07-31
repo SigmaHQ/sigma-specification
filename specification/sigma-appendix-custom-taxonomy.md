@@ -10,7 +10,7 @@ The following document defines the field names and log sources that use custom t
 - [Warning](#warning)
 - [Network Events](#network-events)
   - [Network Connection](#network-connection)
-  - [Network Connection](#network-connection-1)
+  - [Network DNS](#network-dns)
 - [History](#history)
 
 <!-- mdformat-toc end -->
@@ -21,11 +21,13 @@ You MUST use the `taxonomy` field in the rule otherwise it is considered as `sig
 
 ## Network Events
 
-Network events can be defined with the generic log source category *network*.
+Network events can be defined with the generic logsource category *network*.
 
 The event scope can be further restricted with *service*.
 
 ### Network Connection
+
+This logsource covers networks connection in general.
 
 ```yml
 category: network
@@ -54,7 +56,9 @@ The field names follow the field names used in [Elastic Common Schema](https://w
 | network.state        | SF                             | State of the connection                           |
 | network.history      | shADd                          | History of the connection                         |
 
-### Network Connection
+### Network DNS
+
+This logsource covers DNS queries in general.
 
 ```yml
 category: network
