@@ -92,4 +92,7 @@ The field names follow the field names used in [Elastic Common Schema](https://w
 
 - 2025-07-30 Custom Taxonomy v1.0.0
   - Initial release
-  - Network Events
+  - add Network Events - Connections
+  - add Network Events - DNS
+
+

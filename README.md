@@ -41,7 +41,7 @@ Here's what you can expect from each of the main subfolders within this repo. Pl
 
 - [Sigma Taxonomy Appendix](./specification/sigma-appendix-taxonomy.md) is a document that defines the different field names and log sources that are currently supported by SigmaHQ in order to ensure sharable rules.
 
-- [Sigma Custom Taxonomy Appendix](./specification/sigma-appendix-custom-taxonomy.md) is a document that defines the different field names and log sources that use another taxonomy that sigma.
+- [Sigma Custom Taxonomy Appendix](./specification/sigma-appendix-custom-taxonomy.md) is a document that defines the different field names and log sources that use a taxonomy other than sigma.
 
 ### JSON Schema
 
