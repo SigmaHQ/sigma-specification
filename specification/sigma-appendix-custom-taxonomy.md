@@ -94,5 +94,3 @@ The field names follow the field names used in [Elastic Common Schema](https://w
   - Initial release
   - add Network Events - Connections
   - add Network Events - DNS
-
-
