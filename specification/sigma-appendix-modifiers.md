@@ -3,7 +3,7 @@
 The following document defines the standardized modifiers that can be used in Sigma.
 
 - Version 2.1.0
-- Release date 2025-07-17
+- Release date 2025-08-02
 
 <!-- mdformat-toc start --slug=github --no-anchors --maxlevel=6 --minlevel=2 -->
 
@@ -131,6 +131,7 @@ The modifiers listed in this section can only be applied to IP values.
 
 ## History
 
+- 2025-08-02 Specification v2.1.0
 - 2025-07-17 Modifiers Appendix v2.1.0
   - `neq` can be use with string or number
 - 2025-03-03 Modifiers Appendix v2.1.0

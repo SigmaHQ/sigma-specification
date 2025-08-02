@@ -2,8 +2,8 @@
 
 The following document defines the standardized global filter that can be used with Sigma rules.
 
-- Version 2.0.0
-- Release date 2024-08-08
+- Version 2.1.0
+- Release date 2025-08-02
 
 <!-- mdformat-toc start --slug=github --no-anchors --maxlevel=6 --minlevel=2 -->
 
@@ -172,4 +172,5 @@ filter:
 
 ## History
 
+- 2025-08-02 Specification v2.1.0
 - 2024-08-08 Specification v2.0.0

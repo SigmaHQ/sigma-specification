@@ -1,7 +1,7 @@
 # Sigma Rules Specification
 
-- Version 2.0.0
-- Release date 2024-08-08
+- Version 2.1.0
+- Release date 2025-08-02
 
 <!-- mdformat-toc start --slug=github --no-anchors --maxlevel=6 --minlevel=2 -->
 
@@ -762,6 +762,7 @@ Check out the [Sigma Filters Specification](sigma-filters-specification.md) for 
 
 ## History
 
+- 2025-08-02 Specification v2.1.0
 - 2024-08-08 Specification v2.0.0
 - 2023-06-29 Specification v1.0.4
 - 2022-12-28 Specification v1.0.3

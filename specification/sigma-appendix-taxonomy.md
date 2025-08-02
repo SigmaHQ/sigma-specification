@@ -2,8 +2,8 @@
 
 The following document defines the field names and log sources that are allowed to be used in SIGMA rules that are shared on the official SigmaHQ repository.
 
-- Version 2.0.2
-- Release date 2024-11-01
+- Version 2.1.0
+- Release date 2025-08-02
 
 <!-- mdformat-toc start --slug=github --no-anchors --maxlevel=6 --minlevel=2 -->
 
@@ -466,6 +466,7 @@ You can find all possible field values in the [Sysmon Community Guide](https://g
 
 ## History
 
+- 2025-08-02 Specification v2.1.0
 - 2024-11-01 Taxonomy Appendix v v2.0.2
   - Add new windows services:
     - `service: iis-configuration`

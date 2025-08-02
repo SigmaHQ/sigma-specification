@@ -2,8 +2,8 @@
 
 The following document defines the standardized correlation that can be used in Sigma rules.
 
-- Version 2.0.2
-- Release date 2024-11-01
+- Version 2.1.0
+- Release date 2025-08-02
 
 <!-- mdformat-toc start --slug=github --no-anchors --maxlevel=6 --minlevel=2 -->
 
@@ -763,15 +763,15 @@ detection:
 
 ## History
 
-- 2025-06-25 Specification V2.1.0
+- 2025-08-02 Specification v2.1.0
   - add metric corelation with:
     - value_sum
     - value_max
     - value_min
     - value_avg
     - value_percentile
-- 2024-11-01 Specification V2.0.2
+- 2024-11-01 Specification v2.0.2
   - add Requires field for temporal rules
-- 2024-09-03 Specification V2.0.1
+- 2024-09-03 Specification v2.0.1
   - add missing `status` and `falsepositives`
 - 2024-08-08 Specification v2.0.0
