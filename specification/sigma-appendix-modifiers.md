@@ -127,13 +127,13 @@ The modifiers listed in this section can only be applied to IP values.
   - Replace placeholder with wildcard `*`, which should only be used as last resort. (`WildcardPlaceholderTransformation`/`wildcard_placeholders`)
 
 - `fieldref`: Modifies a plain string into a field reference. A field reference can be used to compare fields of matched
-  events directly at query/matching time.
+  events directly at query/matching time. Can be conbine with the `neq` modifier.
 
 ## History
 
 - 2025-08-02 Specification v2.1.0
-- 2025-07-17 Modifiers Appendix v2.1.0
   - `neq` can be use with string or number
+  - `neq` can be use with `fieldref`
 - 2025-03-03 Modifiers Appendix v2.1.0
   - Add time modifiers
 - 2024-08-10 Modifiers Appendix v2.0.1
