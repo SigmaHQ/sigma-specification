@@ -183,6 +183,7 @@ related:
 
 Currently the following types are defined:
 
+- `correlation`: The rule is used in the referred correlation rule.
 - `derived`: The rule was derived from the referred rule or rules, which may remain active.
 - `obsolete`: The rule obsoletes the referred rule or rules, which aren't used anymore.
 - `merged`: The rule was merged from the referred rules. The rules may still exist and are in use.
