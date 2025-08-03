@@ -213,7 +213,7 @@ Defines the taxonomy used in the Sigma rule. A taxonomy can define:
 
 The Default taxonomy is `sigma`. A custom taxonomy must be handled by the used tool or transformed into the default taxonomy.
 
-More information on the default taxonomy can be found in the [Sigma Taxonomy Appendix](/appendix/sigma-taxonomy-appendix.md) file.
+More information on the default taxonomy can be found in the [Sigma Taxonomy Appendix](../appendix/sigma-taxonomy-appendix.md) file.
 
 ### Status
 
@@ -341,7 +341,7 @@ category: process_creation
 product: windows
 ```
 
-More details can be found in the [Sigma Taxonomy Appendix](/appendix/sigma-taxonomy-appendix.md) file, and [SigmaHQ Logsource Guides](https://github.com/SigmaHQ/sigma/tree/master/documentation/logsource-guides)
+More details can be found in the [Sigma Taxonomy Appendix](../appendix/sigma-taxonomy-appendix.md) file, and [SigmaHQ Logsource Guides](https://github.com/SigmaHQ/sigma/tree/master/documentation/logsource-guides)
 
 ### Detection
 
@@ -544,7 +544,7 @@ There are two types of value modifiers:
 Generally, value modifiers work on single values and value lists. A value might also expand into
 multiple values.
 
-[List of modifiers](appendix/sigma-modifiers-appendix.md)
+[List of modifiers](../appendix/sigma-modifiers-appendix.md)
 
 #### Placeholders
 
@@ -698,7 +698,7 @@ A Sigma rule can be categorized with tags. Tags should generally follow this syn
 * Keep tags short, e.g. numeric identifiers instead of long sentences
 * Feel free to send pull request or issues with proposals for new tags
 
-[More information about tags](/appendix/sigma-tags-appendix.md)
+[More information about tags](../appendix/sigma-tags-appendix.md)
 
 ### Scope
 
@@ -715,14 +715,14 @@ A scope with the value `server` can be added to limit this rule only to Windows 
 
 Correlation allows several events to be linked together. To make it easier to read these corelation rules, they are written in meta-rules.
 
-Check out the [Sigma Correlation Rules Specification](/specification/sigma-correlation-rules-specification.md) for more details.
+Check out the [Sigma Correlation Rules Specification](./sigma-correlation-rules-specification.md) for more details.
 
 ## Sigma Filters
 
 To adapt the rules to the environment, it is sometimes useful to put the same exclusion in several rules. /
 Their maintenance can become difficult, with a meta-filter it is possible to write it in a single place.
 
-Check out the [Sigma Filters Specification](/specification/sigma-filters-specification.md) for more details.
+Check out the [Sigma Filters Specification](./sigma-filters-specification.md) for more details.
 
 ## History
 

@@ -115,7 +115,7 @@ Use the ISO 8601 date with separator format : YYYY-MM-DD
 
 **Use:** mandatory
 
-Read more on the `logsource` attribute in the [Sigma Rules Specification](/specification/sigma-rules-specification.md)
+Read more on the `logsource` attribute in the [Sigma Rules Specification](./sigma-rules-specification.md)
 
 #### Global Filter
 
@@ -137,7 +137,7 @@ refers to one or multiple Sigma rules where to add the filter
 
 **Use:** mandatory
 
-Read more on the 'detection' section in the [Sigma Rules Specification](/specification/sigma-rules-specification.md)
+Read more on the 'detection' section in the [Sigma Rules Specification](./sigma-rules-specification.md)
 
 ##### filter condition
 
@@ -145,7 +145,7 @@ Read more on the 'detection' section in the [Sigma Rules Specification](/specifi
 
 **Use:** mandatory
 
-Read more on the 'detection' field in the [Sigma Rules Specification](/specification/sigma-rules-specification.md)
+Read more on the 'detection' field in the [Sigma Rules Specification](./sigma-rules-specification.md)
 
 ## Examples
 
