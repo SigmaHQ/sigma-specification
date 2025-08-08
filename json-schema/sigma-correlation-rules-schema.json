@@ -66,6 +66,11 @@
       "description": "Last modification date of the meta rule. Use the ISO 8601 format YYYY-MM-DD",
       "pattern": "^\\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$"
     },
+    "taxonomy": {
+      "type": "string",
+      "maxLength": 256,
+      "description": "Defines the taxonomy used in the Sigma correlation rule"
+    },
     "correlation": {
       "type": "object",
       "required": ["type", "rules", "timespan"],

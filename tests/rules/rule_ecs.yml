@@ -1,0 +1,15 @@
+title: A Title
+id: 545a5da6-f103-4919-a519-e9aec1026ee4
+status: test
+description: a very good information string that need to be written
+author: SomeOne
+date: 2017-05-09
+taxonomy: ecs
+logsource:
+    category: network
+    service: dns
+detection:
+    selection:
+        dns.question.name: 'sigmahq'
+    condition: selection
+level: high
