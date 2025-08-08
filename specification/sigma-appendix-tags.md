@@ -2,8 +2,8 @@
 
 The following document defines the standardized tags that can be used to categorize the different Sigma rules.
 
-- Version 2.1.1
-- Release date 2025-06-09
+- Version 2.1.0
+- Release date 2025-08-02
 
 <!-- mdformat-toc start --slug=github --no-anchors --maxlevel=6 --minlevel=2 -->
 
@@ -127,9 +127,8 @@ The following tags are currently supported:
 
 ## History
 
-- 2025-06-09 Tags Appendix v2.1.1
+- 2025-08-02 Specification v2.1.0
   - Add mitre Data Sources, Mitigations and Assets
-- 2024-08-11 Tags Appendix v2.1.0
   - Add mitre d3fend namespace
 - 2024-08-08 Tags Appendix v2.0.0
 - 2023-11-23 Tags Appendix v1.2.0
