@@ -39,7 +39,7 @@ The following modifiers are considered generic modifiers and can be applied on a
 
 * `exists`: Defines that a certain field has to exist or must not exist in a log event by providing a boolean value. Note that this check only verifies the presence of a field, not its value, be it empty or null.
 * `cased`: Values are applied case sensitively. Default Sigma behavior is case-insensitive matching.
-* `neq`: The field is different from the value. It's can be used with string or number.
+* `neq`: The field is different from the specified values. It's can be used with string or number.
 
 ### String Modifiers
 
@@ -97,6 +97,7 @@ The modifiers listed in this section can only be applied to numeric values.
 - `lte`: Field is less or equal than the value
 - `gt`: Field is greater than the value
 - `gte`: Field is greater or equal than the value
+- `neq`: Field is not equal than the value
 
 ### Time Modifiers
 

@@ -7,5 +7,5 @@ correlation:
         - ComputerName
     timespan: 24h
     condition:
-        field: image
+        field: Image
         lte: 1

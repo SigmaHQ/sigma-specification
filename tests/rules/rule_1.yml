@@ -4,7 +4,6 @@ related:
     - id: 6c82cf5c-090d-4d57-9188-533577631108
       type: similar
 status: test
-taxonomy: sigma
 description: a very good information string that need to be written
 references:
     - https://123.456
