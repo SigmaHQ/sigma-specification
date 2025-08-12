@@ -37,9 +37,11 @@ The following modifiers are considered generic modifiers and can be applied on a
 - `contains`: Puts `*` wildcards around the values, such that the value is matched anywhere in the
   field.
 
-* `exists`: Defines that a certain field has to exist or must not exist in a log event by providing a boolean value. Note that this check only verifies the presence of a field, not its value, be it empty or null.
-* `cased`: Values are applied case sensitively. Default Sigma behavior is case-insensitive matching.
-* `neq`: The field is different from the specified values. It's can be used with string or number.
+- `exists`: Defines that a certain field has to exist or must not exist in a log event by providing a boolean value. Note that this check only verifies the presence of a field, not its value, be it empty or null.
+
+- `cased`: Values are applied case sensitively. Default Sigma behavior is case-insensitive matching.
+
+- `neq`: The field is different from the specified values.
 
 ### String Modifiers
 
@@ -122,8 +124,7 @@ The modifiers listed in this section can only be applied to IP values.
 ## History
 
 - 2025-08-02 Specification v2.1.0
-  - `neq` can be use with string or number
-  - `neq` can be use with `fieldref`
+  - Add `neq`
   - Add time modifiers
   - Accuracy and formatting of the text
 - 2024-08-10 Modifiers Appendix v2.0.1

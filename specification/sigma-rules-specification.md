@@ -216,7 +216,6 @@ Defines the taxonomy used in the Sigma rule. A taxonomy can define:
 The Default taxonomy is `sigma`. A custom taxonomy must be handled by the used tool or transformed into the default taxonomy.
 
 More information on the default taxonomy can be found in the [Sigma Taxonomy Appendix](sigma-appendix-taxonomy.md) file.
-Custom taxonomy can be found in the [Sigma Custom Taxonomy Appendix](sigma-appendix-custom-taxonomy.md) file.
 
 For example in pySigma for ocsf taxonomy you can use the [pySigma-pipeline-ocsf pipeline](https://github.com/SigmaHQ/pySigma-pipeline-ocsf)
 

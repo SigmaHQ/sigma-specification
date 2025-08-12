@@ -553,7 +553,7 @@ You can find all possible field values in the [Sysmon Community Guide](https://g
 ## History
 
 - 2025-08-02 Specification v2.1.0
-  - Add generic category network:
+  - Add generic network category :
     - `service: connection`
     - `service: dns`
 - 2024-11-01 Taxonomy Appendix v v2.0.2
