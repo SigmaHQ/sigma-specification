@@ -612,7 +612,7 @@ Also note: In the condition section, the field must be present and specify which
 #### Value Percentile (value_percentile)
 
 Check when a certain percentage of observed values occur.
-Tips: median is a percentile 50
+Hint: median is a percentile 50
 
 Requires:
 

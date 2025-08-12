@@ -51,21 +51,14 @@ The modifiers listed in this section can only be applied to string values.
 
 - `re`: Value is handled as a regular expression by backends. Regex is matched case-sensitive by default.
 
-  - Currently, the supported flavor is PCRE with the following metacharacters:
+  - The supported flavor is PCRE with the following metacharacters:
     - Wildcards: `.`.
     - Anchors: `^`, `$`.
     - Quantifiers: `*`, `+`, `?`, `{n,m}`.
     - Character Classes: [a-z], [^a-z].
     - Grouping and Capturing: `()`.
     - Alternation: `|`.
-  - The following metacharacters are unsupported:
-    - Character Classes: `[[:digit:]]`
-    - Lookahead Assertions:
-      - Positive Lookahead: `(?=...)`
-      - Negative Lookahead: `(?!...)`
-      - Positive Lookbehind: `(?<=...)`
-      - Negative Lookbehind: `(?<!...)`
-    - Atomic Grouping: `(?>`
+  - Other metacharacters are **unsupported** and can not be used.
 
 - `re` sub-modifiers:
 
@@ -76,18 +69,14 @@ The modifiers listed in this section can only be applied to string values.
 #### Encoding
 
 - `base64`: The value is encoded with Base64.
-
 - `base64offset`: If a value might appear somewhere in a base64-encoded string the representation
   might change depending on the position of the value in the overall string. There are three variants for shifts
   by zero to two bytes and except the first and last byte the encoded values have a static part in
   the middle that can be recognized.
-
-- `base64` sub-modifiers:
-
-  - `utf16le`: Transforms value to UTF16-LE encoding, e.g. `cmd` > `63 00 6d 00 64 00`
-  - `utf16be`: Transforms value to UTF16-BE encoding, e.g. `cmd` > `00 63 00 6d 00 64`
-  - `utf16`: Prepends a [byte order mark](https://en.wikipedia.org/wiki/Byte_order_mark) and encodes UTF16, e.g. `cmd` > `FF FE 63 00 6d 00 64 00`
-  - `wide`: an alias for the `utf16le` modifier.
+- `utf16le`: Transforms value to UTF16-LE encoding, e.g. `cmd` > `63 00 6d 00 64 00`
+- `utf16be`: Transforms value to UTF16-BE encoding, e.g. `cmd` > `00 63 00 6d 00 64`
+- `utf16`: Prepends a [byte order mark](https://en.wikipedia.org/wiki/Byte_order_mark) and encodes UTF16, e.g. `cmd` > `FF FE 63 00 6d 00 64 00`
+- `wide`: an alias for the `utf16le` modifier.
 
 ### Numeric Modifiers
 
@@ -135,8 +124,8 @@ The modifiers listed in this section can only be applied to IP values.
 - 2025-08-02 Specification v2.1.0
   - `neq` can be use with string or number
   - `neq` can be use with `fieldref`
-- 2025-03-03 Modifiers Appendix v2.1.0
   - Add time modifiers
+  - Accuracy and formatting of the text
 - 2024-08-10 Modifiers Appendix v2.0.1
   - Add regular expression flavor definition.
   - restructure titles

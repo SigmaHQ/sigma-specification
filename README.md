@@ -27,7 +27,7 @@ Here's what you can expect from each of the main subfolders within this repo. Pl
 
 ### Specification
 
-[Specification](./specification/) will contain markdown files describing the Sigma specification format in details. Appendix files providing additional details to certain fields of a Sigma rule
+[Specification](./specification/) will contain markdown files describing the Sigma specification format in details. The appendix files provide more detailed information on certain aspects to facilitate reading and research.
 
 - [Sigma Rules Specification](./specification/sigma-rules-specification.md) - Describes what constitute a Sigma rule.
 
@@ -40,8 +40,6 @@ Here's what you can expect from each of the main subfolders within this repo. Pl
 - [Sigma Tags Appendix](./specification/sigma-appendix-tags.md) is a document that defines the tags namespaces that can be used to categorize the different Sigma rules.
 
 - [Sigma Taxonomy Appendix](./specification/sigma-appendix-taxonomy.md) is a document that defines the different field names and log sources that are currently supported by SigmaHQ in order to ensure sharable rules.
-
-- [Sigma Custom Taxonomy Appendix](./specification/sigma-appendix-custom-taxonomy.md) is a document that defines the different field names and log sources that use a taxonomy other than sigma.
 
 ### JSON Schema
 

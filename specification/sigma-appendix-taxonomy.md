@@ -9,7 +9,7 @@ The following document defines the field names and log sources that are allowed 
 
 - [Log Sources](#log-sources)
   - [Application Folder](#application-folder)
-    - [Django<](#django)
+    - [Django](#django)
     - [Python](#python)
     - [RPC Firewall](#rpc-firewall)
     - [Ruby on Rails](#ruby-on-rails)
@@ -41,6 +41,9 @@ The following document defines the field names and log sources that are allowed 
   - [Windows Folder](#windows-folder)
     - [Category](#category-2)
     - [Service](#service-1)
+- [Network Events](#network-events)
+  - [Network Connection](#network-connection)
+  - [Network DNS](#network-dns)
 - [Fields](#fields)
   - [Generic](#generic)
     - [Process Creation Events](#process-creation-events)
@@ -64,7 +67,7 @@ The *application* folder contains rules that are intended for application securi
 
 Because application logs are often ingested as raw text events with poor decomposition into fields by many target systems, these rules are keyword rules that don't match on specific fields.
 
-#### Django\<
+#### Django
 
 | Product | Logsource                                | Event |
 | ------- | ---------------------------------------- | ----- |
@@ -347,6 +350,89 @@ Because application logs are often ingested as raw text events with poor decompo
 | windows | product: windows<br>service: windefend                                  | Channel: Microsoft-Windows-Windows Defender/Operational                                                                                                                                                                    |
 | windows | product: windows<br>service: wmi                                        | Channel: Microsoft-Windows-WMI-Activity/Operational                                                                                                                                                                        |
 
+## Network Events
+
+Network events can be defined with the generic logsource category *network*.
+
+The event scope can be further restricted with *service*.
+
+The most common values should follow the rule : "lower case letters, spaces replaces with underscores".
+
+### Network Connection
+
+This logsource covers networks connection in general.
+
+```yml
+category: network
+service: connection
+```
+
+The field names follow the field names used in [Elastic Common Schema](https://www.elastic.co/guide/en/ecs/current/ecs-network.html) events `taxonomy: ecs`:
+
+| Field Name           | Example Value                  | Comment                                           |
+| -------------------- | ------------------------------ | ------------------------------------------------- |
+| event.duration       | 0.005726                       | Connection duration in seconds                    |
+| network.type         | ipv4                           | Network layer type (e.g., ipv4, ipv6, ipsec)      |
+| network.transport    | tcp                            | Transport layer protocol (e.g., tcp, udp)         |
+| network.protocol     | http                           | Application layer protocol (e.g., http, dns, ssh) |
+| source.ip            | 192.168.1.100                  | Source IP address                                 |
+| source.port          | 54321                          | Source port number                                |
+| destination.ip       | 93.184.216.34                  | Destination IP address                            |
+| destination.port     | 443                            | Destination port number                           |
+| source.packets       | 98                             | Number of packets                                 |
+| destination.packets  | 45                             | Number of packets                                 |
+| source.bytes         | 2159                           | Number of bytes                                   |
+| destination.bytes    | 4739                           | Number of bytes                                   |
+| network.community_id | 1:LQU9qZlK+B5F3KDmev6m5PMibrg= | Community ID hash                                 |
+| network.state        | SF                             | State of the connection                           |
+| network.history      | shADd                          | History of the connection                         |
+
+Possible `network.state` values:
+
+- S0: Connection attempt seen, no reply.
+- S1: Connection established, not terminated.
+- SF: Normal establishment and termination. Note that this is the same symbol as for state S1.
+- REJ: Connection attempt rejected.
+- S2: Connection established and close attempt by originator seen (but no reply from responder).
+- S3: Connection established and close attempt by responder seen (but no reply from originator).
+- RSTO: Connection established, originator aborted (sent a RST).
+- RSTR: Responder sent a RST.
+- RSTOS0: Originator sent a SYN followed by a RST, we never saw a SYN-ACK from the responder.
+- RSTRH: Responder sent a SYN ACK followed by a RST, we never saw a SYN from the (purported) originator.
+- SH: Originator sent a SYN followed by a FIN, we never saw a SYN ACK from the responder (hence the connection was “half” open).
+- SHR: Responder sent a SYN ACK followed by a FIN, we never saw a SYN from the originator.
+- OTH: No SYN seen, just midstream traffic (one example of this is a “partial connection” that was not later closed).
+
+### Network DNS
+
+This logsource covers DNS queries in general.
+
+```yml
+category: network
+service: dns
+```
+
+The field names follow the field names used in [Elastic Common Schema](https://www.elastic.co/guide/en/ecs/current/ecs-dns.html) events `taxonomy: ecs`:
+
+| Field Name           | Example Value                  | Comment                    |
+| -------------------- | ------------------------------ | -------------------------- |
+| source.ip            | 192.168.1.100                  | Source IP address          |
+| source.port          | 54321                          | Source port number         |
+| destination.ip       | 93.184.216.34                  | Destination IP address     |
+| destination.port     | 443                            | Destination port number    |
+| network.community_id | 1:LQU9qZlK+B5F3KDmev6m5PMibrg= | Community ID hash          |
+| dns.id               | CXWfMc4eWKNBm1O4fl             | DNS transaction identifier |
+| dns.question.name    | example.com                    | DNS question name          |
+| dns.question.type    | A                              | DNS question type          |
+| dns.question.class   | IN                             | DNS question class         |
+| dns.answers.name     | example.com                    | DNS answer name            |
+| dns.answers.type     | A                              | DNS answer type            |
+| dns.answers.class    | IN                             | DNS answer class           |
+| dns.answers.data     | 93.184.216.34                  | DNS answer data            |
+| dns.answers.ttl      | 3600                           | DNS answer TTL             |
+| dns.header.flags     | RD, RA                         | DNS header flags           |
+| dns.response.code    | NOERROR                        | DNS response code          |
+
 ## Fields
 
 ### Generic
@@ -467,6 +553,9 @@ You can find all possible field values in the [Sysmon Community Guide](https://g
 ## History
 
 - 2025-08-02 Specification v2.1.0
+  - Add generic category network:
+    - `service: connection`
+    - `service: dns`
 - 2024-11-01 Taxonomy Appendix v v2.0.2
   - Add new windows services:
     - `service: iis-configuration`
