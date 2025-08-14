@@ -18,7 +18,7 @@ The following document defines the standardized correlation that can be used in 
     - [Syntax](#syntax)
   - [Components](#components)
     - [Title](#title)
-    - [Identification<](#identification)
+    - [Identification](#identification)
     - [Status](#status)
     - [Description](#description)
     - [Author](#author)
@@ -42,8 +42,6 @@ The following document defines the standardized correlation that can be used in 
     - [Temporal Proximity (temporal)](#temporal-proximity-temporal)
     - [Ordered Temporal Proximity (temporal_ordered)](#ordered-temporal-proximity-temporal_ordered)
     - [Value Sum (value_sum)](#value-sum-value_sum)
-    - [Value Max (value_max)](#value-max-value_max)
-    - [Value Min (value_min)](#value-min-value_min)
     - [Value Average (value_avg)](#value-average-value_avg)
     - [Value Percentile (value_percentile)](#value-percentile-value_percentile)
   - [Field Name Aliases](#field-name-aliases)
@@ -137,7 +135,7 @@ Like Sigma rules , correlation rules have a title and a unique id to identify th
 
 A brief title for the rule that should contain what the rule is supposed to detect (max. 256 characters)
 
-#### Identification\<
+#### Identification
 
 **Attribute:** id
 
@@ -525,58 +523,6 @@ correlation:
         gt: 1000000
 ```
 
-#### Value Max (value_max)
-
-Check if the `max` of a number field match a limit
-
-Requires:
-
-- `group-by`
-- `timespan`
-- `condition`
-- `field` in condition section.
-
-```yaml
-title: Maximum value reached
-correlation:
-  type: value_max
-  rules: 
-        - rule_a_id
-  group-by:
-        - field1
-        - field2
-    timespan: 30m
-  condition:
-        field: numeric_value
-        gte: 100
-```
-
-#### Value Min (value_min)
-
-Check if the `min` of a number field match a limit
-
-Requires:
-
-- `group-by`
-- `timespan`
-- `condition`
-- `field` in condition section.
-
-```yaml
-title: Possible C2 Communication
-correlation:
-  type: value_min
-  rules: 
-    - request_to_website
-  group-by:
-    - domainName
-    - Username
-  timespan: 24h
-  condition:
-    field: BytesOut
-    lte: 400
-```
-
 #### Value Average (value_avg)
 
 Check if the `average` of a number field match a limit
@@ -783,8 +729,6 @@ detection:
 - 2025-08-02 Specification v2.1.0
   - add metric corelation with:
     - value_sum
-    - value_max
-    - value_min
     - value_avg
     - value_percentile
 - 2024-11-01 Specification v2.0.2

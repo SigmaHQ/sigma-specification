@@ -58,7 +58,6 @@ The modifiers listed in this section can only be applied to string values.
     - Anchors: `^`, `$`.
     - Quantifiers: `*`, `+`, `?`, `{n,m}`.
     - Character Classes: [a-z], [^a-z].
-    - Grouping and Capturing: `()`.
     - Alternation: `|`.
   - Other metacharacters are **unsupported** and can not be used.
 

@@ -53,6 +53,8 @@ The following document defines the field names and log sources that are allowed 
 
 <!-- mdformat-toc end -->
 
+For example in pySigma for ocsf taxonomy you can use the [pySigma-pipeline-ocsf pipeline](https://github.com/SigmaHQ/pySigma-pipeline-ocsf)
+
 ## Log Sources
 
 For a better comprehension, the log sources are organized by directory name similar to the [rules](https://github.com/SigmaHQ/sigma/tree/master/rules) structure in the SIGMA project.

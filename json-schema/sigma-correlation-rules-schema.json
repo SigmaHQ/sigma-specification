@@ -97,12 +97,6 @@
               "const": "value_sum"
             },
             {
-              "const": "value_max"
-            },
-            {
-              "const": "value_min"
-            },
-            {
               "const": "value_avg"
             },
             {
@@ -248,28 +242,6 @@
         },
         {
           "if": { "properties": { "type": { "const": "value_sum" } } },
-          "then": {
-            "condition": {
-              "type": "object",
-              "properties": { "field": { "type": "string" } },
-              "required": ["field"]
-            },
-            "required": ["condition", "group-by", "timespan"]
-          }
-        },
-        {
-          "if": { "properties": { "type": { "const": "value_max" } } },
-          "then": {
-            "condition": {
-              "type": "object",
-              "properties": { "field": { "type": "string" } },
-              "required": ["field"]
-            },
-            "required": ["condition", "group-by", "timespan"]
-          }
-        },
-        {
-          "if": { "properties": { "type": { "const": "value_min" } } },
           "then": {
             "condition": {
               "type": "object",
