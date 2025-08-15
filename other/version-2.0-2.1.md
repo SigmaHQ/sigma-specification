@@ -37,7 +37,7 @@ We introduced a new set of tags. You can check the full list of all currently su
 
 ## Taxonomy
 
-We introduced a new generic network category. You can check the full list of sigma taxonomies in the [Sigma taxonomies Appendix](../specification/sigma-appendix-taxonomys.md).
+We introduced a new generic network category. You can check the full list of sigma taxonomies in the [Sigma taxonomies Appendix](../specification/sigma-appendix-taxonomy.md).
 
 ## Correlation
 
