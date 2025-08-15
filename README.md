@@ -60,6 +60,16 @@ Here's what you can expect from each of the main subfolders within this repo. Pl
 - [SigmaHQ Filename Convention](./sigmahq/sigmahq-filename-convention.md)
 - [SigmaHQ Title Convention](./sigmahq/sigmahq-title-convention.md)
 
-## Version 2 Changes
+## Version Changes
 
-You can read more on the potential breaking changes and additional features introduced in version 2.0.0 of the specification [here](./other/version-2-changes.md)
+You can read more on the potential breaking changes and additional features introduced in version:
+
+- [1.0.0 to 2.0.0](./other/version-1.0-2.0.md)
+- [2.0.0 to 2.1.0](./other/version-2.0-2.1.md)
+
+## Other folder
+
+The other directories are only there for operational purposes.
+
+- `media`: logo for the readme file
+- `test`: files for workflow operations

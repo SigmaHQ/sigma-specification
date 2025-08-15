@@ -42,13 +42,12 @@ The following document defines the field names and log sources that are allowed 
     - [Category](#category-2)
     - [Service](#service-1)
 - [Network Events](#network-events)
-  - [Network Connection](#network-connection)
-  - [Network DNS](#network-dns)
 - [Fields](#fields)
   - [Generic](#generic)
     - [Process Creation Events](#process-creation-events)
     - [Other Generic Rule Categories](#other-generic-rule-categories)
   - [Specific](#specific)
+  - [Network category](#network-category)
 - [History](#history)
 
 <!-- mdformat-toc end -->
@@ -71,43 +70,43 @@ Because application logs are often ingested as raw text events with poor decompo
 
 #### Django
 
-| Product | Logsource                                | Event |
-| ------- | ---------------------------------------- | ----- |
-| django  | category: application<br>product: django |       |
+| Product | Logsource                                | Description |
+| ------- | ---------------------------------------- | ----------- |
+| django  | category: application<br>product: django |             |
 
 #### Python
 
-| Product | Logsource                                | Event |
-| ------- | ---------------------------------------- | ----- |
-| python  | category: application<br>product: python |       |
+| Product | Logsource                                | Description |
+| ------- | ---------------------------------------- | ----------- |
+| python  | category: application<br>product: python |             |
 
 #### RPC Firewall
 
-| Product      | Logsource                                      | Event |
-| ------------ | ---------------------------------------------- | ----- |
-| rpc_firewall | category: application<br>product: rpc_firewall |       |
+| Product      | Logsource                                      | Description |
+| ------------ | ---------------------------------------------- | ----------- |
+| rpc_firewall | category: application<br>product: rpc_firewall |             |
 
 #### Ruby on Rails
 
-| Product       | Logsource                                       | Event |
-| ------------- | ----------------------------------------------- | ----- |
-| ruby_on_rails | category: application<br>product: ruby_on_rails |       |
+| Product       | Logsource                                       | Description |
+| ------------- | ----------------------------------------------- | ----------- |
+| ruby_on_rails | category: application<br>product: ruby_on_rails |             |
 
 #### Spring Framewor
 
-| Product | Logsource                                | Event |
-| ------- | ---------------------------------------- | ----- |
-| spring  | category: application<br>product: spring |       |
+| Product | Logsource                                | Description |
+| ------- | ---------------------------------------- | ----------- |
+| spring  | category: application<br>product: spring |             |
 
 #### SQL
 
-| Product | Logsource                             | Event |
-| ------- | ------------------------------------- | ----- |
-| sql     | category: application<br>product: sql |       |
+| Product | Logsource                             | Description |
+| ------- | ------------------------------------- | ----------- |
+| sql     | category: application<br>product: sql |             |
 
 ### Category Folder
 
-| Product | Logsource           | Event                                                      |
+| Product | Logsource           | Description                                                |
 | ------- | ------------------- | ---------------------------------------------------------- |
 |         | category: antivirus | antivirus detection message (format depends on the editor) |
 |         | category: database  | sql queries log (drop, select,...)                         |
@@ -116,71 +115,71 @@ Because application logs are often ingested as raw text events with poor decompo
 
 #### AWS
 
-| Product | Logsource                           | Event |
-| ------- | ----------------------------------- | ----- |
-| Aws     | product: aws<br>service: cloudtrail |       |
+| Product | Logsource                           | Description |
+| ------- | ----------------------------------- | ----------- |
+| Aws     | product: aws<br>service: cloudtrail |             |
 
 #### Azure
 
-| Product | Logsource                                | Event |
-| ------- | ---------------------------------------- | ----- |
-| Azure   | product: azure<br>service: activitylogs  |       |
-| Azure   | product: azure<br>service: auditlogs     |       |
-| Azure   | product: azure<br>service: riskdetection |       |
-| Azure   | product: azure<br>service: pim           |       |
-| Azure   | product: azure<br>service: signinlogs    |       |
+| Product | Logsource                                | Description |
+| ------- | ---------------------------------------- | ----------- |
+| Azure   | product: azure<br>service: activitylogs  |             |
+| Azure   | product: azure<br>service: auditlogs     |             |
+| Azure   | product: azure<br>service: riskdetection |             |
+| Azure   | product: azure<br>service: pim           |             |
+| Azure   | product: azure<br>service: signinlogs    |             |
 
 #### Bitbucket
 
-| Product   | Logsource                            | Event |
-| --------- | ------------------------------------ | ----- |
-| Bitbucket | product: bitbucket<br>service: audit |       |
+| Product   | Logsource                            | Description |
+| --------- | ------------------------------------ | ----------- |
+| Bitbucket | product: bitbucket<br>service: audit |             |
 
 #### Cisco
 
-| Product | Logsource                      | Event |
-| ------- | ------------------------------ | ----- |
-| Cisco   | product: cisco<br>service: duo |       |
+| Product | Logsource                      | Description |
+| ------- | ------------------------------ | ----------- |
+| Cisco   | product: cisco<br>service: duo |             |
 
 #### GCP
 
-| Product | Logsource                                       | Event |
-| ------- | ----------------------------------------------- | ----- |
-| GCP     | product: gcp<br>service: gcp.audit              |       |
-| GCP     | product: gcp<br>service: google_workspace.admin |       |
+| Product | Logsource                                       | Description |
+| ------- | ----------------------------------------------- | ----------- |
+| GCP     | product: gcp<br>service: gcp.audit              |             |
+| GCP     | product: gcp<br>service: google_workspace.admin |             |
 
 #### Github
 
-| Product | Logsource                         | Event                  |
+| Product | Logsource                         | Description            |
 | ------- | --------------------------------- | ---------------------- |
 | Github  | product: github<br>service: audit | organization Audit log |
 
 #### M365
 
-| Product | Logsource                                   | Event |
-| ------- | ------------------------------------------- | ----- |
-| M365    | product: m365<br>service: audit             |       |
-| M365    | product: m365<br>service: exchange          |       |
-| M365    | product: m365<br>service: threat_detection  |       |
-| M365    | product: m365<br>service: threat_management |       |
+| Product | Logsource                                   | Description |
+| ------- | ------------------------------------------- | ----------- |
+| M365    | product: m365<br>service: audit             |             |
+| M365    | product: m365<br>service: exchange          |             |
+| M365    | product: m365<br>service: threat_detection  |             |
+| M365    | product: m365<br>service: threat_management |             |
 
 #### Okta
 
-| Product | Logsource                      | Event |
-| ------- | ------------------------------ | ----- |
-| Okta    | product: okta<br>service: okta |       |
+| Product | Logsource                      | Description |
+| ------- | ------------------------------ | ----------- |
+| Okta    | product: okta<br>service: okta |             |
 
 #### OneLogin
 
-| Product  | Logsource                                     | Event |
-| -------- | --------------------------------------------- | ----- |
-| Onelogin | product: onelogin<br>service: onelogin.events |       |
+| Product  | Logsource                                     | Description |
+| -------- | --------------------------------------------- | ----------- |
+| Onelogin | product: onelogin<br>service: onelogin.events |             |
 
 ### Linux Folder
 
 #### Category
 
-| Product | Logsource                                      | Event                          |
+| Product | Logsource                                      | Description                    |
 | ------- | ---------------------------------------------- | ------------------------------ |
 | Linux   | product: linux<br>category: file_event         | EventID: 11<br>service: sysmon |
 | Linux   | product: linux<br>category: network_connection | EventID: 3<br>service: sysmon  |
@@ -188,26 +187,26 @@ Because application logs are often ingested as raw text events with poor decompo
 
 #### Service
 
-| Product | Logsource                            | Event      |
-| ------- | ------------------------------------ | ---------- |
-| Linux   | product: linux<br>service: auditd    | auditd.log |
-| Linux   | product: linux<br>service: auth      | auth.log   |
-| Linux   | product: linux<br>service: clamav    |            |
-| Linux   | product: linux<br>service: cron      |            |
-| Linux   | product: linux<br>service: guacamole |            |
-| Linux   | product: linux<br>service: sudo      |            |
-| Linux   | product: linux<br>service: sshd      |            |
-| Linux   | product: linux<br>service: syslog    |            |
-| Linux   | product: linux<br>service: vsftpd    |            |
+| Product | Logsource                            | Description |
+| ------- | ------------------------------------ | ----------- |
+| Linux   | product: linux<br>service: auditd    | auditd.log  |
+| Linux   | product: linux<br>service: auth      | auth.log    |
+| Linux   | product: linux<br>service: clamav    |             |
+| Linux   | product: linux<br>service: cron      |             |
+| Linux   | product: linux<br>service: guacamole |             |
+| Linux   | product: linux<br>service: sudo      |             |
+| Linux   | product: linux<br>service: sshd      |             |
+| Linux   | product: linux<br>service: syslog    |             |
+| Linux   | product: linux<br>service: vsftpd    |             |
 
 ### Macos Folder
 
 #### Category
 
-| Product | Logsource                                    | Event |
-| ------- | -------------------------------------------- | ----- |
-| Macos   | product: macos<br>category: file_event       |       |
-| Macos   | product: macos<br>category: process_creation |       |
+| Product | Logsource                                    | Description |
+| ------- | -------------------------------------------- | ----------- |
+| Macos   | product: macos<br>category: file_event       |             |
+| Macos   | product: macos<br>category: process_creation |             |
 
 ### Network Folder
 
@@ -254,7 +253,7 @@ Because application logs are often ingested as raw text events with poor decompo
 
 ### Product Folder
 
-| Product     | Logsource            | Event                 |
+| Product     | Logsource            | Description           |
 | ----------- | -------------------- | --------------------- |
 | Apache      | service: apache      | Application error.log |
 | Modsecurity | product: modsecurity |                       |
@@ -360,80 +359,10 @@ The event scope can be further restricted with *service*.
 
 The most common values should follow the rule : "lower case letters, spaces replaces with underscores".
 
-### Network Connection
-
-This logsource covers networks connection in general.
-
-```yml
-category: network
-service: connection
-```
-
-The field names follow the field names used in [Elastic Common Schema](https://www.elastic.co/guide/en/ecs/current/ecs-network.html) events `taxonomy: ecs`:
-
-| Field Name           | Example Value                  | Comment                                           |
-| -------------------- | ------------------------------ | ------------------------------------------------- |
-| event.duration       | 0.005726                       | Connection duration in seconds                    |
-| network.type         | ipv4                           | Network layer type (e.g., ipv4, ipv6, ipsec)      |
-| network.transport    | tcp                            | Transport layer protocol (e.g., tcp, udp)         |
-| network.protocol     | http                           | Application layer protocol (e.g., http, dns, ssh) |
-| source.ip            | 192.168.1.100                  | Source IP address                                 |
-| source.port          | 54321                          | Source port number                                |
-| destination.ip       | 93.184.216.34                  | Destination IP address                            |
-| destination.port     | 443                            | Destination port number                           |
-| source.packets       | 98                             | Number of packets                                 |
-| destination.packets  | 45                             | Number of packets                                 |
-| source.bytes         | 2159                           | Number of bytes                                   |
-| destination.bytes    | 4739                           | Number of bytes                                   |
-| network.community_id | 1:LQU9qZlK+B5F3KDmev6m5PMibrg= | Community ID hash                                 |
-| network.state        | SF                             | State of the connection                           |
-| network.history      | shADd                          | History of the connection                         |
-
-Possible `network.state` values:
-
-- S0: Connection attempt seen, no reply.
-- S1: Connection established, not terminated.
-- SF: Normal establishment and termination. Note that this is the same symbol as for state S1.
-- REJ: Connection attempt rejected.
-- S2: Connection established and close attempt by originator seen (but no reply from responder).
-- S3: Connection established and close attempt by responder seen (but no reply from originator).
-- RSTO: Connection established, originator aborted (sent a RST).
-- RSTR: Responder sent a RST.
-- RSTOS0: Originator sent a SYN followed by a RST, we never saw a SYN-ACK from the responder.
-- RSTRH: Responder sent a SYN ACK followed by a RST, we never saw a SYN from the (purported) originator.
-- SH: Originator sent a SYN followed by a FIN, we never saw a SYN ACK from the responder (hence the connection was “half” open).
-- SHR: Responder sent a SYN ACK followed by a FIN, we never saw a SYN from the originator.
-- OTH: No SYN seen, just midstream traffic (one example of this is a “partial connection” that was not later closed).
-
-### Network DNS
-
-This logsource covers DNS queries in general.
-
-```yml
-category: network
-service: dns
-```
-
-The field names follow the field names used in [Elastic Common Schema](https://www.elastic.co/guide/en/ecs/current/ecs-dns.html) events `taxonomy: ecs`:
-
-| Field Name           | Example Value                  | Comment                    |
-| -------------------- | ------------------------------ | -------------------------- |
-| source.ip            | 192.168.1.100                  | Source IP address          |
-| source.port          | 54321                          | Source port number         |
-| destination.ip       | 93.184.216.34                  | Destination IP address     |
-| destination.port     | 443                            | Destination port number    |
-| network.community_id | 1:LQU9qZlK+B5F3KDmev6m5PMibrg= | Community ID hash          |
-| dns.id               | CXWfMc4eWKNBm1O4fl             | DNS transaction identifier |
-| dns.question.name    | example.com                    | DNS question name          |
-| dns.question.type    | A                              | DNS question type          |
-| dns.question.class   | IN                             | DNS question class         |
-| dns.answers.name     | example.com                    | DNS answer name            |
-| dns.answers.type     | A                              | DNS answer type            |
-| dns.answers.class    | IN                             | DNS answer class           |
-| dns.answers.data     | 93.184.216.34                  | DNS answer data            |
-| dns.answers.ttl      | 3600                           | DNS answer TTL             |
-| dns.header.flags     | RD, RA                         | DNS header flags           |
-| dns.response.code    | NOERROR                        | DNS response code          |
+| Product | Logsource                                | Description                    |
+| ------- | ---------------------------------------- | ------------------------------ |
+|         | category: network<br>service: connection | networks connection in general |
+|         | category: network<br>service: dns        | DNS queries in general         |
 
 ## Fields
 
@@ -552,10 +481,46 @@ You can find all possible field values in the [Sysmon Community Guide](https://g
     - `Signature`: name of the threat like "EICAR-Test-File"
     - `Action`: action take by the antivirus like "delete"
 
+### Network category
+
+- `service: connection`
+  - event.duration:Connection duration in seconds
+  - network.type: Network layer type (e.g., ipv4, ipv6, ipsec)
+  - network.transport: Transport layer protocol (e.g., tcp, udp)
+  - network.protocol: Application layer protocol (e.g., http, dns, ssh)
+  - source.ip: Source IP address
+  - source.port: Source port number
+  - destination.ip:Destination IP address
+  - destination.port: Destination port number
+  - source.packets: Number of packets
+  - destination.packets: Number of packets
+  - source.bytes: Number of bytes
+  - destination.bytes: Number of bytes
+  - network.community_id: Community ID hash
+  - network.state: State of the connection
+  - network.history: History of the connection
+- `category: network`
+  - source.ip : Source IP address
+  - source.port: Source port number
+  - destination.ip: Destination IP address
+  - destination.port: Destination port number
+  - network.community_id: Community ID hash
+  - dns.id: DNS transaction identifier
+  - dns.question.name: DNS question name
+  - dns.question.type: DNS question type
+  - dns.question.class: DNS question class
+  - dns.answers.name: DNS answer name
+  - dns.answers.type: DNS answer type
+  - dns.answers.class: DNS answer class
+  - dns.answers.data: DNS answer data
+  - dns.answers.ttl: DNS answer TTL
+  - dns.header.flags: DNS header flags
+  - dns.response.code: DNS response code
+
 ## History
 
 - 2025-08-02 Specification v2.1.0
-  - Add generic network category :
+  - Add generic network category:
     - `service: connection`
     - `service: dns`
 - 2024-11-01 Taxonomy Appendix v v2.0.2

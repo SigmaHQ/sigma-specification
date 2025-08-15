@@ -13,7 +13,7 @@ jobs:
       with:
         python-version: '3.13'
         cache: 'pip' # caching pip dependencies
-    - run: pip install -r requirements.txt
+    - run: pip install -r **/requirements.txt
     - run: mdformat --check .
   markdown-link-check:
     name: Check link in the markdown
@@ -44,9 +44,9 @@ jobs:
       with:
         python-version: '3.13'
         cache: 'pip' # caching pip dependencies
-    - run: pip install -r requirements.txt
+    - run: pip install -r **/requirements.txt
     - run: |
-        check-jsonschema --schemafile ./json-schema/sigma-correlation-rules-schema.json ./tests/correlation/*.yml
-        check-jsonschema --schemafile ./json-schema/sigma-detection-rule-schema.json  ./tests/rules/*.yml
-        check-jsonschema --schemafile ./json-schema/sigma-filters-schema.json ./tests/filter/*.yml
+        check-jsonschema --schemafile ./json-schema/sigma-correlation-rules-schema.json ./tests/schema/correlation/*.yml
+        check-jsonschema --schemafile ./json-schema/sigma-detection-rule-schema.json  ./tests/schema/rules/*.yml
+        check-jsonschema --schemafile ./json-schema/sigma-filters-schema.json ./tests/schema/filter/*.yml
    

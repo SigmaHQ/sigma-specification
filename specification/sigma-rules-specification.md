@@ -212,7 +212,7 @@ Defines the taxonomy used in the Sigma rule. A taxonomy can define:
 - field values, example: a field `image_file_name` that only contains a file name like `example.exe` and is transformed into `ImageFile: *\\example.exe`.
 - logsource names, example: `category: ProcessCreation` instead of `category: process_creation`
 
-The Default taxonomy is `sigma`. A custom taxonomy must be handled by the used tool or transformed into the default taxonomy.
+The Default taxonomy is `sigma`. Other taxonomy must be handled by the used tool or transformed into the default taxonomy.
 
 More information on the default taxonomy can be found in the [Sigma Taxonomy Appendix](sigma-appendix-taxonomy.md) file.
 

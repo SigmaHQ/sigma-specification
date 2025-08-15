@@ -59,6 +59,7 @@ The modifiers listed in this section can only be applied to string values.
     - Quantifiers: `*`, `+`, `?`, `{n,m}`.
     - Character Classes: [a-z], [^a-z].
     - Alternation: `|`.
+    - Grouping: `()`.
   - Other metacharacters are **unsupported** and can not be used.
 
 - `re` sub-modifiers:
