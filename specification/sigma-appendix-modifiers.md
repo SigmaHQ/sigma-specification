@@ -108,7 +108,7 @@ it extracts a numeric value from a date.
 
 The modifiers listed in this section can only be applied to IP values.
 
-- `cidr`: The value is handled as an CIDR by backends. Supports both IPv4 and IPv6 notations. Example: `DestinationIp|cidr: 10.0.0.0/8`
+- `cidr`: The value is handled as a CIDR network range specification by backends. Supports both IPv4 and IPv6 notations. Example: `DestinationIp|cidr: 10.0.0.0/8`
 
 ### Specific Modifiers
 
