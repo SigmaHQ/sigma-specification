@@ -499,7 +499,7 @@ You can find all possible field values in the [Sysmon Community Guide](https://g
   - network.community_id: Community ID hash
   - network.state: State of the connection
   - network.history: History of the connection
-- `category: network`
+- `service: dns`
   - source.ip : Source IP address
   - source.port: Source port number
   - destination.ip: Destination IP address
