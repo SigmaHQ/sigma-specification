@@ -1,17 +1,22 @@
-# SigmaHQ Title Conventions <!-- omit in toc -->
+# SigmaHQ Title Conventions
 
 This document provides general guidelines and tips on how to write titles for sigma rules.
 
 Note that this is by no means an exhaustive list. It is meant to be a general guide for inspiration and to have an easily sharable resource for new contributors (e.g. a resource to link at in PR discussions).
 
-## Table Of Content <!-- omit in toc -->
+<!-- mdformat-toc start --slug=github --no-anchors --maxlevel=6 --minlevel=2 -->
 
 - [Summary](#summary)
-- [Generality](#generality)
 - [Structure](#structure)
   - [Prefix (Optional)](#prefix-optional)
   - [Suffix (Optional)](#suffix-optional)
   - [Main Title](#main-title)
+    - [Informational / Low Level Rules](#informational--low-level-rules)
+    - [Medium Level Rules](#medium-level-rules)
+    - [High Level Rules](#high-level-rules)
+    - [Critical Level Rules](#critical-level-rules)
+
+<!-- mdformat-toc end -->
 
 ## Summary
 

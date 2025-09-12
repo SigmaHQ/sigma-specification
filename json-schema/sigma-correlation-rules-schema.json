@@ -1,11 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Sigma Meta rule specification V2.0.1 (2024-09-03)",
+  "title": "Sigma Meta rule specification V2.1.0 (2025-07-25)",
   "type": "object",
-  "required": [
-    "title",
-    "correlation"
-  ],
+  "required": ["title", "correlation"],
   "properties": {
     "title": {
       "type": "string",
@@ -69,14 +66,14 @@
       "description": "Last modification date of the meta rule. Use the ISO 8601 format YYYY-MM-DD",
       "pattern": "^\\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$"
     },
+    "taxonomy": {
+      "type": "string",
+      "maxLength": 256,
+      "description": "Defines the taxonomy used in the Sigma correlation rule"
+    },
     "correlation": {
       "type": "object",
-      "required": [
-        "type",
-        "rules",
-        "timespan",
-        "condition"
-      ],
+      "required": ["type", "rules", "timespan"],
       "description": "Represents the correlation searched for on the log data",
       "properties": {
         "type": {
@@ -95,6 +92,15 @@
             },
             {
               "const": "value_count"
+            },
+            {
+              "const": "value_sum"
+            },
+            {
+              "const": "value_avg"
+            },
+            {
+              "const": "value_percentile"
             }
           ]
         },
@@ -184,6 +190,12 @@
               }
             },
             {
+              "neq": {
+                "description": "The count must different to the given value",
+                "type": "integer"
+              }
+            },
+            {
               "field": {
                 "description": "Name of the field(s) to count values",
                 "anyOf": [
@@ -193,12 +205,12 @@
                   },
                   {
                     "type": "array",
-                    "items": {           
+                    "items": {
                       "type": "string",
                       "maxLength": 256
                     }
                   }
-                ]                
+                ]
               }
             }
           ]
@@ -206,20 +218,60 @@
       },
       "allOf": [
         {
-        "if": { "properties": {"type": {"const": "event_count"}}},
-        "then": {"required": ["condition", "group-by", "timespan"]}
+          "if": { "properties": { "type": { "const": "event_count" } } },
+          "then": { "required": ["condition", "group-by", "timespan"] }
         },
         {
-        "if": { "properties": {"type": {"const": "temporal"}}},
-        "then": {"required": ["group-by", "timespan"]}
+          "if": { "properties": { "type": { "const": "temporal" } } },
+          "then": { "required": ["group-by", "timespan"] }
         },
         {
-        "if": { "properties": {"type": {"const": "temporal_ordered"}}},
-        "then": {"required": ["group-by", "timespan"]}
+          "if": { "properties": { "type": { "const": "temporal_ordered" } } },
+          "then": { "required": ["group-by", "timespan"] }
         },
         {
-        "if": { "properties": {"type": {"const": "value_count"}}},
-        "then": {"required": ["condition", "field", "group-by", "timespan"]}
+          "if": { "properties": { "type": { "const": "value_count" } } },
+          "then": {
+            "condition": {
+              "type": "object",
+              "properties": { "field": { "type": "string" } },
+              "required": ["field"]
+            },
+            "required": ["condition", "group-by", "timespan"]
+          }
+        },
+        {
+          "if": { "properties": { "type": { "const": "value_sum" } } },
+          "then": {
+            "condition": {
+              "type": "object",
+              "properties": { "field": { "type": "string" } },
+              "required": ["field"]
+            },
+            "required": ["condition", "group-by", "timespan"]
+          }
+        },
+        {
+          "if": { "properties": { "type": { "const": "value_avg" } } },
+          "then": {
+            "condition": {
+              "type": "object",
+              "properties": { "field": { "type": "string" } },
+              "required": ["field"]
+            },
+            "required": ["condition", "group-by", "timespan"]
+          }
+        },
+        {
+          "if": { "properties": { "type": { "const": "value_percentile" } } },
+          "then": {
+            "condition": {
+              "type": "object",
+              "properties": { "field": { "type": "string" } },
+              "required": ["field"]
+            },
+            "required": ["condition", "group-by", "timespan"]
+          }
         }
       ]
     },

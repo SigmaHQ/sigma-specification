@@ -1,12 +1,11 @@
-# SigmaHQ Rule Conventions <!-- omit in toc -->
+# SigmaHQ Rule Conventions
 
-This document describes an additional set of rule conventions enforced by the SigmaHQ rule repository in order to ensure an easy to maintain rule base. 
+This document describes an additional set of rule conventions enforced by the SigmaHQ rule repository in order to ensure an easy to maintain rule base.
 
-For the general Sigma rule specification please read see [this](/specification/sigma_rules.md)
+For the general Sigma rule specification please read see [this](../specification/sigma-rules-specification.md)
 
-## Summary
+<!-- mdformat-toc start --slug=github --no-anchors --maxlevel=6 --minlevel=2 -->
 
-- [Summary](#summary)
 - [Structure](#structure)
 - [Filenames](#filenames)
 - [Indentation](#indentation)
@@ -16,7 +15,10 @@ For the general Sigma rule specification please read see [this](/specification/s
 - [References](#references)
 - [Detection](#detection)
   - [Item Lists](#item-lists)
+  - [Condition](#condition)
 - [False Positives](#false-positives)
+
+<!-- mdformat-toc end -->
 
 ## Structure
 
@@ -55,7 +57,7 @@ level [required]
 
 ## Filenames
 
-All rule filename must follow the convention described in the [SigmaHQ Filename Convention](./sigmahq_filename_convention.md) file.
+All rule filename must follow the convention described in the [SigmaHQ Filename Convention](sigmahq-filename-convention.md) file.
 
 ## Indentation
 
@@ -84,7 +86,7 @@ All newly created rules must start with a status of `experimental`
 description: |
     Detects password dumper activity by monitoring remote thread creation EventID 8 in combination with the lsass.exe process as TargetImage.
     The process in field Process is the malicious program. A single execution can lead to hundreds of events.
-``` 
+```
 
 ## References
 
@@ -121,8 +123,8 @@ detection:
 
 - When possible, it is recommended to use conditions in the form `1 of selection_*` or `1 of selection_*` in order to make them more readable.
 - When filtering values in the condition, it's recommended to name the filters in one of two ways:
-    - `filter_main_*`: For filters that are mandatory to the rule's logic, or if the excluded behavior or software is present by default or very common.
-    - `filter_optional_*`: For filters that are based on behaviors or software that aren't part of the default installation of the OS or service being targeted.
+  - `filter_main_*`: For filters that are mandatory to the rule's logic, or if the excluded behavior or software is present by default or very common.
+  - `filter_optional_*`: For filters that are based on behaviors or software that aren't part of the default installation of the OS or service being targeted.
 
 ## False Positives
 

@@ -1,0 +1,11 @@
+title: A computer spawned a processes name in the last 24h than 1% of all the processes.
+correlation:
+    type: value_percentile
+    rules: 
+        - process_creation
+    group-by:
+        - ComputerName
+    timespan: 24h
+    condition:
+        field: Image
+        lte: 1

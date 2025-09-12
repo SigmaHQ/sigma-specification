@@ -1,9 +1,11 @@
-# Sigma Filters Specification <!-- omit in toc -->
+# Sigma Filters Specification
 
 The following document defines the standardized global filter that can be used with Sigma rules.
 
-* Version 2.0.0
-* Release date 2024-08-08
+- Version 2.1.0
+- Release date 2025-08-02
+
+<!-- mdformat-toc start --slug=github --no-anchors --maxlevel=6 --minlevel=2 -->
 
 - [Introduction](#introduction)
 - [Global filter](#global-filter)
@@ -17,13 +19,16 @@ The following document defines the standardized global filter that can be used w
     - [Description](#description)
     - [Date](#date)
     - [Modified](#modified)
+    - [Taxonomy](#taxonomy)
     - [Log source](#log-source)
-    - [Global Filter](#global-filter-1)
+    - [Global Filter](#global-filter)
       - [Relative rules](#relative-rules)
       - [filter selection](#filter-selection)
       - [filter condition](#filter-condition)
 - [Examples](#examples)
 - [History](#history)
+
+<!-- mdformat-toc end -->
 
 ## Introduction
 
@@ -39,17 +44,17 @@ Example: A valid GPO script that triggers multiple Sigma rules.
 
 To keep the file names interoperable use the following:
 
-* Length between 10 and 70 characters
-* Lowercase
-* No special characters only letters (a-z) and digits (0-9)
-* Use `_` instead of a space
-* Use `.yml` as a file extension
+- Length between 10 and 70 characters
+- Lowercase
+- No special characters only letters (a-z) and digits (0-9)
+- Use `_` instead of a space
+- Use `.yml` as a file extension
 
 As a best practice use the prefix `mf_`
 
 #### Schema
 
-[Sigma Filters JSON Schema](/json-schema/sigma-filters-schema.json)
+[Sigma Filters JSON Schema](../json-schema/sigma-filters-schema.json)
 
 #### Syntax
 
@@ -109,13 +114,29 @@ Use the ISO 8601 date with separator format : YYYY-MM-DD
 *Last* modification date of the meta filter. \
 Use the ISO 8601 date with separator format : YYYY-MM-DD
 
+#### Taxonomy
+
+**Attribute:** taxonomy
+
+**Use:** optional
+
+Defines the taxonomy used in the Sigma rule. A taxonomy can define:
+
+- field names, example: `process_command_line` instead of `CommandLine`.
+- field values, example: a field `image_file_name` that only contains a file name like `example.exe` and is transformed into `ImageFile: *\\example.exe`.
+- logsource names, example: `category: ProcessCreation` instead of `category: process_creation`
+
+The Default taxonomy is `sigma`. Other taxonomy must be handled by the used tool or transformed into the default taxonomy.
+
+More information on the default taxonomy can be found in the [Sigma Taxonomy Appendix](sigma-appendix-taxonomy.md) file.
+
 #### Log source
 
 **Attribute**: logsource
 
 **Use:** mandatory
 
-Read more on the `logsource` attribute in the [Sigma Rules Specification](/specification/sigma-rules-specification.md)
+Read more on the `logsource` attribute in the [Sigma Rules Specification](sigma-rules-specification.md)
 
 #### Global Filter
 
@@ -137,7 +158,7 @@ refers to one or multiple Sigma rules where to add the filter
 
 **Use:** mandatory
 
-Read more on the 'detection' section in the [Sigma Rules Specification](/specification/sigma-rules-specification.md)
+Read more on the 'detection' section in the [Sigma Rules Specification](sigma-rules-specification.md)
 
 ##### filter condition
 
@@ -145,7 +166,7 @@ Read more on the 'detection' section in the [Sigma Rules Specification](/specifi
 
 **Use:** mandatory
 
-Read more on the 'detection' field in the [Sigma Rules Specification](/specification/sigma-rules-specification.md)
+Read more on the 'detection' field in the [Sigma Rules Specification](sigma-rules-specification.md)
 
 ## Examples
 
@@ -168,4 +189,5 @@ filter:
 
 ## History
 
-* 2024-08-08 Specification v2.0.0
+- 2025-08-02 Specification v2.1.0
+- 2024-08-08 Specification v2.0.0

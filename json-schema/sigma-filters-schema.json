@@ -2,11 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema#",
   "title": "Sigma Global Filter specification V2.0.0 (2024-08-08)",
   "type": "object",
-  "required": [
-    "title",
-    "logsource",
-    "filter"
-  ],
+  "required": ["title", "logsource", "filter"],
   "properties": {
     "title": {
       "type": "string",
@@ -33,6 +29,11 @@
       "description": "Last modification date of the meta filter. Use the format YYYY-MM-DD",
       "pattern": "^\\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$"
     },
+    "taxonomy": {
+      "type": "string",
+      "maxLength": 256,
+      "description": "Defines the taxonomy used in the meta filter"
+    },
     "logsource": {
       "type": "object",
       "description": "The log source that the rule is supposed to detect malicious activity in.",
@@ -53,11 +54,7 @@
     },
     "filter": {
       "type": "object",
-      "required": [
-        "rules",
-        "selection",
-        "condition"
-      ],
+      "required": ["rules", "selection", "condition"],
       "description": "A set of search-identifiers that represent properties of searches on log data",
       "properties": {
         "rules": {

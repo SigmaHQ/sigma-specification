@@ -1,0 +1,52 @@
+---
+name: Check the file format
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  mdformat:
+    name: Check formatting with mdformat
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.13'
+        cache: 'pip' # caching pip dependencies
+    - run: pip install -r **/requirements.txt
+    - run: mdformat --check .
+  markdown-link-check:
+    name: Check link in the markdown
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: tcort/github-action-markdown-link-check@v1
+      with:
+        use-quiet-mode: 'yes'
+        use-verbose-mode: 'yes'
+  jsonformat:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check json formatting with biome
+        uses: actions/checkout@v4
+      - name: Setup Biome
+        uses: biomejs/setup-biome@v2
+        with:
+          version: latest
+      - name: Run Biome
+        run: biome ci --json-linter-enabled=true --json-formatter-enabled=true --json-formatter-indent-style=space --json-formatter-line-ending=lf ./json-schema
+  jsonschema:
+    name: Check the json schema against test rules
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.13'
+        cache: 'pip' # caching pip dependencies
+    - run: pip install -r **/requirements.txt
+    - run: |
+        check-jsonschema --schemafile ./json-schema/sigma-correlation-rules-schema.json ./tests/schema/correlation/*.yml
+        check-jsonschema --schemafile ./json-schema/sigma-detection-rule-schema.json  ./tests/schema/rules/*.yml
+        check-jsonschema --schemafile ./json-schema/sigma-filters-schema.json ./tests/schema/filter/*.yml
+   

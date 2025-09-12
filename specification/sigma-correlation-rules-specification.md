@@ -1,9 +1,11 @@
-# Sigma Correlation Rules Specification <!-- omit in toc -->
+# Sigma Correlation Rules Specification
 
 The following document defines the standardized correlation that can be used in Sigma rules.
 
-* Version 2.0.2
-* Release date 2024-11-01
+- Version 2.1.0
+- Release date 2025-08-02
+
+<!-- mdformat-toc start --slug=github --no-anchors --maxlevel=6 --minlevel=2 -->
 
 - [Introduction](#introduction)
   - [Compatibility](#compatibility)
@@ -23,6 +25,7 @@ The following document defines the standardized correlation that can be used in 
     - [References](#references)
     - [Date](#date)
     - [Modified](#modified)
+    - [Taxonomy](#taxonomy)
     - [Correlation section](#correlation-section)
       - [Correlation type](#correlation-type)
       - [Related rules](#related-rules)
@@ -34,15 +37,20 @@ The following document defines the standardized correlation that can be used in 
     - [Level](#level)
     - [Generate](#generate)
   - [Correlation Types](#correlation-types)
-    - [Event Count (event\_count)](#event-count-event_count)
-    - [Value Count (value\_count)](#value-count-value_count)
+    - [Event Count (event_count)](#event-count-event_count)
+    - [Value Count (value_count)](#value-count-value_count)
     - [Temporal Proximity (temporal)](#temporal-proximity-temporal)
-    - [Ordered Temporal Proximity (temporal\_ordered)](#ordered-temporal-proximity-temporal_ordered)
+    - [Ordered Temporal Proximity (temporal_ordered)](#ordered-temporal-proximity-temporal_ordered)
+    - [Value Sum (value_sum)](#value-sum-value_sum)
+    - [Value Average (value_avg)](#value-average-value_avg)
+    - [Value Percentile (value_percentile)](#value-percentile-value_percentile)
   - [Field Name Aliases](#field-name-aliases)
     - [Field Name Aliases Example](#field-name-aliases-example)
-- [Examples](#examples)
+- [Example](#example)
   - [Failed Logins Followed by Successful Login](#failed-logins-followed-by-successful-login)
 - [History](#history)
+
+<!-- mdformat-toc end -->
 
 ## Introduction
 
@@ -55,40 +63,40 @@ When generating a backend specific query, Sigma correlations might exceed the ca
 Or the Sigma correlation might require a feature that is only supported partially by the target backend. \
 Therefore target-specific restrictions should be handled in a way that ensures that the generated queries do not create results that:
 
-* Could be misinterpreted
-* Change the intention/context in which the rule matches
-* Cause a huge amount of false positives
-* Cause false negatives
+- Could be misinterpreted
+- Change the intention/context in which the rule matches
+- Cause a huge amount of false positives
+- Cause false negatives
 
 An error must be raised by the conversion backend if it would generate a query from a rule which contains a feature that is not supported but specified as must. Examples are:
 
-* The target system can aggregate an occurrence count but cannot apply a condition to filter the aggregated counts.
-* The target system is not able to aggregate an occurrence count according to the given grouping criteria.
-* It is only possible to generate a query up to an intermediate correlation rule of a chain.
+- The target system can aggregate an occurrence count but cannot apply a condition to filter the aggregated counts.
+- The target system is not able to aggregate an occurrence count according to the given grouping criteria.
+- It is only possible to generate a query up to an intermediate correlation rule of a chain.
 
 The conversion backend should issue a warning to raise the user’s awareness about restrictions for aspects specified as "should". \
 Examples are:
 
-* Temporal relationships are recognized, but the order of the events cannot be recognized by the target system. This could cause false positives by differently ordered events.
-* Temporal relationships are only recognized within static time boundaries, e.g. a `timespan` of 1h only matches if all events appear within a full hour, but not if some events appear in the previous and another event in the current hour. This could cause false negatives.
+- Temporal relationships are recognized, but the order of the events cannot be recognized by the target system. This could cause false positives by differently ordered events.
+- Temporal relationships are only recognized within static time boundaries, e.g. a `timespan` of 1h only matches if all events appear within a full hour, but not if some events appear in the previous and another event in the current hour. This could cause false negatives.
 
 ### Expression of Relationships In The Condition of Sigma Rules
 
 This was the first approach defined in Sigma with aggregations and the near operator and is now obsolete. \
 Sigma correlations are not based on this approach for the following reasons:
 
-* The coupling of rules describing singular events and relationships between multiple events is inconsistent, as the rule writer must decide which rule contains the relationship definition in case of temporal relationships.
-* It was inflexible because one Sigma rule refers exactly to one log source, which restricts the expression of relationships to events from the same log source.
-* One of the goals of Sigma rules was to keep the condition logic simple. Especially the specification of temporal relationships can get quite complex in a query expression. Specifying correlation chains adds further complexity.
-* The pipe syntax sometimes caused the rule contributors to consider it as a Splunk query or another target system-specific query language. Expressing these relationships in a “Sigmaish” way should not cause these associations.
+- The coupling of rules describing singular events and relationships between multiple events is inconsistent, as the rule writer must decide which rule contains the relationship definition in case of temporal relationships.
+- It was inflexible because one Sigma rule refers exactly to one log source, which restricts the expression of relationships to events from the same log source.
+- One of the goals of Sigma rules was to keep the condition logic simple. Especially the specification of temporal relationships can get quite complex in a query expression. Specifying correlation chains adds further complexity.
+- The pipe syntax sometimes caused the rule contributors to consider it as a Splunk query or another target system-specific query language. Expressing these relationships in a “Sigmaish” way should not cause these associations.
 
 ### Type of Correlation rules
 
 The purpose is to cover a detection like:
 
-* X invalid login alerts on a unique host.
-* Invalid login alert on the same host but from X remote.
-* Alert A, B and C in the same `timespan`.
+- X invalid login alerts on a unique host.
+- Invalid login alert on the same host but from X remote.
+- Alert A, B and C in the same `timespan`.
 
 ## Correlation rules
 
@@ -100,17 +108,17 @@ The rules in a multi-document YAML that build a correlation rule are not produci
 
 To keep the file names interoperable use the following:
 
-* Length between 10 and 70 characters
-* Lowercase
-* No special characters, only letters (a-z) and digits (0-9)
-* Use `_` instead of a space
-* Use `.yml` as a file extension
+- Length between 10 and 70 characters
+- Lowercase
+- No special characters, only letters (a-z) and digits (0-9)
+- Use `_` instead of a space
+- Use `.yml` as a file extension
 
 As a best practice use the prefix `mr_`.
 
 #### Schema
 
-[Sigma Correlation Rules JSON Schema](/json-schema/sigma-correlation-rules-schema.json)
+[Sigma Correlation Rules JSON Schema](../json-schema/sigma-correlation-rules-schema.json)
 
 #### Syntax
 
@@ -152,7 +160,7 @@ id: 0e95725d-7320-415d-80f7-004da920fc11
 Declares the status of the rule:
 
 - `stable`: the rule is considered as stable and may be used in production systems or dashboards.
-- `test`: a mostly stable rule that could require some slight adjustments depending on the environement.
+- `test`: a mostly stable rule that could require some slight adjustments depending on the environment.
 - `experimental`: an experimental rule that could lead to false positives results or be noisy, but could also identify interesting
   events.
 - `deprecated`: the rule is replaced or covered by another one. The link is established by the `related` field.
@@ -201,6 +209,22 @@ Use the ISO 8601 date with separator format: `YYYY-MM-DD`
 *Last* modification date of the meta rule. \
 Use the ISO 8601 date with separator format : `YYYY-MM-DD`
 
+#### Taxonomy
+
+**Attribute:** taxonomy
+
+**Use:** optional
+
+Defines the taxonomy used in the Sigma rule. A taxonomy can define:
+
+- field names, example: `process_command_line` instead of `CommandLine`.
+- field values, example: a field `image_file_name` that only contains a file name like `example.exe` and is transformed into `ImageFile: *\\example.exe`.
+- logsource names, example: `category: ProcessCreation` instead of `category: process_creation`
+
+The Default taxonomy is `sigma`. Other taxonomy must be handled by the used tool or transformed into the default taxonomy.
+
+More information on the default taxonomy can be found in the [Sigma Taxonomy Appendix](sigma-appendix-taxonomy.md) file.
+
 #### Correlation section
 
 ##### Correlation type
@@ -211,10 +235,10 @@ Use the ISO 8601 date with separator format : `YYYY-MM-DD`
 
 Allowed values:
 
-* event_count
-* value_count
-* temporal
-* temporal_ordered
+- event_count
+- value_count
+- temporal
+- temporal_ordered
 
 ##### Related rules
 
@@ -257,12 +281,13 @@ See the example in the chapter [Field Name Aliases](#field-name-aliases) to get 
 
 optionally defines one or multiple fields which should be treated as separate event occurrence scope. Examples:
 
-* count events by user
-* temporal proximity must occur on one system by the same user
+- count events by user
+- temporal proximity must occur on one system by the same user
 
 When you use multiple fields they are linked by an **AND**.
 
 for example, if we want to group by the unique "name/domain" pair:
+
 ```yaml
 group-by:
     - TargetUserName
@@ -278,10 +303,10 @@ group-by:
 defines a time period in which the correlation should be applied.
 The following format must be used: `number + letter (in lowercase)`
 
-* Xs seconds
-* Xm minutes
-* Xh hours
-* Xd days
+- Xs seconds
+- Xm minutes
+- Xh hours
+- Xd days
 
 example for 1h30 : `timespan: 90m`
 
@@ -293,21 +318,23 @@ example for 1h30 : `timespan: 90m`
 
 The condition defines when a correlation matches:
 
-* for an *event_count* correlation it defines the event count that must appear within the given time frame to match.
-* for a *value_count* correlation it defines the count of distinct values contained in the field specified in the
+- for an *event_count* correlation it defines the event count that must appear within the given time frame to match.
+- for a *value_count* correlation it defines the count of distinct values contained in the field specified in the
   mandatory *field* attribute.
-* For a *temporal* or *temporal_ordered* correlation it specified the count of different event types (Sigma rules
+- For a *temporal* or *temporal_ordered* correlation it specified the count of different event types (Sigma rules
   matching) in the given time frame.
 
 It is a map of exactly one condition criterion:
 
-* `gt`: The count must be greater than the given value
-* `gte`: The count must be greater than or equal the given value
-* `lt`: The count must be lesser than the given value
-* `lte`: The count must be lesser than or equal the given value
-* `eq`: The count must be equal the given value
+- `gt`: The count must be greater than the given value
+- `gte`: The count must be greater than or equal the given value
+- `lt`: The count must be lesser than the given value
+- `lte`: The count must be lesser than or equal the given value
+- `eq`: The count must be equal the given value
+- `neq`: The count must be different the given value
 
 Example:
+
 ```yaml
 condition:
     gte: 100
@@ -316,6 +343,7 @@ condition:
 To define a range, you can use the conjunction 'AND' in the mapping.
 
 Example "101 to 200":
+
 ```yaml
 condition:
     gt: 100
@@ -335,7 +363,7 @@ A list of known false positives that may occur.
 
 #### Level
 
-**Attribute:**  level
+**Attribute:** level
 
 **Use:** optional
 
@@ -360,9 +388,10 @@ The resulting query must count events for each group specified by group-by separ
 The condition finally defines how many events must occur to generate a search hit.
 
 Requires :
- - `group-by`
- - `timespan`
- - `condition`
+
+- `group-by`
+- `timespan`
+- `condition`
 
 Simple example : More than or equal 100 failed login attempts to a destination host in an hour:
 
@@ -389,10 +418,11 @@ The condition finally defines how many values must occur to generate a search hi
 When you use multiple values in `field` they are linked by an **AND**.
 
 Requires:
-  - `group-by`
-  - `timespan`
-  - `condition`
-  - `field` in condition section.
+
+- `group-by`
+- `timespan`
+- `condition`
+- `field` in condition section.
 
 Simple example : Failed logon attempts with more than 100 different user accounts per source and destination at a day:
 
@@ -420,9 +450,10 @@ The values of fields defined in group-by must all have the same value (e.g. the 
 The time frame should not be restricted to boundaries if this is not required by the given backend.
 
 Requires:
-  - `rules`
-  - `group-by`
-  - `timespan`
+
+- `rules`
+- `group-by`
+- `timespan`
 
 Simple example : Reconnaissance commands defined in three Sigma rules are invoked in arbitrary order within 5 minutes on a system by the same user:
 
@@ -445,9 +476,10 @@ The *temporal_ordered* correlation type behaves like *temporal* and requires in 
 order provided in the *rule* attribute.
 
 Requires:
-  - `rules`
-  - `group-by`
-  - `timespan`
+
+- `rules`
+- `group-by`
+- `timespan`
 
 Example: many failed logins as defined above are followed by a successful login by of the same user account within 1 hour:
 
@@ -464,6 +496,89 @@ correlation:
 
 Note:
 Even if the rule many_failed_logins groups by the "ComputerName" field, the correlation rule only uses its own `group-by` "User".
+
+#### Value Sum (value_sum)
+
+Check if the `sum` of a number field match a limit
+
+Requires:
+
+- `group-by`
+- `timespan`
+- `condition`
+- `field` in condition section.
+
+```yaml
+title: Possible Exfiltration to Website
+correlation:
+    type: value_sum
+    rules:
+        - website_access
+    group-by:
+        - SourceIP
+        - User
+    timespan: 1h
+    condition:
+        field: bytes_sent
+        gt: 1000000
+```
+
+#### Value Average (value_avg)
+
+Check if the `average` of a number field match a limit
+
+Requires:
+
+- `group-by`
+- `timespan`
+- `condition`
+- `field` in condition section.
+
+```yaml
+title: Suspicious average network traffic
+correlation:
+    type: value_avg
+    rules: 
+        - rule_a_id
+    group-by:
+        - SourceIP
+        - User
+    timespan: 24h
+    condition:
+        field: BytesOut
+        gt: 500
+```
+
+Note: The `condition` for value_avg requires a comparison operator (like gt, gte, etc.) and compares it to an integer or float threshold.
+This example shows that we are looking for groups where the average bytes sent over a period exceeds 500.
+
+Also note: In the condition section, the field must be present and specify which numeric field should be used for the aggregation.
+
+#### Value Percentile (value_percentile)
+
+Check when a certain percentage of observed values occur.
+Hint: median is a percentile 50
+
+Requires:
+
+- `group-by`
+- `timespan`
+- `condition`
+- `field` in condition section.
+
+```yaml
+title: A computer spawned a processes name in the last 24h than 1% of all the processes.
+correlation:
+    type: value_percentile
+    rules: 
+        - process_creation
+    group-by:
+        - ComputerName
+    timespan: 24h
+    condition:
+        field: image
+        lte: 1
+```
 
 ### Field Name Aliases
 
@@ -512,6 +627,7 @@ detection:
 ```
 
 The correlation rule
+
 ```yaml
 title: —
 id: —
@@ -533,7 +649,7 @@ correlation:
             new_network_connection: destination.ip
 ```
 
-## Examples
+## Example
 
 This section gives complete examples in order to make it easier for people new to Sigma to get started and for showcasing new features of the Sigma standard. Use them as a blueprint for your own ideas.
 
@@ -541,9 +657,9 @@ This section gives complete examples in order to make it easier for people new t
 
 The following Correlation describes a use case in which an attacker successfully performs a brute-force attack. This example helps in showcasing some highlights:
 
-* You can use YAMLs multi document feature (`---`) to have everything grouped together in one file
-* Rules can be referenced in a human-friendly way using their unique `name`.
-* Correlations can be chained to express more complex use cases
+- You can use YAMLs multi document feature (`---`) to have everything grouped together in one file
+- Rules can be referenced in a human-friendly way using their unique `name`.
+- Correlations can be chained to express more complex use cases
 
 ```yml
 title: Correlation - Multiple Failed Logins Followed by Successful Login
@@ -610,8 +726,14 @@ detection:
 
 ## History
 
-* 2024-11-01 Specification V2.0.2
-  * add Requires field for temporal rules
-* 2024-09-03 Specification V2.0.1
-  * add missing `status` and `falsepositives`
-* 2024-08-08 Specification v2.0.0
+- 2025-08-02 Specification v2.1.0
+  - add metric corelation with:
+    - value_sum
+    - value_avg
+    - value_percentile
+  - add `neq` operator
+- 2024-11-01 Specification v2.0.2
+  - add Requires field for temporal rules
+- 2024-09-03 Specification v2.0.1
+  - add missing `status` and `falsepositives`
+- 2024-08-08 Specification v2.0.0
