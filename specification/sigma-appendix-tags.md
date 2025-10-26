@@ -7,15 +7,16 @@ The following document defines the standardized tags that can be used to categor
 
 <!-- mdformat-toc start --slug=github --no-anchors --maxlevel=6 --minlevel=2 -->
 
-- [Namespaces](#namespaces)
-  - [Namespace: attack](#namespace-attack)
-  - [Namespace: car](#namespace-car)
-  - [Namespace: cve](#namespace-cve)
-  - [Namespace: d3fend](#namespace-d3fend)
-  - [Namespace: detection](#namespace-detection)
-  - [Namespace: stp](#namespace-stp)
-  - [Namespace: tlp](#namespace-tlp)
-- [History](#history)
+- [Sigma Tags](#sigma-tags)
+  - [Namespaces](#namespaces)
+    - [Namespace: attack](#namespace-attack)
+    - [Namespace: car](#namespace-car)
+    - [Namespace: cve](#namespace-cve)
+    - [Namespace: d3fend](#namespace-d3fend)
+    - [Namespace: detection](#namespace-detection)
+    - [Namespace: stp](#namespace-stp)
+    - [Namespace: tlp](#namespace-tlp)
+  - [History](#history)
 
 <!-- mdformat-toc end -->
 
@@ -31,9 +32,9 @@ The following document defines the standardized tags that can be used to categor
 
 ### Namespace: attack
 
-- t*1234*: Refers to a [technique](https://attack.mitre.org/wiki/All_Techniques)
-- g*1234*: Refers to a [group](https://attack.mitre.org/wiki/Groups)
-- s*1234*: Refers to [software](https://attack.mitre.org/wiki/Software)
+- t*1234*: Refers to a [technique](https://attack.mitre.org/techniques/enterprise/)
+- g*1234*: Refers to a [group](https://attack.mitre.org/groups/)
+- s*1234*: Refers to [software](https://attack.mitre.org/software/)
 - ds*1234*: Refers to [Data sources](https://attack.mitre.org/datasources/)
 - m*1234*: Refers to [Mitigations](https://attack.mitre.org/mitigations/)
 - a*1234*: Refers to [Assets](https://attack.mitre.org/assets/)
