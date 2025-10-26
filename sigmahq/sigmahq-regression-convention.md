@@ -13,8 +13,8 @@ This document describes an additional set of custom rules field enforced by the 
         - [date](#date)
         - [modified](#modified)
         - [author](#author)
-        - [rule\_metadata](#rule_metadata)
-        - [regression\_tests\_info](#regression_tests_info)
+        - [rule_metadata](#rule_metadata)
+        - [regression_tests_info](#regression_tests_info)
     - [`simulation` Field](#simulation-field)
       - [Atomic Red Team Entry Structure](#atomic-red-team-entry-structure)
 
