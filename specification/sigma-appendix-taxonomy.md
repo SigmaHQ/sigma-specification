@@ -70,286 +70,286 @@ Because application logs are often ingested as raw text events with poor decompo
 
 #### Django
 
-| Product | Logsource                                | Description |
+| Product | Logsource | Description |
 | ------- | ---------------------------------------- | ----------- |
-| django  | category: application<br>product: django |             |
+| django | category: application<br>product: django | |
 
 #### Python
 
-| Product | Logsource                                | Description |
+| Product | Logsource | Description |
 | ------- | ---------------------------------------- | ----------- |
-| python  | category: application<br>product: python |             |
+| python | category: application<br>product: python | |
 
 #### RPC Firewall
 
-| Product      | Logsource                                      | Description |
+| Product | Logsource | Description |
 | ------------ | ---------------------------------------------- | ----------- |
-| rpc_firewall | category: application<br>product: rpc_firewall |             |
+| rpc_firewall | category: application<br>product: rpc_firewall | |
 
 #### Ruby on Rails
 
-| Product       | Logsource                                       | Description |
+| Product | Logsource | Description |
 | ------------- | ----------------------------------------------- | ----------- |
-| ruby_on_rails | category: application<br>product: ruby_on_rails |             |
+| ruby_on_rails | category: application<br>product: ruby_on_rails | |
 
 #### Spring Framewor
 
-| Product | Logsource                                | Description |
+| Product | Logsource | Description |
 | ------- | ---------------------------------------- | ----------- |
-| spring  | category: application<br>product: spring |             |
+| spring | category: application<br>product: spring | |
 
 #### SQL
 
-| Product | Logsource                             | Description |
+| Product | Logsource | Description |
 | ------- | ------------------------------------- | ----------- |
-| sql     | category: application<br>product: sql |             |
+| sql | category: application<br>product: sql | |
 
 ### Category Folder
 
-| Product | Logsource           | Description                                                |
+| Product | Logsource | Description |
 | ------- | ------------------- | ---------------------------------------------------------- |
-|         | category: antivirus | antivirus detection message (format depends on the editor) |
-|         | category: database  | sql queries log (drop, select,...)                         |
+| | category: antivirus | antivirus detection message (format depends on the editor) |
+| | category: database | sql queries log (drop, select,...) |
 
 ### Cloud Folder
 
 #### AWS
 
-| Product | Logsource                           | Description |
+| Product | Logsource | Description |
 | ------- | ----------------------------------- | ----------- |
-| Aws     | product: aws<br>service: cloudtrail |             |
+| Aws | product: aws<br>service: cloudtrail | |
 
 #### Azure
 
-| Product | Logsource                                | Description |
+| Product | Logsource | Description |
 | ------- | ---------------------------------------- | ----------- |
-| Azure   | product: azure<br>service: activitylogs  |             |
-| Azure   | product: azure<br>service: auditlogs     |             |
-| Azure   | product: azure<br>service: riskdetection |             |
-| Azure   | product: azure<br>service: pim           |             |
-| Azure   | product: azure<br>service: signinlogs    |             |
+| Azure | product: azure<br>service: activitylogs | |
+| Azure | product: azure<br>service: auditlogs | |
+| Azure | product: azure<br>service: riskdetection | |
+| Azure | product: azure<br>service: pim | |
+| Azure | product: azure<br>service: signinlogs | |
 
 #### Bitbucket
 
-| Product   | Logsource                            | Description |
+| Product | Logsource | Description |
 | --------- | ------------------------------------ | ----------- |
-| Bitbucket | product: bitbucket<br>service: audit |             |
+| Bitbucket | product: bitbucket<br>service: audit | |
 
 #### Cisco
 
-| Product | Logsource                      | Description |
+| Product | Logsource | Description |
 | ------- | ------------------------------ | ----------- |
-| Cisco   | product: cisco<br>service: duo |             |
+| Cisco | product: cisco<br>service: duo | |
 
 #### GCP
 
-| Product | Logsource                                       | Description |
+| Product | Logsource | Description |
 | ------- | ----------------------------------------------- | ----------- |
-| GCP     | product: gcp<br>service: gcp.audit              |             |
-| GCP     | product: gcp<br>service: google_workspace.admin |             |
+| GCP | product: gcp<br>service: gcp.audit | |
+| GCP | product: gcp<br>service: google_workspace.admin | |
 
 #### Github
 
-| Product | Logsource                         | Description            |
+| Product | Logsource | Description |
 | ------- | --------------------------------- | ---------------------- |
-| Github  | product: github<br>service: audit | organization Audit log |
+| Github | product: github<br>service: audit | organization Audit log |
 
 #### M365
 
-| Product | Logsource                                   | Description |
+| Product | Logsource | Description |
 | ------- | ------------------------------------------- | ----------- |
-| M365    | product: m365<br>service: audit             |             |
-| M365    | product: m365<br>service: exchange          |             |
-| M365    | product: m365<br>service: threat_detection  |             |
-| M365    | product: m365<br>service: threat_management |             |
+| M365 | product: m365<br>service: audit | |
+| M365 | product: m365<br>service: exchange | |
+| M365 | product: m365<br>service: threat_detection | |
+| M365 | product: m365<br>service: threat_management | |
 
 #### Okta
 
-| Product | Logsource                      | Description |
+| Product | Logsource | Description |
 | ------- | ------------------------------ | ----------- |
-| Okta    | product: okta<br>service: okta |             |
+| Okta | product: okta<br>service: okta | |
 
 #### OneLogin
 
-| Product  | Logsource                                     | Description |
+| Product | Logsource | Description |
 | -------- | --------------------------------------------- | ----------- |
-| Onelogin | product: onelogin<br>service: onelogin.events |             |
+| Onelogin | product: onelogin<br>service: onelogin.events | |
 
 ### Linux Folder
 
 #### Category
 
-| Product | Logsource                                      | Description                    |
+| Product | Logsource | Description |
 | ------- | ---------------------------------------------- | ------------------------------ |
-| Linux   | product: linux<br>category: file_event         | EventID: 11<br>service: sysmon |
-| Linux   | product: linux<br>category: network_connection | EventID: 3<br>service: sysmon  |
-| Linux   | product: linux<br>category: process_creation   | EventID: 1<br>service: sysmon  |
+| Linux | product: linux<br>category: file_event | EventID: 11<br>service: sysmon |
+| Linux | product: linux<br>category: network_connection | EventID: 3<br>service: sysmon |
+| Linux | product: linux<br>category: process_creation | EventID: 1<br>service: sysmon |
 
 #### Service
 
-| Product | Logsource                            | Description |
+| Product | Logsource | Description |
 | ------- | ------------------------------------ | ----------- |
-| Linux   | product: linux<br>service: auditd    | auditd.log  |
-| Linux   | product: linux<br>service: auth      | auth.log    |
-| Linux   | product: linux<br>service: clamav    |             |
-| Linux   | product: linux<br>service: cron      |             |
-| Linux   | product: linux<br>service: guacamole |             |
-| Linux   | product: linux<br>service: sudo      |             |
-| Linux   | product: linux<br>service: sshd      |             |
-| Linux   | product: linux<br>service: syslog    |             |
-| Linux   | product: linux<br>service: vsftpd    |             |
+| Linux | product: linux<br>service: auditd | auditd.log |
+| Linux | product: linux<br>service: auth | auth.log |
+| Linux | product: linux<br>service: clamav | |
+| Linux | product: linux<br>service: cron | |
+| Linux | product: linux<br>service: guacamole | |
+| Linux | product: linux<br>service: sudo | |
+| Linux | product: linux<br>service: sshd | |
+| Linux | product: linux<br>service: syslog | |
+| Linux | product: linux<br>service: vsftpd | |
 
 ### Macos Folder
 
 #### Category
 
-| Product | Logsource                                    | Description |
+| Product | Logsource | Description |
 | ------- | -------------------------------------------- | ----------- |
-| Macos   | product: macos<br>category: file_event       |             |
-| Macos   | product: macos<br>category: process_creation |             |
+| Macos | product: macos<br>category: file_event | |
+| Macos | product: macos<br>category: process_creation | |
 
 ### Network Folder
 
 #### Cisco
 
-| Product | Logsource                      | Description |
+| Product | Logsource | Description |
 | ------- | ------------------------------ | ----------- |
-| Cisco   | product: cisco<br>service: aaa |             |
-| Cisco   | product: cisco<br>service: bgp |             |
-| Cisco   | product: cisco<br>service: ldp |             |
+| Cisco | product: cisco<br>service: aaa | |
+| Cisco | product: cisco<br>service: bgp | |
+| Cisco | product: cisco<br>service: ldp | |
 
 #### Huawei
 
-| Product | Logsource                       | Description |
+| Product | Logsource | Description |
 | ------- | ------------------------------- | ----------- |
-| Huawei  | product: huawei<br>service: ldp |             |
+| Huawei | product: huawei<br>service: ldp | |
 
 #### Juniper
 
-| Product | Logsource                        | Description |
+| Product | Logsource | Description |
 | ------- | -------------------------------- | ----------- |
-| Juniper | product: juniper<br>service: ldp |             |
+| Juniper | product: juniper<br>service: ldp | |
 
 #### Zeek
 
-| Product | Logsource                           | Description |
+| Product | Logsource | Description |
 | ------- | ----------------------------------- | ----------- |
-| Zeek    | product: zeek<br>service: dce_rpc   |             |
-| Zeek    | product: zeek<br>service: dns       |             |
-| Zeek    | product: zeek<br>service: http      |             |
-| Zeek    | product: zeek<br>service: kerberos  |             |
-| Zeek    | product: zeek<br>service: rdp       |             |
-| Zeek    | product: zeek<br>service: smb_files |             |
-| Zeek    | product: zeek<br>service: x509      |             |
+| Zeek | product: zeek<br>service: dce_rpc | |
+| Zeek | product: zeek<br>service: dns | |
+| Zeek | product: zeek<br>service: http | |
+| Zeek | product: zeek<br>service: kerberos | |
+| Zeek | product: zeek<br>service: rdp | |
+| Zeek | product: zeek<br>service: smb_files | |
+| Zeek | product: zeek<br>service: x509 | |
 
 ### Other
 
-| Product | Logsource           | Description |
+| Product | Logsource | Description |
 | ------- | ------------------- | ----------- |
-| N/A     | category: dns       |             |
-| N/A     | category: firewall  |             |
-| N/A     | category: proxy     |             |
-| N/A     | category: webserver |             |
+| N/A | category: dns | |
+| N/A | category: firewall | |
+| N/A | category: proxy | |
+| N/A | category: webserver | |
 
 ### Product Folder
 
-| Product     | Logsource            | Description           |
+| Product | Logsource | Description |
 | ----------- | -------------------- | --------------------- |
-| Apache      | service: apache      | Application error.log |
-| Modsecurity | product: modsecurity |                       |
+| Apache | service: apache | Application error.log |
+| Modsecurity | product: modsecurity | |
 
 ### Windows Folder
 
 #### Category
 
-| Product | Logsource                                               | Description                                                                                               |
+| Product | Logsource | Description |
 | ------- | ------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
-| windows | product: windows<br>category: process_creation          | EventID: 1<br>Channel: Microsoft-Windows-Sysmon/Operational                                               |
-| windows | product: windows<br>category: file_change               | EventID: 2<br>Channel: Microsoft-Windows-Sysmon/Operational                                               |
-| windows | product: windows<br>category: network_connection        | EventID: 3<br>Channel: Microsoft-Windows-Sysmon/Operational                                               |
-| windows | product: windows<br>category: sysmon_status             | EventIDs: <br> - 4<br> - 16<br>Channel: Microsoft-Windows-Sysmon/Operational                              |
-| windows | product: windows<br>category: process_termination       | EventID: 5<br>Channel: Microsoft-Windows-Sysmon/Operational                                               |
-| windows | product: windows<br>category: driver_load               | EventID: 6<br>Channel: Microsoft-Windows-Sysmon/Operational                                               |
-| windows | product: windows<br>category: image_load                | EventID: 7<br>Channel: Microsoft-Windows-Sysmon/Operational                                               |
-| windows | product: windows<br>category: create_remote_thread      | EventID: 8<br>Channel: Microsoft-Windows-Sysmon/Operational                                               |
-| windows | product: windows<br>category: raw_access_thread         | EventID: 9<br>Channel: Microsoft-Windows-Sysmon/Operational                                               |
-| windows | product: windows<br>category: process_access            | EventID: 10<br>Channel: Microsoft-Windows-Sysmon/Operational                                              |
-| windows | product: windows<br>category: file_event                | EventID: 11<br>Channel: Microsoft-Windows-Sysmon/Operational                                              |
-| windows | product: windows<br>category: registry_event            | EventID: <br> - 12<br> - 13<br> - 14<br>Channel: Microsoft-Windows-Sysmon/Operational                     |
-| windows | product: windows<br>category: registry_add              | EventID: 12<br>Channel: Microsoft-Windows-Sysmon/Operational                                              |
-| windows | product: windows<br>category: registry_delete           | EventID: 12<br>Channel: Microsoft-Windows-Sysmon/Operational                                              |
-| windows | product: windows<br>category: registry_set              | EventID: 13<br>Channel: Microsoft-Windows-Sysmon/Operational                                              |
-| windows | product: windows<br>category: registry_rename           | EventID: 14<br>Channel: Microsoft-Windows-Sysmon/Operational                                              |
-| windows | product: windows<br>category: create_stream_hash        | EventID: 15<br>Channel: Microsoft-Windows-Sysmon/Operational                                              |
-| windows | product: windows<br>category: pipe_created              | EventIDs: <br> - 17<br> - 18<br>Channel: Microsoft-Windows-Sysmon/Operational                             |
-| windows | product: windows<br>category: wmi_event                 | EventIDs: <br> - 19<br> - 20<br> - 21<br>Channel: Microsoft-Windows-Sysmon/Operational                    |
-| windows | product: windows<br>category: dns_query                 | EventID: 22<br>Channel: Microsoft-Windows-Sysmon/Operational                                              |
-| windows | product: windows<br>category: file_delete               | EventID: 23<br>Channel: Microsoft-Windows-Sysmon/Operational                                              |
-| windows | product: windows<br>category: clipboard_capture         | EventID: 24<br>Channel: Microsoft-Windows-Sysmon/Operational                                              |
-| windows | product: windows<br>category: process_tampering         | EventID: 25<br>Channel: Microsoft-Windows-Sysmon/Operational                                              |
-| windows | product: windows<br>category: file_delete_detected      | EventID: 26<br>Channel: Microsoft-Windows-Sysmon/Operational                                              |
-| windows | product: windows<br>category: file_block_executable     | EventID: 27<br>Channel: Microsoft-Windows-Sysmon/Operational                                              |
-| windows | product: windows<br>category: file_block_shredding      | EventID: 28<br>Channel: Microsoft-Windows-Sysmon/Operational                                              |
-| windows | product: windows<br>category: file_executable_detected  | EventID: 29<br>Channel: Microsoft-Windows-Sysmon/Operational                                              |
-| windows | product: windows<br>category: sysmon_error              | EventID: 255<br>Channel: Microsoft-Windows-Sysmon/Operational                                             |
-| windows | product: windows<br>category: file_access               | ETW Provider: Microsoft-Windows-Kernel-File                                                               |
-| windows | product: windows<br>category: ps_classic_start          | EventID: 400<br>Channel: Windows PowerShell                                                               |
-| windows | product: windows<br>category: ps_classic_provider_start | EventID: 600<br>Channel: Windows PowerShell                                                               |
-| windows | product: windows<br>category: ps_classic_script         | EventID: 800<br>Channel: Windows PowerShell                                                               |
-| windows | product: windows<br>category: ps_module                 | EventID: 4103<br>Channel:<br> - Microsoft-Windows-PowerShell/Operational<br> - PowerShellCore/Operational |
-| windows | product: windows<br>category: ps_script                 | EventID: 4104<br>Channel:<br> - Microsoft-Windows-PowerShell/Operational<br> - PowerShellCore/Operational |
-| windows | product: windows<br>category: file_rename               | ETW Provider: Microsoft-Windows-Kernel-File                                                               |
+| windows | product: windows<br>category: process_creation | EventID: 1<br>Channel: Microsoft-Windows-Sysmon/Operational |
+| windows | product: windows<br>category: file_change | EventID: 2<br>Channel: Microsoft-Windows-Sysmon/Operational |
+| windows | product: windows<br>category: network_connection | EventID: 3<br>Channel: Microsoft-Windows-Sysmon/Operational |
+| windows | product: windows<br>category: sysmon_status | EventIDs: <br> - 4<br> - 16<br>Channel: Microsoft-Windows-Sysmon/Operational |
+| windows | product: windows<br>category: process_termination | EventID: 5<br>Channel: Microsoft-Windows-Sysmon/Operational |
+| windows | product: windows<br>category: driver_load | EventID: 6<br>Channel: Microsoft-Windows-Sysmon/Operational |
+| windows | product: windows<br>category: image_load | EventID: 7<br>Channel: Microsoft-Windows-Sysmon/Operational |
+| windows | product: windows<br>category: create_remote_thread | EventID: 8<br>Channel: Microsoft-Windows-Sysmon/Operational |
+| windows | product: windows<br>category: raw_access_thread | EventID: 9<br>Channel: Microsoft-Windows-Sysmon/Operational |
+| windows | product: windows<br>category: process_access | EventID: 10<br>Channel: Microsoft-Windows-Sysmon/Operational |
+| windows | product: windows<br>category: file_event | EventID: 11<br>Channel: Microsoft-Windows-Sysmon/Operational |
+| windows | product: windows<br>category: registry_event | EventID: <br> - 12<br> - 13<br> - 14<br>Channel: Microsoft-Windows-Sysmon/Operational |
+| windows | product: windows<br>category: registry_add | EventID: 12<br>Channel: Microsoft-Windows-Sysmon/Operational |
+| windows | product: windows<br>category: registry_delete | EventID: 12<br>Channel: Microsoft-Windows-Sysmon/Operational |
+| windows | product: windows<br>category: registry_set | EventID: 13<br>Channel: Microsoft-Windows-Sysmon/Operational |
+| windows | product: windows<br>category: registry_rename | EventID: 14<br>Channel: Microsoft-Windows-Sysmon/Operational |
+| windows | product: windows<br>category: create_stream_hash | EventID: 15<br>Channel: Microsoft-Windows-Sysmon/Operational |
+| windows | product: windows<br>category: pipe_created | EventIDs: <br> - 17<br> - 18<br>Channel: Microsoft-Windows-Sysmon/Operational |
+| windows | product: windows<br>category: wmi_event | EventIDs: <br> - 19<br> - 20<br> - 21<br>Channel: Microsoft-Windows-Sysmon/Operational |
+| windows | product: windows<br>category: dns_query | EventID: 22<br>Channel: Microsoft-Windows-Sysmon/Operational |
+| windows | product: windows<br>category: file_delete | EventID: 23<br>Channel: Microsoft-Windows-Sysmon/Operational |
+| windows | product: windows<br>category: clipboard_capture | EventID: 24<br>Channel: Microsoft-Windows-Sysmon/Operational |
+| windows | product: windows<br>category: process_tampering | EventID: 25<br>Channel: Microsoft-Windows-Sysmon/Operational |
+| windows | product: windows<br>category: file_delete_detected | EventID: 26<br>Channel: Microsoft-Windows-Sysmon/Operational |
+| windows | product: windows<br>category: file_block_executable | EventID: 27<br>Channel: Microsoft-Windows-Sysmon/Operational |
+| windows | product: windows<br>category: file_block_shredding | EventID: 28<br>Channel: Microsoft-Windows-Sysmon/Operational |
+| windows | product: windows<br>category: file_executable_detected | EventID: 29<br>Channel: Microsoft-Windows-Sysmon/Operational |
+| windows | product: windows<br>category: sysmon_error | EventID: 255<br>Channel: Microsoft-Windows-Sysmon/Operational |
+| windows | product: windows<br>category: file_access | ETW Provider: Microsoft-Windows-Kernel-File |
+| windows | product: windows<br>category: ps_classic_start | EventID: 400<br>Channel: Windows PowerShell |
+| windows | product: windows<br>category: ps_classic_provider_start | EventID: 600<br>Channel: Windows PowerShell |
+| windows | product: windows<br>category: ps_classic_script | EventID: 800<br>Channel: Windows PowerShell |
+| windows | product: windows<br>category: ps_module | EventID: 4103<br>Channel:<br> - Microsoft-Windows-PowerShell/Operational<br> - PowerShellCore/Operational |
+| windows | product: windows<br>category: ps_script | EventID: 4104<br>Channel:<br> - Microsoft-Windows-PowerShell/Operational<br> - PowerShellCore/Operational |
+| windows | product: windows<br>category: file_rename | ETW Provider: Microsoft-Windows-Kernel-File |
 
 #### Service
 
-| Product | Logsource                                                               | Description                                                                                                                                                                                                                |
+| Product | Logsource | Description |
 | ------- | ----------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| windows | product: windows<br>service: application                                | Channel: Application                                                                                                                                                                                                       |
-| windows | product: windows<br>service: application-experience                     | Channel:<br> - Microsoft-Windows-Application-Experience/Program-Telemetry<br> - Microsoft-Windows-Application-Experience/Program-Compatibility-Assistant                                                                   |
-| windows | product: windows<br>service: applocker                                  | Channel:<br> - Microsoft-Windows-AppLocker/MSI and Script<br> - Microsoft-Windows-AppLocker/EXE and DLL<br> - Microsoft-Windows-AppLocker/Packaged app-Deployment<br> - Microsoft-Windows-AppLocker/Packaged app-Execution |
-| windows | product: windows<br>service: appmodel-runtime                           | Channel: Microsoft-Windows-AppModel-Runtime/Admin                                                                                                                                                                          |
-| windows | product: windows<br>service: appxdeployment-server                      | Channel: Microsoft-Windows-AppXDeploymentServer/Operational                                                                                                                                                                |
-| windows | product: windows<br>service: appxpackaging-om                           | Channel: Microsoft-Windows-AppxPackaging/Operational                                                                                                                                                                       |
-| windows | product: windows<br>service: bitlocker                                  | Channel: Microsoft-Windows-BitLocker/BitLocker Management                                                                                                                                                                  |
-| windows | product: windows<br>service: bits-client                                | Channel: Microsoft-Windows-Bits-Client/Operational                                                                                                                                                                         |
-| windows | product: windows<br>service: capi2                                      | Channel: Microsoft-Windows-CAPI2/Operational                                                                                                                                                                               |
-| windows | product: windows<br>service: certificateservicesclient-lifecycle-system | Channel: Microsoft-Windows-CertificateServicesClient-Lifecycle-System/Operational                                                                                                                                          |
-| windows | product: windows<br>service: codeintegrity-operational                  | Channel: Microsoft-Windows-CodeIntegrity/Operational                                                                                                                                                                       |
-| windows | product: windows<br>service: dhcp                                       | Channel: Microsoft-Windows-DHCP-Server/Operational                                                                                                                                                                         |
-| windows | product: windows<br>service: diagnosis-scripted                         | Channel: Microsoft-Windows-Diagnosis-Scripted/Operational                                                                                                                                                                  |
-| windows | product: windows<br>service: dns-client                                 | Channel: Microsoft-Windows-DNS Client Events/Operational                                                                                                                                                                   |
-| windows | product: windows<br>service: dns-server                                 | Channel: DNS Server                                                                                                                                                                                                        |
-| windows | product: windows<br>service: dns-server-analytic                        | Channel: Microsoft-Windows-DNS-Server/Analytical                                                                                                                                                                           |
-| windows | product: windows<br>service: dns-server-audit                           | Channel: Microsoft-Windows-DNS-Server/Audit                                                                                                                                                                                |
-| windows | product: windows<br>service: driver-framework                           | Channel: Microsoft-Windows-DriverFrameworks-UserMode/Operational                                                                                                                                                           |
-| windows | product: windows<br>service: firewall-as                                | Channel: Microsoft-Windows-Windows Firewall With Advanced Security/Firewall                                                                                                                                                |
-| windows | product: windows<br>service: hyper-v-worker                             | Channel: Microsoft-Windows-Hyper-V-Worker                                                                                                                                                                                  |
-| windows | product: windows<br>service: iis-configuration                          | Channel: Microsoft-IIS-Configuration/Operational                                                                                                                                                                           |
-| windows | product: windows<br>service: kernel-event-tracing                       | Channel: Microsoft-Windows-Kernel-EventTracing                                                                                                                                                                             |
-| windows | product: windows<br>service: kernel-shimengine                          | Channel:<br> - Microsoft-Windows-Kernel-ShimEngine/Operational<br> - WinEventLog:Microsoft-Windows-Kernel-ShimEngine/Diagnostic                                                                                            |
-| windows | product: windows<br>service: ldap                                       | Channel: Microsoft-Windows-LDAP-Client/Debug                                                                                                                                                                               |
-| windows | product: windows<br>service: lsa-server                                 | Channel: Microsoft-Windows-LSA/Operational                                                                                                                                                                                 |
-| windows | product: windows<br>service: msexchange-management                      | Channel: MSExchange Management                                                                                                                                                                                             |
-| windows | product: windows<br>service: ntfs                                       | Channel: Microsoft-Windows-Ntfs/Operational                                                                                                                                                                                |
-| windows | product: windows<br>service: ntlm                                       | Channel: Microsoft-Windows-NTLM/Operational                                                                                                                                                                                |
-| windows | product: windows<br>service: openssh                                    | Channel: OpenSSH/Operational                                                                                                                                                                                               |
-| windows | product: windows<br>service: powershell                                 | Channel: Microsoft-Windows-PowerShell/Operational                                                                                                                                                                          |
-| windows | product: windows<br>service: powershell-classic                         | Channel: Windows PowerShell                                                                                                                                                                                                |
-| windows | product: windows<br>service: printservice-admin                         | Channel: Microsoft-Windows-PrintService/Admin                                                                                                                                                                              |
-| windows | product: windows<br>service: printservice-operational                   | Channel: Microsoft-Windows-PrintService/Operational                                                                                                                                                                        |
-| windows | product: windows<br>service: security                                   | Channel: Security                                                                                                                                                                                                          |
-| windows | product: windows<br>service: security-mitigations                       | Channel:<br> - Microsoft-Windows-Security-Mitigations/Kernel Mode<br> - Microsoft-Windows-Security-Mitigations/User Mode                                                                                                   |
-| windows | product: windows<br>service: sense                                      | Channel: Microsoft-Windows-SENSE/Operational                                                                                                                                                                               |
-| windows | product: windows<br>service: servicebus-client                          | Channel: <br> - Microsoft-ServiceBus-Client/Operational<br> - Microsoft-ServiceBus-Client/Admin                                                                                                                            |
-| windows | product: windows<br>service: shell-core                                 | Channel: Microsoft-Windows-Shell-Core/Operational                                                                                                                                                                          |
-| windows | product: windows<br>service: smbclient-security                         | Channel: Microsoft-Windows-SmbClient/Security                                                                                                                                                                              |
-| windows | product: windows<br>service: sysmon                                     | Channel: Microsoft-Windows-Sysmon/Operational                                                                                                                                                                              |
-| windows | product: windows<br>service: system                                     | Channel: System                                                                                                                                                                                                            |
-| windows | product: windows<br>service: taskscheduler                              | Channel: Microsoft-Windows-TaskScheduler/Operational                                                                                                                                                                       |
-| windows | product: windows<br>service: terminalservices-localsessionmanager       | Channel: Microsoft-Windows-TerminalServices-LocalSessionManager/Operational                                                                                                                                                |
-| windows | product: windows<br>service: vhdmp                                      | Channel: Microsoft-Windows-VHDMP/Operational                                                                                                                                                                               |
-| windows | product: windows<br>service: windefend                                  | Channel: Microsoft-Windows-Windows Defender/Operational                                                                                                                                                                    |
-| windows | product: windows<br>service: wmi                                        | Channel: Microsoft-Windows-WMI-Activity/Operational                                                                                                                                                                        |
+| windows | product: windows<br>service: application | Channel: Application |
+| windows | product: windows<br>service: application-experience | Channel:<br> - Microsoft-Windows-Application-Experience/Program-Telemetry<br> - Microsoft-Windows-Application-Experience/Program-Compatibility-Assistant |
+| windows | product: windows<br>service: applocker | Channel:<br> - Microsoft-Windows-AppLocker/MSI and Script<br> - Microsoft-Windows-AppLocker/EXE and DLL<br> - Microsoft-Windows-AppLocker/Packaged app-Deployment<br> - Microsoft-Windows-AppLocker/Packaged app-Execution |
+| windows | product: windows<br>service: appmodel-runtime | Channel: Microsoft-Windows-AppModel-Runtime/Admin |
+| windows | product: windows<br>service: appxdeployment-server | Channel: Microsoft-Windows-AppXDeploymentServer/Operational |
+| windows | product: windows<br>service: appxpackaging-om | Channel: Microsoft-Windows-AppxPackaging/Operational |
+| windows | product: windows<br>service: bitlocker | Channel: Microsoft-Windows-BitLocker/BitLocker Management |
+| windows | product: windows<br>service: bits-client | Channel: Microsoft-Windows-Bits-Client/Operational |
+| windows | product: windows<br>service: capi2 | Channel: Microsoft-Windows-CAPI2/Operational |
+| windows | product: windows<br>service: certificateservicesclient-lifecycle-system | Channel: Microsoft-Windows-CertificateServicesClient-Lifecycle-System/Operational |
+| windows | product: windows<br>service: codeintegrity-operational | Channel: Microsoft-Windows-CodeIntegrity/Operational |
+| windows | product: windows<br>service: dhcp | Channel: Microsoft-Windows-DHCP-Server/Operational |
+| windows | product: windows<br>service: diagnosis-scripted | Channel: Microsoft-Windows-Diagnosis-Scripted/Operational |
+| windows | product: windows<br>service: dns-client | Channel: Microsoft-Windows-DNS Client Events/Operational |
+| windows | product: windows<br>service: dns-server | Channel: DNS Server |
+| windows | product: windows<br>service: dns-server-analytic | Channel: Microsoft-Windows-DNS-Server/Analytical |
+| windows | product: windows<br>service: dns-server-audit | Channel: Microsoft-Windows-DNS-Server/Audit |
+| windows | product: windows<br>service: driver-framework | Channel: Microsoft-Windows-DriverFrameworks-UserMode/Operational |
+| windows | product: windows<br>service: firewall-as | Channel: Microsoft-Windows-Windows Firewall With Advanced Security/Firewall |
+| windows | product: windows<br>service: hyper-v-worker | Channel: Microsoft-Windows-Hyper-V-Worker |
+| windows | product: windows<br>service: iis-configuration | Channel: Microsoft-IIS-Configuration/Operational |
+| windows | product: windows<br>service: kernel-event-tracing | Channel: Microsoft-Windows-Kernel-EventTracing |
+| windows | product: windows<br>service: kernel-shimengine | Channel:<br> - Microsoft-Windows-Kernel-ShimEngine/Operational<br> - WinEventLog:Microsoft-Windows-Kernel-ShimEngine/Diagnostic |
+| windows | product: windows<br>service: ldap | Channel: Microsoft-Windows-LDAP-Client/Debug |
+| windows | product: windows<br>service: lsa-server | Channel: Microsoft-Windows-LSA/Operational |
+| windows | product: windows<br>service: msexchange-management | Channel: MSExchange Management |
+| windows | product: windows<br>service: ntfs | Channel: Microsoft-Windows-Ntfs/Operational |
+| windows | product: windows<br>service: ntlm | Channel: Microsoft-Windows-NTLM/Operational |
+| windows | product: windows<br>service: openssh | Channel: OpenSSH/Operational |
+| windows | product: windows<br>service: powershell | Channel: Microsoft-Windows-PowerShell/Operational |
+| windows | product: windows<br>service: powershell-classic | Channel: Windows PowerShell |
+| windows | product: windows<br>service: printservice-admin | Channel: Microsoft-Windows-PrintService/Admin |
+| windows | product: windows<br>service: printservice-operational | Channel: Microsoft-Windows-PrintService/Operational |
+| windows | product: windows<br>service: security | Channel: Security |
+| windows | product: windows<br>service: security-mitigations | Channel:<br> - Microsoft-Windows-Security-Mitigations/Kernel Mode<br> - Microsoft-Windows-Security-Mitigations/User Mode |
+| windows | product: windows<br>service: sense | Channel: Microsoft-Windows-SENSE/Operational |
+| windows | product: windows<br>service: servicebus-client | Channel: <br> - Microsoft-ServiceBus-Client/Operational<br> - Microsoft-ServiceBus-Client/Admin |
+| windows | product: windows<br>service: shell-core | Channel: Microsoft-Windows-Shell-Core/Operational |
+| windows | product: windows<br>service: smbclient-security | Channel: Microsoft-Windows-SmbClient/Security |
+| windows | product: windows<br>service: sysmon | Channel: Microsoft-Windows-Sysmon/Operational |
+| windows | product: windows<br>service: system | Channel: System |
+| windows | product: windows<br>service: taskscheduler | Channel: Microsoft-Windows-TaskScheduler/Operational |
+| windows | product: windows<br>service: terminalservices-localsessionmanager | Channel: Microsoft-Windows-TerminalServices-LocalSessionManager/Operational |
+| windows | product: windows<br>service: vhdmp | Channel: Microsoft-Windows-VHDMP/Operational |
+| windows | product: windows<br>service: windefend | Channel: Microsoft-Windows-Windows Defender/Operational |
+| windows | product: windows<br>service: wmi | Channel: Microsoft-Windows-WMI-Activity/Operational |
 
 ## Network Events
 
@@ -359,10 +359,10 @@ The event scope can be further restricted with *service*.
 
 The most common values should follow the rule : "lower case letters, spaces replaces with underscores".
 
-| Product | Logsource                                | Description                    |
+| Product | Logsource | Description |
 | ------- | ---------------------------------------- | ------------------------------ |
-|         | category: network<br>service: connection | networks connection in general |
-|         | category: network<br>service: dns        | DNS queries in general         |
+| | category: network<br>service: connection | networks connection in general |
+| | category: network<br>service: dns | DNS queries in general |
 
 ## Fields
 
@@ -379,31 +379,31 @@ product: windows
 
 The field names follow the field names used in [Sysmon](https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon) events:
 
-| Field Name        | Example Value                                                                             | Comment |
+| Field Name | Example Value | Comment |
 | ----------------- | ----------------------------------------------------------------------------------------- | ------- |
-| UtcTime           | 2019-03-02 08:51:00.008                                                                   |         |
-| ProcessGuid       | {c1b49677-43f4-5c7a-0000-0010d3dd8044}                                                    |         |
-| ProcessId         | 1028                                                                                      |         |
-| Image             | C:\\Program Files (x86)\\Google\\Update\\GoogleUpdate.exe                                 |         |
-| FileVersion       | 1.3.28.13                                                                                 |         |
-| Description       | Google Installer                                                                          |         |
-| Product           | Google Update                                                                             |         |
-| Company           | Google Inc.                                                                               |         |
-| CommandLine       | "C:\\Program Files (x86)\\Google\\Update\\GoogleUpdate.exe" /ua /installsource scheduler  |         |
-| CurrentDirectory  | C:\\Windows\\system32\|                                                                   |         |
-| User              | NT AUTHORITY\\SYSTEM                                                                      |         |
-| LogonGuid         | {c1b49677-3fb9-5c09-0000-0020e7030000}                                                    |         |
-| LogonId           | 0x3e7                                                                                     |         |
-| TerminalSessionId | 0                                                                                         |         |
-| IntegrityLevel    | System                                                                                    |         |
-| imphash           | E96A73C7BF33A464C510EDE582318BF2                                                          |         |
-| md5               | CCF1D1573F175299ADE01C07791A6541                                                          |         |
-| sha1              | 0AE1F9071C5E8FE4A69D3F671937935D242D8A6C                                                  |         |
-| sha256            | 68A15A34C2E28B9B521A240B948634617D72AD619E3950BC6DC769E60A0C3CF2                          |         |
-| ParentProcessGuid | {c1b49677-6b43-5c78-0000-00107fb77544}                                                    |         |
-| ParentProcessId   | 1724                                                                                      |         |
-| ParentImage       | C:\\Windows\\System32\\taskeng.exe                                                        |         |
-| ParentCommandLine | taskeng.exe {88F94E5C-5DC3-4606-AEFA-BDCA976D6113} S-1-5-18:NT AUTHORITY\\System:Service: |         |
+| UtcTime | 2019-03-02 08:51:00.008 | |
+| ProcessGuid | {c1b49677-43f4-5c7a-0000-0010d3dd8044} | |
+| ProcessId | 1028 | |
+| Image | C:\\Program Files (x86)\\Google\\Update\\GoogleUpdate.exe | |
+| FileVersion | 1.3.28.13 | |
+| Description | Google Installer | |
+| Product | Google Update | |
+| Company | Google Inc. | |
+| CommandLine | "C:\\Program Files (x86)\\Google\\Update\\GoogleUpdate.exe" /ua /installsource scheduler | |
+| CurrentDirectory | C:\\Windows\\system32| | |
+| User | NT AUTHORITY\\SYSTEM | |
+| LogonGuid | {c1b49677-3fb9-5c09-0000-0020e7030000} | |
+| LogonId | 0x3e7 | |
+| TerminalSessionId | 0 | |
+| IntegrityLevel | System | |
+| imphash | E96A73C7BF33A464C510EDE582318BF2 | |
+| md5 | CCF1D1573F175299ADE01C07791A6541 | |
+| sha1 | 0AE1F9071C5E8FE4A69D3F671937935D242D8A6C | |
+| sha256 | 68A15A34C2E28B9B521A240B948634617D72AD619E3950BC6DC769E60A0C3CF2 | |
+| ParentProcessGuid | {c1b49677-6b43-5c78-0000-00107fb77544} | |
+| ParentProcessId | 1724 | |
+| ParentImage | C:\\Windows\\System32\\taskeng.exe | |
+| ParentCommandLine | taskeng.exe {88F94E5C-5DC3-4606-AEFA-BDCA976D6113} S-1-5-18:NT AUTHORITY\\System:Service: | |
 
 #### Other Generic Rule Categories
 
