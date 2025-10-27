@@ -7,16 +7,15 @@ The following document defines the standardized tags that can be used to categor
 
 <!-- mdformat-toc start --slug=github --no-anchors --maxlevel=6 --minlevel=2 -->
 
-- [Sigma Tags](#sigma-tags)
-  - [Namespaces](#namespaces)
-    - [Namespace: attack](#namespace-attack)
-    - [Namespace: car](#namespace-car)
-    - [Namespace: cve](#namespace-cve)
-    - [Namespace: d3fend](#namespace-d3fend)
-    - [Namespace: detection](#namespace-detection)
-    - [Namespace: stp](#namespace-stp)
-    - [Namespace: tlp](#namespace-tlp)
-  - [History](#history)
+- [Namespaces](#namespaces)
+  - [Namespace: attack](#namespace-attack)
+  - [Namespace: car](#namespace-car)
+  - [Namespace: cve](#namespace-cve)
+  - [Namespace: d3fend](#namespace-d3fend)
+  - [Namespace: detection](#namespace-detection)
+  - [Namespace: stp](#namespace-stp)
+  - [Namespace: tlp](#namespace-tlp)
+- [History](#history)
 
 <!-- mdformat-toc end -->
 

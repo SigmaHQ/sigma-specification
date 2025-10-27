@@ -4,19 +4,18 @@ This document describes an additional set of custom rules field enforced by the 
 
 <!-- mdformat-toc start --slug=github --no-anchors --maxlevel=6 --minlevel=2 -->
 
-- [SigmaHQ Regression Testing Conventions](#sigmahq-regression-testing-conventions)
-  - [Custom Fields](#custom-fields)
-    - [`regression_tests_path` Field](#regression_tests_path-field)
-      - [Info.yml Structure](#infoyml-structure)
-        - [id](#id)
-        - [description](#description)
-        - [date](#date)
-        - [modified](#modified)
-        - [author](#author)
-        - [rule_metadata](#rule_metadata)
-        - [regression_tests_info](#regression_tests_info)
-    - [`simulation` Field](#simulation-field)
-      - [Atomic Red Team Entry Structure](#atomic-red-team-entry-structure)
+- [Custom Fields](#custom-fields)
+  - [`regression_tests_path` Field](#regression_tests_path-field)
+    - [Info.yml Structure](#infoyml-structure)
+      - [id](#id)
+      - [description](#description)
+      - [date](#date)
+      - [modified](#modified)
+      - [author](#author)
+      - [rule_metadata](#rule_metadata)
+      - [regression_tests_info](#regression_tests_info)
+  - [`simulation` Field](#simulation-field)
+    - [Atomic Red Team Entry Structure](#atomic-red-team-entry-structure)
 
 <!-- mdformat-toc end -->
 
