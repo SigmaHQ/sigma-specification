@@ -1,6 +1,6 @@
 # SigmaHQ Regression Testing Conventions
 
-This document describes an additional set of custom rules field enforced by the SigmaHQ rule repository in order to ensure a better quality of rules as well as their reproduction.
+This document describes an additional set of custom fields for Sigma rules enforced in the SigmaHQ rule repository in order to ensure a better quality of rules as well as preventing their regression over time.
 
 <!-- mdformat-toc start --slug=github --no-anchors --maxlevel=6 --minlevel=2 -->
 
