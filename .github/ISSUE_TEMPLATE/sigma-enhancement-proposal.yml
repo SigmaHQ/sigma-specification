@@ -113,7 +113,7 @@ body:
         - label: "YAML structure changes"
         - label: "Sigma conversion tools (pySigma)"
         - label: "Backend updates"
-        - label: "Documentation only"
+        - label: "Documentation"
 
   - type: checkboxes
     id: submitter_checklist
