@@ -59,6 +59,7 @@ Here's what you can expect from each of the main subfolders within this repo. Pl
 - [SigmaHQ Rule Convention](./sigmahq/sigmahq-rule-convention.md)
 - [SigmaHQ Filename Convention](./sigmahq/sigmahq-filename-convention.md)
 - [SigmaHQ Title Convention](./sigmahq/sigmahq-title-convention.md)
+- [SigmaHQ Regression Convention](./sigmahq/sigmahq-regression-convention.md)
 
 ## Version Changes
 
