@@ -2,8 +2,8 @@
 
 The following document defines the standardized modifiers that can be used in Sigma.
 
-- Version 2.1.0
-- Release date 2025-08-02
+- Version 2.2.0
+- Release date 2025-XX-XX
 
 <!-- mdformat-toc start --slug=github --no-anchors --maxlevel=6 --minlevel=2 -->
 
@@ -53,19 +53,28 @@ The modifiers listed in this section can only be applied to string values.
 
 - `re`: Value is handled as a regular expression by backends. Regex is matched case-sensitive by default.
 
-  - The supported flavor is PCRE with the following metacharacters:
-    - Wildcards: `.`.
-    - Anchors: `^`, `$`.
-    - Quantifiers: `*`, `+`, `?`, `{n,m}`.
-    - Character Classes: [a-z], [^a-z].
-    - Alternation: `|`.
-    - Grouping: `()`.
-  - Other metacharacters are **unsupported** and can not be used.
+**Warning**: The regex is a full match, for partial use the `.*` eg: `.*Azerty\d+.*`
+
+- Value can be:
+
+  - a single regex string
+  - a list of regex string
+
+- The supported flavor is PCRE with the following metacharacters:
+
+  - Wildcards: `.`.
+  - Anchors: `^`, `$`.
+  - Quantifiers: `*`, `+`, `?`, `{n,m}`.
+  - Character Classes: [a-z], [^a-z].
+  - Alternation: `|`.
+  - Grouping: `()`.
+
+- Other metacharacters are **unsupported** and cannot be used.
 
 - `re` sub-modifiers:
 
   - `i`: (insensitive) to enable case-insensitive matching.
-  - `m`: (multi line) to match across multiple lines. `^` /`$` match the start/end of line.
+  - `m`: (multiline) to match across multiple lines. `^` /`$` match the start/end of line.
   - `s`: (single line) to enable that dot (`.`) matches all characters, including the newline character.
 
 #### Encoding
@@ -123,6 +132,8 @@ The modifiers listed in this section can only be applied to IP values.
 
 ## History
 
+- 2025-XX-XX Specification v2.2.0
+  - provides more details on the regex
 - 2025-08-02 Specification v2.1.0
   - Add `neq`
   - Add time modifiers
