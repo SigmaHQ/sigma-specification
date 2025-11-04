@@ -3,7 +3,7 @@
 The following document defines the standardized tags that can be used to categorize the different Sigma rules.
 
 - Version 2.2.0
-- Release date 2025-11-04
+- Release date 2025-XX-XX
 
 <!-- mdformat-toc start --slug=github --no-anchors --maxlevel=6 --minlevel=2 -->
 
@@ -126,7 +126,7 @@ The following tags are currently supported:
 
 ## History
 
-- 2025-11-04 Specification v2.2.0
+- 2025-XX-XX Specification v2.2.0
   - Remove deprecated mitre data sources
 - 2025-08-02 Specification v2.1.0
   - Add mitre Data Sources, Mitigations and Assets
