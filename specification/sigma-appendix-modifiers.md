@@ -51,14 +51,14 @@ The modifiers listed in this section can only be applied to string values.
 
 #### Regular Expression
 
-- `re`: Value is handled as a regular expression by backends. Regex is matched case-sensitive by default.
+- `re`: Value is handled as a regular expression by backends.
 
-**Warning**: The regex is a full match, for partial use the `.*` eg: `.*Azerty\d+.*`
+The value can be:
 
-- Value can be:
+- a single regex string
+- a list of regex string
 
-  - a single regex string
-  - a list of regex string
+Regex is case-sensitive and match a substring. Use `^regex$` to match the full string.
 
 - The supported flavor is PCRE with the following metacharacters:
 
