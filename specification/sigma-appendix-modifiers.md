@@ -58,7 +58,7 @@ The value can be:
 - a single regex string
 - a list of regex string
 
-Regex is case-sensitive and match a substring. Use `^regex$` to match the full string.
+Regexes are matched case-sensitive and match a substring (matches as 'contains'). Use `^regex$` to match the full string (matching as 'equal').
 
 - The supported flavor is PCRE with the following metacharacters:
 
@@ -66,6 +66,7 @@ Regex is case-sensitive and match a substring. Use `^regex$` to match the full s
   - Anchors: `^`, `$`.
   - Quantifiers: `*`, `+`, `?`, `{n,m}`.
   - Character Classes: [a-z], [^a-z].
+  - Common Tokens: `\d`, `\b`, `\s`, `\S`, `\w` and `\W`
   - Alternation: `|`.
   - Grouping: `()`.
 

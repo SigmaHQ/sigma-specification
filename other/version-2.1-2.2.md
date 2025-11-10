@@ -18,7 +18,7 @@ The following is a non-exhaustive list of changes between the v2.1.0 and v2.2.0 
 
 ## Modifiers
 
-- `re` : Aprovides more details on the regex
+- `re` : Provides a more detailed definition and descripions
 
 ## Tags
 
