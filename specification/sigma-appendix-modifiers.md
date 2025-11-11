@@ -67,6 +67,7 @@ Regexes are matched case-sensitive and match a substring (matches as 'contains')
   - Quantifiers: `*`, `+`, `?`, `{n,m}`.
   - Character Classes: [a-z], [^a-z].
   - Common Tokens: `\d`, `\b`, `\s`, `\S`, `\w` and `\W`
+  - Common Tokens: `\d`, `\b`, `\s`, `\S`, `\w` and `\W`
   - Alternation: `|`.
   - Grouping: `()`.
 
