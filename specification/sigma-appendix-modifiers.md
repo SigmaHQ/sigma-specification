@@ -66,12 +66,13 @@ Regexes are matched case-sensitive and match a substring (matches as 'contains')
   - Anchors: `^`, `$`.
   - Quantifiers: `*`, `+`, `?`, `{n,m}`.
   - Character Classes: [a-z], [^a-z].
-  - Common Tokens: `\d`, `\b`, `\s`, `\S`, `\w` and `\W`
-  - Common Tokens: `\d`, `\b`, `\s`, `\S`, `\w` and `\W`
+  - Common Tokens: `\b`,`\B`,`\d`,`\D`, `\s`, `\S`, `\w` and `\W`
   - Alternation: `|`.
   - Grouping: `()`.
 
 - Other metacharacters are **unsupported** and cannot be used.
+
+**Warning**: The use of `(?flag)` or `(?-flag)` is deprecated, as it is replaced by the following sub-modifiers.
 
 - `re` sub-modifiers:
 
@@ -136,6 +137,7 @@ The modifiers listed in this section can only be applied to IP values.
 
 - 2025-XX-XX Specification v2.2.0
   - provides more details on the regex
+  - make use of `(?flag)` or `(?-flag)` deprecated
 - 2025-08-02 Specification v2.1.0
   - Add `neq`
   - Add time modifiers
