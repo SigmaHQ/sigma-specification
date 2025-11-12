@@ -2,8 +2,8 @@
 
 The following document defines the standardized tags that can be used to categorize the different Sigma rules.
 
-- Version 2.1.0
-- Release date 2025-08-02
+- Version 2.2.0
+- Release date 2025-XX-XX
 
 <!-- mdformat-toc start --slug=github --no-anchors --maxlevel=6 --minlevel=2 -->
 
@@ -23,7 +23,7 @@ The following document defines the standardized tags that can be used to categor
 
 - attack: Categorization according to [MITRE ATT&CK](https://attack.mitre.org). To get the current supported version of ATT&CK please visit [MITRE CTI](https://github.com/mitre/cti)
 - car: Link to the corresponding [MITRE Cyber Analytics Repository (CAR)](https://car.mitre.org/)
-- cve: Categorization according [MITRE CVE](https://cve.mitre.org/)
+- cve: Categorization according [MITRE CVE](https://cve.org/)
 - d3fend: Categorization according to [MITRE D3FEND](https://d3fend.mitre.org/). To get the current supported version of D3FEND please visit [D3FEND Ontology](https://github.com/d3fend/d3fend-ontology)
 - detection: Categorization according to the types of rules provided in the [SigmaHQ rule repository](https://github.com/SigmaHQ/sigma).
 - stp: Rating of detection analytic robustness according to the [MITRE Summiting the Pyramid](https://center-for-threat-informed-defense.github.io/summiting-the-pyramid/) scheme.
@@ -34,7 +34,6 @@ The following document defines the standardized tags that can be used to categor
 - t*1234*: Refers to a [technique](https://attack.mitre.org/techniques/enterprise/)
 - g*1234*: Refers to a [group](https://attack.mitre.org/groups/)
 - s*1234*: Refers to [software](https://attack.mitre.org/software/)
-- ds*1234*: Refers to [Data sources](https://attack.mitre.org/datasources/)
 - m*1234*: Refers to [Mitigations](https://attack.mitre.org/mitigations/)
 - a*1234*: Refers to [Assets](https://attack.mitre.org/assets/)
 
@@ -127,6 +126,8 @@ The following tags are currently supported:
 
 ## History
 
+- 2025-XX-XX Specification v2.2.0
+  - Remove deprecated mitre data sources
 - 2025-08-02 Specification v2.1.0
   - Add mitre Data Sources, Mitigations and Assets
   - Add mitre d3fend namespace
