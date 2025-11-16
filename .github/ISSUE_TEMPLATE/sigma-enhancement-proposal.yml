@@ -1,0 +1,152 @@
+name: "Sigma Enhancement Proposal (SEP)"
+description: "Propose a new feature or enhancement to the Sigma specification"
+title: "SEP: [Brief Title]"
+labels: ["enhancement", "SEP", "review-required"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Sigma Enhancement Proposal (SEP)
+        Thank you for proposing an enhancement to the Sigma specification! Please fill out this template completely to help maintainers and the community evaluate your proposal.
+        
+        **Note:** The SEP number will be assigned by maintainers during the review process.
+
+  - type: input
+    id: author
+    attributes:
+      label: "Author(s)"
+      description: "Your name and GitHub username"
+      placeholder: "John Doe (@johndoe)"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: sep_type
+    attributes:
+      label: "SEP Type"
+      description: "What type of enhancement is this?"
+      options:
+        - "New Detection Logic (correlation types, aggregation functions)"
+        - "New Field Modifiers (transformations, comparisons)"
+        - "New Rule Fields (metadata, configuration options)"
+        - "Schema Extensions (logsource categories)"
+        - "Format Enhancements (YAML structure, syntax improvements)"
+    validations:
+      required: true
+
+  - type: textarea
+    id: abstract
+    attributes:
+      label: "Abstract"
+      description: "A brief summary (200 words max) of what problem this solves and how"
+      placeholder: "This proposal introduces..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem_statement
+    attributes:
+      label: "Problem Statement"
+      description: "Describe the current limitation or problem this proposal addresses"
+      placeholder: "Currently, Sigma rules cannot..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: use_cases
+    attributes:
+      label: "Use Cases"
+      description: "Provide 2-3 concrete use cases that would benefit from this enhancement"
+      placeholder: |
+        1. Detection engineers need to...
+        2. SIEM administrators want to...
+        3. Rule developers require...
+    validations:
+      required: true
+
+  - type: textarea
+    id: specification
+    attributes:
+      label: "Detailed Specification"
+      description: "Technical specification of the proposed changes"
+      placeholder: "This proposal adds the following new fields/keywords..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: syntax_examples
+    attributes:
+      label: "Syntax Examples"
+      description: "Provide concrete YAML examples of how the new feature would be used"
+      placeholder: |
+        ```yaml
+        title: Example Rule with New Feature
+        logsource:
+            category: process_creation
+        detection:
+            sel:
+                # Your example here
+        ```
+    validations:
+      required: true
+
+  - type: dropdown
+    id: backward_compatibility
+    attributes:
+      label: "Backward Compatibility Impact"
+      description: "How does this affect existing Sigma rules?"
+      options:
+        - "Fully backward compatible"
+        - "Requires minor rule updates"
+        - "Requires major rule migration"
+        - "Breaks existing rules"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: implementation_areas
+    attributes:
+      label: "Implementation Areas"
+      description: "Which areas of the Sigma ecosystem would be affected?"
+      options:
+        - label: "YAML structure changes"
+        - label: "Sigma conversion tools (pySigma)"
+        - label: "Backend updates"
+        - label: "Documentation"
+
+  - type: checkboxes
+    id: submitter_checklist
+    attributes:
+      label: "Submitter Checklist"
+      description: "Please confirm you have completed these steps"
+      options:
+        - label: "I have searched existing issues and SEPs to avoid duplicates"
+          required: true
+        - label: "I have provided concrete examples and use cases"
+          required: true
+        - label: "I have considered backward compatibility implications"
+          required: true
+        - label: "I have thought about implementation complexity"
+          required: true
+
+  - type: dropdown
+    id: implementation_help
+    attributes:
+      label: "Implementation Assistance"
+      description: "Are you willing to help implement this proposal?"
+      options:
+        - "Yes, I can help with implementation"
+        - "Yes, I can help with testing"
+        - "Yes, I can help with documentation"
+        - "I can provide guidance but not direct implementation"
+        - "I cannot help with implementation"
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: "Additional Context"
+      description: "Any other context, screenshots, or information that would be helpful"
+      placeholder: "Additional information..."
