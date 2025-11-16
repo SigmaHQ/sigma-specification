@@ -29,3 +29,5 @@ The following is a non-exhaustive list of changes between the v2.1.0 and v2.2.0 
 ## Filter
 
 ## Rules
+
+- `Lists` and `Maps` : add scalar value
