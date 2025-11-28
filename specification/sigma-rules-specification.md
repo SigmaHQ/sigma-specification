@@ -358,16 +358,17 @@ A definition that can consist of two different data structures - lists and maps.
 
 #### General
 
-- All values are treated as case-insensitive strings.
-- You can use wildcard characters `*` and `?` in strings (see also the [escape character](#escape-character) section below).
-- Regular expressions are case-sensitive by default.
-- You don't have to escape characters except the string quotation marks `'`.
-- Scalar Value can be a :
+- A scalar value can be of type:
   - string
   - null
   - boolean
   - integer
   - floating point
+- All string values are case-insensitive by default.
+- You can use wildcard characters `*` and `?` in strings (see also the [escape character](#escape-character) section below).
+- Regular expressions are case-sensitive by default.
+- You don't have to escape characters except the string quotation marks `'`.
+
 
 #### String Wildcard
 
