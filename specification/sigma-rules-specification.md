@@ -369,7 +369,6 @@ A definition that can consist of two different data structures - lists and maps.
 - Regular expressions are case-sensitive by default.
 - You don't have to escape characters except the string quotation marks `'`.
 
-
 #### String Wildcard
 
 Wildcards are used when part of the text is random.
