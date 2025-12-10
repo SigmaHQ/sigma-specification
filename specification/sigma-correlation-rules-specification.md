@@ -2,8 +2,8 @@
 
 The following document defines the standardized correlation that can be used in Sigma rules.
 
-- Version 2.1.0
-- Release date 2025-08-02
+- Version 2.2.0
+- Release date 2025-XX-XX
 
 <!-- mdformat-toc start --slug=github --no-anchors --maxlevel=6 --minlevel=2 -->
 
@@ -26,6 +26,7 @@ The following document defines the standardized correlation that can be used in 
     - [Date](#date)
     - [Modified](#modified)
     - [Taxonomy](#taxonomy)
+    - [Tags](#tags)
     - [Correlation section](#correlation-section)
       - [Correlation type](#correlation-type)
       - [Related rules](#related-rules)
@@ -224,6 +225,22 @@ Defines the taxonomy used in the Sigma rule. A taxonomy can define:
 The Default taxonomy is `sigma`. Other taxonomy must be handled by the used tool or transformed into the default taxonomy.
 
 More information on the default taxonomy can be found in the [Sigma Taxonomy Appendix](sigma-appendix-taxonomy.md) file.
+
+#### Tags
+
+**Attribute**: tags
+
+**Use:** optional
+
+A Sigma rule can be categorized with tags. Tags should generally follow this syntax:
+
+- Character set: lower-case letters, numerals, underscores and hyphens
+- no spaces
+- Tags are namespaced, the dot is used as separator. e.g. *attack.t1234* refers to technique 1234 in the namespace *attack*; Namespaces may also be nested
+- Keep tags short, e.g. numeric identifiers instead of long sentences
+- Feel free to send pull request or issues with proposals for new tags
+
+[More information about tags](sigma-appendix-tags.md)
 
 #### Correlation section
 
@@ -725,7 +742,8 @@ detection:
 ```
 
 ## History
-
+- 2025-XX-XX Specification v2.2.0
+  - add missing `tags`
 - 2025-08-02 Specification v2.1.0
   - add metric corelation with:
     - value_sum
