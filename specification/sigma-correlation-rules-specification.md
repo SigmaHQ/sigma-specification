@@ -742,6 +742,7 @@ detection:
 ```
 
 ## History
+
 - 2025-XX-XX Specification v2.2.0
   - add missing `tags`
 - 2025-08-02 Specification v2.1.0
