@@ -234,11 +234,11 @@ More information on the default taxonomy can be found in the [Sigma Taxonomy App
 
 A Sigma rule can be categorized with tags. Tags should generally follow this syntax:
 
-- Character set: lower-case letters, numerals, underscores and hyphens
-- no spaces
-- Tags are namespaced, the dot is used as separator. e.g. *attack.t1234* refers to technique 1234 in the namespace *attack*; Namespaces may also be nested
+- Character set: Lower-case letters, numerals, underscores and hyphens
+- No spaces
+- Tags are namespaced, the dot is used as separator. e.g. `attack.t1234` refers to technique 1234 in the namespace `attack`; Namespaces may also be nested
 - Keep tags short, e.g. numeric identifiers instead of long sentences
-- Feel free to send pull request or issues with proposals for new tags
+- Feel free to send pull requests or issues with proposals for new tags
 
 [More information about tags](sigma-appendix-tags.md)
 
