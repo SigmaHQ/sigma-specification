@@ -26,6 +26,8 @@ The following is a non-exhaustive list of changes between the v2.1.0 and v2.2.0 
 
 ## Correlation
 
+- Add `tags` field
+
 ## Filter
 
 ## Rules
