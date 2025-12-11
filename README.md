@@ -69,7 +69,7 @@ You can read more on the potential breaking changes and additional features intr
 - [2.0.0 to 2.1.0](./changelog/version-2.0-2.1.md)
 - [2.1.0 to 2.2.0](./changelog/version-2.1-2.2.md)
 
-## Sigma Enhancement Proposal
+## Sigma Enhancement Proposals
 
 History of the approved / discarded SEP are in [sigma_enhancement_proposals_changelog](./changelog/sigma_enhancement_proposals_changelog.md)
 
