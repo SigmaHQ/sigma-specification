@@ -744,7 +744,7 @@ detection:
 ## History
 
 - 2025-XX-XX Specification v2.2.0
-  - add missing `tags`
+  - add `tags` attribute to the correlation rules specification
 - 2025-08-02 Specification v2.1.0
   - add metric corelation with:
     - value_sum
