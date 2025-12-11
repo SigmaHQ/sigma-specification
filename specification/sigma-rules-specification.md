@@ -740,8 +740,7 @@ A Sigma rule can be categorized with tags. Tags should generally follow this syn
 - Tags are namespaced, the dot is used as separator. e.g. `attack.t1234` refers to technique 1234 in the namespace `attack`; Namespaces may also be nested
 - Keep tags short, e.g. numeric identifiers instead of long sentences
 - Feel free to send pull requests or issues with proposals for new tags
-
-[More information about tags](sigma-appendix-tags.md)
+  [More information about tags](sigma-appendix-tags.md)
 
 ### Scope
 
