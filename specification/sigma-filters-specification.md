@@ -196,8 +196,8 @@ filter:
 Example with `any` to apply filter to all process creation rules:
 
 ```yaml
-title: Filter Administrator account for all process creation rules
-description: The valid administrator account start with adm_
+title: Filter for Administrator account across all process creation rules
+description: The valid administrator account start with adm_ when creating processes
 logsource:
     category: process_creation
     product: windows
@@ -206,6 +206,22 @@ filter:
     selection:
         User|startswith: 'adm_'
     condition: selection
+```
+
+Example with a filter that contains a superset of a logsource, such that it applies to all rules with a more specific logsource. The example below would apply to all Windows rules, regardless of category, or product version.
+
+```yaml
+title: Filter out all Windows rules for non system / administrator accounts
+description: Excludes Windows SYSTEM and LOCAL SERVICE accounts from all Windows rules
+logsource:
+    product: windows
+filter:
+    rules: all
+    selection:
+        User:
+            - 'SYSTEM'
+            - 'LOCAL SERVICE'
+    condition: not selection
 ```
 
 ## History
