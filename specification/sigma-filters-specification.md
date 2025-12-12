@@ -3,7 +3,7 @@
 The following document defines the standardized global filter that can be used with Sigma rules.
 
 - Version 2.2.0
-- Release date 2025-08-03
+- Release date 2025-XX-XX
 
 <!-- mdformat-toc start --slug=github --no-anchors --maxlevel=6 --minlevel=2 -->
 
