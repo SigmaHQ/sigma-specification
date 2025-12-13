@@ -156,7 +156,7 @@ A rule can be referred to by the `id` of a Sigma rule.
 The `rules` attribute can be:
 
 - A list of one or multiple Sigma rule IDs
-- The string `any` or `all` - applies the filter to all Sigma rules matching the specified `logsource`
+- The string `any` applies the filter to all Sigma rules matching the specified `logsource`
 
 ##### filter selection
 
@@ -208,15 +208,15 @@ filter:
     condition: selection
 ```
 
-Example with a filter that contains a superset of a logsource, such that it applies to all rules with a more specific logsource. The example below would apply to all Windows rules, regardless of category, or product version.
+Example with a filter that contains a superset of a logsource, such that it applies to all rules with a more specific logsource. The example below would apply to all Windows rules, regardless of "category", or "service".
 
 ```yaml
-title: Filter out all Windows rules for non system / administrator accounts
-description: Excludes Windows SYSTEM and LOCAL SERVICE accounts from all Windows rules
+title: Filter out any Windows rules for non system / administrator accounts
+description: Excludes Windows SYSTEM and LOCAL SERVICE accounts from any Windows rules
 logsource:
     product: windows
 filter:
-    rules: all
+    rules: any
     selection:
         User:
             - 'SYSTEM'
@@ -227,6 +227,6 @@ filter:
 ## History
 
 - 2025-08-03 Specification v2.2.0
-  - Added support for `any` and `all` string values in the `rules` attribute to match all rules with the specified logsource
+  - Added support for `any` string values in the `rules` attribute to match all rules with the specified logsource
 - 2025-08-02 Specification v2.1.0
 - 2024-08-08 Specification v2.0.0

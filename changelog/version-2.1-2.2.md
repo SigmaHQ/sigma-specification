@@ -30,7 +30,7 @@ The following is a non-exhaustive list of changes between the v2.1.0 and v2.2.0 
 
 ## Filter
 
-- Filters can now reference all available rules by using the `filter.rules: all` declaration [PR #430](https://github.com/SigmaHQ/pySigma/pull/430)
+- Filters can now reference all available rules by using the `filter.rules: any` declaration [PR #430](https://github.com/SigmaHQ/pySigma/pull/430)
 
 ## Rules
 
