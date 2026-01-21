@@ -31,6 +31,7 @@ The following document defines the field names and log sources that are allowed 
     - [Service](#service)
   - [Macos Folder](#macos-folder)
     - [Category](#category-1)
+    - [Service](#service-1)
   - [Network Folder](#network-folder)
     - [Cisco](#cisco-1)
     - [Huawei](#huawei)
@@ -40,13 +41,14 @@ The following document defines the field names and log sources that are allowed 
   - [Product Folder](#product-folder)
   - [Windows Folder](#windows-folder)
     - [Category](#category-2)
-    - [Service](#service-1)
+    - [Service](#service-2)
 - [Network Events](#network-events)
 - [Fields](#fields)
   - [Generic](#generic)
     - [Process Creation Events](#process-creation-events)
     - [Other Generic Rule Categories](#other-generic-rule-categories)
   - [Specific](#specific)
+  - [macOS Endpoint Security Framework (ESF)](#macos-endpoint-security-framework-esf)
   - [Network category](#network-category)
 - [History](#history)
 
@@ -207,6 +209,26 @@ Because application logs are often ingested as raw text events with poor decompo
 | ------- | -------------------------------------------- | ----------- |
 | Macos   | product: macos<br>category: file_event       |             |
 | Macos   | product: macos<br>category: process_creation |             |
+
+#### Service
+
+| Product | Logsource                                        | Description                                                                                                                                  |
+| ------- | ------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| Macos   | product: macos<br>service: endpointsecurity      | Apple Endpoint Security Framework (ESF) events collected via eslogger or Elastic Defend. Provides real-time security telemetry for macOS.   |
+
+**Supported Categories with ESF Service:**
+
+| Product | Logsource                                                                     | Description                                            |
+| ------- | ----------------------------------------------------------------------------- | ------------------------------------------------------ |
+| Macos   | product: macos<br>category: process_creation<br>service: endpointsecurity     | ESF ES_EVENT_TYPE_NOTIFY_EXEC (event type 9)           |
+| Macos   | product: macos<br>category: file_event<br>service: endpointsecurity           | ESF file events (create, unlink, rename, etc.)         |
+| Macos   | product: macos<br>category: file_create<br>service: endpointsecurity          | ESF ES_EVENT_TYPE_NOTIFY_CREATE (event type 13)        |
+| Macos   | product: macos<br>category: file_delete<br>service: endpointsecurity          | ESF ES_EVENT_TYPE_NOTIFY_UNLINK (event type 19)        |
+| Macos   | product: macos<br>category: file_rename<br>service: endpointsecurity          | ESF ES_EVENT_TYPE_NOTIFY_RENAME (event type 21)        |
+| Macos   | product: macos<br>category: authentication<br>service: endpointsecurity       | ESF ES_EVENT_TYPE_NOTIFY_AUTHENTICATION (event type 111) |
+| Macos   | product: macos<br>category: process_injection<br>service: endpointsecurity    | ESF ES_EVENT_TYPE_NOTIFY_PTRACE (event type 64)        |
+| Macos   | product: macos<br>category: process_access<br>service: endpointsecurity       | ESF ES_EVENT_TYPE_NOTIFY_PTRACE (event type 64)        |
+| Macos   | product: macos<br>category: driver_load<br>service: endpointsecurity          | ESF kext load/unload events (event types 17, 18)       |
 
 ### Network Folder
 
@@ -427,6 +449,8 @@ You can find all possible field values in the [Sysmon Community Guide](https://g
   - `service: auth`: Linux authentication logs. Usually */var/log/auth.log*.
   - `service: auditd`: Linux audit logs
   - `service: clamav`: ClamAV logs
+- `product: macos`: macOS Operating System logs
+  - `service: endpointsecurity`: Apple Endpoint Security Framework (ESF) events. These events are collected via `eslogger` or Elastic Defend and provide real-time security telemetry for process execution, file operations, authentication, and more. See [Apple ESF Documentation](https://developer.apple.com/documentation/endpointsecurity).
 - `product: apache`: Apache httpd logs
   - `service: access`: Access logs
   - `service: error`: Error logs
@@ -481,6 +505,101 @@ You can find all possible field values in the [Sysmon Community Guide](https://g
     - `Signature`: name of the threat like "EICAR-Test-File"
     - `Action`: action take by the antivirus like "delete"
 
+### macOS Endpoint Security Framework (ESF)
+
+The following fields are specific to macOS Endpoint Security Framework events (`product: macos`, `service: endpointsecurity`). Standard Sigma taxonomy fields (`Image`, `CommandLine`, `User`, etc.) are also supported.
+
+#### Process Fields
+
+| Field Name        | Description                        | Example                          |
+| ----------------- | ---------------------------------- | -------------------------------- |
+| Image             | Process executable path            | /usr/bin/curl                    |
+| ProcessId         | Process ID                         | 12345                            |
+| ProcessName       | Process name (basename)            | curl                             |
+| CommandLine       | Full command line with arguments   | /usr/bin/curl -o file url        |
+| CurrentDirectory  | Process working directory          | /Users/admin                     |
+| ParentImage       | Parent process executable path     | /bin/bash                        |
+| ParentProcessId   | Parent process ID                  | 1234                             |
+| ParentProcessName | Parent process name                | bash                             |
+| ParentCommandLine | Parent process command line        | /bin/bash -l                     |
+
+#### User/Group Fields (Unix-Specific)
+
+These fields support Unix user/group ID model with separate real and effective IDs.
+
+| Field Name       | Description                        | Example    |
+| ---------------- | ---------------------------------- | ---------- |
+| User             | Effective username                 | admin      |
+| UserId           | Effective user ID (euid)           | 501        |
+| RealUserId       | Real user ID (ruid)                | 501        |
+| RealUser         | Real username                      | admin      |
+| GroupId          | Effective group ID (egid)          | 20         |
+| RealGroupId      | Real group ID (rgid)               | 20         |
+| TargetUser       | Target username (setuid events)    | root       |
+| TargetUserId     | Target user ID (setuid events)     | 0          |
+| TargetGroup      | Target group name (setgid events)  | wheel      |
+| TargetGroupId    | Target group ID (setgid events)    | 0          |
+
+#### File Fields
+
+| Field Name          | Description                          | Example                             |
+| ------------------- | ------------------------------------ | ----------------------------------- |
+| TargetFilename      | Target file path                     | /Library/LaunchDaemons/evil.plist   |
+| FileName            | File name                            | evil.plist                          |
+| FileDirectory       | File directory                       | /Library/LaunchDaemons              |
+| SourceFilename      | Source file path (rename operations) | /tmp/original.txt                   |
+| DestinationFilename | Destination file path (rename ops)   | /tmp/renamed.txt                    |
+
+#### Code Signature Fields (macOS-Specific)
+
+| Field Name      | Description                         | Example          |
+| --------------- | ----------------------------------- | ---------------- |
+| SigningID       | macOS code signing identifier       | com.apple.Safari |
+| TeamID          | Apple Developer Team ID             | ABCDE12345       |
+| SignatureStatus | Code signature verification status  | valid            |
+| Signed          | Whether binary is signed (boolean)  | true             |
+
+#### Process Injection/Access Fields
+
+| Field Name        | Description                       | Example           |
+| ----------------- | --------------------------------- | ----------------- |
+| SourceImage       | Injecting/accessing process path  | /usr/bin/lldb     |
+| SourceProcessId   | Injecting/accessing process PID   | 1234              |
+| TargetImage       | Target process executable path    | /Applications/App |
+| TargetProcessId   | Target process PID                | 5678              |
+| TargetProcessName | Target process name               | App               |
+| TargetProcessGUID | Target process entity ID          | {guid}            |
+
+#### Unix/macOS-Specific Fields
+
+| Field Name       | Description                      | ESF Event Type | Example        |
+| ---------------- | -------------------------------- | -------------- | -------------- |
+| SignalNumber     | Unix signal number               | 27 (signal)    | 9 (SIGKILL)    |
+| PtraceRequest    | Ptrace request type              | 64 (ptrace)    | PT_ATTACH      |
+| XpcServiceName   | macOS XPC service name           | 65 (xpc)       | com.apple.svc  |
+| KextIdentifier   | Kernel extension bundle ID       | 17, 18 (kext)  | com.vendor.kext|
+| MemoryProtection | Memory protection flags          | 20 (mprotect)  | rwx            |
+
+#### ESF Event Type Reference
+
+| Event Type | Name           | Description                  |
+| ---------- | -------------- | ---------------------------- |
+| 9          | exec           | Process execution            |
+| 11         | fork           | Process fork                 |
+| 13         | create         | File creation                |
+| 17         | kextload       | Kernel extension load        |
+| 18         | kextunload     | Kernel extension unload      |
+| 19         | unlink         | File deletion                |
+| 20         | mprotect       | Memory protection change     |
+| 21         | rename         | File rename                  |
+| 22         | mount          | Filesystem mount             |
+| 24         | setuid         | Set user ID                  |
+| 25         | setgid         | Set group ID                 |
+| 27         | signal         | Process signal               |
+| 64         | ptrace         | Process trace (debug/inject) |
+| 65         | xpc_connect    | XPC connection               |
+| 111        | authentication | Authentication event         |
+
 ### Network category
 
 - `service: connection`
@@ -519,6 +638,11 @@ You can find all possible field values in the [Sysmon Community Guide](https://g
 
 ## History
 
+- 2026-01-21 Taxonomy Appendix v2.1.1
+  - Add macOS Endpoint Security Framework (ESF) logsource:
+    - `product: macos`, `service: endpointsecurity`
+  - Add macOS ESF-specific fields section with Unix user/group, code signature, and process injection fields
+  - Add ESF event type reference
 - 2025-08-02 Specification v2.1.0
   - Add generic network category:
     - `service: connection`
