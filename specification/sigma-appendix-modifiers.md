@@ -182,6 +182,7 @@ The following table summarizes the usage requirements for each modifier and whic
 - 2025-XX-XX Specification v2.2.0
   - provides more details on the regex
   - make use of `(?flag)` or `(?-flag)` deprecated
+  - Add  `Modifiers Requirements` information
 - 2025-08-02 Specification v2.1.0
   - Add `neq`
   - Add time modifiers
