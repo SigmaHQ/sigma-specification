@@ -388,6 +388,9 @@ Example:
 condition: rule_a AND rule_b AND NOT rule_c
 ```
 
+- For *temporal* and *temporal_ordered* if the condition is omitted, an implicit AND between all referenced rules is assumed.
+- If the condition field is used in *temporal* or *temporal_ordered* correlations, the rule identifiers used in the condition must match the ones defined in the `rules` attribute.
+
 If you need more complex constructs, you can always chain correlation rules together.
 See the examples at the far bottom, for more details.
 
