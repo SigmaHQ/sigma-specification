@@ -232,11 +232,11 @@
         },
         {
           "if": { "properties": { "type": { "const": "temporal" } } },
-          "then": { "required": ["group-by", "timespan"] }
+          "then": { "required": ["condition", "group-by", "timespan"] }
         },
         {
           "if": { "properties": { "type": { "const": "temporal_ordered" } } },
-          "then": { "required": ["group-by", "timespan"] }
+          "then": { "required": ["condition", "group-by", "timespan"] }
         },
         {
           "if": { "properties": { "type": { "const": "value_count" } } },
