@@ -7,19 +7,21 @@ The following document defines the standardized modifiers that can be used in Si
 
 <!-- mdformat-toc start --slug=github --no-anchors --maxlevel=6 --minlevel=2 -->
 
-- [Generic Modifiers](#generic-modifiers)
-- [String Modifiers](#string-modifiers)
+- [Sigma Modifiers](#sigma-modifiers)
+  - [Generic Modifiers](#generic-modifiers)
+  - [String Modifiers](#string-modifiers)
   - [Regular Expression](#regular-expression)
-  - [Encoding](#encoding)
-- [Numeric Modifiers](#numeric-modifiers)
-- [Time Modifiers](#time-modifiers)
-- [IP (Internet Protocol) Modifiers](#ip-internet-protocol-modifiers)
-- [Specific Modifiers](#specific-modifiers)
-- [History](#history)
+  - [Encoding Modifiers](#encoding-modifiers)
+  - [Numeric Modifiers](#numeric-modifiers)
+  - [Time Modifiers](#time-modifiers)
+  - [IP (Internet Protocol) Modifiers](#ip-internet-protocol-modifiers)
+  - [Specific Modifiers](#specific-modifiers)
+  - [Modifiers Requirements](#modifiers-requirements)
+  - [History](#history)
 
 <!-- mdformat-toc end -->
 
-### Generic Modifiers
+## Generic Modifiers
 
 The following modifiers are considered generic modifiers and can be applied on all types of fields.
 
@@ -29,6 +31,8 @@ The following modifiers are considered generic modifiers and can be applied on a
 
   Single item values are not allowed to have an `all` modifier as some back-ends cannot support it.
   If you use it as a workaround to duplicate a field in a selection, use a new selection instead.
+
+  For consistency, the `all` modifier must always be applied last.
 
 - `startswith`: The value is expected at the beginning of the field's content. (replaces e.g. 'adm\*')
 
@@ -43,13 +47,13 @@ The following modifiers are considered generic modifiers and can be applied on a
 
 - `neq`: The field is different from the specified values.
 
-### String Modifiers
+## String Modifiers
 
 The modifiers listed in this section can only be applied to string values.
 
 - `windash`: Creates all possible permutations of the `-`, `/`, `–` (en dash), `—` (em dash), and `―` (horizontal bar) characters. Windows command line flags can often be indicated by both characters. Using the `windash` modifier converts the aforementioned characters interchangeably and uses all possible permutation of strings in the selection.
 
-#### Regular Expression
+## Regular Expression
 
 - `re`: Value is handled as a regular expression by backends.
 
@@ -80,7 +84,9 @@ Regexes are matched case-sensitive and match a substring (matches as 'contains')
   - `m`: (multiline) to match across multiple lines. `^` /`$` match the start/end of line.
   - `s`: (single line) to enable that dot (`.`) matches all characters, including the newline character.
 
-#### Encoding
+Keep in mind that the above sub-modifiers can only be used with the `re` modifier.
+
+## Encoding Modifiers
 
 - `base64`: The value is encoded with Base64.
 - `base64offset`: If a value might appear somewhere in a base64-encoded string the representation
@@ -92,7 +98,7 @@ Regexes are matched case-sensitive and match a substring (matches as 'contains')
 - `utf16`: Prepends a [byte order mark](https://en.wikipedia.org/wiki/Byte_order_mark) and encodes UTF16, e.g. `cmd` > `FF FE 63 00 6d 00 64 00`
 - `wide`: an alias for the `utf16le` modifier.
 
-### Numeric Modifiers
+## Numeric Modifiers
 
 The modifiers listed in this section can only be applied to numeric values.
 
@@ -102,7 +108,7 @@ The modifiers listed in this section can only be applied to numeric values.
 - `gte`: Field is greater or equal than the value
 - `neq`: Field is not equal than the value
 
-### Time Modifiers
+## Time Modifiers
 
 The modifiers listed in this section can only be applied to date values.
 it extracts a numeric value from a date.
@@ -116,13 +122,13 @@ it extracts a numeric value from a date.
 - `month`: number between 1 and 12.
 - `year`: number of the year
 
-### IP (Internet Protocol) Modifiers
+## IP (Internet Protocol) Modifiers
 
 The modifiers listed in this section can only be applied to IP values.
 
 - `cidr`: The value is handled as a CIDR network range specification by backends. Supports both IPv4 and IPv6 notations. Example: `DestinationIp|cidr: 10.0.0.0/8`
 
-### Specific Modifiers
+## Specific Modifiers
 
 - `expand`: Modifier for expansion of placeholders in values. The final behavior of the replacement is determined by processing pipeline transformations. Current possibilities in pySigma are:
 
@@ -131,7 +137,45 @@ The modifiers listed in this section can only be applied to IP values.
   - Replace placeholder with wildcard `*`, which should only be used as last resort. (`WildcardPlaceholderTransformation`/`wildcard_placeholders`)
 
 - `fieldref`: Modifies a plain string into a field reference. A field reference can be used to compare fields of matched
-  events directly at query/matching time. Can be conbine with the `neq` modifier.
+  events directly at query/matching time. Can be combined with the `neq` modifier. Examples:
+
+  - `SourceUser|fieldref: TargetUser` compares the value of the `SourceUser` field with the value of the `TargetUser` field.
+  - `SourceUser|fieldref|neq: TargetUser` matches if the value of the `SourceUser` field is different from the value of the `TargetUser` field.
+
+## Modifiers Requirements
+
+The following table summarizes the usage requirements for each modifier and which field types they can be applied to along with additional details on how they can be combined, and their positioning to avoid confusion and ambiguity.
+
+| Modifier        | Applied Field Types | Can be combined with other modifiers | Positioning Requirement              |
+|-----------------|---------------------|--------------------------------------|--------------------------------------|
+| all             | Any                 | Yes                                  | Must be last                         |
+| startswith      | Any                 | Yes                                  | Cannot be combined with endswith     |
+| endswith        | Any                 | Yes                                  | Cannot be combined with startswith   |
+| contains        | Any                 | Yes                                  | N/A                                  |
+| exists          | Any                 | No                                   | N/A                                  |
+| cased           | Any                 | Yes                                  | N/A                                  |
+| neq             | Any                 | Yes                                  | N/A                                  |
+| windash         | String              | Yes                                  | N/A                                  |
+| re              | Any                 | Yes                                  | N/A                                  |
+| base64          | String              | Yes                                  | N/A                                  |
+| base64offset    | String              | Yes                                  | N/A                                  |
+| utf16le         | String              | Yes                                  | N/A                                  |
+| utf16be         | String              | Yes                                  | N/A                                  |
+| utf16           | String              | Yes                                  | N/A                                  |
+| wide            | String              | Yes                                  | N/A                                  |
+| lt              | Numeric             | No                                   | N/A                                  |
+| lte             | Numeric             | No                                   | N/A                                  |
+| gt              | Numeric             | No                                   | N/A                                  |
+| gte             | Numeric             | No                                   | N/A                                  |
+| minute          | Date/Time           | No                                   | N/A                                  |
+| hour            | Date/Time           | No                                   | N/A                                  |
+| day             | Date/Time           | No                                   | N/A                                  |
+| week            | Date/Time           | No                                   | N/A                                  |
+| month           | Date/Time           | No                                   | N/A                                  |
+| year            | Date/Time           | No                                   | N/A                                  |
+| cidr            | IP Address          | No                                   | N/A                                  |
+| expand          | Any                 | Yes                                  | N/A                                  |
+| fieldref        | Any                 | Yes                                  | N/A                                  |
 
 ## History
 
