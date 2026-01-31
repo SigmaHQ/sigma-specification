@@ -264,7 +264,7 @@ Allowed values:
 
 **Attribute:** rules
 
-**Use:** mandatory
+**Use:** mandatory for all correlation types except `temporal` and `temporal_ordered`.
 
 Refers to one or multiple Sigma or Correlations rules.
 
@@ -342,6 +342,8 @@ The condition defines when a correlation matches:
 
 - for an *event_count* correlation, it defines the event count that must appear within the given time frame to match.
 - for a *value_count* correlation, it defines the count of distinct values contained in the field specified in the mandatory *field* attribute.
+- For a *temporal* or *temporal_ordered* correlation it specified the count of different event types (Sigma rules
+  matching) in the given time frame.
 
 Example:
 
@@ -380,7 +382,7 @@ condition:
     lte: 200
 ```
 
-- For a *temporal* or *temporal_ordered* correlation, the condition attribute defines the logical relationship between referenced rules using string-based rule identifiers (names or IDs from the rules attribute).
+- Additionally, for a *temporal* or *temporal_ordered* correlation, the condition attribute also defines the logical relationship between referenced rules using string-based rule identifiers (names or IDs from the rules attribute).
 
 Example:
 
@@ -389,6 +391,7 @@ condition: rule_a AND rule_b AND NOT rule_c
 ```
 
 - For *temporal* and *temporal_ordered* if the condition is omitted, an implicit AND between all referenced rules is assumed.
+
 - If the condition field is used in *temporal* or *temporal_ordered* correlations, the rule identifiers used in the condition must match the ones defined in the `rules` attribute.
 
 If you need more complex constructs, you can always chain correlation rules together.
