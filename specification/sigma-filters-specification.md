@@ -5,7 +5,7 @@ The following document defines the standardized global filter that can be used w
 - Version 2.2.0
 - Release date 2025-XX-XX
 
-<!-- mdformat-toc start --slug=github --no-anchors --maxlevel=6 --minlevel=2 -->
+<!-- mdformat-toc start --slug=github --no-anchors --maxlevel=6 --minlevel=1 -->
 
 - [Sigma Filters Specification](#sigma-filters-specification)
   - [Introduction](#introduction)
@@ -22,7 +22,7 @@ The following document defines the standardized global filter that can be used w
       - [Modified](#modified)
       - [Taxonomy](#taxonomy)
       - [Log source](#log-source)
-      - [Global Filter](#global-filter-1)
+      - [Global Filter](#global-filter)
         - [Relative rules](#relative-rules)
         - [filter selection](#filter-selection)
         - [filter condition](#filter-condition)

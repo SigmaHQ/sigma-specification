@@ -5,7 +5,7 @@ The following document defines the standardized tags that can be used to categor
 - Version 2.2.0
 - Release date 2025-XX-XX
 
-<!-- mdformat-toc start --slug=github --no-anchors --maxlevel=6 --minlevel=2 -->
+<!-- mdformat-toc start --slug=github --no-anchors --maxlevel=6 --minlevel=1 -->
 
 - [Sigma Tags](#sigma-tags)
   - [Namespaces](#namespaces)

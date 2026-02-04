@@ -5,7 +5,7 @@ The following document defines the standardized correlation that can be used in 
 - Version 2.2.0
 - Release date 2025-XX-XX
 
-<!-- mdformat-toc start --slug=github --no-anchors --maxlevel=6 --minlevel=2 -->
+<!-- mdformat-toc start --slug=github --no-anchors --maxlevel=6 --minlevel=1 -->
 
 - [Sigma Correlation Rules Specification](#sigma-correlation-rules-specification)
   - [Introduction](#introduction)
@@ -39,13 +39,13 @@ The following document defines the standardized correlation that can be used in 
       - [Level](#level)
       - [Generate](#generate)
     - [Correlation Types](#correlation-types)
-      - [Event Count (event\_count)](#event-count-event_count)
-      - [Value Count (value\_count)](#value-count-value_count)
+      - [Event Count (event_count)](#event-count-event_count)
+      - [Value Count (value_count)](#value-count-value_count)
       - [Temporal Proximity (temporal)](#temporal-proximity-temporal)
-      - [Ordered Temporal Proximity (temporal\_ordered)](#ordered-temporal-proximity-temporal_ordered)
-      - [Value Sum (value\_sum)](#value-sum-value_sum)
-      - [Value Average (value\_avg)](#value-average-value_avg)
-      - [Value Percentile (value\_percentile)](#value-percentile-value_percentile)
+      - [Ordered Temporal Proximity (temporal_ordered)](#ordered-temporal-proximity-temporal_ordered)
+      - [Value Sum (value_sum)](#value-sum-value_sum)
+      - [Value Average (value_avg)](#value-average-value_avg)
+      - [Value Percentile (value_percentile)](#value-percentile-value_percentile)
     - [Field Name Aliases](#field-name-aliases)
   - [Examples](#examples)
     - [Failed Logins Followed by Successful Login](#failed-logins-followed-by-successful-login)
@@ -665,15 +665,15 @@ aliases:
 
 The field names referenced in aliases must not necessarily appear in the Sigma rules, but in the events matched by the Sigma rules.
 
-`<Sigma rule name>` is the name given by the `name` attribute. \
+`<Sigma rule name>` is the name given by the `name` attribute.
 
 The `name` attribute is optional in general, but has to be defined, if you want to use `aliases`.
 
 Example:
 
-The following correlation rule defines field name aliases `internal_ip` and `remote_ip` that are used in the `group-by` attribute. \
+The following correlation rule defines field name aliases `internal_ip` and `remote_ip` that are used in the `group-by` attribute.
 
-The `internal_ip` alias references the field `destination.ip` in the events matched by the Sigma rule `internal_error` and `source.ip` in the events matched by the Sigma rule `new_network_connection`. \
+The `internal_ip` alias references the field `destination.ip` in the events matched by the Sigma rule `internal_error` and `source.ip` in the events matched by the Sigma rule `new_network_connection`.
 
 The correlation rule then only matches if the events appear with the same address in the respective fields of the events matching the referenced Sigma rules.
 

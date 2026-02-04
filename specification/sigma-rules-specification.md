@@ -3,7 +3,7 @@
 - Version 2.2.X
 - Release date 2025-XX-XX
 
-<!-- mdformat-toc start --slug=github --no-anchors --maxlevel=6 --minlevel=2 -->
+<!-- mdformat-toc start --slug=github --no-anchors --maxlevel=6 --minlevel=1 -->
 
 - [Sigma Rules Specification](#sigma-rules-specification)
   - [File Structure](#file-structure)

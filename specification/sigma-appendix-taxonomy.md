@@ -5,7 +5,7 @@ The following document defines the field names and log sources that are allowed 
 - Version 2.1.0
 - Release date 2025-08-02
 
-<!-- mdformat-toc start --slug=github --no-anchors --maxlevel=6 --minlevel=2 -->
+<!-- mdformat-toc start --slug=github --no-anchors --maxlevel=6 --minlevel=1 -->
 
 - [Sigma Taxonomy](#sigma-taxonomy)
   - [Log Sources](#log-sources)

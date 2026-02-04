@@ -5,7 +5,7 @@ The following document defines the standardized modifiers that can be used in Si
 - Version 2.2.0
 - Release date 2025-XX-XX
 
-<!-- mdformat-toc start --slug=github --no-anchors --maxlevel=6 --minlevel=2 -->
+<!-- mdformat-toc start --slug=github --no-anchors --maxlevel=6 --minlevel=1 -->
 
 - [Sigma Modifiers](#sigma-modifiers)
   - [Generic Modifiers](#generic-modifiers)
@@ -146,43 +146,43 @@ The modifiers listed in this section can only be applied to IP values.
 
 The following table summarizes the usage requirements for each modifier and which field types they can be applied to along with additional details on how they can be combined, and their positioning to avoid confusion and ambiguity.
 
-| Modifier        | Applied Field Types | Can be combined with other modifiers | Positioning Requirement              |
-|-----------------|---------------------|--------------------------------------|--------------------------------------|
-| all             | Any                 | Yes                                  | Must be last                         |
-| startswith      | Any                 | Yes                                  | Cannot be combined with endswith     |
-| endswith        | Any                 | Yes                                  | Cannot be combined with startswith   |
-| contains        | Any                 | Yes                                  | N/A                                  |
-| exists          | Any                 | No                                   | N/A                                  |
-| cased           | Any                 | Yes                                  | N/A                                  |
-| neq             | Any                 | Yes                                  | N/A                                  |
-| windash         | String              | Yes                                  | N/A                                  |
-| re              | Any                 | Yes                                  | N/A                                  |
-| base64          | String              | Yes                                  | N/A                                  |
-| base64offset    | String              | Yes                                  | N/A                                  |
-| utf16le         | String              | Yes                                  | N/A                                  |
-| utf16be         | String              | Yes                                  | N/A                                  |
-| utf16           | String              | Yes                                  | N/A                                  |
-| wide            | String              | Yes                                  | N/A                                  |
-| lt              | Numeric             | No                                   | N/A                                  |
-| lte             | Numeric             | No                                   | N/A                                  |
-| gt              | Numeric             | No                                   | N/A                                  |
-| gte             | Numeric             | No                                   | N/A                                  |
-| minute          | Date/Time           | No                                   | N/A                                  |
-| hour            | Date/Time           | No                                   | N/A                                  |
-| day             | Date/Time           | No                                   | N/A                                  |
-| week            | Date/Time           | No                                   | N/A                                  |
-| month           | Date/Time           | No                                   | N/A                                  |
-| year            | Date/Time           | No                                   | N/A                                  |
-| cidr            | IP Address          | No                                   | N/A                                  |
-| expand          | Any                 | Yes                                  | N/A                                  |
-| fieldref        | Any                 | Yes                                  | N/A                                  |
+| Modifier     | Applied Field Types | Can be combined with other modifiers | Positioning Requirement            |
+| ------------ | ------------------- | ------------------------------------ | ---------------------------------- |
+| all          | Any                 | Yes                                  | Must be last                       |
+| startswith   | Any                 | Yes                                  | Cannot be combined with endswith   |
+| endswith     | Any                 | Yes                                  | Cannot be combined with startswith |
+| contains     | Any                 | Yes                                  | N/A                                |
+| exists       | Any                 | No                                   | N/A                                |
+| cased        | Any                 | Yes                                  | N/A                                |
+| neq          | Any                 | Yes                                  | N/A                                |
+| windash      | String              | Yes                                  | N/A                                |
+| re           | Any                 | Yes                                  | N/A                                |
+| base64       | String              | Yes                                  | N/A                                |
+| base64offset | String              | Yes                                  | N/A                                |
+| utf16le      | String              | Yes                                  | N/A                                |
+| utf16be      | String              | Yes                                  | N/A                                |
+| utf16        | String              | Yes                                  | N/A                                |
+| wide         | String              | Yes                                  | N/A                                |
+| lt           | Numeric             | No                                   | N/A                                |
+| lte          | Numeric             | No                                   | N/A                                |
+| gt           | Numeric             | No                                   | N/A                                |
+| gte          | Numeric             | No                                   | N/A                                |
+| minute       | Date/Time           | No                                   | N/A                                |
+| hour         | Date/Time           | No                                   | N/A                                |
+| day          | Date/Time           | No                                   | N/A                                |
+| week         | Date/Time           | No                                   | N/A                                |
+| month        | Date/Time           | No                                   | N/A                                |
+| year         | Date/Time           | No                                   | N/A                                |
+| cidr         | IP Address          | No                                   | N/A                                |
+| expand       | Any                 | Yes                                  | N/A                                |
+| fieldref     | Any                 | Yes                                  | N/A                                |
 
 ## History
 
 - 2025-XX-XX Specification v2.2.0
   - provides more details on the regex
   - make use of `(?flag)` or `(?-flag)` deprecated
-  - Add  `Modifiers Requirements` information
+  - Add `Modifiers Requirements` information
 - 2025-08-02 Specification v2.1.0
   - Add `neq`
   - Add time modifiers
