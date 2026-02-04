@@ -17,11 +17,26 @@
     "status": {
       "type": "string",
       "oneOf": [
-        { "const": "stable", "description": "The rule didn't produce any obvious false positives in multiple environments over a long period of time" },
-        { "const": "test", "description": "The rule doesn't show any obvious false positives on a limited set of test systems" },
-        { "const": "experimental", "description": "A new rule that hasn't been tested outside of lab environments and could lead to many false positives" },
-        { "const": "deprecated", "description": "The rule was replaced or is now covered by another one. The link between both rules is made via the `related` field" },
-        { "const": "unsupported", "description": "The rule can not be used in its current state (special correlation log, home-made fields, etc.)" }
+        {
+          "const": "stable",
+          "description": "The rule didn't produce any obvious false positives in multiple environments over a long period of time"
+        },
+        {
+          "const": "test",
+          "description": "The rule doesn't show any obvious false positives on a limited set of test systems"
+        },
+        {
+          "const": "experimental",
+          "description": "A new rule that hasn't been tested outside of lab environments and could lead to many false positives"
+        },
+        {
+          "const": "deprecated",
+          "description": "The rule was replaced or is now covered by another one. The link between both rules is made via the `related` field"
+        },
+        {
+          "const": "unsupported",
+          "description": "The rule can not be used in its current state (special correlation log, home-made fields, etc.)"
+        }
       ]
     },
     "description": {
@@ -101,9 +116,7 @@
           "type": "object",
           "description": "Defines field name aliases that are applied to correlated Sigma rules",
           "additionalProperties": {
-            "anyOf": [
-              { "type": "object", "items": { "type": "string" } }
-            ]
+            "anyOf": [{ "type": "object", "items": { "type": "string" } }]
           }
         },
         "group-by": {
@@ -120,10 +133,10 @@
         "condition": {
           "description": "The condition defines when a correlation matches",
           "oneOf": [
-            { 
+            {
               "type": "string"
             },
-            { 
+            {
               "type": "object",
               "minItems": 1,
               "maxItems": 3,
@@ -137,7 +150,10 @@
                 "field": {
                   "anyOf": [
                     { "type": "string", "maxLength": 256 },
-                    { "type": "array", "items": { "type": "string", "maxLength": 256 } }
+                    {
+                      "type": "array",
+                      "items": { "type": "string", "maxLength": 256 }
+                    }
                   ]
                 }
               },
@@ -178,7 +194,7 @@
             "required": ["condition", "group-by", "rules", "timespan"],
             "properties": {
               "condition": {
-                  "type": "object"
+                "type": "object"
               }
             }
           }
@@ -190,7 +206,10 @@
       "uniqueItems": true,
       "anyOf": [
         { "type": "string", "minLength": 2 },
-        { "type": "array", "items": { "type": "string", "minLength": 2 } }
+        {
+          "type": "array",
+          "items": { "type": "string", "minLength": 2 }
+        }
       ]
     },
     "level": {
