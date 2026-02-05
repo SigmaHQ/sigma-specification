@@ -5,58 +5,58 @@ The following document defines the standardized correlation that can be used in 
 - Version 2.2.0
 - Release date 2025-XX-XX
 
-<!-- mdformat-toc start --slug=github --no-anchors --maxlevel=6 --minlevel=2 -->
+<!-- mdformat-toc start --slug=github --no-anchors --maxlevel=6 --minlevel=1 -->
 
-- [Introduction](#introduction)
-  - [Compatibility](#compatibility)
-  - [Expression of Relationships In The Condition of Sigma Rules](#expression-of-relationships-in-the-condition-of-sigma-rules)
-  - [Type of Correlation rules](#type-of-correlation-rules)
-- [Correlation rules](#correlation-rules)
-  - [File Structure](#file-structure)
-    - [YAML File](#yaml-file)
-    - [Schema](#schema)
-    - [Syntax](#syntax)
-  - [Components](#components)
-    - [Title](#title)
-    - [Identification](#identification)
-    - [Status](#status)
-    - [Description](#description)
-    - [Author](#author)
-    - [References](#references)
-    - [Date](#date)
-    - [Modified](#modified)
-    - [Taxonomy](#taxonomy)
-    - [Tags](#tags)
-    - [Correlation section](#correlation-section)
-      - [Correlation type](#correlation-type)
-      - [Related rules](#related-rules)
-      - [Aliases](#aliases)
-      - [Grouping](#grouping)
-      - [Time Selection](#time-selection)
-      - [Condition](#condition)
-    - [FalsePositives](#falsepositives)
-    - [Level](#level)
-    - [Generate](#generate)
-  - [Correlation Types](#correlation-types)
-    - [Event Count (event_count)](#event-count-event_count)
-    - [Value Count (value_count)](#value-count-value_count)
-    - [Temporal Proximity (temporal)](#temporal-proximity-temporal)
-    - [Ordered Temporal Proximity (temporal_ordered)](#ordered-temporal-proximity-temporal_ordered)
-    - [Value Sum (value_sum)](#value-sum-value_sum)
-    - [Value Average (value_avg)](#value-average-value_avg)
-    - [Value Percentile (value_percentile)](#value-percentile-value_percentile)
-  - [Field Name Aliases](#field-name-aliases)
-    - [Field Name Aliases Example](#field-name-aliases-example)
-- [Example](#example)
-  - [Failed Logins Followed by Successful Login](#failed-logins-followed-by-successful-login)
-- [History](#history)
+- [Sigma Correlation Rules Specification](#sigma-correlation-rules-specification)
+  - [Introduction](#introduction)
+    - [Compatibility](#compatibility)
+    - [Expression of Relationships In The Condition of Sigma Rules](#expression-of-relationships-in-the-condition-of-sigma-rules)
+    - [Type of Correlation rules](#type-of-correlation-rules)
+  - [Correlation rules](#correlation-rules)
+    - [File Structure](#file-structure)
+      - [YAML File](#yaml-file)
+      - [Schema](#schema)
+      - [Syntax](#syntax)
+    - [Components](#components)
+      - [Title](#title)
+      - [Identification](#identification)
+      - [Status](#status)
+      - [Description](#description)
+      - [Author](#author)
+      - [References](#references)
+      - [Date](#date)
+      - [Modified](#modified)
+      - [Taxonomy](#taxonomy)
+      - [Tags](#tags)
+      - [Correlation section](#correlation-section)
+        - [Correlation type](#correlation-type)
+        - [Related rules](#related-rules)
+        - [Aliases](#aliases)
+        - [Grouping](#grouping)
+        - [Time Selection](#time-selection)
+        - [Condition](#condition)
+      - [FalsePositives](#falsepositives)
+      - [Level](#level)
+      - [Generate](#generate)
+    - [Correlation Types](#correlation-types)
+      - [Event Count (event_count)](#event-count-event_count)
+      - [Value Count (value_count)](#value-count-value_count)
+      - [Temporal Proximity (temporal)](#temporal-proximity-temporal)
+      - [Ordered Temporal Proximity (temporal_ordered)](#ordered-temporal-proximity-temporal_ordered)
+      - [Value Sum (value_sum)](#value-sum-value_sum)
+      - [Value Average (value_avg)](#value-average-value_avg)
+      - [Value Percentile (value_percentile)](#value-percentile-value_percentile)
+    - [Field Name Aliases](#field-name-aliases)
+  - [Examples](#examples)
+    - [Failed Logins Followed by Successful Login](#failed-logins-followed-by-successful-login)
+  - [History](#history)
 
 <!-- mdformat-toc end -->
 
 ## Introduction
 
 Sometimes you need more advanced searches than simple selections.
-For this purpose, you can use meta-rules that correlate multiple Sigma rules.
+For this purpose, you can use correlation-rules that correlate multiple Sigma rules.
 
 ### Compatibility
 
@@ -115,7 +115,7 @@ To keep the file names interoperable use the following:
 - Use `_` instead of a space
 - Use `.yml` as a file extension
 
-As a best practice use the prefix `mr_`.
+As a best practice use the prefix `correlation_`.
 
 #### Schema
 
@@ -240,7 +240,7 @@ A Sigma rule can be categorized with tags. Tags should generally follow this syn
 - Keep tags short, e.g. numeric identifiers instead of long sentences
 - Feel free to send pull requests or issues with proposals for new tags
 
-[More information about tags](sigma-appendix-tags.md)
+[More information about tags can be found in the Sigma Tags Appendix](sigma-appendix-tags.md)
 
 #### Correlation section
 
@@ -256,15 +256,20 @@ Allowed values:
 - value_count
 - temporal
 - temporal_ordered
+- value_sum
+- value_avg
+- value_percentile
 
 ##### Related rules
 
 **Attribute:** rules
 
-**Use:** mandatory
+**Use:** mandatory for all correlation types except `temporal` and `temporal_ordered`.
 
 Refers to one or multiple Sigma or Correlations rules.
+
 Allowing the user to chain multiple correlations together.
+
 A rule can be referred to by the `id` or `name` of a Sigma rule.
 
 `name` is a per correlation **unique** human-readable name that improves the readability of correlation rules.
@@ -296,14 +301,14 @@ See the example in the chapter [Field Name Aliases](#field-name-aliases) to get 
 
 **Use:** mandatory
 
-optionally defines one or multiple fields which should be treated as separate event occurrence scope. Examples:
+Optionally defines one or multiple fields which should be treated as separate event occurrence scope. Examples:
 
 - count events by user
 - temporal proximity must occur on one system by the same user
 
 When you use multiple fields they are linked by an **AND**.
 
-for example, if we want to group by the unique "name/domain" pair:
+For example, if we want to group by the unique "name/domain" pair:
 
 ```yaml
 group-by:
@@ -325,7 +330,7 @@ The following format must be used: `number + letter (in lowercase)`
 - Xh hours
 - Xd days
 
-example for 1h30 : `timespan: 90m`
+Example for 1h30 : `timespan: 90m`
 
 ##### Condition
 
@@ -335,11 +340,28 @@ example for 1h30 : `timespan: 90m`
 
 The condition defines when a correlation matches:
 
-- for an *event_count* correlation it defines the event count that must appear within the given time frame to match.
-- for a *value_count* correlation it defines the count of distinct values contained in the field specified in the
-  mandatory *field* attribute.
+- for an *event_count* correlation, it defines the event count that must appear within the given time frame to match.
+- for a *value_count* correlation, it defines the count of distinct values contained in the field specified in the mandatory *field* attribute.
 - For a *temporal* or *temporal_ordered* correlation it specified the count of different event types (Sigma rules
   matching) in the given time frame.
+
+Example:
+
+```yaml
+title: Failed login
+id: 0e95725d-7320-415d-80f7-004da920fc12
+correlation:
+    type: value_count
+    rules:
+        - 5638f7c0-ac70-491d-8465-2a65075e0d86
+    group-by:
+        - ComputerName
+        - WorkstationName
+    timespan: 1d
+    condition:
+        field: User
+        gte: 100
+```
 
 It is a map of exactly one condition criterion:
 
@@ -350,13 +372,6 @@ It is a map of exactly one condition criterion:
 - `eq`: The count must be equal the given value
 - `neq`: The count must be different the given value
 
-Example:
-
-```yaml
-condition:
-    gte: 100
-```
-
 To define a range, you can use the conjunction 'AND' in the mapping.
 
 Example "101 to 200":
@@ -366,6 +381,18 @@ condition:
     gt: 100
     lte: 200
 ```
+
+- Additionally, for a *temporal* or *temporal_ordered* correlation, the condition attribute also defines the logical relationship between referenced rules using string-based rule identifiers (names or IDs from the rules attribute).
+
+Example:
+
+```yaml
+condition: rule_a AND rule_b AND NOT rule_c
+```
+
+- For *temporal* and *temporal_ordered* if the condition is omitted, an implicit AND between all referenced rules is assumed.
+
+- If the condition field is used in *temporal* or *temporal_ordered* correlations, the rule identifiers used in the condition must match the ones defined in the `rules` attribute.
 
 If you need more complex constructs, you can always chain correlation rules together.
 See the examples at the far bottom, for more details.
@@ -384,8 +411,16 @@ A list of known false positives that may occur.
 
 **Use:** optional
 
-defines a severity level adjustment if the correlation matches.
+Defines a severity level adjustment if the correlation matches.
 This allows to give single event hits a low or informational severity and increasing this to higher levels in case of correlating appearances of events.
+
+Allowed values:
+
+- informational
+- low
+- medium
+- high
+- critical
 
 #### Generate
 
@@ -393,8 +428,16 @@ This allows to give single event hits a low or informational severity and increa
 
 **Use:** optional
 
-defines if the rules referred from the correlation rule should be converted
+Defines if the rules referred from the correlation rule should be converted
 as stand-alone rules or if only the correlation query should be generated (default).
+
+For correlation rules that are referencing rules external to the correlation file,
+the `generate` attribute has no effect on those external rules.
+
+Allowed values:
+
+- `true`: generate all referred rules as stand-alone rules in addition to the correlation rule.
+- `false`: only generate the correlation rule.
 
 ### Correlation Types
 
@@ -471,6 +514,7 @@ Requires:
 - `rules`
 - `group-by`
 - `timespan`
+- `condition`
 
 Simple example : Reconnaissance commands defined in three Sigma rules are invoked in arbitrary order within 5 minutes on a system by the same user:
 
@@ -485,6 +529,7 @@ correlation:
         - ComputerName
         - User
     timespan: 5m
+    condition: recon_cmd_a AND recon_cmd_b AND recon_cmd_c
 ```
 
 #### Ordered Temporal Proximity (temporal_ordered)
@@ -497,6 +542,7 @@ Requires:
 - `rules`
 - `group-by`
 - `timespan`
+- `condition`
 
 Example: many failed logins as defined above are followed by a successful login by of the same user account within 1 hour:
 
@@ -509,10 +555,10 @@ correlation:
     group-by:
         - User
     timespan: 1h
+    condition: many_failed_logins AND successful_login
 ```
 
-Note:
-Even if the rule many_failed_logins groups by the "ComputerName" field, the correlation rule only uses its own `group-by` "User".
+> Even if the rule `many_failed_logins` groups by the `ComputerName` field, the correlation rule only uses its own `group-by`, in this case `User`.
 
 #### Value Sum (value_sum)
 
@@ -555,7 +601,7 @@ Requires:
 title: Suspicious average network traffic
 correlation:
     type: value_avg
-    rules: 
+    rules:
         - rule_a_id
     group-by:
         - SourceIP
@@ -566,10 +612,11 @@ correlation:
         gt: 500
 ```
 
-Note: The `condition` for value_avg requires a comparison operator (like gt, gte, etc.) and compares it to an integer or float threshold.
+> The `condition` for `value_avg` requires a comparison operator (like `gt`, `gte`, etc.) and compares it to an integer or float threshold.
+
 This example shows that we are looking for groups where the average bytes sent over a period exceeds 500.
 
-Also note: In the condition section, the field must be present and specify which numeric field should be used for the aggregation.
+> In the condition section, the field must be present and specify which numeric field should be used for the aggregation.
 
 #### Value Percentile (value_percentile)
 
@@ -587,7 +634,7 @@ Requires:
 title: A computer spawned a processes name in the last 24h than 1% of all the processes.
 correlation:
     type: value_percentile
-    rules: 
+    rules:
         - process_creation
     group-by:
         - ComputerName
@@ -599,11 +646,17 @@ correlation:
 
 ### Field Name Aliases
 
-Sometimes correlation of values in the same fields is not sufficient. E.g. a correlation rule might require to aggregate events that appear from a source address in one event and the same address as destination in another event. A Sigma correlation rule can contain an `aliases` attribute that defines an alias for different field names in events matched by different Sigma rules. The alias field names can then be referenced in `group-by` attributes and are resolved to their respective field names.
+Sometimes correlation of values in the same fields is not sufficient.
+
+E.g. a correlation rule might require to aggregate events that appear from a source address in one event and the same address as destination in another event.
+
+A Sigma correlation rule can contain an `aliases` attribute that defines an alias for different field names in events matched by different Sigma rules.
+
+The alias field names can then be referenced in `group-by` attributes and are resolved to their respective field names.
 
 Aliases are defined as follows:
 
-```
+```yaml
 aliases:
   <alias name>:
     <Sigma rule name>: <source field name in event matched by Sigma rule>
@@ -612,16 +665,19 @@ aliases:
 
 The field names referenced in aliases must not necessarily appear in the Sigma rules, but in the events matched by the Sigma rules.
 
-`<Sigma rule name>` is the name given by the `name` attribute. \
+`<Sigma rule name>` is the name given by the `name` attribute.
+
 The `name` attribute is optional in general, but has to be defined, if you want to use `aliases`.
 
-#### Field Name Aliases Example
+Example:
 
-The following correlation rule defines field name aliases `internal_ip` and `remote_ip` that are used in the `group-by` attribute. \
-The `internal_ip` alias references the field `destination.ip` in the events matched by the Sigma rule `internal_error` and `source.ip` in the events matched by the Sigma rule `new_network_connection`. \
+The following correlation rule defines field name aliases `internal_ip` and `remote_ip` that are used in the `group-by` attribute.
+
+The `internal_ip` alias references the field `destination.ip` in the events matched by the Sigma rule `internal_error` and `source.ip` in the events matched by the Sigma rule `new_network_connection`.
+
 The correlation rule then only matches if the events appear with the same address in the respective fields of the events matching the referenced Sigma rules.
 
-Rule internal_error
+- Rule `internal_error`
 
 ```yaml
 name: internal_error
@@ -631,7 +687,7 @@ detection:
     condition: selection
 ```
 
-Rule new_network_connection
+- Rule `new_network_connection`
 
 ```yaml
 name: new_network_connection
@@ -666,7 +722,7 @@ correlation:
             new_network_connection: destination.ip
 ```
 
-## Example
+## Examples
 
 This section gives complete examples in order to make it easier for people new to Sigma to get started and for showcasing new features of the Sigma standard. Use them as a blueprint for your own ideas.
 
@@ -744,7 +800,9 @@ detection:
 ## History
 
 - 2025-XX-XX Specification v2.2.0
-  - add `tags` attribute to the correlation rules specification
+  - add `tags` attribute to the correlation rules specification.
+  - add new condition details to temporal and temporal_ordered type correlation.
+  - enhance definition of the `generate` attribute.
 - 2025-08-02 Specification v2.1.0
   - add metric corelation with:
     - value_sum

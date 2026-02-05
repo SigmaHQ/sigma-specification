@@ -50,11 +50,9 @@
     },
     "references": {
       "type": "array",
-      "description": "References to the source that the rule was derived from. These could be blog articles, technical papers, presentations or even tweets",
+      "description": "References to the source that the rule was derived from.",
       "uniqueItems": true,
-      "items": {
-        "type": "string"
-      }
+      "items": { "type": "string" }
     },
     "date": {
       "type": "string",
@@ -90,27 +88,13 @@
           "maxLength": 16,
           "description": "Defines the correlation type",
           "oneOf": [
-            {
-              "const": "event_count"
-            },
-            {
-              "const": "temporal"
-            },
-            {
-              "const": "temporal_ordered"
-            },
-            {
-              "const": "value_count"
-            },
-            {
-              "const": "value_sum"
-            },
-            {
-              "const": "value_avg"
-            },
-            {
-              "const": "value_percentile"
-            }
+            { "const": "event_count" },
+            { "const": "temporal" },
+            { "const": "temporal_ordered" },
+            { "const": "value_count" },
+            { "const": "value_sum" },
+            { "const": "value_avg" },
+            { "const": "value_percentile" }
           ]
         },
         "rules": {
@@ -121,14 +105,8 @@
               "type": "array",
               "items": {
                 "anyOf": [
-                  {
-                    "type": "string",
-                    "minLength": 2
-                  },
-                  {
-                    "type": "string",
-                    "format": "uuid"
-                  }
+                  { "type": "string", "minLength": 2 },
+                  { "type": "string", "format": "uuid" }
                 ]
               }
             }
@@ -138,23 +116,14 @@
           "type": "object",
           "description": "Defines field name aliases that are applied to correlated Sigma rules",
           "additionalProperties": {
-            "anyOf": [
-              {
-                "type": "object",
-                "items": {
-                  "type": "string"
-                }
-              }
-            ]
+            "anyOf": [{ "type": "object", "items": { "type": "string" } }]
           }
         },
         "group-by": {
           "type": "array",
           "description": "Defines one or multiple fields which should be treated as separate event occurrence scope",
           "uniqueItems": true,
-          "items": {
-            "type": "string"
-          }
+          "items": { "type": "string" }
         },
         "timespan": {
           "type": "string",
@@ -162,124 +131,72 @@
           "description": "Defines a time period in which the correlation should be applied. Used: `number + letter (in lowercase)`"
         },
         "condition": {
-          "type": "object",
           "description": "The condition defines when a correlation matches",
-          "uniqueItems": true,
-          "minItems": 1,
-          "maxItems": 3,
-          "anyOf": [
+          "oneOf": [
             {
-              "gt": {
-                "description": "The count must be greater than the given value",
-                "type": "integer"
-              }
+              "type": "string"
             },
             {
-              "gte": {
-                "description": "The count must be greater than or equal to the given value",
-                "type": "integer"
-              }
-            },
-            {
-              "lt": {
-                "description": "The count must be lesser than the given value",
-                "type": "integer"
-              }
-            },
-            {
-              "lte": {
-                "description": "The count must be lesser than or equal to the given value",
-                "type": "integer"
-              }
-            },
-            {
-              "eq": {
-                "description": "The count must be equal to the given value",
-                "type": "integer"
-              }
-            },
-            {
-              "neq": {
-                "description": "The count must different to the given value",
-                "type": "integer"
-              }
-            },
-            {
-              "field": {
-                "description": "Name of the field(s) to count values",
-                "anyOf": [
-                  {
-                    "type": "string",
-                    "maxLength": 256
-                  },
-                  {
-                    "type": "array",
-                    "items": {
-                      "type": "string",
-                      "maxLength": 256
+              "type": "object",
+              "minItems": 1,
+              "maxItems": 3,
+              "properties": {
+                "gt": { "type": "integer" },
+                "gte": { "type": "integer" },
+                "lt": { "type": "integer" },
+                "lte": { "type": "integer" },
+                "eq": { "type": "integer" },
+                "neq": { "type": "integer" },
+                "field": {
+                  "anyOf": [
+                    { "type": "string", "maxLength": 256 },
+                    {
+                      "type": "array",
+                      "items": { "type": "string", "maxLength": 256 }
                     }
-                  }
-                ]
-              }
+                  ]
+                }
+              },
+              "additionalProperties": false
             }
           ]
         }
       },
       "allOf": [
         {
-          "if": { "properties": { "type": { "const": "event_count" } } },
-          "then": { "required": ["condition", "group-by", "timespan"] }
-        },
-        {
           "if": { "properties": { "type": { "const": "temporal" } } },
-          "then": { "required": ["group-by", "timespan"] }
+          "then": {
+            "required": ["group-by", "rules", "timespan"],
+            "properties": {
+              "condition": { "type": "string" }
+            }
+          }
         },
         {
           "if": { "properties": { "type": { "const": "temporal_ordered" } } },
-          "then": { "required": ["group-by", "timespan"] }
-        },
-        {
-          "if": { "properties": { "type": { "const": "value_count" } } },
           "then": {
-            "condition": {
-              "type": "object",
-              "properties": { "field": { "type": "string" } },
-              "required": ["field"]
-            },
-            "required": ["condition", "group-by", "timespan"]
+            "required": ["group-by", "rules", "timespan"],
+            "properties": {
+              "condition": { "type": "string" }
+            }
           }
         },
         {
-          "if": { "properties": { "type": { "const": "value_sum" } } },
+          "if": {
+            "not": {
+              "oneOf": [
+                { "properties": { "type": { "const": "temporal" } } },
+                { "properties": { "type": { "const": "temporal_ordered" } } }
+              ]
+            }
+          },
           "then": {
-            "condition": {
-              "type": "object",
-              "properties": { "field": { "type": "string" } },
-              "required": ["field"]
-            },
-            "required": ["condition", "group-by", "timespan"]
-          }
-        },
-        {
-          "if": { "properties": { "type": { "const": "value_avg" } } },
-          "then": {
-            "condition": {
-              "type": "object",
-              "properties": { "field": { "type": "string" } },
-              "required": ["field"]
-            },
-            "required": ["condition", "group-by", "timespan"]
-          }
-        },
-        {
-          "if": { "properties": { "type": { "const": "value_percentile" } } },
-          "then": {
-            "condition": {
-              "type": "object",
-              "properties": { "field": { "type": "string" } },
-              "required": ["field"]
-            },
-            "required": ["condition", "group-by", "timespan"]
+            "required": ["condition", "group-by", "rules", "timespan"],
+            "properties": {
+              "condition": {
+                "type": "object"
+              }
+            }
           }
         }
       ]
@@ -288,16 +205,10 @@
       "description": "A list of known false positives that may occur",
       "uniqueItems": true,
       "anyOf": [
-        {
-          "type": "string",
-          "minLength": 2
-        },
+        { "type": "string", "minLength": 2 },
         {
           "type": "array",
-          "items": {
-            "type": "string",
-            "minLength": 2
-          }
+          "items": { "type": "string", "minLength": 2 }
         }
       ]
     },
@@ -305,26 +216,11 @@
       "type": "string",
       "description": "The criticality of a triggered rule",
       "oneOf": [
-        {
-          "const": "informational",
-          "description": "Rule is intended for enrichment of events, e.g. by tagging them. No case or alerting should be triggered by such rules because it is expected that a huge amount of events will match these rules"
-        },
-        {
-          "const": "low",
-          "description": "Notable event but rarely an incident. Low-rated events can be relevant in high numbers or in combination with others. Immediate reaction shouldn't be necessary, but a regular review is recommended"
-        },
-        {
-          "const": "medium",
-          "description": "Relevant event that should be reviewed manually on a more frequent basis"
-        },
-        {
-          "const": "high",
-          "description": "Relevant event that should trigger an internal alert and requires a prompt review"
-        },
-        {
-          "const": "critical",
-          "description": "Highly relevant event that indicates an incident. Critical events should be reviewed immediately. It is used only for cases in which probability borders certainty"
-        }
+        { "const": "informational" },
+        { "const": "low" },
+        { "const": "medium" },
+        { "const": "high" },
+        { "const": "critical" }
       ]
     },
     "generate": {

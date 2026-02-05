@@ -5,28 +5,29 @@ The following document defines the standardized global filter that can be used w
 - Version 2.2.0
 - Release date 2025-XX-XX
 
-<!-- mdformat-toc start --slug=github --no-anchors --maxlevel=6 --minlevel=2 -->
+<!-- mdformat-toc start --slug=github --no-anchors --maxlevel=6 --minlevel=1 -->
 
-- [Introduction](#introduction)
-- [Global filter](#global-filter)
-  - [File Structure](#file-structure)
-    - [YAML File](#yaml-file)
-    - [Schema](#schema)
-    - [Syntax](#syntax)
-  - [Components](#components)
-    - [title](#title)
-    - [Identification](#identification)
-    - [Description](#description)
-    - [Date](#date)
-    - [Modified](#modified)
-    - [Taxonomy](#taxonomy)
-    - [Log source](#log-source)
-    - [Global Filter](#global-filter)
-      - [Relative rules](#relative-rules)
-      - [filter selection](#filter-selection)
-      - [filter condition](#filter-condition)
-- [Examples](#examples)
-- [History](#history)
+- [Sigma Filters Specification](#sigma-filters-specification)
+  - [Introduction](#introduction)
+  - [Global filter](#global-filter)
+    - [File Structure](#file-structure)
+      - [YAML File](#yaml-file)
+      - [Schema](#schema)
+      - [Syntax](#syntax)
+    - [Components](#components)
+      - [title](#title)
+      - [Identification](#identification)
+      - [Description](#description)
+      - [Date](#date)
+      - [Modified](#modified)
+      - [Taxonomy](#taxonomy)
+      - [Log source](#log-source)
+      - [Global Filter](#global-filter)
+        - [Relative rules](#relative-rules)
+        - [filter selection](#filter-selection)
+        - [filter condition](#filter-condition)
+  - [Examples](#examples)
+  - [History](#history)
 
 <!-- mdformat-toc end -->
 
