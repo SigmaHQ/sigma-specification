@@ -1,6 +1,6 @@
-title: Recon
+title: Recon ordered
 correlation:
-    type: temporal
+    type: temporal_ordered
     rules:
         - recon_cmd_a
         - recon_cmd_b
@@ -9,3 +9,4 @@ correlation:
         - ComputerName
         - User
     timespan: 5m
+    condition: recon_cmd_a AND recon_cmd_b AND recon_cmd_c

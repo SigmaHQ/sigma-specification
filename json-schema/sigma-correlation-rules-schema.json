@@ -166,7 +166,7 @@
         {
           "if": { "properties": { "type": { "const": "temporal" } } },
           "then": {
-            "required": ["condition", "group-by", "rules", "timespan"],
+            "required": ["group-by", "rules", "timespan"],
             "properties": {
               "condition": { "type": "string" }
             }
@@ -175,7 +175,7 @@
         {
           "if": { "properties": { "type": { "const": "temporal_ordered" } } },
           "then": {
-            "required": ["condition", "group-by", "rules", "timespan"],
+            "required": ["group-by", "rules", "timespan"],
             "properties": {
               "condition": { "type": "string" }
             }

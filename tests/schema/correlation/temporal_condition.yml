@@ -9,3 +9,4 @@ correlation:
         - ComputerName
         - User
     timespan: 5m
+    condition: recon_cmd_a AND recon_cmd_b AND recon_cmd_c
