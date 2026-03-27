@@ -21,6 +21,26 @@
 
 Welcome to the official Sigma Specification repository.
 
+## What this repository is for
+
+This repository contains the formal specification of the Sigma formats.
+
+Sigma is an open and generic detection format for describing relevant log events and making detection logic shareable across different tools and environments.
+Within the wider Sigma ecosystem, this repository documents the formats themselves, while tools implement conversion and validation, and rule collections provide reusable detections.
+
+## Scope of this repository
+
+This repository is the canonical source for the structure and meaning of Sigma file formats, including:
+
+- Sigma Rules
+- Sigma Correlations
+- Sigma Filters
+- Modifiers
+- Tags
+- Taxonomy
+- JSON Schemas for machine-readable Sigma rule validation
+
+
 ## A Quick Rundown
 
 Here's what you can expect from each of the main subfolders within this repo. Please take a minute to educate yourself!
