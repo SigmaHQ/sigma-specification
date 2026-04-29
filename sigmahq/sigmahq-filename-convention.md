@@ -78,7 +78,7 @@ This document describe a soft convention to name rule files. The following conve
 
 ### Linux
 
-The naming convention for rules using linux services is the as follows:
+The naming convention for rules using linux services is as follows:
 
 - Filename must start with `lnx_`
 - Followed by the service name and underscore at the end `service_`. Example: `auditd_`
@@ -99,7 +99,7 @@ The naming convention for rules using linux services is the as follows:
 
 ### Windows
 
-The naming convention for rules using windows services is the as follows:
+The naming convention for rules using windows services is as follows:
 
 - Filename must start with `win_`
 - Followed by the service name and underscore at the end `service_`. Example: `applocker_`
