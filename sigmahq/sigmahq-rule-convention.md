@@ -136,7 +136,7 @@ falsepositives:
     - Administrators or administrator scripts might sometimes generate similar activity
 ```
 
-- In cases where the author doesn't know of any false positives then value the should be `Unknown`.
+- In cases where the author doesn't know of any false positives the value should be `Unknown`.
 - If the rule author doesn't expect false positives the value should be `Unlikely`.
 
 Also please note the following
