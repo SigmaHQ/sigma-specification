@@ -31,26 +31,29 @@ The following document defines the standardized tags that can be used to categor
 
 ### Namespace: attack
 
-- t*1234*: Refers to a [technique](https://attack.mitre.org/wiki/All_Techniques)
-- g*1234*: Refers to a [group](https://attack.mitre.org/wiki/Groups)
-- s*1234*: Refers to [software](https://attack.mitre.org/wiki/Software)
+- t*1234*: Refers to a [Technique](https://attack.mitre.org/techniques/)
+- g*1234*: Refers to a [Group](https://attack.mitre.org/groups/)
+- s*1234*: Refers to [Software](https://attack.mitre.org/software/)
 - ds*1234*: Refers to [Data sources](https://attack.mitre.org/datasources/)
 - m*1234*: Refers to [Mitigations](https://attack.mitre.org/mitigations/)
 - a*1234*: Refers to [Assets](https://attack.mitre.org/assets/)
 
 Tactics:
 
+- reconnaissance: [Reconnaissance](https://attack.mitre.org/tactics/TA0043/)
+- resource-development: [Resource Development](https://attack.mitre.org/tactics/TA0042/)
 - initial-access: [Initial Access](https://attack.mitre.org/tactics/TA0001/)
 - execution: [Execution](https://attack.mitre.org/tactics/TA0002/)
 - persistence: [Persistence](https://attack.mitre.org/tactics/TA0003/)
 - privilege-escalation: [Privilege Escalation](https://attack.mitre.org/tactics/TA0004/)
-- defense-evasion: [Defense Evasion](https://attack.mitre.org/tactics/TA0005/)
+- stealth: [Stealth](https://attack.mitre.org/tactics/TA0005/)
+- defense-impairment: [Defense Impairment](https://attack.mitre.org/tactics/TA0112/)
 - credential-access: [Credential Access](https://attack.mitre.org/tactics/TA0006/)
 - discovery: [Discovery](https://attack.mitre.org/tactics/TA0007/)
 - lateral-movement: [Lateral_Movement](https://attack.mitre.org/tactics/TA0008/)
 - collection: [Collection](https://attack.mitre.org/tactics/TA0009/)
-- exfiltration: [Exfiltration](https://attack.mitre.org/tactics/TA0010/)
 - command-and-control: [Command and Control](https://attack.mitre.org/tactics/TA0011/)
+- exfiltration: [Exfiltration](https://attack.mitre.org/tactics/TA0010/)
 - impact: [Impact](https://attack.mitre.org/tactics/TA0040/)
 
 ### Namespace: car
@@ -60,7 +63,7 @@ tag: `car.2016-04-005`.
 
 ### Namespace: cve
 
-Use the CVE tag from [MITRE](https://cve.mitre.org) in lower case separated by dots. Example tag: `cve.2021-44228`.
+Use the CVE tag from [MITRE](https://www.cve.org/) in lower case separated by dots. Example tag: `cve.2021-44228`.
 
 ### Namespace: d3fend
 
@@ -79,7 +82,7 @@ Tactics:
 
 - model: [Model](https://d3fend.mitre.org/tactic/d3f:Model/)
 - harden: [Harden](https://d3fend.mitre.org/tactic/d3f:Harden/)
-- detect: [Detect](https://d3fend.mitre.org/tactic/d3f:Model/)
+- detect: [Detect](https://d3fend.mitre.org/tactic/d3f:Detect/)
 - isolate: [Isolate](https://d3fend.mitre.org/tactic/d3f:Isolate)
 - deceive: [Deceive](https://d3fend.mitre.org/tactic/d3f:Deceive)
 - evict: [Evict](https://d3fend.mitre.org/tactic/d3f:Evict)
