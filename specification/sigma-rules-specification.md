@@ -1,7 +1,7 @@
 # Sigma Rules Specification
 
-- Version 2.1.0
-- Release date 2025-08-02
+- Version 2.2.X
+- Release date 2025-XX-XX
 
 <!-- mdformat-toc start --slug=github --no-anchors --maxlevel=6 --minlevel=2 -->
 
@@ -358,7 +358,13 @@ A definition that can consist of two different data structures - lists and maps.
 
 #### General
 
-- All values are treated as case-insensitive strings.
+- A scalar value can be of type:
+  - string
+  - null
+  - boolean
+  - integer
+  - floating point
+- All string values are case-insensitive by default.
 - You can use wildcard characters `*` and `?` in strings (see also the [escape character](#escape-character) section below).
 - Regular expressions are case-sensitive by default.
 - You don't have to escape characters except the string quotation marks `'`.
@@ -398,10 +404,12 @@ Summarized, these are the following possibilities:
 
 Lists can contain:
 
-- strings that are applied to the full log message and are linked with a logical 'OR'.
+- scalars that are applied to the full log message and are linked with a logical 'OR'.
 - maps (see below). All map items of a list are logically linked with 'OR'.
 
-Example for list of strings: Matches on 'EvilService' **or** 'svchost.exe -n evil'
+For `null` value check the [Special Field Values](#special-field-values) section.
+
+Example for list of strings: Matches on 'EvilService' **OR** 'svchost.exe -n evil'
 
 ```yml
 detection:
@@ -419,15 +427,15 @@ detection:
         - Description|contains: 'Test executable'
 ```
 
-The example above matches an image value ending with `example.exe` **or** an executable with a description containing the string `Test executable`.
+The example above matches an image value ending with `example.exe` **OR** an executable with a description containing the string `Test executable`.
 
 #### Maps
 
-Maps (or dictionaries) consist of key/value pairs, in which the key is a field in the log data and the value is a string or integer value. All elements of a map are joined with a logical 'AND'.
+Maps (or dictionaries) consist of key/value pairs, in which the key is a field in the log data and the value is a scalar value. All elements of a map are joined with a logical 'AND'.
 
 Examples:
 
-The example below, matches on EventLog 'Security' **and** ( Event ID 517 **or** Event ID 1102 )
+The example below, matches on EventLog 'Security' **AND** ( Event ID 517 **OR** Event ID 1102 )
 
 ```yml
 detection:
@@ -439,7 +447,7 @@ detection:
     condition: selection
 ```
 
-Matches on Eventlog 'Security' **and** Event ID 4679 **and** TicketOptions 0x40810000 **and** TicketEncryption 0x17
+Matches on Eventlog 'Security' **AND** Event ID 4679 **AND** TicketOptions 0x40810000 **AND** TicketEncryption 0x17
 
 ```yml
 detection:
@@ -727,13 +735,12 @@ The level field contains one of five string values. It describes the criticality
 
 A Sigma rule can be categorized with tags. Tags should generally follow this syntax:
 
-- Character set: lower-case letters, numerals, underscores and hyphens
-- no spaces
-- Tags are namespaced, the dot is used as separator. e.g. *attack.t1234* refers to technique 1234 in the namespace *attack*; Namespaces may also be nested
+- Character set: Lower-case letters, numerals, underscores and hyphens
+- No spaces
+- Tags are namespaced, the dot is used as separator. e.g. `attack.t1234` refers to technique 1234 in the namespace `attack`; Namespaces may also be nested
 - Keep tags short, e.g. numeric identifiers instead of long sentences
-- Feel free to send pull request or issues with proposals for new tags
-
-[More information about tags](sigma-appendix-tags.md)
+- Feel free to send pull requests or issues with proposals for new tags
+  [More information about tags](sigma-appendix-tags.md)
 
 ### Scope
 
@@ -761,6 +768,7 @@ Check out the [Sigma Filters Specification](sigma-filters-specification.md) for 
 
 ## History
 
+- 2025-XX-XX Specification v2.2.0
 - 2025-08-02 Specification v2.1.0
 - 2024-08-08 Specification v2.0.0
 - 2023-06-29 Specification v1.0.4

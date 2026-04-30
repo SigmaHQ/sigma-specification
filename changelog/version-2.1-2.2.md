@@ -1,0 +1,37 @@
+# Changes and Feature Introduced in V2.2.0
+
+The following is a non-exhaustive list of changes between the v2.1.0 and v2.2.0 specification.
+
+<!-- mdformat-toc start --slug=github --no-anchors --maxlevel=6 --minlevel=2 -->
+
+- [Generality](#generality)
+- [Modifiers](#modifiers)
+- [Tags](#tags)
+- [Taxonomy](#taxonomy)
+- [Correlation](#correlation)
+- [Filter](#filter)
+- [Rules](#rules)
+
+<!-- mdformat-toc end -->
+
+## Generality
+
+## Modifiers
+
+- `re` : Provides a more detailed definition and descripions
+
+## Tags
+
+## Taxonomy
+
+## Correlation
+
+- Add `tags` field
+
+## Filter
+
+- Filters can now reference all available rules by using the `filter.rules: any` declaration [PR #430](https://github.com/SigmaHQ/pySigma/pull/430)
+
+## Rules
+
+- `Lists` and `Maps` : add scalar value
