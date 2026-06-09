@@ -99,7 +99,7 @@ The naming convention for rules using linux services is as follows:
 
 ### Windows
 
-The naming convention for rules using windows services is as follows:
+The naming convention for rules using Windows services is as follows:
 
 - Filename must start with `win_`
 - Followed by the service name and underscore at the end `service_`. Example: `applocker_`
