@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema#",
+  "title": "SigmaHQ Regression Test info.yml",
+  "description": "Specification for regression test metadata files used by the SigmaHQ regression test runner.",
+  "type": "object",
+  "required": [
+    "id",
+    "description",
+    "date",
+    "author",
+    "rule_metadata",
+    "regression_tests_info"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "A unique UUID for this regression test entry. Different from the rule ID."
+    },
+    "description": {
+      "type": "string",
+      "description": "Free-text description of what the test verifies. Use \"N/A\" if no description is available."
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "description": "ISO date (YYYY-MM-DD) when the regression test was created or last updated."
+    },
+    "author": {
+      "type": "string",
+      "description": "Full name of the author, optionally followed by organization in parentheses."
+    },
+    "rule_metadata": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Metadata linking this regression test to the Sigma rule it validates.",
+      "items": {
+        "type": "object",
+        "required": ["id", "title"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "The Sigma rule UUID. Must exactly match the id field in the corresponding .yml rule file."
+          },
+          "title": {
+            "type": "string",
+            "description": "The Sigma rule title. Should match the title field in the corresponding .yml rule file."
+          }
+        }
+      }
+    },
+    "regression_tests_info": {
+      "type": "array",
+      "minItems": 1,
+      "description": "List of regression test entries. Currently only Positive Detection Test type is supported.",
+      "items": {
+        "type": "object",
+        "required": ["type", "path"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "enum": ["Positive Detection Test"],
+            "description": "Human-readable test name. Currently only \"Positive Detection Test\" is supported."
+          },
+          "type": {
+            "type": "string",
+            "enum": ["evtx", "json", "ndjson", "jsonl"],
+            "description": "Test type. \"evtx\" runs the sample through evtx-sigma-checker; \"json\" is a single JSON object; \"ndjson\"/\"jsonl\" are newline-delimited JSON objects converted via sigma convert and run by json_checker."
+          },
+          "provider": {
+            "type": "string",
+            "description": "Windows event provider used by the evtx-sigma-checker. All existing tests include it, but the runner does not enforce its presence."
+          },
+          "match_count": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Minimum number of matches required. If omitted, the runner requires at least one match. If actual count exceeds this value, a warning is emitted rather than a failure."
+          },
+          "pipelines": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Sigma pipelines applied before conversion. JSON types only; when omitted, the rule is converted with --without-pipeline."
+          },
+          "filters": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Sigma filters applied during conversion. JSON types only."
+          },
+          "path": {
+            "type": "string",
+            "description": "Relative path from the repository root to the test sample file."
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}
