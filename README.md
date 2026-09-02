@@ -1,14 +1,14 @@
 # Sigma Specification - Generic Signature Format for SIEM Systems
 
-<a href="https://sigmahq.io/">
 <p align="center">
+<a href="https://sigmahq.io/">
 <br />
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="./media/images/sigma_logo_dark.png">
   <img width="454" alt="Sigma Logo" src="./media/images/sigma_logo_light.png">
 </picture>
-</p>
 </a>
+</p>
 <br />
 
 <p align="center">
