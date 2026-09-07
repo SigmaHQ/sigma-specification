@@ -40,11 +40,14 @@ The following document defines the standardized tags that can be used to categor
 
 Tactics:
 
+- reconnaissance: [Reconnaissance](https://attack.mitre.org/tactics/TA0043/)
+- resource-development: [Resource Development](https://attack.mitre.org/tactics/TA0042/)
 - initial-access: [Initial Access](https://attack.mitre.org/tactics/TA0001/)
 - execution: [Execution](https://attack.mitre.org/tactics/TA0002/)
 - persistence: [Persistence](https://attack.mitre.org/tactics/TA0003/)
 - privilege-escalation: [Privilege Escalation](https://attack.mitre.org/tactics/TA0004/)
-- defense-evasion: [Defense Evasion](https://attack.mitre.org/tactics/TA0005/)
+- stealth: [Stealth](https://attack.mitre.org/tactics/TA0005/)
+- defense-impairment: [Defense Impairment](https://attack.mitre.org/tactics/TA0112/)
 - credential-access: [Credential Access](https://attack.mitre.org/tactics/TA0006/)
 - discovery: [Discovery](https://attack.mitre.org/tactics/TA0007/)
 - lateral-movement: [Lateral_Movement](https://attack.mitre.org/tactics/TA0008/)
