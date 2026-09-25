@@ -2,8 +2,8 @@
 
 The following document defines the standardized global filter that can be used with Sigma rules.
 
-- Version 2.1.0
-- Release date 2025-08-02
+- Version 2.2.0
+- Release date 2025-XX-XX
 
 <!-- mdformat-toc start --slug=github --no-anchors --maxlevel=6 --minlevel=2 -->
 
@@ -150,7 +150,13 @@ Read more on the `logsource` attribute in the [Sigma Rules Specification](sigma-
 
 **Use:** mandatory
 
-refers to one or multiple Sigma rules where to add the filter
+Refers to one or multiple Sigma rules where to add the filter.
+A rule can be referred to by the `id` of a Sigma rule.
+
+The `rules` attribute can be:
+
+- A list of one or multiple Sigma rule IDs
+- The string `any` applies the filter to all Sigma rules matching the specified `logsource`
 
 ##### filter selection
 
@@ -187,7 +193,40 @@ filter:
     condition: selection
 ```
 
+Example with `any` to apply filter to all process creation rules:
+
+```yaml
+title: Filter for Administrator account across all process creation rules
+description: The valid administrator account start with adm_ when creating processes
+logsource:
+    category: process_creation
+    product: windows
+filter:
+    rules: any
+    selection:
+        User|startswith: 'adm_'
+    condition: selection
+```
+
+Example with a filter that contains a superset of a logsource, such that it applies to all rules with a more specific logsource. The example below would apply to all Windows rules, regardless of "category", or "service".
+
+```yaml
+title: Filter out any Windows rules for non system / administrator accounts
+description: Excludes Windows SYSTEM and LOCAL SERVICE accounts from any Windows rules
+logsource:
+    product: windows
+filter:
+    rules: any
+    selection:
+        User:
+            - 'SYSTEM'
+            - 'LOCAL SERVICE'
+    condition: not selection
+```
+
 ## History
 
+- 2025-08-03 Specification v2.2.0
+  - Added support for `any` string values in the `rules` attribute to match all rules with the specified logsource
 - 2025-08-02 Specification v2.1.0
 - 2024-08-08 Specification v2.0.0
