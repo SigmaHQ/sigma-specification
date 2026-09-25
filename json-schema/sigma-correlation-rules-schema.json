@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Sigma Meta rule specification V2.1.0 (2025-07-25)",
+  "title": "Sigma Meta rule specification V2.2.0 (2025-XX-XX)",
   "type": "object",
   "required": ["title", "correlation"],
   "properties": {
@@ -70,6 +70,15 @@
       "type": "string",
       "maxLength": 256,
       "description": "Defines the taxonomy used in the Sigma correlation rule"
+    },
+    "tags": {
+      "description": "Tags to categorize a Sigma rule.",
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9_-]+\\.[a-z0-9._-]+$"
+      }
     },
     "correlation": {
       "type": "object",
