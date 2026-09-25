@@ -19,6 +19,8 @@ The following is a non-exhaustive list of changes between the v2.1.0 and v2.2.0 
 ## Modifiers
 
 - `re` : Provides a more detailed definition and descripions
+- `fieldref` : Rejects wildcards in the referenced field name, may be followed by `contains`, `startswith`, or `endswith`, and combines with `neq`
+- `neq` : Removed the duplicate entry from the numeric modifiers, since `neq` is the generic negation modifier
 
 ## Tags
 
