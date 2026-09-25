@@ -2,8 +2,8 @@
 
 The following document defines the standardized modifiers that can be used in Sigma.
 
-- Version 2.1.0
-- Release date 2025-08-02
+- Version 2.2.0
+- Release date 2025-XX-XX
 
 <!-- mdformat-toc start --slug=github --no-anchors --maxlevel=6 --minlevel=2 -->
 
@@ -51,21 +51,33 @@ The modifiers listed in this section can only be applied to string values.
 
 #### Regular Expression
 
-- `re`: Value is handled as a regular expression by backends. Regex is matched case-sensitive by default.
+- `re`: Value is handled as a regular expression by backends.
 
-  - The supported flavor is PCRE with the following metacharacters:
-    - Wildcards: `.`.
-    - Anchors: `^`, `$`.
-    - Quantifiers: `*`, `+`, `?`, `{n,m}`.
-    - Character Classes: [a-z], [^a-z].
-    - Alternation: `|`.
-    - Grouping: `()`.
-  - Other metacharacters are **unsupported** and can not be used.
+The value can be:
+
+- a single regex string
+- a list of regex string
+
+Regexes are matched case-sensitive and match a substring (matches as 'contains'). Use `^regex$` to match the full string (matching as 'equal').
+
+- The supported flavor is PCRE with the following metacharacters:
+
+  - Wildcards: `.`.
+  - Anchors: `^`, `$`.
+  - Quantifiers: `*`, `+`, `?`, `{n,m}`.
+  - Character Classes: [a-z], [^a-z].
+  - Common Tokens: `\b`,`\B`,`\d`,`\D`, `\s`, `\S`, `\w` and `\W`
+  - Alternation: `|`.
+  - Grouping: `()`.
+
+- Other metacharacters are **unsupported** and cannot be used.
+
+**Warning**: The use of `(?flag)` or `(?-flag)` is deprecated, as it is replaced by the following sub-modifiers.
 
 - `re` sub-modifiers:
 
   - `i`: (insensitive) to enable case-insensitive matching.
-  - `m`: (multi line) to match across multiple lines. `^` /`$` match the start/end of line.
+  - `m`: (multiline) to match across multiple lines. `^` /`$` match the start/end of line.
   - `s`: (single line) to enable that dot (`.`) matches all characters, including the newline character.
 
 #### Encoding
@@ -88,7 +100,6 @@ The modifiers listed in this section can only be applied to numeric values.
 - `lte`: Field is less or equal than the value
 - `gt`: Field is greater than the value
 - `gte`: Field is greater or equal than the value
-- `neq`: Field is not equal than the value
 
 ### Time Modifiers
 
@@ -118,11 +129,20 @@ The modifiers listed in this section can only be applied to IP values.
   - Replace with query expression in target query language (`QueryExpressionPlaceholderTransformation`/`query_expression_placeholders`)
   - Replace placeholder with wildcard `*`, which should only be used as last resort. (`WildcardPlaceholderTransformation`/`wildcard_placeholders`)
 
-- `fieldref`: Modifies a plain string into a field reference. A field reference can be used to compare fields of matched
-  events directly at query/matching time. Can be conbine with the `neq` modifier.
+- `fieldref`: Modifies a plain string into a field reference. A field reference compares the field with another
+  field of the matched event at query or matching time. The referenced name must not contain wildcards.
+
+  `fieldref` may be followed by one of `contains`, `startswith`, or `endswith`. That string modifier must come
+  after `fieldref`, because a string modifier written first inserts wildcards and a field reference rejects them.
+  `fieldref` may also be combined with `neq`.
 
 ## History
 
+- 2025-XX-XX Specification v2.2.0
+  - provides more details on the regex
+  - make use of `(?flag)` or `(?-flag)` deprecated
+  - document that `fieldref` rejects wildcards, may be followed by `contains`, `startswith`, or `endswith`, and combines with `neq`
+  - remove the duplicate `neq` entry from Numeric Modifiers, since `neq` is the generic negation modifier
 - 2025-08-02 Specification v2.1.0
   - Add `neq`
   - Add time modifiers
