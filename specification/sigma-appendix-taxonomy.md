@@ -389,6 +389,7 @@ The field names follow the field names used in [Sysmon](https://docs.microsoft.c
 | Description       | Google Installer                                                                          |         |
 | Product           | Google Update                                                                             |         |
 | Company           | Google Inc.                                                                               |         |
+| OriginalFileName  | GoogleUpdate.exe                                                                          |         |
 | CommandLine       | "C:\\Program Files (x86)\\Google\\Update\\GoogleUpdate.exe" /ua /installsource scheduler  |         |
 | CurrentDirectory  | C:\\Windows\\system32                                                                     |         |
 | User              | NT AUTHORITY\\SYSTEM                                                                      |         |
@@ -396,6 +397,7 @@ The field names follow the field names used in [Sysmon](https://docs.microsoft.c
 | LogonId           | 0x3e7                                                                                     |         |
 | TerminalSessionId | 0                                                                                         |         |
 | IntegrityLevel    | System                                                                                    |         |
+| Hashes            | MD5=CCF1D1573F175299ADE01C07791A6541,IMPHASH=E96A73C7BF33A464C510EDE582318BF2             |         |
 | imphash           | E96A73C7BF33A464C510EDE582318BF2                                                          |         |
 | md5               | CCF1D1573F175299ADE01C07791A6541                                                          |         |
 | sha1              | 0AE1F9071C5E8FE4A69D3F671937935D242D8A6C                                                  |         |
@@ -404,6 +406,7 @@ The field names follow the field names used in [Sysmon](https://docs.microsoft.c
 | ParentProcessId   | 1724                                                                                      |         |
 | ParentImage       | C:\\Windows\\System32\\taskeng.exe                                                        |         |
 | ParentCommandLine | taskeng.exe {88F94E5C-5DC3-4606-AEFA-BDCA976D6113} S-1-5-18:NT AUTHORITY\\System:Service: |         |
+| ParentUser        | NT AUTHORITY\\SYSTEM                                                                      |         |
 
 #### Other Generic Rule Categories
 
