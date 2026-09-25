@@ -100,7 +100,6 @@ The modifiers listed in this section can only be applied to numeric values.
 - `lte`: Field is less or equal than the value
 - `gt`: Field is greater than the value
 - `gte`: Field is greater or equal than the value
-- `neq`: Field is not equal than the value
 
 ### Time Modifiers
 
@@ -130,14 +129,20 @@ The modifiers listed in this section can only be applied to IP values.
   - Replace with query expression in target query language (`QueryExpressionPlaceholderTransformation`/`query_expression_placeholders`)
   - Replace placeholder with wildcard `*`, which should only be used as last resort. (`WildcardPlaceholderTransformation`/`wildcard_placeholders`)
 
-- `fieldref`: Modifies a plain string into a field reference. A field reference can be used to compare fields of matched
-  events directly at query/matching time. Can be conbine with the `neq` modifier.
+- `fieldref`: Modifies a plain string into a field reference. A field reference compares the field with another
+  field of the matched event at query or matching time. The referenced name must not contain wildcards.
+
+  `fieldref` may be followed by one of `contains`, `startswith`, or `endswith`. That string modifier must come
+  after `fieldref`, because a string modifier written first inserts wildcards and a field reference rejects them.
+  `fieldref` may also be combined with `neq`.
 
 ## History
 
 - 2025-XX-XX Specification v2.2.0
   - provides more details on the regex
   - make use of `(?flag)` or `(?-flag)` deprecated
+  - document that `fieldref` rejects wildcards, may be followed by `contains`, `startswith`, or `endswith`, and combines with `neq`
+  - remove the duplicate `neq` entry from Numeric Modifiers, since `neq` is the generic negation modifier
 - 2025-08-02 Specification v2.1.0
   - Add `neq`
   - Add time modifiers
