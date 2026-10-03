@@ -7,6 +7,8 @@
 
 - [File Structure](#file-structure)
   - [Yaml File](#yaml-file)
+    - [General](#general)
+    - [File Naming](#file-naming)
     - [YAML Anchors and Aliases](#yaml-anchors-and-aliases)
   - [Schema](#schema)
 - [Components](#components)
@@ -24,7 +26,7 @@
   - [LogSource](#logsource)
   - [Detection](#detection)
     - [Search-Identifier](#search-identifier)
-    - [General](#general)
+    - [General](#general-1)
     - [String Wildcard](#string-wildcard)
     - [Escape Character](#escape-character)
     - [Lists](#lists)
@@ -92,6 +94,8 @@ scope [optional]
 
 ### Yaml File
 
+#### General
+
 The rule files are written in [yaml format](https://yaml.org/spec/1.2.2/)
 In order to keep the rules interoperable use the following:
 
@@ -120,6 +124,8 @@ detection:
     condition: selection
 level: high
 ```
+
+#### File Naming
 
 To keep the file names interoperable use the following:
 
