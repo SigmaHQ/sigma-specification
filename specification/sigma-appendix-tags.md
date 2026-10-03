@@ -8,6 +8,7 @@ The following document defines the standardized tags that can be used to categor
 <!-- mdformat-toc start --slug=github --no-anchors --maxlevel=6 --minlevel=2 -->
 
 - [Namespaces](#namespaces)
+  - [Namespace: atlas](#namespace-atlas)
   - [Namespace: attack](#namespace-attack)
   - [Namespace: car](#namespace-car)
   - [Namespace: cve](#namespace-cve)
@@ -21,6 +22,7 @@ The following document defines the standardized tags that can be used to categor
 
 ## Namespaces
 
+- atlas: Categorization according to [MITRE ATLAS](https://atlas.mitre.org)
 - attack: Categorization according to [MITRE ATT&CK](https://attack.mitre.org). To get the current supported version of ATT&CK please visit [MITRE CTI](https://github.com/mitre/cti)
 - car: Link to the corresponding [MITRE Cyber Analytics Repository (CAR)](https://car.mitre.org/)
 - cve: Categorization according [MITRE CVE](https://cve.org/)
@@ -28,6 +30,11 @@ The following document defines the standardized tags that can be used to categor
 - detection: Categorization according to the types of rules provided in the [SigmaHQ rule repository](https://github.com/SigmaHQ/sigma).
 - stp: Rating of detection analytic robustness according to the [MITRE Summiting the Pyramid](https://center-for-threat-informed-defense.github.io/summiting-the-pyramid/) scheme.
 - tlp: [Traffic Light Protocol](https://www.first.org/tlp/).
+
+### Namespace: atlas
+
+Use the ATLAS technique tag from [MITRE ATLAS](https://atlas.mitre.org) in lower case. The `AML.` prefix of the
+published technique ID is retained. Example tag: `atlas.aml.t0051`.
 
 ### Namespace: attack
 
@@ -131,6 +138,7 @@ The following tags are currently supported:
 
 - 2025-XX-XX Specification v2.2.0
   - Remove deprecated mitre data sources
+  - Add mitre atlas namespace
 - 2025-08-02 Specification v2.1.0
   - Add mitre Data Sources, Mitigations and Assets
   - Add mitre d3fend namespace
