@@ -7,6 +7,9 @@
 
 - [File Structure](#file-structure)
   - [Yaml File](#yaml-file)
+    - [General](#general)
+    - [File Naming](#file-naming)
+    - [YAML Anchors and Aliases](#yaml-anchors-and-aliases)
   - [Schema](#schema)
 - [Components](#components)
   - [Title](#title)
@@ -23,7 +26,7 @@
   - [LogSource](#logsource)
   - [Detection](#detection)
     - [Search-Identifier](#search-identifier)
-    - [General](#general)
+    - [General](#general-1)
     - [String Wildcard](#string-wildcard)
     - [Escape Character](#escape-character)
     - [Lists](#lists)
@@ -91,6 +94,8 @@ scope [optional]
 
 ### Yaml File
 
+#### General
+
 The rule files are written in [yaml format](https://yaml.org/spec/1.2.2/)
 In order to keep the rules interoperable use the following:
 
@@ -120,6 +125,8 @@ detection:
 level: high
 ```
 
+#### File Naming
+
 To keep the file names interoperable use the following:
 
 - Length between 10 and 70 characters
@@ -133,6 +140,27 @@ example:
 - `lnx_auditd_change_file_time_attr.yml`
 - `web_cve_2022_33891_spark_shell_command_injection.yml`
 - `sysmon_file_block_exe.yml`
+
+#### YAML Anchors and Aliases
+
+[YAML anchors and aliases](https://yaml.org/spec/1.2.2/#3222-anchors-and-aliases) can be used to reference the same
+value or list multiple times within a rule without duplicating it. An anchor is defined with `&<name>` next to a value
+and can then be referenced anywhere else in the rule with the alias `*<name>`.
+
+The following detection section defines an anchor for a list of binaries and reuses it for both `Image` and
+`ParentImage`:
+
+```yaml
+detection:
+    selection:
+        - Image|endswith: &binary_list
+            - '\pwsh.exe'
+            - '\powershell.exe'
+            - '\powershell_ise.exe'
+            - '\wscript.exe'
+        - ParentImage|endswith: *binary_list
+    condition: selection
+```
 
 ### Schema
 
@@ -769,6 +797,7 @@ Check out the [Sigma Filters Specification](sigma-filters-specification.md) for 
 ## History
 
 - 2025-XX-XX Specification v2.2.0
+  - Add support for YAML anchors and aliases
 - 2025-08-02 Specification v2.1.0
 - 2024-08-08 Specification v2.0.0
 - 2023-06-29 Specification v1.0.4
