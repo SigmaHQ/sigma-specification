@@ -49,8 +49,8 @@ detection
       {map-list} [optional]
       {field: value} [optional]
    ...
-   condition
-fields [optional]
+    condition
+output_fields [optional]
 falsepositives [required]
 level [required]
 ```

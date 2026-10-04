@@ -183,9 +183,9 @@
         }
       }
     },
-    "fields": {
+    "output_fields": {
       "type": "array",
-      "description": "A list of log fields that could be interesting in further analysis of the event and should be displayed to the analyst",
+      "description": "A list of field names that must be present in the alert/detection output. This is distinct from fields used in the detection logic itself",
       "uniqueItems": true,
       "items": {
         "type": "string"

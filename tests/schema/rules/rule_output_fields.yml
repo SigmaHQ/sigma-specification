@@ -1,0 +1,27 @@
+title: Suspicious PowerShell Execution
+id: 8e3e7bfa-4c4f-4e3f-9b3a-1c8f5d6e7f8a
+status: stable
+description: Detects suspicious PowerShell command execution patterns
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection:
+        Image|endswith: '\powershell.exe'
+        CommandLine|contains:
+            - 'EncodedCommand'
+            - 'WebClient'
+            - 'DownloadString'
+    condition: selection
+output_fields:
+    - Image
+    - CommandLine
+    - ParentImage
+    - ParentCommandLine
+    - User
+    - ComputerName
+    - ProcessId
+    - ParentProcessId
+falsepositives:
+    - Administrative scripts
+level: medium

@@ -37,7 +37,7 @@
       - [Standard Placeholders](#standard-placeholders)
     - [Keywords search](#keywords-search)
   - [Condition](#condition)
-  - [Fields](#fields)
+  - [Output Fields](#output-fields)
   - [FalsePositives](#falsepositives)
   - [Level](#level)
   - [Tags](#tags)
@@ -79,8 +79,8 @@ detection
       {map-list} [optional]
       {field: value} [optional]
    ...
-   condition
-fields [optional]
+    condition
+output_fields [optional]
 falsepositives [optional]
 level [optional]
 tags [optional]
@@ -697,13 +697,33 @@ Operator Precedence (least to most binding)
 The condition can be a list, in this case, each of them generates a query
 They are logically linked with OR.
 
-### Fields
+### Output Fields
 
-**Attribute**: fields
+**Attribute:** output_fields
 
 **Use:** optional
 
-A list of log fields that could be interesting in further analysis of the event and should be displayed to the analyst.
+Defines the fields that must be present in the alert/detection output. These fields are essential for:
+
+- Investigation workflows and threat analysis
+- Correlation operations that require common fields across different alerts
+- Maintaining consistency in alert output across detection rules
+- Ensuring analysts have the necessary context when evaluating alerts
+
+The `output_fields` attribute explicitly declares which fields the detection rule expects to produce in its output. This is distinct from fields used in the detection logic itself. It specifically defines what information should be available when the rule generates an alert.
+
+The attribute contains a list of field names that should appear in the alert output:
+
+```yaml
+output_fields:
+    - Image
+    - CommandLine
+    - ParentImage
+```
+
+These fields are usually the same across the same logsource and should be defined as part of the taxonomy.
+
+The `output_fields` attribute replaces the `fields` attribute, which is deprecated.
 
 ### FalsePositives
 

@@ -37,3 +37,5 @@ The following is a non-exhaustive list of changes between the v2.1.0 and v2.2.0 
 ## Rules
 
 - `Lists` and `Maps` : add scalar value
+- `output_fields` : add the attribute to define the fields that must be present in the alert/detection output
+- `fields` : deprecated and removed, replaced by `output_fields`
