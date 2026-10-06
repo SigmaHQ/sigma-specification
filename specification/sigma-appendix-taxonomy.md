@@ -1,6 +1,6 @@
 # Sigma Taxonomy
 
-The following document defines the field names and log sources that are allowed to be used in SIGMA rules that are shared on the official SigmaHQ repository.
+The following document defines the log sources and the field names that are allowed to be used in SIGMA rules that are shared on the official SigmaHQ repository.
 
 - Version 2.1.0
 - Release date 2025-08-02
@@ -9,45 +9,15 @@ The following document defines the field names and log sources that are allowed 
 
 - [Log Sources](#log-sources)
   - [Application Folder](#application-folder)
-    - [Django](#django)
-    - [Python](#python)
-    - [RPC Firewall](#rpc-firewall)
-    - [Ruby on Rails](#ruby-on-rails)
-    - [Spring Framewor](#spring-framewor)
-    - [SQL](#sql)
   - [Category Folder](#category-folder)
   - [Cloud Folder](#cloud-folder)
-    - [AWS](#aws)
-    - [Azure](#azure)
-    - [Bitbucket](#bitbucket)
-    - [Cisco](#cisco)
-    - [GCP](#gcp)
-    - [Github](#github)
-    - [M365](#m365)
-    - [Okta](#okta)
-    - [OneLogin](#onelogin)
+  - [Identity Folder](#identity-folder)
   - [Linux Folder](#linux-folder)
-    - [Category](#category)
-    - [Service](#service)
   - [Macos Folder](#macos-folder)
-    - [Category](#category-1)
   - [Network Folder](#network-folder)
-    - [Cisco](#cisco-1)
-    - [Huawei](#huawei)
-    - [Juniper](#juniper)
-    - [Zeek](#zeek)
-  - [Other](#other)
-  - [Product Folder](#product-folder)
+  - [Web Folder](#web-folder)
   - [Windows Folder](#windows-folder)
-    - [Category](#category-2)
-    - [Service](#service-1)
-- [Network Events](#network-events)
-- [Fields](#fields)
-  - [Generic](#generic)
-    - [Process Creation Events](#process-creation-events)
-    - [Other Generic Rule Categories](#other-generic-rule-categories)
-  - [Specific](#specific)
-  - [Network category](#network-category)
+- [Network Category](#network-category)
 - [History](#history)
 
 <!-- mdformat-toc end -->
@@ -56,482 +26,276 @@ For example in pySigma for ocsf taxonomy you can use the [pySigma-pipeline-ocsf 
 
 ## Log Sources
 
-For a better comprehension, the log sources are organized by directory name similar to the [rules](https://github.com/SigmaHQ/sigma/tree/master/rules) structure in the SIGMA project.
+Every log source is documented in its own page of the [`appendix-taxonomy`](appendix-taxonomy/) directory, named after the attributes of its `logsource` block. The pages are listed here by the folder of the rules repository that uses them.
 
 ### Application Folder
 
-The *application* folder contains rules that are intended for application security monitoring. The rules are organized into folders per application technology. All rules define log sources as follows:
+The *application* folder contains the rules that are intended for application security monitoring. They set the *category* attribute of the logsource to `application`, which lets a pipeline write a conversion configuration that doesn't depend on the application technology, and the *product* attribute to the name of the technology. Application logs are often ingested as raw text, the rules of this folder are keyword rules that don't match on specific fields.
 
-- The *category* log source attribute is set to `application`. This can be used by processing pipelines to create a technology-agnostic conversion configuration in cases where the application technology stack is unknown.
-
-- The *product* log source attribute is set to the name of the technology and should be equal to the folder name.
-
-Because application logs are often ingested as raw text events with poor decomposition into fields by many target systems, these rules are keyword rules that don't match on specific fields.
-
-#### Django
-
-| Product | Logsource                                | Description |
-| ------- | ---------------------------------------- | ----------- |
-| django  | category: application<br>product: django |             |
-
-#### Python
-
-| Product | Logsource                                | Description |
-| ------- | ---------------------------------------- | ----------- |
-| python  | category: application<br>product: python |             |
-
-#### RPC Firewall
-
-| Product      | Logsource                                      | Description |
-| ------------ | ---------------------------------------------- | ----------- |
-| rpc_firewall | category: application<br>product: rpc_firewall |             |
-
-#### Ruby on Rails
-
-| Product       | Logsource                                       | Description |
-| ------------- | ----------------------------------------------- | ----------- |
-| ruby_on_rails | category: application<br>product: ruby_on_rails |             |
-
-#### Spring Framewor
-
-| Product | Logsource                                | Description |
-| ------- | ---------------------------------------- | ----------- |
-| spring  | category: application<br>product: spring |             |
-
-#### SQL
-
-| Product | Logsource                             | Description |
-| ------- | ------------------------------------- | ----------- |
-| sql     | category: application<br>product: sql |             |
+| Log Source                                                   | Page                                                                           |
+| ------------------------------------------------------------ | ------------------------------------------------------------------------------ |
+| `product: bitbucket, service: audit`                         | [bitbucket_audit.md](appendix-taxonomy/bitbucket_audit.md)                     |
+| `category: application, product: django`                     | [django_application.md](appendix-taxonomy/django_application.md)               |
+| `product: github, service: audit`                            | [github_audit.md](appendix-taxonomy/github_audit.md)                           |
+| `category: application, product: jvm`                        | [jvm_application.md](appendix-taxonomy/jvm_application.md)                     |
+| `category: application, product: kubernetes, service: audit` | [kubernetes_application.md](appendix-taxonomy/kubernetes_application.md)       |
+| `product: kubernetes, service: audit`                        | [kubernetes_audit.md](appendix-taxonomy/kubernetes_audit.md)                   |
+| `category: application, product: nodejs`                     | [nodejs_application.md](appendix-taxonomy/nodejs_application.md)               |
+| `category: application, product: opencanary`                 | [opencanary_application.md](appendix-taxonomy/opencanary_application.md)       |
+| `category: application, product: python`                     | [python_application.md](appendix-taxonomy/python_application.md)               |
+| `category: application, product: rpc_firewall`               | [rpc_firewall_application.md](appendix-taxonomy/rpc_firewall_application.md)   |
+| `category: application, product: ruby_on_rails`              | [ruby_on_rails_application.md](appendix-taxonomy/ruby_on_rails_application.md) |
+| `category: application, product: spring`                     | [spring_application.md](appendix-taxonomy/spring_application.md)               |
+| `category: application, product: sql`                        | [sql_application.md](appendix-taxonomy/sql_application.md)                     |
+| `category: application, product: velocity`                   | [velocity_application.md](appendix-taxonomy/velocity_application.md)           |
 
 ### Category Folder
 
-| Product | Logsource           | Description                                                |
-| ------- | ------------------- | ---------------------------------------------------------- |
-|         | category: antivirus | antivirus detection message (format depends on the editor) |
-|         | category: database  | sql queries log (drop, select,...)                         |
+The *category* folder contains the rules that don't belong to a product, they only set the *category* attribute of the logsource.
+
+| Log Source            | Page                                           |
+| --------------------- | ---------------------------------------------- |
+| `category: antivirus` | [antivirus.md](appendix-taxonomy/antivirus.md) |
+| `category: database`  | [database.md](appendix-taxonomy/database.md)   |
 
 ### Cloud Folder
 
-#### AWS
+The *cloud* folder contains the rules that monitor the audit logs of the cloud services and of the SaaS platforms, they set the *product* attribute to the name of the service and the *service* attribute to the log of the service.
 
-| Product | Logsource                           | Description |
-| ------- | ----------------------------------- | ----------- |
-| Aws     | product: aws<br>service: cloudtrail |             |
+| Log Source                                      | Page                                                                             |
+| ----------------------------------------------- | -------------------------------------------------------------------------------- |
+| `product: aws, service: cloudtrail`             | [aws_cloudtrail.md](appendix-taxonomy/aws_cloudtrail.md)                         |
+| `product: azure, service: activitylogs`         | [azure_activitylogs.md](appendix-taxonomy/azure_activitylogs.md)                 |
+| `product: azure, service: auditlogs`            | [azure_auditlogs.md](appendix-taxonomy/azure_auditlogs.md)                       |
+| `product: azure, service: pim`                  | [azure_pim.md](appendix-taxonomy/azure_pim.md)                                   |
+| `product: azure, service: riskdetection`        | [azure_riskdetection.md](appendix-taxonomy/azure_riskdetection.md)               |
+| `product: azure, service: signinlogs`           | [azure_signinlogs.md](appendix-taxonomy/azure_signinlogs.md)                     |
+| `product: gcp, service: gcp.audit`              | [gcp_gcp.audit.md](appendix-taxonomy/gcp_gcp.audit.md)                           |
+| `product: gcp, service: google_workspace.admin` | [gcp_google_workspace.admin.md](appendix-taxonomy/gcp_google_workspace.admin.md) |
+| `product: gcp, service: google_workspace.login` | [gcp_google_workspace.login.md](appendix-taxonomy/gcp_google_workspace.login.md) |
+| `product: m365, service: audit`                 | [m365_audit.md](appendix-taxonomy/m365_audit.md)                                 |
+| `product: m365, service: exchange`              | [m365_exchange.md](appendix-taxonomy/m365_exchange.md)                           |
+| `product: m365, service: threat_detection`      | [m365_threat_detection.md](appendix-taxonomy/m365_threat_detection.md)           |
+| `product: m365, service: threat_management`     | [m365_threat_management.md](appendix-taxonomy/m365_threat_management.md)         |
 
-#### Azure
+### Identity Folder
 
-| Product | Logsource                                | Description |
-| ------- | ---------------------------------------- | ----------- |
-| Azure   | product: azure<br>service: activitylogs  |             |
-| Azure   | product: azure<br>service: auditlogs     |             |
-| Azure   | product: azure<br>service: riskdetection |             |
-| Azure   | product: azure<br>service: pim           |             |
-| Azure   | product: azure<br>service: signinlogs    |             |
+The *identity* folder contains the rules that monitor the audit logs of the identity providers, they set the *product* attribute to the name of the provider and the *service* attribute to the log of the provider.
 
-#### Bitbucket
-
-| Product   | Logsource                            | Description |
-| --------- | ------------------------------------ | ----------- |
-| Bitbucket | product: bitbucket<br>service: audit |             |
-
-#### Cisco
-
-| Product | Logsource                      | Description |
-| ------- | ------------------------------ | ----------- |
-| Cisco   | product: cisco<br>service: duo |             |
-
-#### GCP
-
-| Product | Logsource                                       | Description |
-| ------- | ----------------------------------------------- | ----------- |
-| GCP     | product: gcp<br>service: gcp.audit              |             |
-| GCP     | product: gcp<br>service: google_workspace.admin |             |
-
-#### Github
-
-| Product | Logsource                         | Description            |
-| ------- | --------------------------------- | ---------------------- |
-| Github  | product: github<br>service: audit | organization Audit log |
-
-#### M365
-
-| Product | Logsource                                   | Description |
-| ------- | ------------------------------------------- | ----------- |
-| M365    | product: m365<br>service: audit             |             |
-| M365    | product: m365<br>service: exchange          |             |
-| M365    | product: m365<br>service: threat_detection  |             |
-| M365    | product: m365<br>service: threat_management |             |
-
-#### Okta
-
-| Product | Logsource                      | Description |
-| ------- | ------------------------------ | ----------- |
-| Okta    | product: okta<br>service: okta |             |
-
-#### OneLogin
-
-| Product  | Logsource                                     | Description |
-| -------- | --------------------------------------------- | ----------- |
-| Onelogin | product: onelogin<br>service: onelogin.events |             |
+| Log Source                                    | Page                                                                         |
+| --------------------------------------------- | ---------------------------------------------------------------------------- |
+| `product: cisco, service: duo`                | [cisco_duo.md](appendix-taxonomy/cisco_duo.md)                               |
+| `product: okta, service: okta`                | [okta_okta.md](appendix-taxonomy/okta_okta.md)                               |
+| `product: onelogin, service: onelogin.events` | [onelogin_onelogin.events.md](appendix-taxonomy/onelogin_onelogin.events.md) |
 
 ### Linux Folder
 
-#### Category
+The *linux* folder contains the rules that monitor the logs of the Linux hosts. They set the *product* attribute to `linux` and either the *category* attribute or the *service* attribute, depending on the log that is monitored.
 
-| Product | Logsource                                      | Description                    |
-| ------- | ---------------------------------------------- | ------------------------------ |
-| Linux   | product: linux<br>category: file_event         | EventID: 11<br>service: sysmon |
-| Linux   | product: linux<br>category: network_connection | EventID: 3<br>service: sysmon  |
-| Linux   | product: linux<br>category: process_creation   | EventID: 1<br>service: sysmon  |
-
-#### Service
-
-| Product | Logsource                            | Description |
-| ------- | ------------------------------------ | ----------- |
-| Linux   | product: linux<br>service: auditd    | auditd.log  |
-| Linux   | product: linux<br>service: auth      | auth.log    |
-| Linux   | product: linux<br>service: clamav    |             |
-| Linux   | product: linux<br>service: cron      |             |
-| Linux   | product: linux<br>service: guacamole |             |
-| Linux   | product: linux<br>service: sudo      |             |
-| Linux   | product: linux<br>service: sshd      |             |
-| Linux   | product: linux<br>service: syslog    |             |
-| Linux   | product: linux<br>service: vsftpd    |             |
+| Log Source                                     | Page                                                                         |
+| ---------------------------------------------- | ---------------------------------------------------------------------------- |
+| `product: linux`                               | [linux.md](appendix-taxonomy/linux.md)                                       |
+| `product: linux, service: auditd`              | [linux_auditd.md](appendix-taxonomy/linux_auditd.md)                         |
+| `product: linux, service: auth`                | [linux_auth.md](appendix-taxonomy/linux_auth.md)                             |
+| `product: linux, service: clamav`              | [linux_clamav.md](appendix-taxonomy/linux_clamav.md)                         |
+| `product: linux, service: cron`                | [linux_cron.md](appendix-taxonomy/linux_cron.md)                             |
+| `category: file_event, product: linux`         | [linux_file_event.md](appendix-taxonomy/linux_file_event.md)                 |
+| `product: linux, service: guacamole`           | [linux_guacamole.md](appendix-taxonomy/linux_guacamole.md)                   |
+| `category: network_connection, product: linux` | [linux_network_connection.md](appendix-taxonomy/linux_network_connection.md) |
+| `category: process_creation, product: linux`   | [linux_process_creation.md](appendix-taxonomy/linux_process_creation.md)     |
+| `product: linux, service: sshd`                | [linux_sshd.md](appendix-taxonomy/linux_sshd.md)                             |
+| `product: linux, service: sudo`                | [linux_sudo.md](appendix-taxonomy/linux_sudo.md)                             |
+| `product: linux, service: syslog`              | [linux_syslog.md](appendix-taxonomy/linux_syslog.md)                         |
+| `product: linux, service: vsftpd`              | [linux_vsftpd.md](appendix-taxonomy/linux_vsftpd.md)                         |
 
 ### Macos Folder
 
-#### Category
+The *macos* folder contains the rules that monitor the logs of the macOS hosts, they set the *product* attribute to `macos` and either the *category* attribute or the *service* attribute, depending on the log that is monitored.
 
-| Product | Logsource                                    | Description |
-| ------- | -------------------------------------------- | ----------- |
-| Macos   | product: macos<br>category: file_event       |             |
-| Macos   | product: macos<br>category: process_creation |             |
+| Log Source                                   | Page                                                                     |
+| -------------------------------------------- | ------------------------------------------------------------------------ |
+| `product: macos, service: endpointsecurity`  | [macos_endpointsecurity.md](appendix-taxonomy/macos_endpointsecurity.md) |
+| `category: file_event, product: macos`       | [macos_file_event.md](appendix-taxonomy/macos_file_event.md)             |
+| `category: process_creation, product: macos` | [macos_process_creation.md](appendix-taxonomy/macos_process_creation.md) |
 
 ### Network Folder
 
-#### Cisco
+The *network* folder contains the rules that monitor the network devices and the network traffic. The products set the *product* and the *service* attributes, the generic network logs only set the *category* attribute.
 
-| Product | Logsource                      | Description |
-| ------- | ------------------------------ | ----------- |
-| Cisco   | product: cisco<br>service: aaa |             |
-| Cisco   | product: cisco<br>service: bgp |             |
-| Cisco   | product: cisco<br>service: ldp |             |
+| Log Source                           | Page                                                       |
+| ------------------------------------ | ---------------------------------------------------------- |
+| `product: cisco, service: aaa`       | [cisco_aaa.md](appendix-taxonomy/cisco_aaa.md)             |
+| `product: cisco, service: bgp`       | [cisco_bgp.md](appendix-taxonomy/cisco_bgp.md)             |
+| `product: cisco, service: ldp`       | [cisco_ldp.md](appendix-taxonomy/cisco_ldp.md)             |
+| `category: dns`                      | [dns.md](appendix-taxonomy/dns.md)                         |
+| `category: firewall`                 | [firewall.md](appendix-taxonomy/firewall.md)               |
+| `product: fortigate, service: event` | [fortigate_event.md](appendix-taxonomy/fortigate_event.md) |
+| `product: huawei, service: bgp`      | [huawei_bgp.md](appendix-taxonomy/huawei_bgp.md)           |
+| `product: huawei, service: ldp`      | [huawei_ldp.md](appendix-taxonomy/huawei_ldp.md)           |
+| `product: juniper, service: bgp`     | [juniper_bgp.md](appendix-taxonomy/juniper_bgp.md)         |
+| `product: juniper, service: ldp`     | [juniper_ldp.md](appendix-taxonomy/juniper_ldp.md)         |
+| `product: zeek, service: dce_rpc`    | [zeek_dce_rpc.md](appendix-taxonomy/zeek_dce_rpc.md)       |
+| `product: zeek, service: dns`        | [zeek_dns.md](appendix-taxonomy/zeek_dns.md)               |
+| `product: zeek, service: http`       | [zeek_http.md](appendix-taxonomy/zeek_http.md)             |
+| `product: zeek, service: kerberos`   | [zeek_kerberos.md](appendix-taxonomy/zeek_kerberos.md)     |
+| `product: zeek, service: rdp`        | [zeek_rdp.md](appendix-taxonomy/zeek_rdp.md)               |
+| `product: zeek, service: smb_files`  | [zeek_smb_files.md](appendix-taxonomy/zeek_smb_files.md)   |
+| `product: zeek, service: x509`       | [zeek_x509.md](appendix-taxonomy/zeek_x509.md)             |
 
-#### Huawei
+### Web Folder
 
-| Product | Logsource                       | Description |
-| ------- | ------------------------------- | ----------- |
-| Huawei  | product: huawei<br>service: ldp |             |
+The *web* folder contains the rules that monitor the web servers and the proxies. The rules that don't belong to a product set the *category* attribute to `proxy` or to `webserver`, the rules of a product set the *service* attribute to its name.
 
-#### Juniper
-
-| Product | Logsource                        | Description |
-| ------- | -------------------------------- | ----------- |
-| Juniper | product: juniper<br>service: ldp |             |
-
-#### Zeek
-
-| Product | Logsource                           | Description |
-| ------- | ----------------------------------- | ----------- |
-| Zeek    | product: zeek<br>service: dce_rpc   |             |
-| Zeek    | product: zeek<br>service: dns       |             |
-| Zeek    | product: zeek<br>service: http      |             |
-| Zeek    | product: zeek<br>service: kerberos  |             |
-| Zeek    | product: zeek<br>service: rdp       |             |
-| Zeek    | product: zeek<br>service: smb_files |             |
-| Zeek    | product: zeek<br>service: x509      |             |
-
-### Other
-
-| Product | Logsource           | Description |
-| ------- | ------------------- | ----------- |
-| N/A     | category: dns       |             |
-| N/A     | category: firewall  |             |
-| N/A     | category: proxy     |             |
-| N/A     | category: webserver |             |
-
-### Product Folder
-
-| Product     | Logsource            | Description           |
-| ----------- | -------------------- | --------------------- |
-| Apache      | service: apache      | Application error.log |
-| Modsecurity | product: modsecurity |                       |
+| Log Source             | Page                                               |
+| ---------------------- | -------------------------------------------------- |
+| `service: apache`      | [apache.md](appendix-taxonomy/apache.md)           |
+| `product: modsecurity` | [modsecurity.md](appendix-taxonomy/modsecurity.md) |
+| `service: nginx`       | [nginx.md](appendix-taxonomy/nginx.md)             |
+| `category: proxy`      | [proxy.md](appendix-taxonomy/proxy.md)             |
+| `category: webserver`  | [webserver.md](appendix-taxonomy/webserver.md)     |
 
 ### Windows Folder
 
-#### Category
+The *windows* folder contains the rules that monitor the logs of the Windows hosts, they set the *product* attribute to `windows` and either the *category* attribute or the *service* attribute, depending on the log that is monitored.
 
-| Product | Logsource                                               | Description                                                                                               |
-| ------- | ------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
-| windows | product: windows<br>category: process_creation          | EventID: 1<br>Channel: Microsoft-Windows-Sysmon/Operational                                               |
-| windows | product: windows<br>category: file_change               | EventID: 2<br>Channel: Microsoft-Windows-Sysmon/Operational                                               |
-| windows | product: windows<br>category: network_connection        | EventID: 3<br>Channel: Microsoft-Windows-Sysmon/Operational                                               |
-| windows | product: windows<br>category: sysmon_status             | EventIDs: <br> - 4<br> - 16<br>Channel: Microsoft-Windows-Sysmon/Operational                              |
-| windows | product: windows<br>category: process_termination       | EventID: 5<br>Channel: Microsoft-Windows-Sysmon/Operational                                               |
-| windows | product: windows<br>category: driver_load               | EventID: 6<br>Channel: Microsoft-Windows-Sysmon/Operational                                               |
-| windows | product: windows<br>category: image_load                | EventID: 7<br>Channel: Microsoft-Windows-Sysmon/Operational                                               |
-| windows | product: windows<br>category: create_remote_thread      | EventID: 8<br>Channel: Microsoft-Windows-Sysmon/Operational                                               |
-| windows | product: windows<br>category: raw_access_thread         | EventID: 9<br>Channel: Microsoft-Windows-Sysmon/Operational                                               |
-| windows | product: windows<br>category: process_access            | EventID: 10<br>Channel: Microsoft-Windows-Sysmon/Operational                                              |
-| windows | product: windows<br>category: file_event                | EventID: 11<br>Channel: Microsoft-Windows-Sysmon/Operational                                              |
-| windows | product: windows<br>category: registry_event            | EventID: <br> - 12<br> - 13<br> - 14<br>Channel: Microsoft-Windows-Sysmon/Operational                     |
-| windows | product: windows<br>category: registry_add              | EventID: 12<br>Channel: Microsoft-Windows-Sysmon/Operational                                              |
-| windows | product: windows<br>category: registry_delete           | EventID: 12<br>Channel: Microsoft-Windows-Sysmon/Operational                                              |
-| windows | product: windows<br>category: registry_set              | EventID: 13<br>Channel: Microsoft-Windows-Sysmon/Operational                                              |
-| windows | product: windows<br>category: registry_rename           | EventID: 14<br>Channel: Microsoft-Windows-Sysmon/Operational                                              |
-| windows | product: windows<br>category: create_stream_hash        | EventID: 15<br>Channel: Microsoft-Windows-Sysmon/Operational                                              |
-| windows | product: windows<br>category: pipe_created              | EventIDs: <br> - 17<br> - 18<br>Channel: Microsoft-Windows-Sysmon/Operational                             |
-| windows | product: windows<br>category: wmi_event                 | EventIDs: <br> - 19<br> - 20<br> - 21<br>Channel: Microsoft-Windows-Sysmon/Operational                    |
-| windows | product: windows<br>category: dns_query                 | EventID: 22<br>Channel: Microsoft-Windows-Sysmon/Operational                                              |
-| windows | product: windows<br>category: file_delete               | EventID: 23<br>Channel: Microsoft-Windows-Sysmon/Operational                                              |
-| windows | product: windows<br>category: clipboard_capture         | EventID: 24<br>Channel: Microsoft-Windows-Sysmon/Operational                                              |
-| windows | product: windows<br>category: process_tampering         | EventID: 25<br>Channel: Microsoft-Windows-Sysmon/Operational                                              |
-| windows | product: windows<br>category: file_delete_detected      | EventID: 26<br>Channel: Microsoft-Windows-Sysmon/Operational                                              |
-| windows | product: windows<br>category: file_block_executable     | EventID: 27<br>Channel: Microsoft-Windows-Sysmon/Operational                                              |
-| windows | product: windows<br>category: file_block_shredding      | EventID: 28<br>Channel: Microsoft-Windows-Sysmon/Operational                                              |
-| windows | product: windows<br>category: file_executable_detected  | EventID: 29<br>Channel: Microsoft-Windows-Sysmon/Operational                                              |
-| windows | product: windows<br>category: sysmon_error              | EventID: 255<br>Channel: Microsoft-Windows-Sysmon/Operational                                             |
-| windows | product: windows<br>category: file_access               | ETW Provider: Microsoft-Windows-Kernel-File                                                               |
-| windows | product: windows<br>category: ps_classic_start          | EventID: 400<br>Channel: Windows PowerShell                                                               |
-| windows | product: windows<br>category: ps_classic_provider_start | EventID: 600<br>Channel: Windows PowerShell                                                               |
-| windows | product: windows<br>category: ps_classic_script         | EventID: 800<br>Channel: Windows PowerShell                                                               |
-| windows | product: windows<br>category: ps_module                 | EventID: 4103<br>Channel:<br> - Microsoft-Windows-PowerShell/Operational<br> - PowerShellCore/Operational |
-| windows | product: windows<br>category: ps_script                 | EventID: 4104<br>Channel:<br> - Microsoft-Windows-PowerShell/Operational<br> - PowerShellCore/Operational |
-| windows | product: windows<br>category: file_rename               | ETW Provider: Microsoft-Windows-Kernel-File                                                               |
+| Log Source                                                              | Page                                                                                                                             |
+| ----------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `product: windows`                                                      | [windows.md](appendix-taxonomy/windows.md)                                                                                       |
+| `product: windows, service: application-experience`                     | [windows_application-experience.md](appendix-taxonomy/windows_application-experience.md)                                         |
+| `product: windows, service: application`                                | [windows_application.md](appendix-taxonomy/windows_application.md)                                                               |
+| `product: windows, service: applocker`                                  | [windows_applocker.md](appendix-taxonomy/windows_applocker.md)                                                                   |
+| `product: windows, service: appmodel-runtime`                           | [windows_appmodel-runtime.md](appendix-taxonomy/windows_appmodel-runtime.md)                                                     |
+| `product: windows, service: appxdeployment-server`                      | [windows_appxdeployment-server.md](appendix-taxonomy/windows_appxdeployment-server.md)                                           |
+| `product: windows, service: appxpackaging-om`                           | [windows_appxpackaging-om.md](appendix-taxonomy/windows_appxpackaging-om.md)                                                     |
+| `product: windows, service: bitlocker`                                  | [windows_bitlocker.md](appendix-taxonomy/windows_bitlocker.md)                                                                   |
+| `product: windows, service: bits-client`                                | [windows_bits-client.md](appendix-taxonomy/windows_bits-client.md)                                                               |
+| `product: windows, service: capi2`                                      | [windows_capi2.md](appendix-taxonomy/windows_capi2.md)                                                                           |
+| `product: windows, service: certificateservicesclient-lifecycle-system` | [windows_certificateservicesclient-lifecycle-system.md](appendix-taxonomy/windows_certificateservicesclient-lifecycle-system.md) |
+| `category: clipboard_capture, product: windows`                         | [windows_clipboard_capture.md](appendix-taxonomy/windows_clipboard_capture.md)                                                   |
+| `product: windows, service: codeintegrity-operational`                  | [windows_codeintegrity-operational.md](appendix-taxonomy/windows_codeintegrity-operational.md)                                   |
+| `category: create_remote_thread, product: windows`                      | [windows_create_remote_thread.md](appendix-taxonomy/windows_create_remote_thread.md)                                             |
+| `category: create_stream_hash, product: windows`                        | [windows_create_stream_hash.md](appendix-taxonomy/windows_create_stream_hash.md)                                                 |
+| `product: windows, service: dhcp`                                       | [windows_dhcp.md](appendix-taxonomy/windows_dhcp.md)                                                                             |
+| `product: windows, service: diagnosis-scripted`                         | [windows_diagnosis-scripted.md](appendix-taxonomy/windows_diagnosis-scripted.md)                                                 |
+| `product: windows, service: dns-client`                                 | [windows_dns-client.md](appendix-taxonomy/windows_dns-client.md)                                                                 |
+| `product: windows, service: dns-server-analytic`                        | [windows_dns-server-analytic.md](appendix-taxonomy/windows_dns-server-analytic.md)                                               |
+| `product: windows, service: dns-server-audit`                           | [windows_dns-server-audit.md](appendix-taxonomy/windows_dns-server-audit.md)                                                     |
+| `product: windows, service: dns-server`                                 | [windows_dns-server.md](appendix-taxonomy/windows_dns-server.md)                                                                 |
+| `category: dns_query, product: windows`                                 | [windows_dns_query.md](appendix-taxonomy/windows_dns_query.md)                                                                   |
+| `product: windows, service: driver-framework`                           | [windows_driver-framework.md](appendix-taxonomy/windows_driver-framework.md)                                                     |
+| `category: driver_load, product: windows`                               | [windows_driver_load.md](appendix-taxonomy/windows_driver_load.md)                                                               |
+| `category: file_access, product: windows`                               | [windows_file_access.md](appendix-taxonomy/windows_file_access.md)                                                               |
+| `category: file_block_executable, product: windows`                     | [windows_file_block_executable.md](appendix-taxonomy/windows_file_block_executable.md)                                           |
+| `category: file_block_shredding, product: windows`                      | [windows_file_block_shredding.md](appendix-taxonomy/windows_file_block_shredding.md)                                             |
+| `category: file_change, product: windows`                               | [windows_file_change.md](appendix-taxonomy/windows_file_change.md)                                                               |
+| `category: file_delete, product: windows`                               | [windows_file_delete.md](appendix-taxonomy/windows_file_delete.md)                                                               |
+| `category: file_delete_detected, product: windows`                      | [windows_file_delete_detected.md](appendix-taxonomy/windows_file_delete_detected.md)                                             |
+| `category: file_event, product: windows`                                | [windows_file_event.md](appendix-taxonomy/windows_file_event.md)                                                                 |
+| `category: file_executable_detected, product: windows`                  | [windows_file_executable_detected.md](appendix-taxonomy/windows_file_executable_detected.md)                                     |
+| `category: file_rename, product: windows`                               | [windows_file_rename.md](appendix-taxonomy/windows_file_rename.md)                                                               |
+| `product: windows, service: firewall-as`                                | [windows_firewall-as.md](appendix-taxonomy/windows_firewall-as.md)                                                               |
+| `product: windows, service: hyper-v-worker`                             | [windows_hyper-v-worker.md](appendix-taxonomy/windows_hyper-v-worker.md)                                                         |
+| `product: windows, service: iis-configuration`                          | [windows_iis-configuration.md](appendix-taxonomy/windows_iis-configuration.md)                                                   |
+| `category: image_load, product: windows`                                | [windows_image_load.md](appendix-taxonomy/windows_image_load.md)                                                                 |
+| `product: windows, service: kernel-event-tracing`                       | [windows_kernel-event-tracing.md](appendix-taxonomy/windows_kernel-event-tracing.md)                                             |
+| `product: windows, service: kernel-shimengine`                          | [windows_kernel-shimengine.md](appendix-taxonomy/windows_kernel-shimengine.md)                                                   |
+| `product: windows, service: ldap`                                       | [windows_ldap.md](appendix-taxonomy/windows_ldap.md)                                                                             |
+| `product: windows, service: lsa-server`                                 | [windows_lsa-server.md](appendix-taxonomy/windows_lsa-server.md)                                                                 |
+| `product: windows, service: microsoft-servicebus-client`                | [windows_microsoft-servicebus-client.md](appendix-taxonomy/windows_microsoft-servicebus-client.md)                               |
+| `product: windows, service: msexchange-management`                      | [windows_msexchange-management.md](appendix-taxonomy/windows_msexchange-management.md)                                           |
+| `category: network_connection, product: windows`                        | [windows_network_connection.md](appendix-taxonomy/windows_network_connection.md)                                                 |
+| `product: windows, service: ntfs`                                       | [windows_ntfs.md](appendix-taxonomy/windows_ntfs.md)                                                                             |
+| `product: windows, service: ntlm`                                       | [windows_ntlm.md](appendix-taxonomy/windows_ntlm.md)                                                                             |
+| `product: windows, service: openssh`                                    | [windows_openssh.md](appendix-taxonomy/windows_openssh.md)                                                                       |
+| `category: pipe_created, product: windows`                              | [windows_pipe_created.md](appendix-taxonomy/windows_pipe_created.md)                                                             |
+| `product: windows, service: powershell-classic`                         | [windows_powershell-classic.md](appendix-taxonomy/windows_powershell-classic.md)                                                 |
+| `product: windows, service: powershell`                                 | [windows_powershell.md](appendix-taxonomy/windows_powershell.md)                                                                 |
+| `product: windows, service: printservice-admin`                         | [windows_printservice-admin.md](appendix-taxonomy/windows_printservice-admin.md)                                                 |
+| `product: windows, service: printservice-operational`                   | [windows_printservice-operational.md](appendix-taxonomy/windows_printservice-operational.md)                                     |
+| `category: process_access, product: windows`                            | [windows_process_access.md](appendix-taxonomy/windows_process_access.md)                                                         |
+| `category: process_creation, product: windows`                          | [windows_process_creation.md](appendix-taxonomy/windows_process_creation.md)                                                     |
+| `category: process_tampering, product: windows`                         | [windows_process_tampering.md](appendix-taxonomy/windows_process_tampering.md)                                                   |
+| `category: process_termination, product: windows`                       | [windows_process_termination.md](appendix-taxonomy/windows_process_termination.md)                                               |
+| `category: ps_classic_provider_start, product: windows`                 | [windows_ps_classic_provider_start.md](appendix-taxonomy/windows_ps_classic_provider_start.md)                                   |
+| `category: ps_classic_script, product: windows`                         | [windows_ps_classic_script.md](appendix-taxonomy/windows_ps_classic_script.md)                                                   |
+| `category: ps_classic_start, product: windows`                          | [windows_ps_classic_start.md](appendix-taxonomy/windows_ps_classic_start.md)                                                     |
+| `category: ps_module, product: windows`                                 | [windows_ps_module.md](appendix-taxonomy/windows_ps_module.md)                                                                   |
+| `category: ps_script, product: windows`                                 | [windows_ps_script.md](appendix-taxonomy/windows_ps_script.md)                                                                   |
+| `category: raw_access_thread, product: windows`                         | [windows_raw_access_thread.md](appendix-taxonomy/windows_raw_access_thread.md)                                                   |
+| `category: registry_add, product: windows`                              | [windows_registry_add.md](appendix-taxonomy/windows_registry_add.md)                                                             |
+| `category: registry_delete, product: windows`                           | [windows_registry_delete.md](appendix-taxonomy/windows_registry_delete.md)                                                       |
+| `category: registry_event, product: windows`                            | [windows_registry_event.md](appendix-taxonomy/windows_registry_event.md)                                                         |
+| `category: registry_rename, product: windows`                           | [windows_registry_rename.md](appendix-taxonomy/windows_registry_rename.md)                                                       |
+| `category: registry_set, product: windows`                              | [windows_registry_set.md](appendix-taxonomy/windows_registry_set.md)                                                             |
+| `product: windows, service: security-mitigations`                       | [windows_security-mitigations.md](appendix-taxonomy/windows_security-mitigations.md)                                             |
+| `product: windows, service: security`                                   | [windows_security.md](appendix-taxonomy/windows_security.md)                                                                     |
+| `product: windows, service: sense`                                      | [windows_sense.md](appendix-taxonomy/windows_sense.md)                                                                           |
+| `product: windows, service: servicebus-client`                          | [windows_servicebus-client.md](appendix-taxonomy/windows_servicebus-client.md)                                                   |
+| `product: windows, service: shell-core`                                 | [windows_shell-core.md](appendix-taxonomy/windows_shell-core.md)                                                                 |
+| `product: windows, service: smbclient-security`                         | [windows_smbclient-security.md](appendix-taxonomy/windows_smbclient-security.md)                                                 |
+| `product: windows, service: smbserver-connectivity`                     | [windows_smbserver-connectivity.md](appendix-taxonomy/windows_smbserver-connectivity.md)                                         |
+| `product: windows, service: sysmon`                                     | [windows_sysmon.md](appendix-taxonomy/windows_sysmon.md)                                                                         |
+| `category: sysmon_error, product: windows`                              | [windows_sysmon_error.md](appendix-taxonomy/windows_sysmon_error.md)                                                             |
+| `category: sysmon_status, product: windows`                             | [windows_sysmon_status.md](appendix-taxonomy/windows_sysmon_status.md)                                                           |
+| `product: windows, service: system`                                     | [windows_system.md](appendix-taxonomy/windows_system.md)                                                                         |
+| `product: windows, service: taskscheduler`                              | [windows_taskscheduler.md](appendix-taxonomy/windows_taskscheduler.md)                                                           |
+| `product: windows, service: terminalservices-localsessionmanager`       | [windows_terminalservices-localsessionmanager.md](appendix-taxonomy/windows_terminalservices-localsessionmanager.md)             |
+| `product: windows, service: vhdmp`                                      | [windows_vhdmp.md](appendix-taxonomy/windows_vhdmp.md)                                                                           |
+| `product: windows, service: windefend`                                  | [windows_windefend.md](appendix-taxonomy/windows_windefend.md)                                                                   |
+| `product: windows, service: wmi`                                        | [windows_wmi.md](appendix-taxonomy/windows_wmi.md)                                                                               |
+| `category: wmi_event, product: windows`                                 | [windows_wmi_event.md](appendix-taxonomy/windows_wmi_event.md)                                                                   |
 
-#### Service
+## Network Category
 
-| Product | Logsource                                                               | Description                                                                                                                                                                                                                |
-| ------- | ----------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| windows | product: windows<br>service: application                                | Channel: Application                                                                                                                                                                                                       |
-| windows | product: windows<br>service: application-experience                     | Channel:<br> - Microsoft-Windows-Application-Experience/Program-Telemetry<br> - Microsoft-Windows-Application-Experience/Program-Compatibility-Assistant                                                                   |
-| windows | product: windows<br>service: applocker                                  | Channel:<br> - Microsoft-Windows-AppLocker/MSI and Script<br> - Microsoft-Windows-AppLocker/EXE and DLL<br> - Microsoft-Windows-AppLocker/Packaged app-Deployment<br> - Microsoft-Windows-AppLocker/Packaged app-Execution |
-| windows | product: windows<br>service: appmodel-runtime                           | Channel: Microsoft-Windows-AppModel-Runtime/Admin                                                                                                                                                                          |
-| windows | product: windows<br>service: appxdeployment-server                      | Channel: Microsoft-Windows-AppXDeploymentServer/Operational                                                                                                                                                                |
-| windows | product: windows<br>service: appxpackaging-om                           | Channel: Microsoft-Windows-AppxPackaging/Operational                                                                                                                                                                       |
-| windows | product: windows<br>service: bitlocker                                  | Channel: Microsoft-Windows-BitLocker/BitLocker Management                                                                                                                                                                  |
-| windows | product: windows<br>service: bits-client                                | Channel: Microsoft-Windows-Bits-Client/Operational                                                                                                                                                                         |
-| windows | product: windows<br>service: capi2                                      | Channel: Microsoft-Windows-CAPI2/Operational                                                                                                                                                                               |
-| windows | product: windows<br>service: certificateservicesclient-lifecycle-system | Channel: Microsoft-Windows-CertificateServicesClient-Lifecycle-System/Operational                                                                                                                                          |
-| windows | product: windows<br>service: codeintegrity-operational                  | Channel: Microsoft-Windows-CodeIntegrity/Operational                                                                                                                                                                       |
-| windows | product: windows<br>service: dhcp                                       | Channel: Microsoft-Windows-DHCP-Server/Operational                                                                                                                                                                         |
-| windows | product: windows<br>service: diagnosis-scripted                         | Channel: Microsoft-Windows-Diagnosis-Scripted/Operational                                                                                                                                                                  |
-| windows | product: windows<br>service: dns-client                                 | Channel: Microsoft-Windows-DNS Client Events/Operational                                                                                                                                                                   |
-| windows | product: windows<br>service: dns-server                                 | Channel: DNS Server                                                                                                                                                                                                        |
-| windows | product: windows<br>service: dns-server-analytic                        | Channel: Microsoft-Windows-DNS-Server/Analytical                                                                                                                                                                           |
-| windows | product: windows<br>service: dns-server-audit                           | Channel: Microsoft-Windows-DNS-Server/Audit                                                                                                                                                                                |
-| windows | product: windows<br>service: driver-framework                           | Channel: Microsoft-Windows-DriverFrameworks-UserMode/Operational                                                                                                                                                           |
-| windows | product: windows<br>service: firewall-as                                | Channel: Microsoft-Windows-Windows Firewall With Advanced Security/Firewall                                                                                                                                                |
-| windows | product: windows<br>service: hyper-v-worker                             | Channel: Microsoft-Windows-Hyper-V-Worker                                                                                                                                                                                  |
-| windows | product: windows<br>service: iis-configuration                          | Channel: Microsoft-IIS-Configuration/Operational                                                                                                                                                                           |
-| windows | product: windows<br>service: kernel-event-tracing                       | Channel: Microsoft-Windows-Kernel-EventTracing                                                                                                                                                                             |
-| windows | product: windows<br>service: kernel-shimengine                          | Channel:<br> - Microsoft-Windows-Kernel-ShimEngine/Operational<br> - WinEventLog:Microsoft-Windows-Kernel-ShimEngine/Diagnostic                                                                                            |
-| windows | product: windows<br>service: ldap                                       | Channel: Microsoft-Windows-LDAP-Client/Debug                                                                                                                                                                               |
-| windows | product: windows<br>service: lsa-server                                 | Channel: Microsoft-Windows-LSA/Operational                                                                                                                                                                                 |
-| windows | product: windows<br>service: msexchange-management                      | Channel: MSExchange Management                                                                                                                                                                                             |
-| windows | product: windows<br>service: ntfs                                       | Channel: Microsoft-Windows-Ntfs/Operational                                                                                                                                                                                |
-| windows | product: windows<br>service: ntlm                                       | Channel: Microsoft-Windows-NTLM/Operational                                                                                                                                                                                |
-| windows | product: windows<br>service: openssh                                    | Channel: OpenSSH/Operational                                                                                                                                                                                               |
-| windows | product: windows<br>service: powershell                                 | Channel: Microsoft-Windows-PowerShell/Operational                                                                                                                                                                          |
-| windows | product: windows<br>service: powershell-classic                         | Channel: Windows PowerShell                                                                                                                                                                                                |
-| windows | product: windows<br>service: printservice-admin                         | Channel: Microsoft-Windows-PrintService/Admin                                                                                                                                                                              |
-| windows | product: windows<br>service: printservice-operational                   | Channel: Microsoft-Windows-PrintService/Operational                                                                                                                                                                        |
-| windows | product: windows<br>service: security                                   | Channel: Security                                                                                                                                                                                                          |
-| windows | product: windows<br>service: security-mitigations                       | Channel:<br> - Microsoft-Windows-Security-Mitigations/Kernel Mode<br> - Microsoft-Windows-Security-Mitigations/User Mode                                                                                                   |
-| windows | product: windows<br>service: sense                                      | Channel: Microsoft-Windows-SENSE/Operational                                                                                                                                                                               |
-| windows | product: windows<br>service: servicebus-client                          | Channel: <br> - Microsoft-ServiceBus-Client/Operational<br> - Microsoft-ServiceBus-Client/Admin                                                                                                                            |
-| windows | product: windows<br>service: shell-core                                 | Channel: Microsoft-Windows-Shell-Core/Operational                                                                                                                                                                          |
-| windows | product: windows<br>service: smbclient-security                         | Channel: Microsoft-Windows-SmbClient/Security                                                                                                                                                                              |
-| windows | product: windows<br>service: sysmon                                     | Channel: Microsoft-Windows-Sysmon/Operational                                                                                                                                                                              |
-| windows | product: windows<br>service: system                                     | Channel: System                                                                                                                                                                                                            |
-| windows | product: windows<br>service: taskscheduler                              | Channel: Microsoft-Windows-TaskScheduler/Operational                                                                                                                                                                       |
-| windows | product: windows<br>service: terminalservices-localsessionmanager       | Channel: Microsoft-Windows-TerminalServices-LocalSessionManager/Operational                                                                                                                                                |
-| windows | product: windows<br>service: vhdmp                                      | Channel: Microsoft-Windows-VHDMP/Operational                                                                                                                                                                               |
-| windows | product: windows<br>service: windefend                                  | Channel: Microsoft-Windows-Windows Defender/Operational                                                                                                                                                                    |
-| windows | product: windows<br>service: wmi                                        | Channel: Microsoft-Windows-WMI-Activity/Operational                                                                                                                                                                        |
+The generic network logs are documented with a page of their own, they set the *category* attribute to `network` and the *service* attribute to the kind of event that was observed. No rule of the repository uses them yet.
 
-## Network Events
-
-Network events can be defined with the generic logsource category *network*.
-
-The event scope can be further restricted with *service*.
-
-The most common values should follow the rule : "lower case letters, spaces replaces with underscores".
-
-| Product | Logsource                                | Description                    |
-| ------- | ---------------------------------------- | ------------------------------ |
-|         | category: network<br>service: connection | networks connection in general |
-|         | category: network<br>service: dns        | DNS queries in general         |
-
-## Fields
-
-### Generic
-
-#### Process Creation Events
-
-Process creation events can be defined with the generic log source category *process_creation*. The event scope can be further restricted with *product*. Example for a process creation event log source restricted to Windows:
-
-```yml
-category: process_creation
-product: windows
-```
-
-The field names follow the field names used in [Sysmon](https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon) events:
-
-| Field Name        | Example Value                                                                             | Comment |
-| ----------------- | ----------------------------------------------------------------------------------------- | ------- |
-| UtcTime           | 2019-03-02 08:51:00.008                                                                   |         |
-| ProcessGuid       | {c1b49677-43f4-5c7a-0000-0010d3dd8044}                                                    |         |
-| ProcessId         | 1028                                                                                      |         |
-| Image             | C:\\Program Files (x86)\\Google\\Update\\GoogleUpdate.exe                                 |         |
-| FileVersion       | 1.3.28.13                                                                                 |         |
-| Description       | Google Installer                                                                          |         |
-| Product           | Google Update                                                                             |         |
-| Company           | Google Inc.                                                                               |         |
-| OriginalFileName  | GoogleUpdate.exe                                                                          |         |
-| CommandLine       | "C:\\Program Files (x86)\\Google\\Update\\GoogleUpdate.exe" /ua /installsource scheduler  |         |
-| CurrentDirectory  | C:\\Windows\\system32                                                                     |         |
-| User              | NT AUTHORITY\\SYSTEM                                                                      |         |
-| LogonGuid         | {c1b49677-3fb9-5c09-0000-0020e7030000}                                                    |         |
-| LogonId           | 0x3e7                                                                                     |         |
-| TerminalSessionId | 0                                                                                         |         |
-| IntegrityLevel    | System                                                                                    |         |
-| Hashes            | MD5=CCF1D1573F175299ADE01C07791A6541,IMPHASH=E96A73C7BF33A464C510EDE582318BF2             |         |
-| imphash           | E96A73C7BF33A464C510EDE582318BF2                                                          |         |
-| md5               | CCF1D1573F175299ADE01C07791A6541                                                          |         |
-| sha1              | 0AE1F9071C5E8FE4A69D3F671937935D242D8A6C                                                  |         |
-| sha256            | 68A15A34C2E28B9B521A240B948634617D72AD619E3950BC6DC769E60A0C3CF2                          |         |
-| ParentProcessGuid | {c1b49677-6b43-5c78-0000-00107fb77544}                                                    |         |
-| ParentProcessId   | 1724                                                                                      |         |
-| ParentImage       | C:\\Windows\\System32\\taskeng.exe                                                        |         |
-| ParentCommandLine | taskeng.exe {88F94E5C-5DC3-4606-AEFA-BDCA976D6113} S-1-5-18:NT AUTHORITY\\System:Service: |         |
-| ParentUser        | NT AUTHORITY\\SYSTEM                                                                      |         |
-
-#### Other Generic Rule Categories
-
-We align our field names to the field names that [Sysmon](https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon) uses.
-You can find all possible field values in the [Sysmon Community Guide](https://github.com/trustedsec/SysmonCommunityGuide/blob/master/chapters/Sysmon.md) and on [UltimateWindowsSecurity.com](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/default.aspx).
-
-### Specific
-
-- `product: windows`: Windows Operating System logs. The naming of Windows Eventlog attributes is used in Sigma rules.
-  - `service: security`: Windows Security Event Log. Some may be covered by [generic log sources](#generic).
-  - `service: system`: Windows System Event Log
-  - `service: sysmon`: Event Logs created by Sysmon. Some may be covered by [generic log sources](#generic).
-  - `service: taskscheduler`
-  - `service: wmi`
-  - `service: application`
-  - `service: dns-server`
-  - `service: driver-framework`
-  - `service: powershell`
-  - `service: powershell-classic`
-- `product: linux`: Linux log files
-  - `service: auth`: Linux authentication logs. Usually */var/log/auth.log*.
-  - `service: auditd`: Linux audit logs
-  - `service: clamav`: ClamAV logs
-- `product: apache`: Apache httpd logs
-  - `service: access`: Access logs
-  - `service: error`: Error logs
-- `category: proxy`
-  - Field Name according to [W3C Extended Log File Format](https://www.w3.org/TR/WD-logfile.html). Additional W3 examples can be found from [Microsoft](https://docs.microsoft.com/en-us/windows/win32/http/w3c-logging).
-  - Field names:
-    - `c-uri`: URL requested by client
-    - `c-uri-extension`: Extension of the URL. Commonly is the requested extension of a file name
-    - `c-uri-query`: Path component of requested URL
-    - `c-uri-stem`: Stem of the requested URL
-    - `c-useragent`: the clients user agent.
-    - `cs-bytes`: Number of bytes sent from the server
-    - `cs-cookie`: Cookie headers sent from client to server.
-    - `cs-host`: Host header send from client to server
-    - `cs-method`: HTTP request method
-    - `r-dns`: The Domain requested. Additionally is referred to as the Host header or URL Domain. Recommend to use `cs-host` instead of this field
-    - `cs-referrer`: The referring link or site
-    - `cs-version`: The HTTP protocol version that the client used
-    - `sc-bytes`: Number of bytes sent from the client
-    - `sc-status`: The HTTP status code
-    - `src_ip`: The IP address of the client that made the request
-    - `dst_ip`: The IP address of the server
-- `category: firewall`
-  - Field Names:
-    - `src_ip`, `src_port`, `dst_ip`, `dst_port`, `username`
-- `category: dns`
-- `category: webserver`
-  - `date`: The date that the activity occurred.
-  - `time`: The time that the activity occurred.
-  - `c-ip`:The IP address of the client that accessed your server.
-  - `cs-username`: The name of the authenticated user who accessed your server. This does not include anonymous users, who are represented by a hyphen (-).
-  - `s-sitename`: The Internet service and instance number that was accessed by a client.
-  - `s-computername`: The name of the server on which the log entry was generated.
-  - `s-ip`: The IP address of the server on which the log entry was generated.
-  - `s-port`: The port number the client is connected to.
-  - `cs-method`: The action the client was trying to perform (for example, a GET method).
-  - `cs-uri-stem`: The resource accessed; for example, Default.htm.
-  - `cs-uri-query`: The query, if any, the client was trying to perform.
-  - `sc-status`: The status of the action, in HTTP or FTP terms.
-  - `c-win32-status`: The status of the action, in terms used by Microsoft Windows®.
-  - `sc-bytes`: The number of bytes sent by the server.
-  - `cs-bytes`: The number of bytes received by the server.
-  - `time-taken`: The duration of time, in milliseconds, that the action consumed.
-  - `cs-version`: The protocol (HTTP, FTP) version used by the client. For HTTP this will be either HTTP 1.0 or HTTP 1.1.
-  - `cs-host`: Displays the content of the host header.
-  - `cs-user-agent`: The browser used on the client.
-  - `cs-cookie`: The content of the cookie sent or received, if any.
-  - `cs-referer`: The previous site visited by the user. This site provided a link to the current site.
-- `product: antivirus`
-  - Field Names:
-    - `Filename`: the name and path of the source threat file
-    - `Signature`: name of the threat like "EICAR-Test-File"
-    - `Action`: action take by the antivirus like "delete"
-
-### Network category
-
-- `service: connection`
-  - event.duration:Connection duration in seconds
-  - network.type: Network layer type (e.g., ipv4, ipv6, ipsec)
-  - network.transport: Transport layer protocol (e.g., tcp, udp)
-  - network.protocol: Application layer protocol (e.g., http, dns, ssh)
-  - source.ip: Source IP address
-  - source.port: Source port number
-  - destination.ip:Destination IP address
-  - destination.port: Destination port number
-  - source.packets: Number of packets
-  - destination.packets: Number of packets
-  - source.bytes: Number of bytes
-  - destination.bytes: Number of bytes
-  - network.community_id: Community ID hash
-  - network.state: State of the connection
-  - network.history: History of the connection
-- `service: dns`
-  - source.ip : Source IP address
-  - source.port: Source port number
-  - destination.ip: Destination IP address
-  - destination.port: Destination port number
-  - network.community_id: Community ID hash
-  - dns.id: DNS transaction identifier
-  - dns.question.name: DNS question name
-  - dns.question.type: DNS question type
-  - dns.question.class: DNS question class
-  - dns.answers.name: DNS answer name
-  - dns.answers.type: DNS answer type
-  - dns.answers.class: DNS answer class
-  - dns.answers.data: DNS answer data
-  - dns.answers.ttl: DNS answer TTL
-  - dns.header.flags: DNS header flags
-  - dns.response.code: DNS response code
+| Log Source                               | Page                                                             |
+| ---------------------------------------- | ---------------------------------------------------------------- |
+| `category: network, service: connection` | [network_connection.md](appendix-taxonomy/network_connection.md) |
+| `category: network, service: dns`        | [network_dns.md](appendix-taxonomy/network_dns.md)               |
 
 ## History
 
+- 2025-XX-XX Taxonomy Appendix v2.2.0
+
+  - Split the appendix into one page per log source, in the `appendix-taxonomy` directory
+  - Document `category: webserver` with the field names of the Microsoft HTTP Server API
+  - Document `category: proxy` without the claim that it uses the W3C extended log file format
+  - Document the fields that the Windows event sources write with [EVTX-ETW-Resources](https://github.com/nasbench/EVTX-ETW-Resources)
+  - Add the log sources that the rules of the SigmaHQ repository use:
+    - `product: linux`
+    - `product: windows`
+    - `category: application, product: jvm`
+    - `category: application, product: kubernetes, service: audit`
+    - `category: application, product: nodejs`
+    - `category: application, product: opencanary`
+    - `category: application, product: velocity`
+    - `product: kubernetes, service: audit`
+    - `product: fortigate, service: event`
+    - `product: gcp, service: google_workspace.login`
+    - `product: huawei, service: bgp`
+    - `product: juniper, service: bgp`
+    - `product: windows, service: microsoft-servicebus-client`
+    - `product: windows, service: smbserver-connectivity`
+    - `service: nginx`
+
 - 2025-08-02 Specification v2.1.0
+
   - Add generic network category:
     - `service: connection`
     - `service: dns`
+
 - 2024-11-01 Taxonomy Appendix v v2.0.2
+
   - Add new windows services:
     - `service: iis-configuration`
+
 - 2024-08-11 Taxonomy Appendix v v2.0.1
+
   - Restructure the document for a better reading experience
+
 - 2024-08-08 Taxonomy Appendix v v2.0.0
+
   - Fix the following windows services:
     - Change `ldap_debug` to `ldap`
   - Add new windows services:
@@ -544,11 +308,15 @@ You can find all possible field values in the [Sysmon Community Guide](https://g
     - `service: ntfs`
     - `service: sense`
     - `service: servicebus-client`
+
 - 2023-01-21 Taxonomy Appendix v1.3.5
+
   - Add new product and its related service:
     - `product: github`
     - `service: audit`
+
 - 2023-01-18 Taxonomy Appendix v1.3.4
+
   - Add the following new windows services:
     - `service: appxdeployment-server`
     - `service: lsa-server`
@@ -564,19 +332,33 @@ You can find all possible field values in the [Sysmon Community Guide](https://g
   - Add missing category folder
   - Add missing product folder
   - Add description for a special case when using only the `product` logsource
+
 - 2023-01-03 Taxonomy Appendix v1.3.3
+
   - Add windows service dns-server-analytic and bitlocker
   - Add all the W3C fields names to the category `webserver`
   - Update linux `file_create` category to `file_event`
+
 - 2022-12-19 Taxonomy Appendix v1.3.2
+
   - Minor tweak and updates to the syntax and text
+
 - 2022-11-13 Taxonomy Appendix v1.3.1
+
   - Add missing service shell-core
+
 - 2022-11-01 Taxonomy Appendix v1.3.0
+
   - Add missing windows services
+
 - 2022-10-25 Taxonomy Appendix v1.2.0
+
   - Order the windows logs
+
 - 2022-10-19 Taxonomy Appendix v1.1.0
+
   - Fix links and spelling
+
 - 2022-09-18 Taxonomy v1.0.0
+
   - Initial release
