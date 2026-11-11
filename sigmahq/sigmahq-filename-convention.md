@@ -10,6 +10,7 @@ This document describe a soft convention to name rule files. The following conve
 - [Category without product](#category-without-product)
 - [Service](#service)
   - [Linux](#linux)
+  - [macOS](#macos)
   - [Windows](#windows)
 
 <!-- mdformat-toc end -->
@@ -96,6 +97,18 @@ The naming convention for rules using Linux services is as follows:
 | sudo      | lnx_sudo\_\*      | lnx_sudo_cve_2019_14287_user.yml              |
 | syslog    | lnx_syslog\_\*    | lnx_syslog_susp_named.yml                     |
 | vsftpd    | lnx_vsftpd\_\*    | lnx_vsftp_error_messages.yml                  |
+
+### macOS
+
+The naming convention for rules using macOS services is as follows:
+
+- Filename must start with `macos_`
+- Followed by the service name and underscore at the end `service_`. Example: `unifiedlog_`
+- Filename must end with a `.yml` extension
+
+| Service    | Pattern              | example                           |
+| ---------- | -------------------- | --------------------------------- |
+| unifiedlog | macos_unifiedlog\_\* | macos_unifiedlog_sudo_command.yml |
 
 ### Windows
 
