@@ -2,8 +2,8 @@
 
 The following document defines the field names and log sources that are allowed to be used in SIGMA rules that are shared on the official SigmaHQ repository.
 
-- Version 2.1.0
-- Release date 2025-08-02
+- Version 2.1.1
+- Release date 2026-11-11
 
 <!-- mdformat-toc start --slug=github --no-anchors --maxlevel=6 --minlevel=2 -->
 
@@ -49,6 +49,16 @@ The following document defines the field names and log sources that are allowed 
     - [Other Generic Rule Categories](#other-generic-rule-categories)
   - [Specific](#specific)
   - [macOS Endpoint Security Framework (ESF)](#macos-endpoint-security-framework-esf)
+    - [Process Fields](#process-fields)
+    - [Code Signature Fields](#code-signature-fields)
+    - [File Fields](#file-fields)
+    - [Process Access and Signal Fields](#process-access-and-signal-fields)
+    - [Privilege, Memory, XPC and Kernel Extension Fields](#privilege-memory-xpc-and-kernel-extension-fields)
+    - [TCC and Background Task Fields](#tcc-and-background-task-fields)
+    - [Account, Authentication and Outcome Fields](#account-authentication-and-outcome-fields)
+    - [Screen Sharing Fields](#screen-sharing-fields)
+    - [Configuration Profile and Open Directory Fields](#configuration-profile-and-open-directory-fields)
+    - [XProtect and Gatekeeper Fields](#xprotect-and-gatekeeper-fields)
   - [Network category](#network-category)
 - [History](#history)
 
@@ -205,30 +215,44 @@ Because application logs are often ingested as raw text events with poor decompo
 
 #### Category
 
-| Product | Logsource                                    | Description |
-| ------- | -------------------------------------------- | ----------- |
-| Macos   | product: macos<br>category: file_event       |             |
-| Macos   | product: macos<br>category: process_creation |             |
+The macOS categories are read from Apple Endpoint Security Framework (ESF) events. `service: endpointsecurity` is optional: a rule with `product: macos`, one of these categories and no `service` uses ESF events, and a rule may set `service: endpointsecurity` to say so explicitly.
+The event names are the names `eslogger` uses (`eslogger --list-events`).
+`file_event` covers `create` events and the destination of `rename` events, so a file written elsewhere and moved into place is included. Other ways a file can appear, such as `clone`, `link` or `copyfile`, are not.
+`process_access` covers `get_task` and `trace`; the `get_task_read`, `get_task_inspect` and `get_task_name` variants are not included.
+In `file_attribute_change`, `TargetFilename` is set for all five events and `ExtendedAttribute` for `setextattr` and `deleteextattr`. The new mode, owner and flags are not defined as fields yet.
+ESF has no TCP/UDP connection or DNS events, so `network_connection` and `dns_query` are not macOS ESF categories.
+The fields are listed in [macOS Endpoint Security Framework (ESF)](#macos-endpoint-security-framework-esf).
+
+| Product | Logsource                                         | Description                                                                                                                                                                                                                                                                                                                                     |
+| ------- | ------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Macos   | product: macos<br>category: authentication        | ESF event: `authentication`                                                                                                                                                                                                                                                                                                                     |
+| Macos   | product: macos<br>category: background_task       | ESF events:<br> - `btm_launch_item_add`<br> - `btm_launch_item_remove`                                                                                                                                                                                                                                                                          |
+| Macos   | product: macos<br>category: configuration_profile | ESF events:<br> - `profile_add`<br> - `profile_remove`                                                                                                                                                                                                                                                                                          |
+| Macos   | product: macos<br>category: create_remote_thread  | ESF event: `remote_thread_create`                                                                                                                                                                                                                                                                                                               |
+| Macos   | product: macos<br>category: driver_load           | ESF event: `kextload`                                                                                                                                                                                                                                                                                                                           |
+| Macos   | product: macos<br>category: file_access           | ESF event: `open`                                                                                                                                                                                                                                                                                                                               |
+| Macos   | product: macos<br>category: file_attribute_change | ESF events:<br> - `setextattr`<br> - `deleteextattr`<br> - `setmode`<br> - `setowner`<br> - `setflags`                                                                                                                                                                                                                                          |
+| Macos   | product: macos<br>category: file_delete           | ESF event: `unlink`                                                                                                                                                                                                                                                                                                                             |
+| Macos   | product: macos<br>category: file_event            | ESF events:<br> - `create`<br> - `rename` (the new path)                                                                                                                                                                                                                                                                                        |
+| Macos   | product: macos<br>category: file_rename           | ESF event: `rename`                                                                                                                                                                                                                                                                                                                             |
+| Macos   | product: macos<br>category: gatekeeper_override   | ESF event: `gatekeeper_user_override`                                                                                                                                                                                                                                                                                                           |
+| Macos   | product: macos<br>category: memory_protection     | ESF event: `mprotect`                                                                                                                                                                                                                                                                                                                           |
+| Macos   | product: macos<br>category: privilege_change      | ESF events:<br> - `setuid`<br> - `setgid`<br> - `seteuid`<br> - `setreuid`<br> - `setegid`<br> - `setregid`                                                                                                                                                                                                                                     |
+| Macos   | product: macos<br>category: process_access        | ESF events:<br> - `get_task`<br> - `trace`                                                                                                                                                                                                                                                                                                      |
+| Macos   | product: macos<br>category: process_creation      | ESF event: `exec`                                                                                                                                                                                                                                                                                                                               |
+| Macos   | product: macos<br>category: process_signal        | ESF event: `signal`                                                                                                                                                                                                                                                                                                                             |
+| Macos   | product: macos<br>category: screen_sharing        | ESF events:<br> - `screensharing_attach`<br> - `screensharing_detach`                                                                                                                                                                                                                                                                           |
+| Macos   | product: macos<br>category: sudo                  | ESF events:<br> - `sudo`<br> - `su`                                                                                                                                                                                                                                                                                                             |
+| Macos   | product: macos<br>category: tcc_modification      | ESF event: `tcc_modify`                                                                                                                                                                                                                                                                                                                         |
+| Macos   | product: macos<br>category: user_account_change   | ESF events:<br> - `od_create_user`<br> - `od_delete_user`<br> - `od_modify_password`<br> - `od_disable_user`<br> - `od_enable_user`<br> - `od_attribute_value_add`<br> - `od_attribute_value_remove`<br> - `od_attribute_set`<br> - `od_create_group`<br> - `od_delete_group`<br> - `od_group_add`<br> - `od_group_remove`<br> - `od_group_set` |
+| Macos   | product: macos<br>category: xpc_connection        | ESF event: `xpc_connect`                                                                                                                                                                                                                                                                                                                        |
+| Macos   | product: macos<br>category: xprotect              | ESF events:<br> - `xp_malware_detected`<br> - `xp_malware_remediated`                                                                                                                                                                                                                                                                           |
 
 #### Service
 
-| Product | Logsource                                        | Description                                                                                                                                  |
-| ------- | ------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| Macos   | product: macos<br>service: endpointsecurity      | Apple Endpoint Security Framework (ESF) events collected via eslogger or Elastic Defend. Provides real-time security telemetry for macOS.   |
-
-**Supported Categories with ESF Service:**
-
-| Product | Logsource                                                                     | Description                                            |
-| ------- | ----------------------------------------------------------------------------- | ------------------------------------------------------ |
-| Macos   | product: macos<br>category: process_creation<br>service: endpointsecurity     | ESF ES_EVENT_TYPE_NOTIFY_EXEC (event type 9)           |
-| Macos   | product: macos<br>category: file_event<br>service: endpointsecurity           | ESF file events (create, unlink, rename, etc.)         |
-| Macos   | product: macos<br>category: file_create<br>service: endpointsecurity          | ESF ES_EVENT_TYPE_NOTIFY_CREATE (event type 13)        |
-| Macos   | product: macos<br>category: file_delete<br>service: endpointsecurity          | ESF ES_EVENT_TYPE_NOTIFY_UNLINK (event type 19)        |
-| Macos   | product: macos<br>category: file_rename<br>service: endpointsecurity          | ESF ES_EVENT_TYPE_NOTIFY_RENAME (event type 21)        |
-| Macos   | product: macos<br>category: authentication<br>service: endpointsecurity       | ESF ES_EVENT_TYPE_NOTIFY_AUTHENTICATION (event type 111) |
-| Macos   | product: macos<br>category: process_injection<br>service: endpointsecurity    | ESF ES_EVENT_TYPE_NOTIFY_PTRACE (event type 64)        |
-| Macos   | product: macos<br>category: process_access<br>service: endpointsecurity       | ESF ES_EVENT_TYPE_NOTIFY_PTRACE (event type 64)        |
-| Macos   | product: macos<br>category: driver_load<br>service: endpointsecurity          | ESF kext load/unload events (event types 17, 18)       |
+| Product | Logsource                                   | Description                                                                               |
+| ------- | ------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| Macos   | product: macos<br>service: endpointsecurity | Apple Endpoint Security Framework (ESF) events. Optional with the macOS categories above. |
 
 ### Network Folder
 
@@ -450,7 +474,7 @@ You can find all possible field values in the [Sysmon Community Guide](https://g
   - `service: auditd`: Linux audit logs
   - `service: clamav`: ClamAV logs
 - `product: macos`: macOS Operating System logs
-  - `service: endpointsecurity`: Apple Endpoint Security Framework (ESF) events. These events are collected via `eslogger` or Elastic Defend and provide real-time security telemetry for process execution, file operations, authentication, and more. See [Apple ESF Documentation](https://developer.apple.com/documentation/endpointsecurity).
+  - `service: endpointsecurity`: Apple Endpoint Security Framework (ESF) events, as `eslogger` or an endpoint agent reports them. The service is optional with the [macOS categories](#macos-folder). See [Apple ESF Documentation](https://developer.apple.com/documentation/endpointsecurity).
 - `product: apache`: Apache httpd logs
   - `service: access`: Access logs
   - `service: error`: Error logs
@@ -507,98 +531,116 @@ You can find all possible field values in the [Sysmon Community Guide](https://g
 
 ### macOS Endpoint Security Framework (ESF)
 
-The following fields are specific to macOS Endpoint Security Framework events (`product: macos`, `service: endpointsecurity`). Standard Sigma taxonomy fields (`Image`, `CommandLine`, `User`, etc.) are also supported.
+The following fields are used with the [macOS categories](#macos-folder) (`product: macos`, optional `service: endpointsecurity`). "All" means every macOS ESF category. Generic `process_creation` fields that are not listed here, such as `CurrentDirectory`, are not documented for macOS yet.
+
+Unless noted, a field describes the process that caused the event. In the categories that have `InstigatorImage` (`authentication`, `background_task`, `configuration_profile`, `tcc_modification` and `user_account_change`), the process fields describe the daemon that reports the event, such as `opendirectoryd`, `mdmclient`, `tccd` or `backgroundtaskmanagementd`, not the process that requested it; `InstigatorImage` is the requesting process. In `process_creation`, `Image`, `CommandLine`, `User`, `UserId` and the code signature fields describe the new process (the `exec` target).
 
 #### Process Fields
 
-| Field Name        | Description                        | Example                          |
-| ----------------- | ---------------------------------- | -------------------------------- |
-| Image             | Process executable path            | /usr/bin/curl                    |
-| ProcessId         | Process ID                         | 12345                            |
-| ProcessName       | Process name (basename)            | curl                             |
-| CommandLine       | Full command line with arguments   | /usr/bin/curl -o file url        |
-| CurrentDirectory  | Process working directory          | /Users/admin                     |
-| ParentImage       | Parent process executable path     | /bin/bash                        |
-| ParentProcessId   | Parent process ID                  | 1234                             |
-| ParentProcessName | Parent process name                | bash                             |
-| ParentCommandLine | Parent process command line        | /bin/bash -l                     |
+| Field Name      | Categories                                                                                            | Description                                                                                                                                                                                                                  | Example                                 |
+| --------------- | ----------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------- |
+| Image           | All                                                                                                   | Executable path                                                                                                                                                                                                              | /usr/bin/curl                           |
+| CommandLine     | process_creation                                                                                      | Command line of the new process                                                                                                                                                                                              | curl -o /tmp/file https://example.com/f |
+| ParentImage     | process_creation                                                                                      | Parent process executable. With `eslogger`, the process image before `exec` (the event's process before the new image), so it can differ from the process `ParentProcessId` names; in Elastic Defend events, the real parent | /bin/zsh                                |
+| ProcessId       | All                                                                                                   | Process ID                                                                                                                                                                                                                   | 12345                                   |
+| ParentProcessId | All                                                                                                   | Parent process ID                                                                                                                                                                                                            | 1234                                    |
+| User            | All                                                                                                   | Effective user name                                                                                                                                                                                                          | admin                                   |
+| UserId          | All                                                                                                   | Effective user ID (euid)                                                                                                                                                                                                     | 501                                     |
+| InstigatorImage | authentication<br>background_task<br>configuration_profile<br>tcc_modification<br>user_account_change | Executable of the process that requested the event. In `authentication`, set for Open Directory authentications                                                                                                              | /usr/libexec/smd                        |
 
-#### User/Group Fields (Unix-Specific)
+#### Code Signature Fields
 
-These fields support Unix user/group ID model with separate real and effective IDs.
+In `driver_load`, these fields describe the process that loaded the kernel extension, not the extension.
 
-| Field Name       | Description                        | Example    |
-| ---------------- | ---------------------------------- | ---------- |
-| User             | Effective username                 | admin      |
-| UserId           | Effective user ID (euid)           | 501        |
-| RealUserId       | Real user ID (ruid)                | 501        |
-| RealUser         | Real username                      | admin      |
-| GroupId          | Effective group ID (egid)          | 20         |
-| RealGroupId      | Real group ID (rgid)               | 20         |
-| TargetUser       | Target username (setuid events)    | root       |
-| TargetUserId     | Target user ID (setuid events)     | 0          |
-| TargetGroup      | Target group name (setgid events)  | wheel      |
-| TargetGroupId    | Target group ID (setgid events)    | 0          |
+| Field Name | Categories | Description                                                                                                                                                                                                                                                                                                  | Example          |
+| ---------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------- |
+| SigningID  | All        | Code signing identifier                                                                                                                                                                                                                                                                                      | com.apple.Safari |
+| TeamID     | All        | Apple Developer Team ID. Empty for Apple platform binaries and ad-hoc signed code                                                                                                                                                                                                                            | ABCDE12345       |
+| Signed     | All        | The binary has a code signature, including an ad-hoc signature (boolean). It doesn't mean the signature is trusted: on Apple silicon, native code must be signed, at least ad hoc, to run. Only set by sources that report it, such as Elastic Defend: `eslogger` reports code signing flags, not this value | true             |
+| Trusted    | All        | macOS evaluated the signature and trusts it (boolean). Only set by sources that evaluate trust, such as Elastic Defend: `eslogger` reports code signing flags, not a trust result                                                                                                                            | false            |
 
 #### File Fields
 
-| Field Name          | Description                          | Example                             |
-| ------------------- | ------------------------------------ | ----------------------------------- |
-| TargetFilename      | Target file path                     | /Library/LaunchDaemons/evil.plist   |
-| FileName            | File name                            | evil.plist                          |
-| FileDirectory       | File directory                       | /Library/LaunchDaemons              |
-| SourceFilename      | Source file path (rename operations) | /tmp/original.txt                   |
-| DestinationFilename | Destination file path (rename ops)   | /tmp/renamed.txt                    |
+| Field Name        | Categories                                                                                                          | Description                                                                                                                                                                                                                                             | Example                                  |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------- |
+| TargetFilename    | file_access<br>file_attribute_change<br>file_delete<br>file_event<br>file_rename<br>gatekeeper_override<br>xprotect | Path of the file. In `file_rename`, and for renames in `file_event`, the new path. In `xprotect`, the detected or remediated path; in `gatekeeper_override`, the file the user allowed (both from `ESMessage.h`, not yet observed in `eslogger` output) | /Library/LaunchDaemons/com.example.plist |
+| SourceFilename    | file_event<br>file_rename                                                                                           | Path before the rename. In `file_event`, set for renames only                                                                                                                                                                                           | /tmp/com.example.plist                   |
+| TargetDirectory   | file_event<br>file_rename                                                                                           | Directory the file is created or renamed into. Only set when ESF reports a new path, which is rare for creates                                                                                                                                          | /Library/LaunchDaemons                   |
+| ExtendedAttribute | file_attribute_change                                                                                               | Name of the extended attribute set or deleted. `setextattr` and `deleteextattr` only                                                                                                                                                                    | com.apple.quarantine                     |
 
-#### Code Signature Fields (macOS-Specific)
+#### Process Access and Signal Fields
 
-| Field Name      | Description                         | Example          |
-| --------------- | ----------------------------------- | ---------------- |
-| SigningID       | macOS code signing identifier       | com.apple.Safari |
-| TeamID          | Apple Developer Team ID             | ABCDE12345       |
-| SignatureStatus | Code signature verification status  | valid            |
-| Signed          | Whether binary is signed (boolean)  | true             |
+| Field Name   | Categories                               | Description                                                                                                                                                                                                                         | Example                                          |
+| ------------ | ---------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------ |
+| TargetImage  | process_access<br>process_signal<br>sudo | Executable of the target process. In `sudo`, the command `sudo` runs (its resolved path, without arguments) or the shell `su` starts. In `process_access`, `get_task` only; not yet available for `trace` or `create_remote_thread` | /Applications/Example.app/Contents/MacOS/Example |
+| SignalNumber | process_signal                           | Signal number                                                                                                                                                                                                                       | 9                                                |
 
-#### Process Injection/Access Fields
+#### Privilege, Memory, XPC and Kernel Extension Fields
 
-| Field Name        | Description                       | Example           |
-| ----------------- | --------------------------------- | ----------------- |
-| SourceImage       | Injecting/accessing process path  | /usr/bin/lldb     |
-| SourceProcessId   | Injecting/accessing process PID   | 1234              |
-| TargetImage       | Target process executable path    | /Applications/App |
-| TargetProcessId   | Target process PID                | 5678              |
-| TargetProcessName | Target process name               | App               |
-| TargetProcessGUID | Target process entity ID          | {guid}            |
+| Field Name       | Categories               | Description                                                                                    | Example                                          |
+| ---------------- | ------------------------ | ---------------------------------------------------------------------------------------------- | ------------------------------------------------ |
+| TargetUserId     | privilege_change<br>sudo | User ID passed to `setuid`; not set for `seteuid` or `setreuid`. In `sudo`, the run-as user ID | 0                                                |
+| TargetGroupId    | privilege_change         | Group ID passed to `setgid`. Not set for `setegid` or `setregid`                               | 0                                                |
+| MemoryProtection | memory_protection        | New protection as a `PROT_*` bitmask: 1 read, 2 write, 4 execute                               | 7                                                |
+| XpcServiceName   | xpc_connection           | XPC service name                                                                               | com.apple.backgroundtaskmanagement.notifications |
+| KextIdentifier   | driver_load              | Kernel extension bundle identifier                                                             | com.example.driver                               |
 
-#### Unix/macOS-Specific Fields
+#### TCC and Background Task Fields
 
-| Field Name       | Description                      | ESF Event Type | Example        |
-| ---------------- | -------------------------------- | -------------- | -------------- |
-| SignalNumber     | Unix signal number               | 27 (signal)    | 9 (SIGKILL)    |
-| PtraceRequest    | Ptrace request type              | 64 (ptrace)    | PT_ATTACH      |
-| XpcServiceName   | macOS XPC service name           | 65 (xpc)       | com.apple.svc  |
-| KextIdentifier   | Kernel extension bundle ID       | 17, 18 (kext)  | com.vendor.kext|
-| MemoryProtection | Memory protection flags          | 20 (mprotect)  | rwx            |
+| Field Name    | Categories       | Description                                                                                        | Example                                                |
+| ------------- | ---------------- | -------------------------------------------------------------------------------------------------- | ------------------------------------------------------ |
+| TccService    | tcc_modification | TCC service, without the `kTCCService` prefix                                                      | SystemPolicyAllFiles                                   |
+| TccIdentity   | tcc_modification | Bundle identifier or path of the client whose permission changed                                   | com.example.app                                        |
+| TccRight      | tcc_modification | Authorization right, as the integer ESF reports                                                    | 2                                                      |
+| TccReason     | tcc_modification | Reason for the change, as the integer ESF reports                                                  | 3                                                      |
+| BtmItemType   | background_task  | Item type, as the integer ESF reports (4 is a launch daemon). Not yet for `btm_launch_item_remove` | 4                                                      |
+| BtmItemUrl    | background_task  | URL of the item. Not yet for `btm_launch_item_remove`                                              | file:///Library/LaunchDaemons/com.example.daemon.plist |
+| BtmExecutable | background_task  | Executable the item runs. `btm_launch_item_add` only                                               | /Library/Application Support/Example/daemon            |
 
-#### ESF Event Type Reference
+#### Account, Authentication and Outcome Fields
 
-| Event Type | Name           | Description                  |
-| ---------- | -------------- | ---------------------------- |
-| 9          | exec           | Process execution            |
-| 11         | fork           | Process fork                 |
-| 13         | create         | File creation                |
-| 17         | kextload       | Kernel extension load        |
-| 18         | kextunload     | Kernel extension unload      |
-| 19         | unlink         | File deletion                |
-| 20         | mprotect       | Memory protection change     |
-| 21         | rename         | File rename                  |
-| 22         | mount          | Filesystem mount             |
-| 24         | setuid         | Set user ID                  |
-| 25         | setgid         | Set group ID                 |
-| 27         | signal         | Process signal               |
-| 64         | ptrace         | Process trace (debug/inject) |
-| 65         | xpc_connect    | XPC connection               |
-| 111        | authentication | Authentication event         |
+| Field Name         | Categories                                                                  | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | Example             |
+| ------------------ | --------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------- |
+| SourceUser         | sudo                                                                        | User who ran `sudo` or `su`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | jsmith              |
+| TargetUser         | authentication<br>screen_sharing<br>sudo<br>user_account_change             | Account the event acts on or authenticates as. In `sudo`, the run-as user. In `authentication`, the Open Directory record authenticated against (Open Directory only). In `screen_sharing`, the account used to authenticate the connection, not the user of the shared session; `screensharing_attach` only, and empty when no username was used. In `user_account_change`: the user in the user events and `od_modify_password`; the member in `od_group_add` and `od_group_remove`, which is a user name, a user UUID or a group UUID; the record name in the `od_attribute_*` events, which is a user or group name | root                |
+| TargetGroup        | user_account_change                                                         | Group the event acts on                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | admin               |
+| Success            | authentication<br>screen_sharing<br>sudo<br>user_account_change<br>xprotect | The operation succeeded, `true` or `false`. In `user_account_change`, an Open Directory error code of 0. In `screen_sharing` and `xprotect`, set for `screensharing_attach` and `xp_malware_remediated` (the latter from `ESMessage.h`, not yet observed in `eslogger` output)                                                                                                                                                                                                                                                                                                                                          | false               |
+| FailureReason      | sudo                                                                        | Why `sudo` or `su` refused                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | user NOT in sudoers |
+| AuthenticationType | authentication                                                              | Authentication method, as the integer ESF reports: 0 Open Directory, 1 Touch ID, 2 token, 3 Auto Unlock                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | 0                   |
+
+#### Screen Sharing Fields
+
+| Field Name      | Categories     | Description                                                                       | Example            |
+| --------------- | -------------- | --------------------------------------------------------------------------------- | ------------------ |
+| SourceAddress   | screen_sharing | Address the connection comes from                                                 | 192.0.2.10         |
+| ViewerAppleID   | screen_sharing | Apple ID of the viewer, when one is used                                          | viewer@example.com |
+| ExistingSession | screen_sharing | A user session already existed on the host (boolean). `screensharing_attach` only | true               |
+
+#### Configuration Profile and Open Directory Fields
+
+`profile_remove`, and the `od_*` events other than `od_create_user`, `od_delete_user`, `od_modify_password`, `od_group_add` and `od_attribute_value_add`, use the same field paths as the observed events of their family, as Apple's `ESMessage.h` defines them. The exception is `od_attribute_set`, whose values are an array (`attribute_values`) rather than one value.
+
+| Field Name           | Categories            | Description                                                                                                                                     | Example                                    |
+| -------------------- | --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------ |
+| ProfileIdentifier    | configuration_profile | Profile identifier                                                                                                                              | com.example.settings                       |
+| ProfileDisplayName   | configuration_profile | Profile display name                                                                                                                            | Example Settings                           |
+| ProfileInstallSource | configuration_profile | How the profile was installed, as the integer ESF reports: 0 managed, 1 installed manually                                                      | 1                                          |
+| ProfileScope         | configuration_profile | Profile scope                                                                                                                                   | system                                     |
+| OdAttributeName      | user_account_change   | Name of the attribute added, removed or set (`od_attribute_*` events)                                                                           | dsAttrTypeStandard:AuthenticationAuthority |
+| OdAttributeValue     | user_account_change   | Attribute value. For `od_attribute_set`, ESF reports an array of values, which a source has to flatten, for example by joining them with spaces | ;DisabledTags;SecureToken                  |
+
+#### XProtect and Gatekeeper Fields
+
+These fields, and `TargetFilename` for `xprotect` and `gatekeeper_override` and `Success` for `xprotect`, follow Apple's `ESMessage.h`. They have not yet been observed in `eslogger` output.
+
+| Field Name                | Categories          | Description                                                                                                                                            | Example                                                          |
+| ------------------------- | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------- |
+| MalwareIdentifier         | xprotect            | Malware identifier XProtect reports                                                                                                                    | ExampleMalware.A                                                 |
+| MalwareIncidentIdentifier | xprotect            | Identifier that links a detection to its remediations                                                                                                  | 00000000-0000-0000-0000-0000000000A1                             |
+| RemediationAction         | xprotect            | Remediation action taken. `xp_malware_remediated` only                                                                                                 | path_delete                                                      |
+| FileSha256                | gatekeeper_override | SHA-256 of the file. ESF provides it only for files under 100 MB, so it can be absent. By convention lowercase hex; `eslogger` reports it in uppercase | 50d858e0985ecc7f60418aaf0cc5ab587f42c2570a884095a9e8ccacd0f6545c |
+| FileSigningID             | gatekeeper_override | Code signing identifier of the file. Absent when the file is unsigned                                                                                  | com.example.app                                                  |
+| FileTeamID                | gatekeeper_override | Apple Developer Team ID of the file. Absent when the file is unsigned or has none                                                                      | ABCDE12345                                                       |
 
 ### Network category
 
@@ -638,11 +680,13 @@ These fields support Unix user/group ID model with separate real and effective I
 
 ## History
 
-- 2026-01-21 Taxonomy Appendix v2.1.1
-  - Add macOS Endpoint Security Framework (ESF) logsource:
+- 2026-11-11 Taxonomy Appendix v2.1.1
+  - Add macOS Endpoint Security Framework (ESF) as the source of the macOS categories, with an optional service:
     - `product: macos`, `service: endpointsecurity`
-  - Add macOS ESF-specific fields section with Unix user/group, code signature, and process injection fields
-  - Add ESF event type reference
+  - Add macOS categories, each mapped to `eslogger` event names:
+    - `authentication`, `background_task`, `configuration_profile`, `create_remote_thread`, `driver_load`, `file_access`, `file_attribute_change`, `file_delete`, `file_rename`, `gatekeeper_override`, `memory_protection`, `privilege_change`, `process_access`, `process_signal`, `screen_sharing`, `sudo`, `tcc_modification`, `user_account_change`, `xpc_connection`, `xprotect`
+  - Define `file_event` on macOS as file creation, including the destination of a rename
+  - Add macOS ESF fields, including `Signed` and `Trusted`
 - 2025-08-02 Specification v2.1.0
   - Add generic network category:
     - `service: connection`
