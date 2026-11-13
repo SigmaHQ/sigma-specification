@@ -2,8 +2,8 @@
 
 The following document defines the field names and log sources that are allowed to be used in SIGMA rules that are shared on the official SigmaHQ repository.
 
-- Version 2.1.0
-- Release date 2025-08-02
+- Version 2.2.0
+- Release date 2025-XX-XX
 
 <!-- mdformat-toc start --slug=github --no-anchors --maxlevel=6 --minlevel=2 -->
 
@@ -31,6 +31,7 @@ The following document defines the field names and log sources that are allowed 
     - [Service](#service)
   - [Macos Folder](#macos-folder)
     - [Category](#category-1)
+    - [Service](#service-1)
   - [Network Folder](#network-folder)
     - [Cisco](#cisco-1)
     - [Huawei](#huawei)
@@ -40,13 +41,14 @@ The following document defines the field names and log sources that are allowed 
   - [Product Folder](#product-folder)
   - [Windows Folder](#windows-folder)
     - [Category](#category-2)
-    - [Service](#service-1)
+    - [Service](#service-2)
 - [Network Events](#network-events)
 - [Fields](#fields)
   - [Generic](#generic)
     - [Process Creation Events](#process-creation-events)
     - [Other Generic Rule Categories](#other-generic-rule-categories)
   - [Specific](#specific)
+  - [macOS Unified Log](#macos-unified-log)
   - [Network category](#network-category)
 - [History](#history)
 
@@ -207,6 +209,39 @@ Because application logs are often ingested as raw text events with poor decompo
 | ------- | -------------------------------------------- | ----------- |
 | Macos   | product: macos<br>category: file_event       |             |
 | Macos   | product: macos<br>category: process_creation |             |
+
+#### Service
+
+| Product | Logsource                             | Description                                                                                        |
+| ------- | ------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| Macos   | product: macos<br>service: unifiedlog | macOS Unified Log entries, as `log show --style ndjson` and `log stream --style ndjson` write them |
+
+A rule must set `service: unifiedlog` to use Unified Log entries. With it, the `category` attribute is optional: it narrows the rule to the entries of one subsystem or process, and a rule without a category matches every entry. The fields are listed in [macOS Unified Log](#macos-unified-log).
+
+- Not every output line is an entry. `log show --style ndjson` ends with a `{"count":N,"finished":1}` line; `log stream --style ndjson` writes it only when stopped by SIGINT or `--timeout`, and can also write an empty line. `log stream` with a filter such as `--predicate` or `--process` starts with a header line that is not JSON.
+- Subsystem and path matching is case-insensitive, as Sigma string matching is by default. For example, XProtect logs under both `com.apple.XProtect` and `com.apple.xprotect`, and `category: xprotect` selects both.
+- `xprotect` has a known gap: `xprotectd` logs part of its output under the subsystem `com.apple.security.xprotectd.`, with a trailing dot, which the category doesn't select. Most of its other output is under `com.apple.Safari.SafeBrowsing`. The category could be widened to cover them. As a prefix match, it also selects the XProtectFramework subsystems, whose names also start with `com.apple.xprotect`.
+- `sudo`, `launchd` and `mdm` select by process path:
+  - `sudo` mostly logs without a subsystem, and sometimes under `com.apple.xpc`.
+  - `launchd` logs under its domain (`system`, `user/501`, `gui/501`, `pid/…`), a domain and service (`gui/501/com.example.agent`), a domain, service and endpoint (`<domain>/<service> - <endpoint>`), a bare service name, or none. Many of these end in a bracketed suffix: a number, such as a process ID or what is likely a session ID (`gui/501 [100023]`), or, for a `pid/…` domain without a service, a process name truncated to 15 characters.
+  - `mdmclient` logs under `com.apple.ManagedClient`, other subsystems or none. `mdm` includes all of these, but not `com.apple.ManagedClient` entries from other processes.
+- Activity, state, user action and time sync entries (`eventType` `activityCreateEvent`, `stateEvent`, `userActionEvent` and `timesyncEvent`) have an empty `subsystem`. The subsystem-scoped categories never select them, while the process-scoped ones (`sudo`, `launchd`, `mdm` and the `syspolicyd` part of `gatekeeper`) can.
+- `securityd` selects Security.framework logging (`subsystem` is `com.apple.securityd`) from any process, not only the `securityd` daemon.
+- Categories may overlap. `gatekeeper` matches every entry from `syspolicyd`, so a `syspolicyd` entry logged under `com.apple.securityd` or `com.apple.xprotect` also matches `securityd` or `xprotect`.
+- Here `category: firewall` is scoped by `service: unifiedlog`: it selects macOS Application Firewall entries and uses the Unified Log fields, not the fields of the generic `category: firewall` for network firewall logs.
+
+| Product | Logsource                                                        | Description                                                                                       |
+| ------- | ---------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| Macos   | product: macos<br>service: unifiedlog<br>category: authorization | `subsystem` is `com.apple.Authorization`                                                          |
+| Macos   | product: macos<br>service: unifiedlog<br>category: firewall      | `subsystem` starts with `com.apple.ALF`                                                           |
+| Macos   | product: macos<br>service: unifiedlog<br>category: gatekeeper    | `subsystem` starts with `com.apple.syspolicy`, or `processImagePath` is `/usr/libexec/syspolicyd` |
+| Macos   | product: macos<br>service: unifiedlog<br>category: launchd       | `processImagePath` is `/sbin/launchd`                                                             |
+| Macos   | product: macos<br>service: unifiedlog<br>category: mdm           | `processImagePath` ends with `/mdmclient`                                                         |
+| Macos   | product: macos<br>service: unifiedlog<br>category: opendirectory | `subsystem` starts with `com.apple.opendirectoryd`                                                |
+| Macos   | product: macos<br>service: unifiedlog<br>category: securityd     | `subsystem` is `com.apple.securityd`: Security.framework logging from any process                 |
+| Macos   | product: macos<br>service: unifiedlog<br>category: sudo          | `processImagePath` is `/usr/bin/sudo`                                                             |
+| Macos   | product: macos<br>service: unifiedlog<br>category: tcc           | `subsystem` starts with `com.apple.TCC`                                                           |
+| Macos   | product: macos<br>service: unifiedlog<br>category: xprotect      | `subsystem` starts with `com.apple.xprotect`                                                      |
 
 ### Network Folder
 
@@ -430,6 +465,8 @@ You can find all possible field values in the [Sysmon Community Guide](https://g
   - `service: auth`: Linux authentication logs. Usually */var/log/auth.log*.
   - `service: auditd`: Linux audit logs
   - `service: clamav`: ClamAV logs
+- `product: macos`: macOS Operating System logs
+  - `service: unifiedlog`: macOS Unified Log entries. See [Apple's logging documentation](https://developer.apple.com/documentation/os/logging) and `man log`.
 - `product: apache`: Apache httpd logs
   - `service: access`: Access logs
   - `service: error`: Error logs
@@ -484,6 +521,22 @@ You can find all possible field values in the [Sysmon Community Guide](https://g
     - `Signature`: name of the threat like "EICAR-Test-File"
     - `Action`: action take by the antivirus like "delete"
 
+### macOS Unified Log
+
+The following fields are used with `product: macos`, `service: unifiedlog`. They are keys of `log show --style ndjson` and `log stream --style ndjson` output; the table lists the ones rules use. Mapping other names onto them, such as `Image` or `message`, is left to pipelines.
+
+| Field Name       | Description                                                                                                                                                                       | Example                                                                        |
+| ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| subsystem        | Subsystem the entry was logged under. Empty for processes that log without one, and for activity, state, user action and time sync entries                                        | com.apple.TCC                                                                  |
+| category         | Category of the entry within its subsystem. This is the entry's `category` key, not the `logsource` attribute                                                                     | access                                                                         |
+| eventType        | Type of the entry. `logEvent` is a log message; other values, such as `activityCreateEvent`, are other entry types                                                                | logEvent                                                                       |
+| eventMessage     | Message text. Leading spaces are part of the message. In an `activityCreateEvent` entry it is the activity name, not a log message, so a `contains` rule can match activity names | `  jsmith : TTY=ttys000 ; PWD=/Users/jsmith ; USER=root ; COMMAND=/usr/bin/id` |
+| processImagePath | Executable of the process that logged the entry                                                                                                                                   | /System/Library/PrivateFrameworks/TCC.framework/Support/tccd                   |
+| senderImagePath  | Executable or library that sent the entry                                                                                                                                         | /usr/lib/system/libsystem_info.dylib                                           |
+| messageType      | Log level, for example `Default`, `Error` or `Fault`. Present only when `eventType` is `logEvent`                                                                                 | Default                                                                        |
+| processID        | Process ID                                                                                                                                                                        | 97                                                                             |
+| userID           | User ID of the process. Some entries, for example `launchd`'s, carry the sentinel 2863311530 (0xAAAAAAAA), so `userID: 0` doesn't match them                                      | 0                                                                              |
+
 ### Network category
 
 - `service: connection`
@@ -522,6 +575,8 @@ You can find all possible field values in the [Sysmon Community Guide](https://g
 
 ## History
 
+- 2025-XX-XX Specification v2.2.0
+  - Add the macOS Unified Log log source `product: macos`, `service: unifiedlog`, with its fields and categories
 - 2025-08-02 Specification v2.1.0
   - Add generic network category:
     - `service: connection`
