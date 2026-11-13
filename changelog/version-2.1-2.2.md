@@ -26,7 +26,7 @@ The following is a non-exhaustive list of changes between the v2.1.0 and v2.2.0 
 
 ## Taxonomy
 
-- Add the macOS Unified Log log source `product: macos`, `service: unifiedlog`, with its fields and the categories `authorization`, `firewall`, `gatekeeper`, `launchd`, `mdm`, `opendirectory`, `securityd`, `sudo`, `tcc` and `xprotect`
+- Add the macOS Unified Log log source `product: macos`, `service: unifiedlog`, with its fields and the categories `authorization`, `firewall`, `gatekeeper`, `launchd`, `mdm`, `opendirectory`, `securityd`, `sudo`, `tcc` and `xprotect` [PR #230](https://github.com/SigmaHQ/sigma-specification/pull/230)
 
 ## Correlation
 
